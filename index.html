@@ -18,7 +18,7 @@
   :root {
     --deep-forest: #006633;
     --vital-green: #65b32e;
-    --achtergrond: #eaf6ef;
+    --achtergrond: #e0efd5;
     --kaart: #ffffff;
     --rand: #e2e6ed;
     --tekst: #1a1a1a;
@@ -46,8 +46,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: min(70vw, 900px);
-    height: auto;
+    height: 100vh;
+    width: auto;
     pointer-events: none;
     z-index: 0;
     user-select: none;
@@ -89,6 +89,7 @@
     width: 100%;
     max-width: 600px;
     margin-bottom: 2rem;
+    align-items: stretch;
   }
 
   .jaar-kaart {
@@ -109,8 +110,22 @@
   .jaar-kaart.derde:hover { border-color: var(--deep-forest); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0, 102, 51, 0.12); }
   .jaar-kaart.vierde:hover { border-color: var(--vital-green); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(101, 179, 46, 0.12); }
 
-  .jaar-icoon { width: 96px; height: 80px; display: flex; align-items: center; justify-content: center; }
-  .jaar-icoon img { width: 96px; height: auto; display: block; }
+  .jaar-icoon {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .jaar-icoon img {
+    max-width: 110px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
 
   .jaar-naam {
     font-family: var(--ft);
@@ -120,7 +135,7 @@
   .jaar-kaart.derde .jaar-naam { color: var(--deep-forest); }
   .jaar-kaart.vierde .jaar-naam { color: var(--vital-green); }
 
-  .jaar-omschrijving { font-family: var(--fb); font-size: 13px; color: var(--tekst-zacht); line-height: 1.5; }
+  .jaar-omschrijving { font-family: var(--fb); font-size: 13px; color: var(--tekst-zacht); line-height: 1.5; flex-grow: 1; }
   .jaar-pijl { font-size: 20px; color: var(--rand); transition: color 0.15s; }
   .jaar-kaart.derde:hover .jaar-pijl { color: var(--deep-forest); }
   .jaar-kaart.vierde:hover .jaar-pijl { color: var(--vital-green); }
@@ -128,8 +143,8 @@
   .voet { font-family: var(--fb); font-size: 12px; color: var(--tekst-zacht); text-align: center; margin-top: 1rem; }
 
   @media (max-width: 720px) {
-    .hero-curve { width: 90vw; }
     .keuze-titel { font-size: 30px; }
+    .hero-curve { height: 100vh; }
   }
 </style>
 </head>
