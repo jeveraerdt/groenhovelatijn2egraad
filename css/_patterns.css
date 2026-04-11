@@ -1,0 +1,233 @@
+/* =========================================
+   PATTERNS - Reusable Components
+   ========================================= */
+
+.hero {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: white;
+}
+
+.hero-content {
+  position: relative;
+  z-index: var(--z-elevated);
+  max-width: 800px;
+  padding: var(--space-4);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: var(--space-2);
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--space-4);
+}
+
+.hero-logo {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto var(--space-3);
+}
+
+.hero-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.hero-curve {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-base);
+}
+
+.hero-curve--3d {
+  --curve-color: var(--color-primary-3d);
+}
+
+.hero-curve--4d {
+  --curve-color: var(--color-primary-4d);
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CARD */
+.card {
+  background: white;
+  border-radius: var(--card-radius);
+  padding: var(--space-3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+  margin: calc(-1 * var(--space-3)) calc(-1 * var(--space-3)) var(--space-2) calc(-1 * var(--space-3));
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card h3 {
+  margin: 0 0 var(--space-1) 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  color: var(--color-text-light);
+  margin-bottom: var(--space-2);
+  flex: 1;
+}
+
+.card-link {
+  color: var(--color-accent);
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: auto;
+  transition: var(--transition-fast);
+}
+
+.card-link:hover {
+  transform: translateX(4px);
+  text-decoration: underline;
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: var(--space-2);
+}
+
+.card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* SECTION */
+.section {
+  padding: var(--space-6) var(--space-2);
+}
+
+.section-dark {
+  background-color: var(--color-primary-3d);
+  color: white;
+}
+
+.section-light {
+  background-color: var(--color-bg);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--space-4);
+  font-size: 2.5rem;
+}
+
+/* HEADER */
+.header {
+  background: white;
+  padding: var(--space-2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-elevated);
+}
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  width: 50px;
+  height: 50px;
+}
+
+.nav-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: var(--space-3);
+}
+
+.nav-links a {
+  color: var(--color-text);
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+.nav-links a:hover {
+  color: var(--color-accent);
+}
+
+/* FOOTER */
+.footer {
+  background-color: var(--color-primary-3d);
+  color: white;
+  padding: var(--space-4) var(--space-2);
+  text-align: center;
+  margin-top: var(--space-6);
+}
+
+.footer a {
+  color: var(--color-yellow);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2rem; }
+  .hero p { font-size: 1rem; }
+  .grid { grid-template-columns: 1fr; gap: var(--space-3); }
+  .section { padding: var(--space-4) var(--space-2); }
+  .section-title { font-size: 1.75rem; }
+  .nav-links { gap: var(--space-2); font-size: 0.9rem; }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latijn 2e Graad – Groenhove</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/_theme.css">
+  <link rel="stylesheet" href="css/_patterns.css">
+</head>
+<body>
+  
+  <!-- HEADER -->
+  <header class="header">
+    <nav class="nav container">
+      <div class="nav-logo">
+        <img src="images/nav/logo.svg" alt="Groenhove Logo" style="width: 50px;">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#3d">3de Jaar</a></li>
+        <li><a href="#4d">4de Jaar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <svg class="hero-curve hero-curve--3d" viewBox="0 0 1456 840" xmlns="http://www.w3.org/2000/svg" style="fill: var(--curve-color);">
+      <path d="M 0 0 Q 400 100 400 400 L 400 840 L 0 840 Z" />
+    </svg>
+    
+    <div class="hero-content">
+      <div class="hero-logo">
+        <img src="images/nav/logo.svg" alt="Groenhove" style="width: 100px;">
+      </div>
+      <p style="font-size: 0.9rem; color: var(--color-text-light); margin-bottom: 1rem;">S.O. Groenhove Waregem</p>
+      <h1>Latijn 2e graad</h1>
+      <p>Kies het jaar om verder te gaan.</p>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <section class="section container">
+    <div class="grid grid-2" style="margin-top: 3rem;">
+      
+      <!-- 3DE JAAR -->
+      <div class="card">
+        <div class="card-content">
+          <svg class="card-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="60" r="30" fill="var(--color-primary-3d)"/>
+            <path d="M 100 100 Q 70 130 70 160 L 130 160 Q 130 130 100 100 Z" fill="var(--color-primary-3d)"/>
+          </svg>
+          <h3 style="color: var(--color-primary-3d);">3de jaar</h3>
+          <p>Grammatica, teksten, vocabularium en oefeningen.</p>
+          <a href="#" class="card-link">Ga naar 3de jaar →</a>
+        </div>
+      </div>
+      
+      <!-- 4DE JAAR -->
+      <div class="card">
+        <div class="card-content">
+          <svg class="card-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="60" r="30" fill="var(--color-primary-4d)"/>
+            <path d="M 100 100 Q 70 130 70 160 L 130 160 Q 130 130 100 100 Z" fill="var(--color-primary-4d)"/>
+            <path d="M 85 80 L 95 90 L 115 70" stroke="var(--color-primary-4d)" stroke-width="3" fill="none"/>
+          </svg>
+          <h3 style="color: var(--color-primary-4d);">4de jaar</h3>
+          <p>Grammatica, vocabularium en oefeningen.</p>
+          <a href="#" class="card-link">Ga naar 4de jaar →</a>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>J. Everaerdt - S.O. Groenhove Waregem campus Atheneum</p>
+    <p style="font-size: 0.9rem; margin-top: 1rem; color: var(--color-yellow);">Groenhove © 2025-2026</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>

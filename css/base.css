@@ -1,0 +1,123 @@
+/* =========================================
+   BASE STYLES - HTML Reset + Typography
+   ========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body, 'Arial', sans-serif);
+  color: var(--color-text, #333);
+  background-color: var(--color-bg, #fff);
+  line-height: 1.6;
+}
+
+/* HEADINGS */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title, 'Arial Black', sans-serif);
+  font-weight: 700;
+  margin-bottom: var(--space-2, 1rem);
+  line-height: 1.3;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
+
+/* PARAGRAPHS & TEXT */
+p {
+  margin-bottom: var(--space-2, 1rem);
+}
+
+a {
+  color: var(--color-accent, #FF3B1D);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+em, i {
+  font-style: italic;
+}
+
+/* LISTS */
+ul, ol {
+  margin-left: var(--space-3, 1.5rem);
+  margin-bottom: var(--space-2, 1rem);
+}
+
+li {
+  margin-bottom: var(--space-1, 0.5rem);
+}
+
+/* IMAGES */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* BUTTONS */
+button, .btn {
+  font-family: var(--font-body, 'Arial', sans-serif);
+  padding: var(--space-2, 1rem) var(--space-3, 1.5rem);
+  border: none;
+  border-radius: var(--card-radius, 0.75rem);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* CONTAINERS */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-2, 1rem);
+}
+
+/* SPACING UTILITIES */
+.mt-1 { margin-top: var(--space-1, 0.5rem); }
+.mt-2 { margin-top: var(--space-2, 1rem); }
+.mt-3 { margin-top: var(--space-3, 1.5rem); }
+.mt-4 { margin-top: var(--space-4, 2rem); }
+
+.mb-1 { margin-bottom: var(--space-1, 0.5rem); }
+.mb-2 { margin-bottom: var(--space-2, 1rem); }
+.mb-3 { margin-bottom: var(--space-3, 1.5rem); }
+.mb-4 { margin-bottom: var(--space-4, 2rem); }
+
+.p-1 { padding: var(--space-1, 0.5rem); }
+.p-2 { padding: var(--space-2, 1rem); }
+.p-3 { padding: var(--space-3, 1.5rem); }
+.p-4 { padding: var(--space-4, 2rem); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  
+  body { font-size: 14px; }
+}

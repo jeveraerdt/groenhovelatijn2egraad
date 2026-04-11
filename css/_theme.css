@@ -1,0 +1,212 @@
+/* =========================================
+   THEME - Fonts, Colors, Variables
+   Groenhove Huisstijl
+   ========================================= */
+
+/* =========================================
+   FONT-FACE DEFINITIONS
+   ========================================= */
+
+/* NOTO SANS - Google Fonts */
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* FLANDERS ART SANS - Groenhove */
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* =========================================
+   ROOT VARIABLES - CSS Custom Properties
+   ========================================= */
+
+:root {
+  /* FONTS */
+  --font-title: 'Flanders Art Sans', 'Arial Black', sans-serif;
+  --font-body: 'Noto Sans', 'Arial', sans-serif;
+  
+  /* GROENHOVE KLEUREN */
+  --color-primary-3d: #006633;        /* Deep Forest (3de jaar) */
+  --color-primary-4d: #65b32e;        /* Vital Green (4de jaar) */
+  --color-accent: #FF3B1D;            /* Waregem Pulse Red */
+  --color-yellow: #ffea3d;            /* Balanced Yellow */
+  
+  /* NEUTRAL */
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-text-lighter: #999;
+  --color-bg: #f8f8f8;
+  --color-white: #ffffff;
+  --color-border: #e0e0e0;
+  
+  /* SPACING */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  
+  /* LAYOUT */
+  --card-radius: 0.75rem;
+  --button-radius: 0.5rem;
+  
+  /* Z-INDEX */
+  --z-base: 1;
+  --z-elevated: 10;
+  --z-modal: 100;
+  --z-tooltip: 1000;
+  
+  /* TRANSITIONS */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* =========================================
+   TYPOGRAPHY
+   ========================================= */
+
+h1, h2, h3, h4, h5, h6,
+.title, .heading {
+  font-family: var(--font-title);
+  font-weight: 700;
+  color: var(--color-primary-3d);
+}
+
+body, p, .text, .body-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+strong, .bold, b {
+  font-weight: 700;
+}
+
+/* =========================================
+   COLOR UTILITIES
+   ========================================= */
+
+.text-primary-3d { color: var(--color-primary-3d); }
+.text-primary-4d { color: var(--color-primary-4d); }
+.text-accent { color: var(--color-accent); }
+.text-yellow { color: var(--color-yellow); }
+.text-light { color: var(--color-text-light); }
+
+.bg-primary-3d { background-color: var(--color-primary-3d); }
+.bg-primary-4d { background-color: var(--color-primary-4d); }
+.bg-accent { background-color: var(--color-accent); }
+.bg-yellow { background-color: var(--color-yellow); }
+.bg-light { background-color: var(--color-bg); }
+
+/* =========================================
+   BUTTON STYLING
+   ========================================= */
+
+.btn-primary-3d {
+  background-color: var(--color-primary-3d);
+  color: white;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--button-radius);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+  transition: var(--transition-normal);
+}
+
+.btn-primary-3d:hover {
+  background-color: #004d26;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 51, 0.3);
+}
+
+.btn-primary-4d {
+  background-color: var(--color-primary-4d);
+  color: white;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--button-radius);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+  transition: var(--transition-normal);
+}
+
+.btn-primary-4d:hover {
+  background-color: #5a9d28;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(101, 179, 46, 0.3);
+}
+
+.btn-accent {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--button-radius);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+  transition: var(--transition-normal);
+}
+
+.btn-accent:hover {
+  background-color: #e63010;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 59, 29, 0.3);
+}
+
+/* =========================================
+   CARD STYLING
+   ========================================= */
+
+.card {
+  background: white;
+  border-radius: var(--card-radius);
+  padding: var(--space-3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--color-primary-3d);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+  }
+  
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+}
