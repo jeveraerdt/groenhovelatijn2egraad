@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thema's — Latijn 4de jaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Flanders Art Sans';
+    src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --jaar-kleur: #65b32e;            /* Vital Green — 4de jaar */
+    --hover-kleur: #ffea3d;           /* Balanced Yellow — hover */
+    --accent: #FF3B1D;                /* Waregem Pulse Red */
+    --achtergrond: #e0efd5;           /* Vital Green @ 20% op wit */
+    --wit: #f3f1ef;
+    --zwart: #010100;
+    --tekst-zacht: #5a6b4a;
+    --rand: #c8d4c0;
+    --radius: 12px;
+
+    --ft: 'Flanders Art Sans', Arial, sans-serif;
+    --fb: 'Noto Sans', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--fb);
+    background: var(--achtergrond);
+    color: var(--zwart);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ══════════════════════════════════ HERO ══════════════════════════════════ */
+  .hero {
+    text-align: center;
+    padding: 3.5rem 1.5rem 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--ft);
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 0 0 .5rem;
+    color: var(--jaar-kleur);
+    letter-spacing: .01em;
+  }
+  .hero h1 .jaar {
+    color: var(--zwart);
+  }
+  .hero .school {
+    font-family: var(--fb);
+    font-size: .95rem;
+    color: var(--tekst-zacht);
+    margin: 0 0 1.25rem;
+  }
+  .hero .logo {
+    height: 36px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* ══════════════════════════════════ TERUG ══════════════════════════════════ */
+  .content-wrap {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 3rem;
+  }
+  .terug {
+    display: inline-block;
+    font-family: var(--fb);
+    font-size: .9rem;
+    color: var(--tekst-zacht);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    transition: color .15s;
+  }
+  .terug:hover { color: var(--jaar-kleur); }
+
+  /* ══════════════════════════════════ TEGELS ══════════════════════════════════ */
+  .tegel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .tegel {
+    background: var(--wit);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    transition: transform .15s, box-shadow .15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  .tegel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 22px rgba(0,0,0,.09);
+  }
+  .tegel-icoon {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    background: var(--achtergrond);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: .25rem;
+  }
+  .tegel-icoon svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--jaar-kleur);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .tegel-naam {
+    font-family: var(--ft);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--jaar-kleur);
+  }
+  .tegel-omschrijving {
+    font-family: var(--fb);
+    font-size: .92rem;
+    line-height: 1.45;
+    color: var(--zwart);
+    flex-grow: 1;
+  }
+  .tegel-pijl {
+    font-size: 1.4rem;
+    color: var(--accent);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .voet {
+    text-align: center;
+    padding: 1rem;
+    font-family: var(--fb);
+    font-size: 12px;
+    color: var(--tekst-zacht);
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>Latijn <span class="jaar">4de jaar</span></h1>
+  <p class="school">S.O. Groenhove campus Atheneum</p>
+  <img class="logo" src="images/nav/logo.svg" alt="Groenhove">
+</section>
+
+<div class="content-wrap">
+
+  <a class="terug" href="index.html">← Terug naar Latijn</a>
+
+  <div class="tegel-grid">
+
+    <a class="tegel" href="cultuur.html">
+      <div class="tegel-icoon">
+        <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/><circle cx="20" cy="17" r="2"/></svg>
+      </div>
+      <div class="tegel-naam">Cultuur</div>
+      <div class="tegel-omschrijving">Cultuurdossiers per thema: Romeinse maatschappij, mythologie en geschiedenis.</div>
+      <div class="tegel-pijl">›</div>
+    </a>
+
+    <a class="tegel" href="teksten.html">
+      <div class="tegel-icoon">
+        <svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 13h6M9 17h4"/></svg>
+      </div>
+      <div class="tegel-naam">Teksten</div>
+      <div class="tegel-omschrijving">Latijnse leesteksten per thema, met vertaling, noten en woordenlijst.</div>
+      <div class="tegel-pijl">›</div>
+    </a>
+
+  </div>
+
+</div>
+
+<p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum</p>
+</body>
+</html>
