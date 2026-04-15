@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teksten - Thema's — Latijn 3de jaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/_theme.css">
+<style>
+  @font-face {
+    font-family: 'Flanders Art Sans';
+    src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    /* Jaarkleur + achtergrond */
+    --jaar-kleur: #006633;            /* Deep Forest — 3de jaar */
+    --accent: #FF3B1D;                /* Waregem Pulse Red */
+    --achtergrond: #cce0d6;           /* Deep Forest @ 20% op wit */
+    --wit: #f3f1ef;
+    --zwart: #010100;
+    --tekst-zacht: #4a6b5a;
+    --rand: #c0d4c8;
+    --radius: 12px;
+
+    --ft: 'Flanders Art Sans', Arial, sans-serif;   /* titels */
+    --fb: 'Noto Sans', Arial, sans-serif;           /* body */
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--fb);
+    background: var(--achtergrond);
+    color: var(--zwart);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ══════════════════════════════════ MERKLINT ══════════════════════════════════ */
+  .site-header {
+    background: var(--jaar-kleur);
+    color: var(--wit);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .85rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .site-header .logo { height: 38px; width: auto; display: block; }
+  .site-header h1 {
+    font-family: var(--ft);
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin: 0;
+    letter-spacing: .02em;
+  }
+  .site-header .sub {
+    font-family: var(--fb);
+    font-size: .78rem;
+    font-weight: 400;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .85;
+    margin-left: auto;
+  }
+  .site-header .sub .brand {
+    font-family: var(--ft);
+    font-weight: 700;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  /* ══════════════════════════════════ TOOLBAR ══════════════════════════════════ */
+  .site-toolbar {
+    background: var(--wit);
+    border-bottom: 1px solid var(--rand);
+    padding: .6rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .toolbar-left { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+  .back-btn, .ctrl-btn {
+    font-family: var(--fb);
+    font-size: .85rem;
+    color: var(--zwart);
+    background: transparent;
+    border: 1px solid var(--rand);
+    border-radius: 20px;
+    padding: .35rem .85rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .back-btn:hover, .ctrl-btn:hover {
+    background: #65b32e;              /* Vital Green — hover-accent 3de jaar */
+    color: var(--wit);
+    border-color: #65b32e;
+  }
+  .back-btn svg { width: 14px; height: 14px; }
+  .topbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .4rem; }
+
+  /* ══════════════════════════════════ CONTENT ══════════════════════════════════ */
+  .content-wrap {
+    flex: 1;
+    padding: 2rem 1.5rem 3rem;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .thema-sectie { margin-bottom: 2.5rem; }
+  .thema-header {
+    display: flex;
+    align-items: baseline;
+    gap: .75rem;
+    margin-bottom: 1rem;
+    padding-bottom: .6rem;
+    border-bottom: 1.5px solid var(--rand);
+  }
+  .thema-titel {
+    font-family: var(--ft);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--jaar-kleur);
+  }
+  .thema-sub {
+    font-family: var(--fb);
+    font-size: 13px;
+    color: var(--tekst-zacht);
+    font-style: italic;
+  }
+
+  .tekst-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .tekst-kaart {
+    background: var(--wit);
+    border: 0.5px solid var(--rand);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.1rem 1rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    transition: border-color .15s, transform .15s, box-shadow .15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .tekst-kaart:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(101,179,46,.12);
+  }
+  .tekst-kaart.coming-soon { opacity: .55; pointer-events: none; cursor: default; }
+  .kaart-meta {
+    font-family: var(--fb);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .kaart-titel {
+    font-family: var(--ft);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--jaar-kleur);
+    line-height: 1.3;
+  }
+  .kaart-auteur {
+    font-family: var(--fb);
+    font-size: 12px;
+    color: var(--tekst-zacht);
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .kaart-pijl {
+    margin-top: auto;
+    font-size: 18px;
+    color: var(--rand);
+    transition: color .15s;
+    padding-top: 2px;
+  }
+  .tekst-kaart:hover .kaart-pijl { color: var(--accent); }
+  .kaart-badge {
+    position: absolute;
+    top: .7rem;
+    right: .75rem;
+    font-family: var(--fb);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    background: #e8eeeb;
+    color: #8a9a91;
+    padding: .2rem .5rem;
+    border-radius: 20px;
+  }
+
+  .voet {
+    text-align: center;
+    padding: 1rem;
+    font-family: var(--fb);
+    font-size: 12px;
+    color: var(--tekst-zacht);
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <img class="logo" src="groenhovelatijn2egraad/images/nav/logo_mono_wit.png" alt="Groenhove">
+  <h1>Teksten</h1>
+  <span class="sub"><span class="brand">So Groenhove</span> Waregem</span>
+</header>
+
+<div class="site-toolbar">
+  <div class="toolbar-left">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+      Terug
+    </button>
+    <div class="topbar-divider"></div>
+    <a class="ctrl-btn" href="#thema-1">Thema 1</a>
+    <a class="ctrl-btn" href="#thema-2">Thema 2</a>
+    <a class="ctrl-btn" href="#thema-3">Thema 3</a>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="thema-sectie" id="thema-1">
+    <div class="thema-header">
+      <span class="thema-titel">Thema 1</span>
+      <span class="thema-sub">Animo Subdolo</span>
+    </div>
+    <div class="tekst-grid">
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 1</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 2</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 3</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="thema-sectie" id="thema-2">
+    <div class="thema-header">
+      <span class="thema-titel">Thema 2</span>
+      <span class="thema-sub">Vita an Species?</span>
+    </div>
+    <div class="tekst-grid">
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 1</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 2</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 3</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="thema-sectie" id="thema-3">
+    <div class="thema-header">
+      <span class="thema-titel">Thema 3</span>
+      <span class="thema-sub">Panem et Circenses</span>
+    </div>
+    <div class="tekst-grid">
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 1</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 2</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 3</div>
+        <div class="kaart-titel">—</div>
+        <div class="kaart-auteur"></div>
+        <div class="kaart-pijl">›</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem</p>
+</body>
+</html>
