@@ -17,10 +17,10 @@
   }
 
   :root {
-    --jaar-kleur: #65b32e;            /* Vital Green — 4de jaar */
-    --hover-kleur: #ffea3d;           /* Balanced Yellow — hover */
-    --accent: #FF3B1D;                /* Waregem Pulse Red */
-    --achtergrond: #e0efd5;           /* Vital Green @ 20% op wit */
+    --jaar-kleur: #65b32e;
+    --hover-kleur: #ffea3d;
+    --accent: #FF3B1D;
+    --achtergrond: #e0efd5;
     --wit: #f3f1ef;
     --zwart: #010100;
     --tekst-zacht: #5a6b4a;
@@ -43,35 +43,32 @@
   }
 
   /* ══════════════════════════════════ HERO ══════════════════════════════════ */
-  .hero {
-    text-align: center;
-    padding: 3.5rem 1.5rem 1.5rem;
-  }
+  .hero { width: 100%; position: relative; flex-shrink: 0; background: transparent; }
+  .hero-inhoud { position: relative; z-index: 1; padding: 3.5rem 2rem 3rem; text-align: center; }
   .hero h1 {
     font-family: var(--ft);
+    font-size: 38px;
     font-weight: 700;
-    font-size: 3rem;
-    margin: 0 0 .5rem;
-    color: var(--jaar-kleur);
-    letter-spacing: .01em;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 5px;
   }
-  .hero h1 .jaar {
-    color: var(--zwart);
-  }
-  .hero .school {
-    font-family: var(--fb);
-    font-size: .95rem;
+  .hero h1 .latijn { color: var(--jaar-kleur); }
+  .hero h1 .jaar { color: rgba(101, 179, 46, 0.6); }
+  .hero .ondertitel {
+    font-size: 13px;
     color: var(--tekst-zacht);
-    margin: 0 0 1.25rem;
+    font-family: var(--fb);
+    letter-spacing: 0.3px;
   }
-  .hero .logo {
-    height: 36px;
-    width: auto;
+  .school-logo {
+    width: 44px;
+    height: auto;
+    margin: 10px auto 0;
     display: block;
-    margin: 0 auto;
   }
 
-  /* ══════════════════════════════════ TERUG ══════════════════════════════════ */
+  /* ══════════════════════════════════ CONTENT ══════════════════════════════════ */
   .content-wrap {
     flex: 1;
     max-width: 1200px;
@@ -163,11 +160,13 @@
 </head>
 <body>
 
-<section class="hero">
-  <h1>Latijn <span class="jaar">4de jaar</span></h1>
-  <p class="school">S.O. Groenhove campus Atheneum</p>
-  <img class="logo" src="images/nav/logo.svg" alt="Groenhove">
-</section>
+<div class="hero">
+  <div class="hero-inhoud">
+    <h1><span class="latijn">Latijn</span> <span class="jaar">4de jaar</span></h1>
+    <p class="ondertitel">S.O. Groenhove campus Atheneum</p>
+    <img class="school-logo" src="images/nav/logo.svg" alt="Groenhove">
+  </div>
+</div>
 
 <div class="content-wrap">
 
