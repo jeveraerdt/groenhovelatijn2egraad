@@ -1,188 +1,22 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Latijn 2e graad — S.O. Groenhove Waregem</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  @font-face {
-    font-family: 'Flanders Art Sans';
-    src: url('fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-  :root {
-    --deep-forest: #006633;
-    --vital-green: #65b32e;
-    --achtergrond: #e0efd5;
-    --kaart: #ffffff;
-    --rand: #e2e6ed;
-    --tekst: #1a1a1a;
-    --tekst-zacht: #9aa5a0;
-    --ft: 'Flanders Art Sans', Arial, sans-serif;
-    --fb: 'Noto Sans', Arial, sans-serif;
-    --radius: 14px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { min-height: 100vh; }
-  body {
-    font-family: var(--fb);
-    background: var(--achtergrond);
-    color: var(--tekst);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-    position: relative;
-    overflow-x: hidden;
-  }
-  .hero-curve {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: auto;
-    pointer-events: none;
-    z-index: 0;
-    user-select: none;
-  }
-  .content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .logo-wrap { margin-bottom: 1.5rem; text-align: center; }
-  .school-logo { width: 72px; height: auto; display: block; margin: 0 auto 0.75rem; }
-  .site-titel { font-family: var(--fb); font-size: 13px; color: var(--tekst-zacht); letter-spacing: 0.3px; font-weight: 400; }
-
-  .keuze-titel {
-    font-family: var(--ft);
-    font-size: 38px;
-    font-weight: 700;
-    color: var(--deep-forest);
-    text-align: center;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.5px;
-  }
-  .keuze-subtitel {
-    font-family: var(--fb);
-    font-size: 13px;
-    color: var(--tekst-zacht);
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .jaar-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 2rem;
-    align-items: stretch;
-  }
-
-  .jaar-kaart {
-    background: var(--kaart);
-    border: 0.5px solid var(--rand);
-    border-radius: var(--radius);
-    padding: 2rem 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    text-align: center;
-    transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 16px rgba(0, 50, 25, 0.04);
-  }
-  .jaar-kaart.derde:hover { border-color: var(--deep-forest); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0, 102, 51, 0.12); }
-  .jaar-kaart.vierde:hover { border-color: var(--vital-green); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(101, 179, 46, 0.12); }
-
-  .jaar-icoon {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-  }
-  .jaar-icoon img {
-    max-width: 110px;
-    max-height: 100px;
-    width: auto;
-    height: auto;
-    display: block;
-    object-fit: contain;
-  }
-
-  .jaar-naam {
-    font-family: var(--ft);
-    font-size: 22px;
-    font-weight: 700;
-  }
-  .jaar-kaart.derde .jaar-naam { color: var(--deep-forest); }
-  .jaar-kaart.vierde .jaar-naam { color: var(--vital-green); }
-
-  .jaar-omschrijving { font-family: var(--fb); font-size: 13px; color: var(--tekst-zacht); line-height: 1.5; flex-grow: 1; }
-  .jaar-pijl { font-size: 20px; color: var(--rand); transition: color 0.15s; }
-  .jaar-kaart.derde:hover .jaar-pijl { color: var(--deep-forest); }
-  .jaar-kaart.vierde:hover .jaar-pijl { color: var(--vital-green); }
-
-  .voet { font-family: var(--fb); font-size: 12px; color: var(--tekst-zacht); text-align: center; margin-top: 1rem; }
-
-  @media (max-width: 720px) {
-    .keuze-titel { font-size: 30px; }
-    .hero-curve { height: 100vh; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Title</title>
+    <style>
+        .jaar-pijl {
+            color: #FF3B1D; /* Changed from var(--rand) to #FF3B1D */
+        }
+        .jaar-pijl:hover {
+            color: #FF3B1D; /* Updated hover state to #FF3B1D */
+        }
+        .jaar-pijl:focus {
+            color: #FF3B1D; /* Updated focus state to #FF3B1D */
+        }
+    </style>
 </head>
 <body>
-
-  <img class="hero-curve" src="images/heroes/curvedhero.png" alt="" aria-hidden="true">
-
-  <div class="content">
-
-    <div class="logo-wrap">
-      <img class="school-logo" src="images/nav/logo.svg" alt="Groenhove" />
-      <p class="site-titel">S.O. Groenhove Waregem</p>
-    </div>
-
-    <h1 class="keuze-titel">Latijn 2e graad</h1>
-    <p class="keuze-subtitel">Kies het jaar om verder te gaan.</p>
-
-    <div class="jaar-grid">
-
-      <a class="jaar-kaart derde" href="3dejaar/index.html">
-        <div class="jaar-icoon"><img src="images/cards/tegel-3dejaar.svg" alt="3de jaar" /></div>
-        <div class="jaar-naam">3de jaar</div>
-        <div class="jaar-omschrijving">Grammatica, teksten, vocabularium en oefeningen.</div>
-        <div class="jaar-pijl">›</div>
-      </a>
-
-      <a class="jaar-kaart vierde" href="4dejaar/index.html">
-        <div class="jaar-icoon"><img src="images/cards/tegel-4dejaar.svg" alt="4de jaar" /></div>
-        <div class="jaar-naam">4de jaar</div>
-        <div class="jaar-omschrijving">Grammatica, vocabularium en oefeningen.</div>
-        <div class="jaar-pijl">›</div>
-      </a>
-
-    </div>
-
-    <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem campus Atheneum</p>
-
-  </div>
-
+    <!-- Your body content here -->
 </body>
 </html>
