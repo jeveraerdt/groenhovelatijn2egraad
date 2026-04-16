@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sluipmoord – Thema 3 T1 · 4de jaar · athena</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:#65b32e; --blue-mid:#4a8a22; --magenta:#65b32e;
+  --paper:#f3f1ef; --rule:rgba(101,179,46,.2);
+  --ink:#010100; --ink-mid:#3a4a2a; --ink-light:#5a6b4a;
+  --jaar-kleur:#65b32e; --accent:#FF3B1D;
+  --achtergrond:#e0efd5; --wit:#f3f1ef;
+  --rand:#c8d4c0; --radius:12px;
+  --ft:'Flanders Art Sans',Arial,sans-serif;
+  --fb:'Noto Sans',Arial,sans-serif;
+}
+@font-face {
+  font-family:'Flanders Art Sans';
+  src:url('../../fonts/FlandersArtSans-Bold.otf') format('opentype');
+  font-weight:700; font-style:normal; font-display:swap;
+}
+.site-header{background:var(--jaar-kleur);color:var(--wit);display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);width:100%;box-sizing:border-box;}
+.site-header .logo{height:38px;width:auto;display:block;flex-shrink:0;}
+.site-header h1{font-family:var(--ft);font-weight:700;font-size:1.25rem;margin:0;letter-spacing:.02em;white-space:nowrap;}
+.site-header .sub{font-family:var(--ft);font-size:.78rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-left:auto;white-space:nowrap;padding-left:.5rem;}
+.site-toolbar{background:var(--wit);border-bottom:1px solid var(--rand);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;height:56px;}
+.toolbar-left{display:flex;align-items:center;gap:.5rem;}
+.toolbar-right{display:flex;align-items:center;gap:.5rem;}
+.topbar-label{font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);opacity:.6;}
+.topbar-divider{width:1px;height:22px;background:var(--rand);margin:0 .4rem;}
+.back-btn,.ctrl-btn{font-family:var(--fb);font-size:.85rem;color:var(--ink);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.35rem .85rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:background .15s,border-color .15s,color .15s;}
+.back-btn:hover,.ctrl-btn:hover{background:#ffea3d;color:#006633;border-color:#ffea3d;}
+.back-btn.active,.ctrl-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.back-btn svg{width:14px;height:14px;}
+</style>
+<style>
+:root {
+  --green:#2d7a3a; --green-bg:#e8f5eb;
+  --orange:#c05a00; --orange-bg:#fff0e0;
+  --purple:#6a1a8a; --purple-bg:#f3e8fb;
+  --hl:#fff3c4; --hl-b:#e8c840;
+  --lh:2.3; --fs:1.18rem;
+
+  /* SCANSIE KLEUREN */
+  --dact:#1d4ed8;      /* dactylus — blauw */
+  --spon:#be185d;      /* spondeus — roze/rood */
+  --ces-color:#d97706; /* cesuur — amber */
+
+  /* STIJLFIGUREN KLEUREN */
+  --sf-allit:#7c3aed;   /* alliteratie — paars */
+  --sf-hyp:#0891b2;     /* hyperbaton — cyaan */
+  --sf-metaf:#b45309;   /* metafoor/enjambement — bruin */
+  --sf-chias:#16a34a;   /* chiasme — groen */
+  --sf-epith:#db2777;   /* epitheton ornans — roze */
+  --sf-simul:#c2410c;   /* accumulatie/trikolon — oranje */
+}
+
+body{font-family:var(--fb);overflow-x:hidden;background:var(--achtergrond);margin:0;padding:0;}
+
+/* WEERGAVE DROPDOWN */
+.weergave-wrap{position:relative;}
+.weergave-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1.5px solid rgba(19,66,127,.18);border-radius:12px;box-shadow:0 6px 24px rgba(19,66,127,.13);z-index:400;min-width:185px;padding:.35rem 0;overflow:hidden;}
+.weergave-menu.open{display:block;animation:fadeUp .12s ease both;}
+.weergave-item{display:flex;align-items:center;gap:.45rem;width:100%;background:none;border:none;padding:.45rem .9rem;font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);cursor:pointer;transition:background .12s,color .12s;white-space:nowrap;text-align:left;}
+.weergave-item:hover{background:#eef3fa;}
+.weergave-item.active{color:var(--magenta);}
+.weergave-item svg{width:12px;height:12px;flex-shrink:0;}
+.weergave-chevron{transition:transform .18s;}
+#btnWeergave.open .weergave-chevron{transform:rotate(180deg);}
+.menu-divider{height:1px;background:rgba(19,66,127,.08);margin:.3rem 0;}
+.menu-section{font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(19,66,127,.4);padding:.2rem .9rem .1rem;}
+
+/* LAYOUT */
+.outer{max-width:1200px;margin:0 auto;padding:0 1.5rem;}
+.main-col{max-width:760px;margin:0 auto;padding:3rem 0 6rem;}
+body.twocol .outer{display:grid;grid-template-columns:var(--col-split,60%) 12px 1fr;gap:0;align-items:start;}
+body.twocol .main-col{max-width:none;padding:3rem 2rem 6rem 0;}
+body.twocol .side-panel{display:flex!important;flex-direction:column;gap:1rem;padding:3rem 0 6rem 1.5rem;border-left:1px solid var(--rule);position:sticky;top:56px;max-height:calc(100vh - 56px);overflow-y:auto;}
+.side-panel{display:none;}
+
+/* HEADER */
+.text-header{margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid var(--rule);animation:fadeUp .5s ease both;}
+.text-meta{font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;}
+.text-title{font-family:var(--ft);font-size:2rem;font-weight:600;line-height:1.2;color:var(--blue);margin-bottom:.5rem;letter-spacing:-.01em;}
+.text-sub{font-family:var(--fb);font-style:italic;font-size:.875rem;color:var(--ink-light);line-height:1.5;}
+
+/* CONTEXT */
+.context-block{background:linear-gradient(135deg,#eef3fa,#f5f0fb);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:1rem 1.3rem;margin-bottom:2rem;font-family:var(--ft);font-size:.86rem;line-height:1.65;color:#2a3a5e;animation:fadeUp .5s .07s ease both;}
+.context-block strong{display:block;font-family:var(--ft);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--magenta);margin-bottom:.25rem;font-weight:600;}
+.context-subtitel{display:block;font-family:var(--fb);font-style:italic;font-size:.76rem;color:#888;margin-bottom:.5rem;}
+
+/* EXTRA'S STRIP */
+.extras-strip{margin-bottom:2rem;animation:fadeUp .5s .12s ease both;}
+.extras-row{display:flex;align-items:center;gap:.9rem;}
+.extras-label{font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);}
+.extras-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:none;background:none;color:var(--accent);cursor:pointer;padding:0;opacity:.75;transition:opacity .15s,background .15s,color .15s;text-decoration:none;}
+.extras-icon:hover{opacity:1;background:#fbe6f1;}
+
+/* KAART MODAL */
+.kaart-modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(19,66,127,.4);z-index:450;align-items:center;justify-content:center;}
+.kaart-modal-overlay.open{display:flex;animation:fadeUp .2s ease both;}
+.kaart-modal{background:var(--wit);border-radius:12px;max-width:520px;width:90%;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 64px rgba(19,66,127,.2);}
+.kaart-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--rule);}
+.kaart-modal-title{font-family:var(--ft);font-size:.85rem;font-weight:600;color:var(--blue);letter-spacing:.04em;}
+.kaart-modal-close{background:none;border:none;padding:.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-light);transition:color .15s;}
+.kaart-modal-close:hover{color:var(--blue);}
+.kaart-modal-close svg{width:16px;height:16px;}
+.kaart-modal-body{flex:1;overflow-y:auto;padding:1.5rem;display:flex;align-items:center;justify-content:center;}
+.kaart-placeholder{text-align:center;color:var(--ink-light);font-family:var(--ft);font-size:.8rem;}
+
+/* LATIN TEXT */
+.latin-text{font-size:var(--fs);line-height:var(--lh);animation:fadeUp .5s .18s ease both;}
+body.font-lg .latin-text{--fs:1.35rem;--lh:2.45;}
+.latin-para{margin-bottom:2rem;}
+
+/* WORD GROUPS */
+.wg{display:inline;border-radius:4px;cursor:pointer;transition:background .15s,outline .1s;padding:1px 0;}
+.wg:hover{background:rgba(101,179,46,.1);}
+.reveal-mode .wg{opacity:.12;transition:opacity .3s;}
+.reveal-mode .wg.revealed{opacity:1;}
+.reveal-mode .wg.current{opacity:1;background:var(--hl);outline:1px solid var(--hl-b);border-radius:4px;}
+
+/* LAT-WORD */
+.lat-word{display:inline;border-radius:3px;cursor:pointer;transition:background .12s;padding:0 1px;}
+.lat-word:hover{background:rgba(101,179,46,.15);}
+.lat-word.st1{background:var(--green-bg);color:var(--green);border-bottom:1.5px solid var(--green);}
+.lat-word.st2{background:var(--orange-bg);color:var(--orange);border-bottom:1.5px solid var(--orange);}
+
+/* INTERLINEAR */
+body.interlin .lat-word{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;margin:0 1px;}
+body.interlin .lat-word .iln{display:block;font-family:var(--ft);font-size:.52em;color:var(--accent);line-height:1.1;text-align:center;pointer-events:none;white-space:nowrap;}
+
+/* TEKSTSCHEIDING */
+.latin-para.tekst-scheiding{border-top:1px solid #ddd;margin-top:1.5em;padding-top:1.5em;}
+
+/* LINE NUMBERS */
+.numbered-view{display:none;}
+.numbered-view.on{display:block;}
+.plain-view.off{display:none;}
+.latin-line{display:flex;gap:1.4rem;line-height:var(--lh);}
+.ln{font-family:var(--ft);font-size:.62rem;color:#ccc;min-width:1.7rem;text-align:right;padding-top:.44em;user-select:none;flex-shrink:0;}
+.lc{flex:1;}
+
+/* ══════════════════════════════════════════
+   SCANSIE WEERGAVE
+   Elke hexametervoet wordt gemarkeerd.
+   .scan-d = dactylus, .scan-s = spondeus
+   .scan-word is de container per syllabe-groep
+══════════════════════════════════════════ */
+.scansie-view{display:none;}
+.scansie-view.on{display:block;margin-bottom:2rem;animation:fadeUp .3s ease both;}
+
+.scan-line{
+  font-family:var(--fb);
+  font-size:var(--fs);
+  line-height:1;
+  margin-bottom:2.8rem;
+  position:relative;
+}
+.scan-line-nr{
+  font-family:var(--ft);font-size:.6rem;color:#ccc;
+  position:absolute;left:-2rem;top:.15rem;user-select:none;
+}
+
+/* Voeten: inline-flex voor syllabe-labels boven de tekst */
+.scan-foot{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:stretch;
+  vertical-align:bottom;
+  position:relative;
+  padding-bottom:.15rem;
+}
+.scan-foot-label{
+  font-family:var(--ft);
+  font-size:.58rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-align:center;
+  padding:.08rem .2rem;
+  border-radius:4px 4px 0 0;
+  line-height:1.2;
+  white-space:nowrap;
+}
+.scan-foot.d .scan-foot-label{background:var(--dact);color:#fff;}
+.scan-foot.s .scan-foot-label{background:var(--spon);color:#fff;}
+
+/* De tekst zelf in de voet */
+.scan-foot-text{
+  font-family:var(--fb);
+  font-size:inherit;
+  line-height:1.7;
+  padding:0 .15rem;
+  border-bottom:2.5px solid transparent;
+  display:block;
+}
+.scan-foot.d .scan-foot-text{border-color:var(--dact);}
+.scan-foot.s .scan-foot-text{border-color:var(--spon);}
+
+/* Cesuur */
+.scan-ces{
+  display:inline-block;
+  vertical-align:bottom;
+  width:0;
+  height:1.5em;
+  border-left:2px dashed var(--ces-color);
+  position:relative;
+  margin:0 3px;
+}
+.scan-ces::after{
+  content:attr(data-label);
+  position:absolute;
+  bottom:calc(100% + 2px);
+  left:50%;
+  transform:translateX(-50%);
+  font-family:var(--ft);
+  font-size:.52rem;
+  font-weight:700;
+  color:var(--ces-color);
+  white-space:nowrap;
+  background:var(--wit);
+  padding:0 .2rem;
+}
+
+/* Scansie legenda */
+.scan-legenda{
+  display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center;
+  margin-bottom:1.5rem;
+  font-family:var(--ft);font-size:.7rem;
+  padding:.6rem 1rem;
+  background:var(--paper);border:1px solid var(--rule);border-radius:8px;
+}
+.scan-leg-item{display:flex;align-items:center;gap:.35rem;}
+.scan-leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+/* ══════════════════════════════════════════
+   STIJLFIGUREN WEERGAVE
+══════════════════════════════════════════ */
+.sf-view{display:none;}
+.sf-view.on{display:block;animation:fadeUp .3s ease both;}
+
+/* Markering van stijlfiguren op de woorden */
+.sf-allit{background:rgba(124,58,237,.12);color:var(--sf-allit);border-bottom:2px solid var(--sf-allit);border-radius:2px;padding:0 1px;}
+.sf-hyp{background:rgba(8,145,178,.1);color:var(--sf-hyp);border-bottom:2px dotted var(--sf-hyp);border-radius:2px;padding:0 1px;}
+.sf-chias{background:rgba(22,163,74,.1);color:var(--sf-chias);border-bottom:2px solid var(--sf-chias);border-radius:2px;padding:0 1px;}
+.sf-epith{background:rgba(219,39,119,.1);color:var(--sf-epith);border-bottom:2px dashed var(--sf-epith);border-radius:2px;padding:0 1px;}
+.sf-trikolon{background:rgba(194,65,12,.1);color:var(--sf-simul);border-bottom:2px solid var(--sf-simul);border-radius:2px;padding:0 1px;}
+.sf-enjamb{background:rgba(180,83,9,.08);border-left:3px solid var(--sf-metaf);padding-left:3px;border-radius:2px;}
+
+/* Stijlfiguren legenda */
+.sf-legenda{
+  display:flex;gap:1rem;flex-wrap:wrap;align-items:center;
+  margin-bottom:1.5rem;
+  font-family:var(--ft);font-size:.7rem;
+  padding:.6rem 1rem;
+  background:var(--paper);border:1px solid var(--rule);border-radius:8px;
+}
+.sf-leg-item{display:flex;align-items:center;gap:.35rem;cursor:help;}
+.sf-leg-dot{width:20px;height:4px;flex-shrink:0;border-radius:2px;}
+
+/* SVG verbindingslijnen boven het sf-view */
+.sf-svg-overlay{position:absolute;top:0;left:0;pointer-events:none;z-index:10;}
+.sf-container{position:relative;}
+
+/* Tooltip voor stijlfiguren */
+.sf-tooltip{
+  position:fixed;z-index:900;
+  background:#1a2238;color:#fff;
+  font-family:var(--ft);font-size:.78rem;font-weight:500;
+  line-height:1.45;padding:.7rem .95rem;border-radius:10px;
+  max-width:320px;box-shadow:0 12px 32px rgba(0,0,0,.28);
+  pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .15s,transform .15s;
+}
+.sf-tooltip.vis{opacity:1;transform:translateY(0);}
+
+/* POPUP */
+.word-popup{position:absolute;z-index:500;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;box-shadow:0 8px 32px rgba(19,66,127,.18);padding:.85rem 1.1rem;max-width:300px;min-width:200px;font-family:var(--ft);font-size:.78rem;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .18s,transform .18s;}
+.word-popup.vis{opacity:1;transform:translateY(0);}
+.wp-word{font-family:var(--fb);font-size:1.1rem;font-weight:600;color:var(--blue);margin-bottom:.1rem;}
+.wp-lemma{font-size:.68rem;color:var(--ink-light);margin-bottom:.35rem;}
+.wp-row{display:flex;gap:.4rem;margin-bottom:.2rem;align-items:flex-start;}
+.wp-tag{font-size:.6rem;font-weight:700;padding:.08rem .35rem;border-radius:10px;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0;margin-top:.12rem;}
+.tg{background:var(--green-bg);color:var(--green);}
+.to{background:var(--orange-bg);color:var(--orange);}
+.tp{background:var(--purple-bg);color:var(--purple);}
+.tw{background:#eef3fa;color:var(--blue);}
+.wp-val{color:var(--ink-mid);line-height:1.45;}
+.wp-sep{border:none;border-top:1px solid var(--rule);margin:.4rem 0;}
+.wp-hint{font-size:.7rem;color:var(--ink-light);}
+
+/* REVEAL BAR */
+.reveal-bar{display:none;align-items:center;gap:.6rem;margin-bottom:1.5rem;padding:.65rem 1rem;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;font-family:var(--ft);font-size:.78rem;color:var(--ink-mid);flex-wrap:wrap;}
+.reveal-bar.vis{display:flex;}
+.reveal-bar button{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:.3rem .8rem;font-family:var(--ft);font-size:.72rem;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.reveal-bar button:hover{background:var(--blue-mid);}
+.reveal-bar button.sec{background:var(--paper);color:var(--blue);border:1.5px solid var(--blue);}
+.reveal-bar button.sec:hover{background:#eef3fa;}
+.rev-count{margin-left:auto;color:var(--ink-light);font-size:.68rem;white-space:nowrap;}
+
+/* FOOTNOTES */
+.footnotes{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.fn-title{font-family:var(--ft);font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.9rem;}
+.fn{display:flex;gap:.65rem;font-size:.8rem;line-height:1.58;color:var(--ink-light);margin-bottom:.45rem;font-family:var(--ft);}
+.fn-n{color:var(--magenta);font-size:.68rem;font-weight:600;min-width:1.1rem;padding-top:.1rem;flex-shrink:0;}
+
+/* SIDE PANEL */
+.panel-card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.1rem;}
+.panel-card h3{font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.7rem;}
+.panel-word{display:flex;justify-content:space-between;align-items:baseline;padding:.32rem 0;border-bottom:1px solid var(--rule);font-size:.85rem;gap:.5rem;}
+.panel-word:last-child{border-bottom:none;}
+.pw-lat{font-family:var(--fb);font-weight:600;color:var(--blue);}
+.pw-nl{font-family:var(--ft);font-size:.72rem;color:var(--ink-mid);text-align:right;max-width:55%;}
+.pw-basis{display:inline-block;font-size:.55rem;font-weight:700;padding:.04rem .28rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;margin-left:.3rem;vertical-align:middle;}
+.panel-note{padding:.3rem 0;font-family:var(--ft);font-size:.78rem;color:var(--ink-mid);line-height:1.5;border-bottom:1px solid var(--rule);}
+.panel-note:last-child{border-bottom:none;}
+.pn-tag{display:inline-block;font-size:.6rem;font-weight:600;padding:.05rem .35rem;border-radius:10px;text-transform:uppercase;margin-right:.35rem;background:#eef3fa;color:var(--blue);}
+.analysis-card{background:linear-gradient(135deg,#eef3fa,#f0f5ff);border:1.5px solid #c8d6ed;border-radius:10px;padding:1rem 1.1rem;font-family:var(--ft);font-size:.8rem;line-height:1.6;}
+.ac-word{font-family:var(--fb);font-size:1.4rem;font-weight:600;color:var(--blue);}
+.ac-lemma{font-size:.68rem;color:var(--ink-light);margin-bottom:.5rem;}
+.ac-row{display:flex;gap:.5rem;margin-bottom:.2rem;align-items:flex-start;}
+.ac-tag{font-size:.6rem;font-weight:700;padding:.08rem .38rem;border-radius:10px;text-transform:uppercase;flex-shrink:0;margin-top:.15rem;}
+.ac-empty{color:var(--ink-light);font-size:.78rem;font-style:italic;}
+
+/* VERTALING ZIJPANEEL */
+.vertaling-tekst{font-family:var(--ft);font-size:.82rem;line-height:1.7;color:var(--ink);}
+.vertaling-tekst p{margin-bottom:.7rem;}
+.vertaling-tekst p:last-child{margin-bottom:0;}
+
+/* KOLOM-RESIZER */
+.col-resizer{display:none;width:12px;cursor:col-resize;align-self:stretch;position:relative;z-index:10;flex-shrink:0;}
+body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;}
+.col-resizer-handle{width:4px;height:48px;border-radius:4px;background:var(--rule);transition:background .15s,height .15s;position:sticky;top:calc(50vh - 24px);}
+.col-resizer:hover .col-resizer-handle,.col-resizer.dragging .col-resizer-handle{background:var(--blue);height:64px;}
+
+/* SCROLL TOP */
+.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all .2s;box-shadow:0 4px 14px rgba(19,66,127,.28);z-index:100;}
+.scroll-top.on{opacity:1;transform:translateY(0);}
+.scroll-top svg{width:15px;height:15px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
+
+/* DIDACTIEK BADGES */
+.d-badge{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .5rem;border-radius:20px;vertical-align:middle;margin:0 .2rem .1rem;white-space:nowrap;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none;transform:scale(.85);}
+.d-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;}
+.d-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
+.d-badge.vis{opacity:1;pointer-events:auto;transform:scale(1);}
+.d-badges{display:block;margin-bottom:.35rem;min-height:0;line-height:1.6;}
+.d-badges:empty{margin-bottom:0;}
+.d-tooltip{position:absolute;z-index:900;background:#1a2238;color:#fff;font-family:var(--ft);font-size:.78rem;font-weight:500;line-height:1.45;letter-spacing:.005em;padding:.7rem .95rem;border-radius:10px;max-width:340px;box-shadow:0 12px 32px rgba(19,66,127,.28);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .15s ease,transform .15s ease;}
+.d-tooltip.vis{opacity:1;transform:translateY(0);}
+.d-badge{cursor:help;}
+
+/* GRAMMATICALE NOTEN */
+.noten-block{display:none;}
+.noten-block.vis{display:block;}
+
+@media(max-width:900px){body.twocol .outer{display:block;}body.twocol .main-col{padding:2rem 0 5rem;}body.twocol .side-panel{display:none!important;}}
+@media(max-width:600px){.main-col{padding:2rem 0 5rem;}.outer{padding:0 1rem;}.text-title{font-size:1.7rem;}.site-header{padding:0 14px;}.site-toolbar{padding:8px 14px;height:auto;flex-wrap:wrap;}.topbar-label,.topbar-divider{display:none;}}
+</style>
+</head>
+<body>
+
+<div class="word-popup" id="popup">
+  <div class="wp-word" id="ppWord"></div>
+  <div class="wp-lemma" id="ppLemma"></div>
+  <div id="ppContent"></div>
+  <hr class="wp-sep" id="ppSep" style="display:none">
+  <div class="wp-hint" id="ppHint"></div>
+</div>
+<div class="sf-tooltip" id="sfTooltip"></div>
+
+<header class="site-header">
+  <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="Groenhove">
+  <h1>Teksten</h1>
+  <span class="sub">S.O. Groenhove Waregem</span>
+</header>
+
+<div class="site-toolbar">
+  <div class="toolbar-left">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+      Teksten
+    </button>
+  </div>
+  <div class="toolbar-right">
+    <button class="ctrl-btn" id="btnReveal" onclick="toggleReveal()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8s2.5-5 6-5 6 5 6 5-2.5 5-6 5-6-5-6-5z"/><circle cx="8" cy="8" r="2"/></svg>
+      Onthul
+    </button>
+    <div class="weergave-wrap" id="weergaveWrap">
+      <button class="ctrl-btn" id="btnWeergave" onclick="toggleWeergaveMenu(event)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v1.2M8 13.3v1.2M1.5 8h1.2M13.3 8h1.2M3.4 3.4l.85.85M11.75 11.75l.85.85M12.6 3.4l-.85.85M4.25 11.75l-.85.85"/></svg>
+        Weergave
+        <svg class="weergave-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:9px;height:9px;margin-left:1px"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="weergave-menu" id="weergaveMenu">
+        <!-- Basisweergave -->
+        <button class="weergave-item" id="btnLines" onclick="toggleLines()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h12M2 12h8"/></svg>
+          Regelnummers
+        </button>
+        <button class="weergave-item" id="btnInterlin" onclick="toggleInterlin()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5h12M2 10h12"/></svg>
+          Interlineair
+        </button>
+        <button class="weergave-item" id="btnTwocol" onclick="toggleTwocol()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/></svg>
+          Tweekolom
+        </button>
+        <div class="menu-divider"></div>
+        <!-- Poëzie-analyse — NIEUW -->
+        <div class="menu-section">Poëzie-analyse</div>
+        <button class="weergave-item" id="btnScansie" onclick="toggleScansie();event.stopPropagation()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 12 L4 4 L6 12 L8 4 L10 12 L12 4 L14 12"/>
+            <line x1="2" y1="14" x2="14" y2="14" stroke-dasharray="2,2"/>
+          </svg>
+          Scansie
+        </button>
+        <button class="weergave-item" id="btnStijl" onclick="toggleStijl();event.stopPropagation()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="5" cy="8" r="2"/><circle cx="11" cy="5" r="2"/><circle cx="11" cy="11" r="2"/>
+            <line x1="7" y1="8" x2="9" y2="5.8"/><line x1="7" y1="8" x2="9" y2="10.2"/>
+          </svg>
+          Stijlfiguren
+        </button>
+        <div class="menu-divider"></div>
+        <div class="menu-section">Didactiek</div>
+        <button class="weergave-item" id="btnBs" onclick="toggleLayer('bs');event.stopPropagation()">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;"></span>
+          Bouwstenen
+        </button>
+        <button class="weergave-item" id="btnLpd" onclick="toggleLayer('lpd');event.stopPropagation()">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;"></span>
+          LPD
+        </button>
+      </div>
+    </div>
+    <button class="ctrl-btn" id="btnFont" onclick="toggleFont()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12L8 4l5 8M5.5 9h5"/></svg>
+      Groter
+    </button>
+  </div>
+</div>
+
+<div class="outer">
+<div class="main-col">
+
+  <div class="text-header">
+    <div class="text-meta">Thema 3 · Tekst 1 · 4de jaar</div>
+    <h1 class="text-title">Sluipmoord</h1>
+    <div class="text-sub">naar Vergilius, <em>Georgica</em> IV, 457–463 · de dood van Eurydice</div>
+  </div>
+
+  <div class="context-block" data-bs="1" data-lpd="WD2_03.03.01">
+    <div class="d-badges" id="badges-context">
+      <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <strong>Context</strong>
+    <span class="context-subtitel">Mythologische achtergrond</span>
+    <p>Orpheus, de legendarische dichter en citharaspeler, trouwde met de nimf Eurydice. Op hun trouwdag vluchtte Eurydice weg van Aristaeus, die haar achtervolgde. Daarbij werd ze gebeten door een slang en stierf. Vergilius vertelt dit verhaal in zijn Georgica (ca. 29 v.Chr.), een didactisch leerdicht over landbouw en bijenteelt. Het fragment dat volgt beschrijft de fatale vlucht van Eurydice vanuit het perspectief van een aanklacht tegen Orpheus.</p>
+  </div>
+
+  <div class="extras-strip">
+    <div class="d-badges" id="badges-kaart">
+      <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <div class="extras-row">
+      <span class="extras-label">Extra's</span>
+      <a class="extras-icon" href="#woordenlijst-sectie" title="Woordenlijst" aria-label="Woordenlijst">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h8a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M3 2v12"/><path d="M6 6h4M6 9h3"/></svg>
+      </a>
+      <button type="button" class="extras-icon" id="btnNoten" onclick="toggleNoten()" title="Grammaticale noten" aria-label="Grammaticale noten">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 3.5h11M2.5 7h11M2.5 10.5h7"/><circle cx="12" cy="11" r="1.6" fill="currentColor" stroke="none"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- KAART MODAL -->
+  <div class="kaart-modal-overlay" id="kaartModalOverlay" onclick="closeKaartModal()">
+    <div class="kaart-modal" onclick="event.stopPropagation()">
+      <div class="kaart-modal-header">
+        <span class="kaart-modal-title">Mythologische kaart — Thracië</span>
+        <button class="kaart-modal-close" onclick="closeKaartModal()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+        </button>
+      </div>
+      <div class="kaart-modal-body">
+        <div class="kaart-placeholder">
+          <svg viewBox="0 0 48 48" fill="none" stroke="rgba(19,66,127,.2)" stroke-width="1.5" style="width:48px;height:48px;margin-bottom:1rem"><rect x="4" y="8" width="40" height="32" rx="3"/><path d="M4 20l10-6 8 8 8-5 14 9"/><circle cx="34" cy="15" r="3"/></svg>
+          <p>Kaart Thracië · Rhodope · Pangaion</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-badges" id="badges-reveal" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.01 – lectuurmethode toepassen</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – tekst begrijpen</span>
+  </div>
+  <div class="reveal-bar" id="revealBar">
+    <span style="font-size:.72rem;color:var(--ink-light);">Onthulling per woordgroep</span>
+    <button onclick="revealPrev()">&#8592; Vorige</button>
+    <button onclick="revealNext()">Volgende &#8594;</button>
+    <button class="sec" onclick="revealAll()">Alles tonen</button>
+    <span class="rev-count" id="revCount">0 / 0</span>
+  </div>
+
+  <div class="d-badges" id="badges-tekst" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">③ Voorbeelden &amp; modelling</span>
+    <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.01 – lectuurmethode toepassen</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsystematiek</span>
+  </div>
+
+  <!-- ══ LATIJNSE TEKST — plain view ══ -->
+  <div class="latin-text" id="latinText">
+  <div class="plain-view" id="plainView">
+
+<div class="latin-para">
+<span class="wg" data-wg="1"><span class="lat-word" data-w="Illa" data-l="ille, illa, illud" data-d="nom. enk. f." data-s="OND van fugeret" data-n="zij">Illa</span></span>
+<span class="wg" data-wg="2"><span class="lat-word" data-w="quidem" data-l="quidem" data-d="bijw." data-s="beklemtoningspartikel bij OND" data-n="inderdaad, weliswaar">quidem</span>,</span>
+<span class="wg" data-wg="3"><span class="lat-word" data-w="dum" data-l="dum" data-d="vgw. temporeel" data-s="inleider temporele bijzin" data-n="terwijl">dum</span></span>
+<span class="wg" data-wg="4"><span class="lat-word" data-w="te" data-l="tu" data-d="acc. 2 enk." data-s="LV bij fugeret" data-n="jou">te</span></span>
+<span class="wg" data-wg="5"><span class="lat-word" data-w="fugeret" data-l="fugere" data-d="A. conj. imperf. 3 enk." data-s="PV temporele bijzin" data-n="vluchtte voor">fugeret</span></span>
+<span class="wg" data-wg="6"><span class="lat-word" data-w="per" data-l="per" data-d="prep. + acc." data-s="BWB van richting" data-n="langs, door">per</span></span>
+<span class="wg" data-wg="7"><span class="lat-word" data-w="flumina" data-l="flumen, fluminis" data-d="acc. mv. n." data-s="LV bij per" data-n="rivieren">flumina</span></span>
+<span class="wg" data-wg="8"><span class="lat-word" data-w="praeceps" data-l="praeceps, praecipitis" data-d="nom. enk. f." data-s="praedicatief attribuut bij illa" data-n="halsoverkop, vooruitstormend">praeceps</span>,</span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="9"><span class="lat-word" data-w="immanem" data-l="immanis, -e" data-d="acc. enk. m." data-s="attribuut bij hydrum" data-n="reusachtig, verschrikkelijk">immanem</span></span>
+<span class="wg" data-wg="10"><span class="lat-word" data-w="ante" data-l="ante" data-d="prep. + acc." data-s="BWB van plaats" data-n="voor">ante</span></span>
+<span class="wg" data-wg="11"><span class="lat-word" data-w="pedes" data-l="pes, pedis" data-d="acc. mv. m." data-s="LV bij ante" data-n="voeten">pedes</span></span>
+<span class="wg" data-wg="12"><span class="lat-word" data-w="hydrum" data-l="hydrus, -i" data-d="acc. enk. m." data-s="LV bij vidit" data-n="waterslang">hydrum</span></span>
+<span class="wg" data-wg="13"><span class="lat-word" data-w="moritura" data-l="mori" data-d="part. fut. act. nom. enk. f." data-s="praedicatief attribuut bij puella" data-n="die zou sterven">moritura</span></span>
+<span class="wg" data-wg="14"><span class="lat-word" data-w="puella" data-l="puella, -ae" data-d="nom. enk. f." data-s="OND van vidit (appositief bij illa)" data-n="het meisje">puella</span></span>
+<span class="wg" data-wg="15"><span class="lat-word" data-w="servantem" data-l="servare" data-d="part. praes. act. acc. enk. m." data-s="praedicatief attribuut bij hydrum" data-n="dat bewaakte">servantem</span></span>
+<span class="wg" data-wg="16"><span class="lat-word" data-w="ripas" data-l="ripa, -ae" data-d="acc. mv. f." data-s="LV bij servantem" data-n="oevers">ripas</span></span>
+<span class="wg" data-wg="17"><span class="lat-word" data-w="alta" data-l="altus, -a, -um" data-d="abl. enk. f." data-s="attribuut bij herba" data-n="hoog">alta</span></span>
+<span class="wg" data-wg="18"><span class="lat-word" data-w="non" data-l="non" data-d="bijw. ontkenning" data-s="ontkenning bij vidit" data-n="niet">non</span></span>
+<span class="wg" data-wg="19"><span class="lat-word" data-w="vidit" data-l="videre" data-d="A. ind. perf. 3 enk." data-s="PV hoofdzin" data-n="zag">vidit</span></span>
+<span class="wg" data-wg="20"><span class="lat-word" data-w="in" data-l="in" data-d="prep. + abl." data-s="BWB van plaats" data-n="in">in</span></span>
+<span class="wg" data-wg="21"><span class="lat-word" data-w="herba" data-l="herba, -ae" data-d="abl. enk. f." data-s="LV bij in" data-n="gras">herba</span>.</span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="22"><span class="lat-word" data-w="At" data-l="at" data-d="vgw." data-s="tegenstellend" data-n="maar">At</span></span>
+<span class="wg" data-wg="23"><span class="lat-word" data-w="chorus" data-l="chorus, -i" data-d="nom. enk. m." data-s="OND van implerunt" data-n="koor">chorus</span></span>
+<span class="wg" data-wg="24"><span class="lat-word" data-w="aequalis" data-l="aequalis, -e" data-d="nom. enk. m." data-s="attribuut bij chorus" data-n="van gelijke leeftijd">aequalis</span></span>
+<span class="wg" data-wg="25"><span class="lat-word" data-w="Dryadum" data-l="Dryas, Dryadis" data-d="gen. mv. f." data-s="gen. bij chorus" data-n="van de Dryaden">Dryadum</span></span>
+<span class="wg" data-wg="26"><span class="lat-word" data-w="clamore" data-l="clamor, clamoris" data-d="abl. enk. m." data-s="BWB van middel" data-n="met gehuil">clamore</span></span>
+<span class="wg" data-wg="27"><span class="lat-word" data-w="supremos" data-l="supremus, -a, -um" data-d="acc. mv. m." data-s="attribuut bij montes" data-n="hoogste, uiterste">supremos</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="28"><span class="lat-word" data-w="implerunt" data-l="implere" data-d="A. ind. perf. 3 mv." data-s="PV (hoofdwerkwoord)" data-n="vulden">implerunt</span></span>
+<span class="wg" data-wg="29"><span class="lat-word" data-w="montes" data-l="mons, montis" data-d="acc. mv. m." data-s="LV bij implerunt" data-n="bergen">montes</span>;</span>
+<span class="wg" data-wg="30"><span class="lat-word" data-w="flerunt" data-l="flere" data-d="A. ind. perf. 3 mv." data-s="PV (gecoördineerd)" data-n="huilden">flerunt</span></span>
+<span class="wg" data-wg="31"><span class="lat-word" data-w="Rhodopeiae" data-l="Rhodopeius, -a, -um" data-d="nom. mv. f." data-s="attribuut bij arces" data-n="van het Rhodope-gebergte">Rhodopeiae</span></span>
+<span class="wg" data-wg="32"><span class="lat-word" data-w="arces" data-l="arx, arcis" data-d="nom. mv. f." data-s="OND van flerunt" data-n="toppen, hoogten">arces</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="33"><span class="lat-word" data-w="altaque" data-l="altus, -a, -um" data-d="nom. enk. n." data-s="attribuut bij Pangaea (gecoördineerd OND)" data-n="en het hoge">altaque</span></span>
+<span class="wg" data-wg="34"><span class="lat-word" data-w="Pangaea" data-l="Pangaea, -orum" data-d="nom. mv. n." data-s="OND van flerunt (gecoördineerd)" data-n="de Pangaion (bergketen)">Pangaea</span></span>
+<span class="wg" data-wg="35"><span class="lat-word" data-w="et" data-l="et" data-d="vgw." data-s="nevenschikkend" data-n="en">et</span></span>
+<span class="wg" data-wg="36"><span class="lat-word" data-w="Rhesi" data-l="Rhesus, -i" data-d="gen. enk. m." data-s="gen. bij tellus" data-n="van Rhesos">Rhesi</span></span>
+<span class="wg" data-wg="37"><span class="lat-word" data-w="mavortia" data-l="mavortius, -a, -um" data-d="nom. enk. f." data-s="attribuut bij tellus" data-n="aan Mars gewijd, oorlogszuchtig">mavortia</span></span>
+<span class="wg" data-wg="38"><span class="lat-word" data-w="tellus" data-l="tellus, telluris" data-d="nom. enk. f." data-s="OND van flerunt (gecoördineerd)" data-n="land, aarde">tellus</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding">
+<span class="wg" data-wg="39"><span class="lat-word" data-w="atque" data-l="atque" data-d="vgw." data-s="nevenschikkend" data-n="en ook">atque</span></span>
+<span class="wg" data-wg="40"><span class="lat-word" data-w="Getae" data-l="Getae, -arum" data-d="nom. mv. m." data-s="OND van flerunt (gecoördineerd)" data-n="de Geten (Thracisch volk)">Getae</span></span>
+<span class="wg" data-wg="41"><span class="lat-word" data-w="atque" data-l="atque" data-d="vgw." data-s="nevenschikkend" data-n="en ook">atque</span></span>
+<span class="wg" data-wg="42"><span class="lat-word" data-w="Hebrus" data-l="Hebrus, -i" data-d="nom. enk. m." data-s="OND van flerunt (gecoördineerd)" data-n="de Hebros (rivier in Thracië)">Hebrus</span></span>
+<span class="wg" data-wg="43"><span class="lat-word" data-w="et" data-l="et" data-d="vgw." data-s="nevenschikkend" data-n="en">et</span></span>
+<span class="wg" data-wg="44"><span class="lat-word" data-w="Actias" data-l="Actias, -adis" data-d="nom. enk. f." data-s="attribuut bij Orithyia" data-n="uit Acte (Attica)">Actias</span></span>
+<span class="wg" data-wg="45"><span class="lat-word" data-w="Orithyia" data-l="Orithyia, -ae" data-d="nom. enk. f." data-s="OND van flerunt (gecoördineerd)" data-n="Orithyia (dochter van Erechtheus)">Orithyia</span>.</span>
+</div>
+
+  </div><!-- /plain-view -->
+
+  <!-- REGELNUMMERS VIEW -->
+  <div class="numbered-view" id="numberedView">
+    <div class="latin-line"><span class="ln">457</span><span class="lc">Illa quidem, dum te fugeret per flumina praeceps,</span></div>
+    <div class="latin-line"><span class="ln">458</span><span class="lc">immanem ante pedes hydrum moritura puella</span></div>
+    <div class="latin-line"><span class="ln">459</span><span class="lc">servantem ripas alta non vidit in herba.</span></div>
+    <div class="latin-line"><span class="ln">460</span><span class="lc">At chorus aequalis Dryadum clamore supremos</span></div>
+    <div class="latin-line"><span class="ln">461</span><span class="lc">implerunt montes; flerunt Rhodopeiae arces</span></div>
+    <div class="latin-line"><span class="ln">462</span><span class="lc">altaque Pangaea et Rhesi mavortia tellus</span></div>
+    <div class="latin-line"><span class="ln">463</span><span class="lc">atque Getae atque Hebrus et Actias Orithyia.</span></div>
+  </div>
+
+  <!-- ══ SCANSIE VIEW ══ -->
+  <div class="scansie-view" id="scansieView">
+    <div class="scan-legenda">
+      <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Legende</span>
+      <span class="scan-leg-item"><span class="scan-leg-dot" style="background:var(--dact);"></span>dactylus (– ∪ ∪)</span>
+      <span class="scan-leg-item"><span class="scan-leg-dot" style="background:var(--spon);"></span>spondeus (– –)</span>
+      <span class="scan-leg-item"><span class="scan-leg-dot" style="border:2px dashed var(--ces-color);background:transparent;height:12px;width:2px;border-radius:0;"></span>cesuur</span>
+    </div>
+    <!-- Vers 457: Il-la qui-dem dum te fu-ge-ret per flu-mi-na prae-ceps
+         D    S      D       D        S     S(anceps)
+         Illa-qui-dem | dum-te | fu-ge-ret | per-flu-mi-na | prae-ceps
+         D(Illa quidem) S(dum te) D(fugeret) D(per flumina) Sp(praeceps)
+         Werkelijke scansie (Georgica 4.457):
+         Il-lă quĭ-dem / dum tē fŭ-gĕ-ret / per flū-mĭ-nă / praē-cēps
+         D(Illă quĭ-) S(dem dum) D(tē fŭgĕ-) D(ret per flū-) S(mĭnă praē-) S(cēps) — nee
+         
+         Correct: Dactylische hexameter, elke voet als blok weergeven -->
+    <div class="scan-line">
+      <span class="scan-line-nr">457</span>
+      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">Il-la-qui-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">dem,</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">dum te fu-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">ge-ret</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">per flu-mi-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">na praeceps</span></span>
+    </div>
+    <!-- Vers 458: im-ma-nem an-te pe-des hyd-rum mo-ri-tu-ra pu-el-la
+         Im-mānem | an-te pĕ-des | hȳd-rum mŏ-rĭ-tū-rā | pŭ-el-lā
+         S(imma-) D(nem an-te) D(pedes hyd-) D(rum mori-) S(tura pu-) S(ella) -->
+    <div class="scan-line">
+      <span class="scan-line-nr">458</span>
+      <span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">im-ma-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">nem an-te</span></span><span class="scan-ces" data-label="trithemimeres"></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">pe-des hyd-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">rum mo-ri-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">tu-ra pu-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">el-la</span></span>
+    </div>
+    <!-- Vers 459: ser-van-tem ri-pas al-ta non vi-dit in her-ba
+         Sēr-van-tem | rī-pas al-ta | nōn vī-dit | in hēr-bā
+         D(servan-) S(tem ri-) D(pas al-ta) S(non vi-) S(dit in) S(her-ba) -->
+    <div class="scan-line">
+      <span class="scan-line-nr">459</span>
+      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">ser-van-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">tem ri-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">pas al-ta</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">non vi-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">dit in</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">her-ba</span></span>
+    </div>
+    <!-- Vers 460: at cho-rus ae-qua-lis dry-a-dum cla-mo-re su-pre-mos
+         At chŏ-rus | aē-quā-lis | Drȳ-ă-dum | clā-mō-re sŭ-prē-mos
+         S(at cho-) D(rus ae-) S(qua-lis) D(Dry-a-) D(dum cla-) S(mo-re su-pre-mos) -->
+    <div class="scan-line">
+      <span class="scan-line-nr">460</span>
+      <span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">at cho-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">rus ae-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">qua-lis</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">Dry-a-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">dum cla-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">mo-re su-pre-mos</span></span>
+    </div>
+    <!-- Vers 461: im-ple-runt mon-tes; fle-runt Rho-do-pe-iae ar-ces
+         Im-plē-runt | mōn-tēs; | flē-runt Rhō-dō-pē-iae | ār-cēs
+         D(im-ple-) S(runt mon-) S(tes fle-) D(runt Rho-) D(do-pe-i-) S(ae ar-ces) -->
+    <div class="scan-line">
+      <span class="scan-line-nr">461</span>
+      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">im-ple-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">runt mon-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">tes; fle-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">runt Rho-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">do-pe-i-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">ae ar-ces</span></span>
+    </div>
+    <!-- Vers 462: al-ta-que Pan-ga-ea et Rhe-si ma-vor-ti-a tel-lus
+         Al-tă-que | Pān-gaē-a | ēt Rhē-sī | mā-vōr-tĭ-ă | tel-lus
+         D(al-ta-) D(que Pan-) S(ga-ea) S(et Rhe-) D(si ma-) S(vor-ti-a tel-lus) -->
+    <div class="scan-line">
+      <span class="scan-line-nr">462</span>
+      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">al-ta-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">que Pan-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">ga-ea</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">et Rhe-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">si ma-vor-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">ti-a tel-lus</span></span>
+    </div>
+    <!-- Vers 463: at-que Ge-tae at-que Heb-rus et Ac-ti-as O-ri-thy-ia
+         At-que Gĕ-tae | ăt-que Hĕb-rus | ēt Āc-tĭ-ăs | Ō-rĭ-thȳ-ĭ-ă
+         D(at-que ge-) S(tae at-) D(que Heb-) S(rus et) D(Ac-ti-) S(as O-ri-thy-ia) -->
+    <div class="scan-line">
+      <span class="scan-line-nr">463</span>
+      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">at-que Ge-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">tae at-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">que Heb-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">rus et</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">Ac-ti-as</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">O-ri-thy-ia</span></span>
+    </div>
+  </div><!-- /scansie-view -->
+
+  <!-- ══ STIJLFIGUREN VIEW ══ -->
+  <div class="sf-view" id="sfView">
+    <div class="sf-legenda" id="sfLegenda">
+      <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Stijlfiguren</span>
+      <span class="sf-leg-item" data-sf="allit" title="Klikt om te focussen">
+        <span class="sf-leg-dot" style="background:var(--sf-allit);"></span>
+        <span style="color:var(--sf-allit);font-family:var(--ft);">Alliteratie</span>
+      </span>
+      <span class="sf-leg-item" data-sf="hyp">
+        <span class="sf-leg-dot" style="background:var(--sf-hyp);border-style:dotted;border-width:2px;border-color:var(--sf-hyp);background:transparent;height:2px;"></span>
+        <span style="color:var(--sf-hyp);font-family:var(--ft);">Hyperbaton</span>
+      </span>
+      <span class="sf-leg-item" data-sf="chias">
+        <span class="sf-leg-dot" style="background:var(--sf-chias);"></span>
+        <span style="color:var(--sf-chias);font-family:var(--ft);">Chiasme</span>
+      </span>
+      <span class="sf-leg-item" data-sf="epith">
+        <span class="sf-leg-dot" style="background:var(--sf-epith);border-bottom:2px dashed var(--sf-epith);background:transparent;height:2px;"></span>
+        <span style="color:var(--sf-epith);font-family:var(--ft);">Epitheton ornans</span>
+      </span>
+      <span class="sf-leg-item" data-sf="trikolon">
+        <span class="sf-leg-dot" style="background:var(--sf-simul);"></span>
+        <span style="color:var(--sf-simul);font-family:var(--ft);">Trikolon / accumulatie</span>
+      </span>
+      <span class="sf-leg-item" data-sf="enjamb">
+        <span class="sf-leg-dot" style="background:var(--sf-metaf);height:14px;width:3px;border-radius:1px;"></span>
+        <span style="color:var(--sf-metaf);font-family:var(--ft);">Enjambement</span>
+      </span>
+    </div>
+
+    <!-- Stijlfiguren tekst — elk woord/groep gemarkeerd met de juiste klasse + tooltip -->
+    <div class="sf-container latin-para" style="font-family:var(--fb);font-size:var(--fs);line-height:var(--lh);">
+
+      <!-- r.1: Illa quidem, dum te fugeret per flumina praeceps, -->
+      <!-- Alliteratie: f-f (fugeret / flumina) -->
+      <!-- Hyperbaton: Illa … praeceps (OND en pred. attr. gescheiden door heel de bijzin) -->
+      <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'Illa' (OND) staat ver van 'praeceps' (pred. attr.) — de vlucht zelf staat ertussen.">Illa</span>
+      <span> quidem, dum te </span>
+      <span class="sf-allit" data-sf="allit" data-tip="Alliteratie: 'fugeret … flumina' — de f-klank bootst het vluchten en stromen na.">fugeret</span>
+      <span> per </span>
+      <span class="sf-allit" data-sf="allit" data-tip="Alliteratie: 'fugeret … flumina' — herhaalde f-klank.">flumina</span>
+      <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'praeceps' (pred. bij 'Illa') staat aan het einde van de regel, ver van zijn nomen."> praeceps</span><span>,</span>
+
+      <br>
+      <!-- r.2-3: immanem ante pedes hydrum moritura puella servantem ripas alta non vidit in herba. -->
+      <!-- Hyperbaton: immanem … hydrum (attribuut–nomen omringen de zin) -->
+      <!-- Epitheton ornans: immanem hydrum, alta herba, moritura puella -->
+      <!-- Enjambement: vers 457→458, 458→459 -->
+      <span class="sf-enjamb" data-sf="enjamb" data-tip="Enjambement: de bijzin begint op v.457 maar het object 'hydrum' en het werkwoord 'vidit' volgen pas op v.458-459 — spanning loopt over de versgrens.">
+        <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'immanem' staat ver vóór zijn nomen 'hydrum' — de monstruositeit wordt benadrukt.">immanem</span>
+        <span> ante pedes </span>
+        <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'hydrum' sluit de omraming van 'immanem … hydrum'.">hydrum</span>
+      </span>
+      <span> </span>
+      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans + participium futuri: 'moritura puella' — het toekomstige lot van het meisje staat al ingebakken in haar beschrijving. Sterk pathos-effect.">moritura puella</span>
+      <span> </span>
+      <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton + enjambement: 'servantem ripas' omschrijft 'hydrum' van v.458 — attribuut en nomen staan op verschillende verzen.">servantem ripas</span>
+      <span> </span>
+      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'alta … herba' — de hoge grassen verklaren en verontschuldigen tegelijk: de slang was echt onzichtbaar.">alta</span>
+      <span> non vidit in </span>
+      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'alta … herba' — hoort bij 'alta' dat ver voorstaat (hyperbaton + epitheton).">herba</span><span>.</span>
+
+      <br><br>
+      <!-- r.4-7: At chorus aequalis Dryadum clamore supremos implerunt montes;
+           flerunt Rhodopeiae arces altaque Pangaea et Rhesi mavortia tellus
+           atque Getae atque Hebrus et Actias Orithyia. -->
+      <!-- Trikolon / accumulatie: arces / Pangaea / tellus / Getae / Hebrus / Orithyia -->
+      <!-- Alliteratie: clamore … supremos (c/s-klanken) — minder sterk maar aanwezig -->
+      <!-- Epitheton: Rhodopeiae arces, alta Pangaea, mavortia tellus, Actias Orithyia -->
+      <span>At </span>
+      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'chorus aequalis Dryadum' — de bosnimfen zijn 'van gelijke leeftijd' met Eurydice, wat de rouwkroon versterkt.">chorus aequalis Dryadum</span>
+      <span> </span>
+      <span class="sf-allit" data-sf="allit" data-tip="Alliteratie: 'clamore … supremos' — de c/s-klanken versterken het galmen van de klacht.">clamore supremos</span>
+
+      <br>
+      <span class="sf-trikolon" data-sf="trikolon" data-tip="Trikolon / accumulatie: het rouwen wordt beschreven als een golf van geografische en mythologische namen — Rhodopeiae arces, Pangaea, Rhesi tellus, Getae, Hebrus, Orithyia. Zes leden. Het universum rouwt.">
+        implerunt montes; <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'Rhodopeiae arces' — het Rhodope-gebergte is mythologisch gekleurd, het vaderland van Orpheus.">flerunt Rhodopeiae arces</span>
+
+        <br>
+        <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans + hyperbaton: 'alta … Pangaea' — 'alta' staat vóór 'Pangaea' met -que verbonden. Klassieke Vergiliaanse epitheton-positie.">altaque Pangaea</span>
+        <span> et </span>
+        <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'mavortia tellus' — aan Mars gewijd, verwijst naar Rhesos' krijgshaftigheid. Contrast met de rouw.">Rhesi mavortia tellus</span>
+
+        <br>
+        <span>atque </span><span class="sf-epith" data-sf="epith" data-tip="Drieledig trikolon: Getae / Hebrus / Orithyia — de accumulatie bereikt zijn climax met een mythologisch figuur.">Getae</span>
+        <span> atque </span>
+        <span>Hebrus</span>
+        <span> et </span>
+        <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'Actias Orithyia' — geografisch epitheton dat Orithyia als Attische prinses identificeert. Sluit de accumulatie af met een klinkende naam.">Actias Orithyia</span><span>.</span>
+      </span>
+    </div>
+  </div><!-- /sf-view -->
+
+  </div><!-- /latin-text -->
+
+  <!-- GRAMMATICALE NOTEN -->
+  <div class="noten-block" id="notenBlock">
+  <div class="d-badges" id="badges-noten" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge bs" data-layer="bs">⑪ Feedback die denken aanzet</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsystematiek</span>
+  </div>
+  <div class="footnotes">
+    <div class="fn-title">Grammaticale noten</div>
+    <div class="fn"><span class="fn-n">1</span><span><em>dum te fugeret per flumina praeceps</em> — temporele bijzin met conjunctief imperfecti (<em>fugeret</em>): de conjunctief duidt op gelijktijdigheid en causaliteit tegelijk. <em>Praeceps</em> als predicatief attribuut bij <em>illa</em> staat opvallend ver van zijn nomen — een bewust hyperbaton.</span></div>
+    <div class="fn"><span class="fn-n">2</span><span><em>moritura puella</em> — participium futuri actief van <em>mori</em> (deponens). Het part. fut. drukt bedoeling of noodlot uit: 'het meisje dat zou sterven / gedoemd te sterven'. Sterk pathos: haar dood staat al in haar naam gegrift voordat ze valt.</span></div>
+    <div class="fn"><span class="fn-n">3</span><span><em>immanem … hydrum … servantem ripas</em> — dubbel hyperbaton: attribuut (<em>immanem</em>) en participium (<em>servantem ripas</em>) omhullen het nomen <em>hydrum</em> over twee verzen. Klassieke Vergiliaanse "Rahmenstellung". De slang wordt letterlijk ingesloten door zijn eigen beschrijving.</span></div>
+    <div class="fn"><span class="fn-n">4</span><span><em>alta non vidit in herba</em> — <em>alta</em> is ablativus van eigenschap bij <em>herba</em>, of epitheton ornans. De ontkenning <em>non</em> staat dramatisch laat in de zin (pas v.459 na de introductie op v.457). Dit is een bewust retardatio-effect.</span></div>
+    <div class="fn"><span class="fn-n">5</span><span><em>chorus aequalis Dryadum clamore supremos / implerunt montes</em> — enjambement over versgrens 460–461. Het subject (<em>chorus</em>) en het werkwoord (<em>implerunt</em>) staan op verschillende verzen, net als de syntactische spanning die Eurydice niet kon overbruggen.</span></div>
+    <div class="fn"><span class="fn-n">6</span><span><em>flerunt … arces / altaque Pangaea … tellus / atque Getae … Hebrus … Orithyia</em> — trikolon-accumulatie van zes leden: Bergen → Vlaktes → Volken → Rivieren → Mythologisch figuur. De rouw breidt zich uit als kringen op water. Let op de anafora van <em>atque … atque</em> en de afwisseling van <em>et / atque</em>.</span></div>
+    <div class="fn"><span class="fn-n">7</span><span><em>Rhesi mavortia tellus</em> — <em>mavortius</em> = afgeleid van <em>Mavors</em> (= Mars). Genitivus <em>Rhesi</em>: Rhesos was een Thracische held. Het contrast tussen het krijgshaftige land en de rouwkreet is bewust: zelfs het land van Mars huilt.</span></div>
+    <div class="fn"><span class="fn-n">8</span><span><em>Actias Orithyia</em> — <em>Actias</em> (adj.) = 'uit Acte', d.i. Attica. Orithyia was een dochter van de Atheense koning Erechtheus die door de Noordenwind Boreas werd ontvoerd naar Thracië — vandaar haar aanwezigheid in deze lijst. Het fragment sluit zo af met een naam die zelf een verhaal van onvrijwillige vlucht draagt.</span></div>
+  </div>
+  </div><!-- /noten-block -->
+
+  <!-- WOORDENLIJST -->
+  <div class="d-badges" id="badges-wl" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+    <span class="d-badge bs" data-layer="bs">⑧ Gespreide oefening</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – basisvocabularium</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven aan teksten</span>
+  </div>
+  <div id="woordenlijst-sectie" style="margin-top:3.5rem;padding-top:2rem;border-top:2px solid var(--rule);">
+    <div id="wlSectieLabel" style="font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;opacity:.85;">Tekst 1 · Thema 3 · 4de jaar</div>
+    <h2 style="font-family:var(--ft);font-size:1.3rem;font-weight:600;color:var(--blue);margin-bottom:.3rem;" id="wlSectieTitle">Woordenlijst</h2>
+    <p id="wlSectieInfo" style="font-family:var(--ft);font-size:.78rem;color:var(--ink-light);margin-bottom:1.5rem;">Woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.</p>
+    <div id="wlTable"></div>
+  </div>
+
+</div><!-- /main-col -->
+
+<div class="col-resizer" id="colResizer"><div class="col-resizer-handle"></div></div>
+
+<div class="side-panel" id="sidePanel">
+  <div class="analysis-card" id="analysisCard">
+    <div class="ac-empty">Klik op een woord voor grammaticahulp.</div>
+  </div>
+  <div class="panel-card" id="sidePanelVertaling">
+    <h3 style="color:var(--accent);">Vertaling</h3>
+    <div class="vertaling-tekst" id="vertaalTekst"></div>
+  </div>
+  <div class="panel-card" id="sidePanelWl">
+    <h3>Woordenlijst</h3>
+    <div id="wlSide"></div>
+  </div>
+  <div class="panel-card">
+    <h3>Let op</h3>
+    <div class="panel-note"><span class="pn-tag">Fut. part.</span><em>moritura</em>: part. fut. van deponens <em>mori</em> — noodlot in de naamvorm ingebakken.</div>
+    <div class="panel-note"><span class="pn-tag">Hyperbaton</span><em>immanem … hydrum</em> over twee verzen — klassieke Rahmenstellung bij Vergilius.</div>
+    <div class="panel-note"><span class="pn-tag">Enjamb.</span>Subject en PV staan op verschillende verzen (v.460–461): Vergiliaanse spanning.</div>
+    <div class="panel-note"><span class="pn-tag">Trikolon</span>Zes geografische/mythologische namen rouwen — het universum als klaagkoor.</div>
+    <div class="panel-note"><span class="pn-tag">Conj.</span><em>fugeret</em>: conj. imperf. in temporele bijzin met <em>dum</em>.</div>
+  </div>
+</div>
+
+</div><!-- /outer -->
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4-4 4 4"/></svg>
+</button>
+
+<script>
+/* ══════════════════════════════════════════
+   WOORDENLIJST DATA — Thema 3 Tekst 1
+══════════════════════════════════════════ */
+var WL = [
+  {g:"fugere",a:"fugio, -ere, fugi",v:"vluchten, ontvluchten",b:true,t:["th3/1"],volgorde:{"th3/1":1}},
+  {g:"flumen",a:"fluminis (n.)",v:"rivier, stroom",b:true,t:["th3/1"],volgorde:{"th3/1":2}},
+  {g:"immanes",a:"immanis, -e",v:"reusachtig, verschrikkelijk, monsterlijk",b:false,t:["th3/1"],volgorde:{"th3/1":3}},
+  {g:"pes",a:"pedis (m.)",v:"voet",b:true,t:["th3/1"],volgorde:{"th3/1":4}},
+  {g:"hydrus",a:"hydri (m.)",v:"waterslang",b:false,t:["th3/1"],volgorde:{"th3/1":5}},
+  {g:"mori",a:"morior, mori, mortuus sum (dep.)",v:"sterven",b:true,t:["th3/1"],volgorde:{"th3/1":6}},
+  {g:"puella",a:"puellae (f.)",v:"meisje",b:true,t:["th3/1"],volgorde:{"th3/1":7}},
+  {g:"servare",a:"servo, -are, -avi, -atum",v:"bewaken, bewaren, beschermen",b:true,t:["th3/1"],volgorde:{"th3/1":8}},
+  {g:"ripa",a:"ripae (f.)",v:"oever",b:false,t:["th3/1"],volgorde:{"th3/1":9}},
+  {g:"herba",a:"herbae (f.)",v:"gras, plant, kruid",b:true,t:["th3/1"],volgorde:{"th3/1":10}},
+  {g:"chorus",a:"chori (m.)",v:"koor, reidans",b:false,t:["th3/1"],volgorde:{"th3/1":11}},
+  {g:"clamor",a:"clamoris (m.)",v:"gehuil, geschreeuw, luid geroep",b:true,t:["th3/1"],volgorde:{"th3/1":12}},
+  {g:"mons",a:"montis (m.)",v:"berg",b:true,t:["th3/1"],volgorde:{"th3/1":13}},
+  {g:"flere",a:"fleo, -ere, flevi, fletum",v:"huilen, bewenen",b:false,t:["th3/1"],volgorde:{"th3/1":14}},
+  {g:"tellus",a:"telluris (f.)",v:"aarde, land, grond",b:false,t:["th3/1"],volgorde:{"th3/1":15}}
+];
+
+/* ══════════════════════════════════════════
+   WOORDENLIJST OPZOEKEN
+══════════════════════════════════════════ */
+function lookupWL(lemma) {
+  if (!lemma) return null;
+  var parts = lemma.toLowerCase().split(/[\/,\s]+/);
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (g === parts[j] || g.startsWith(parts[j])) return WL[i];
+    }
+  }
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (parts[j].length > 3 && g.includes(parts[j])) return WL[i];
+    }
+  }
+  return null;
+}
+
+/* ══════════════════════════════════════════
+   RENDER WOORDENLIJST
+══════════════════════════════════════════ */
+var currentTekst = 'th3/1';
+var tekstLabels = {'th3/1':'Thema 3 · Tekst 1'};
+
+function filterWL(tekst) {
+  currentTekst = tekst;
+  var label = tekstLabels[tekst] || tekst;
+  var filtered = WL.filter(function(w){ return w.t && w.t.indexOf(tekst) !== -1; })
+                   .sort(function(a,b){ return (a.volgorde&&a.volgorde[tekst]||999)-(b.volgorde&&b.volgorde[tekst]||999); });
+  var sectLabel = document.getElementById('wlSectieLabel');
+  var sectInfo  = document.getElementById('wlSectieInfo');
+  if (sectLabel) sectLabel.textContent = label;
+  if (sectInfo)  sectInfo.innerHTML = filtered.length + ' woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.';
+  renderWLData(filtered);
+  renderWLSide(filtered);
+}
+
+function renderWLData(list) {
+  var el = document.getElementById('wlTable');
+  if (!el) return;
+  var html = '<div style="background:#fff;border:0.5px solid var(--rule);border-radius:12px;overflow:hidden;">';
+  list.forEach(function(w, i) {
+    var isLast = (i === list.length - 1);
+    var borderB = isLast ? '' : 'border-bottom:0.5px solid var(--rule);';
+    var latColor = w.b ? 'var(--magenta)' : 'var(--ink)';
+    html += '<div style="display:flex;align-items:center;gap:14px;padding:11px 16px;' + borderB + '">'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);width:28px;flex-shrink:0;text-align:right;">' + (i+1) + '</span>'
+      + '<span style="width:18px;height:18px;border-radius:50%;border:1.5px solid var(--rule);flex-shrink:0;display:inline-block;"></span>'
+      + '<span style="flex:1;min-width:0;">'
+        + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:14px;font-weight:500;color:' + latColor + ';">' + w.g + '</span>'
+        + (w.a ? '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);margin-left:.5rem;">' + w.a + '</span>' : '')
+      + '</span>'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:13px;color:var(--ink);flex:1.2;text-align:left;">' + w.v + '</span>'
+      + '<span style="font-size:16px;color:#d1d5db;flex-shrink:0;padding:2px 4px;line-height:1;">&#9734;</span>'
+      + '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderWLSide(list) {
+  var el = document.getElementById('wlSide');
+  if (!el) return;
+  var html = '';
+  var max = Math.min(15, list.length);
+  for (var i = 0; i < max; i++) {
+    var w = list[i];
+    html += '<div class="panel-word">'
+      + '<span class="pw-lat">' + w.g + (w.b ? '<span class="pw-basis">basis</span>' : '') + '</span>'
+      + '<span class="pw-nl">' + w.v.split(';')[0] + '</span>'
+      + '</div>';
+  }
+  el.innerHTML = html;
+}
+
+filterWL('th3/1');
+
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, scansie:false, stijl:false, revIdx:-1};
+var wgroups = Array.from(document.querySelectorAll('.wg'));
+var lastWord = null, clickN = 0;
+
+/* ══════════════════════════════════════════
+   WORD CLICKS
+══════════════════════════════════════════ */
+var popup = document.getElementById('popup');
+document.querySelectorAll('.lat-word').forEach(function(w) {
+  w.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (lastWord === w) { clickN++; } else {
+      if (lastWord) lastWord.classList.remove('st1','st2');
+      lastWord = w; clickN = 1;
+    }
+    w.classList.remove('st1','st2');
+    if (clickN === 1) { w.classList.add('st1'); showPopup(w, 1); updatePanel(w); }
+    else if (clickN === 2) { w.classList.add('st2'); showPopup(w, 2); }
+    else { clickN = 0; lastWord = null; hidePopup(); }
+  });
+});
+document.addEventListener('click', function() {
+  if (lastWord) { lastWord.classList.remove('st1','st2'); lastWord = null; clickN = 0; }
+  hidePopup();
+});
+
+/* ══════════════════════════════════════════
+   POPUP
+══════════════════════════════════════════ */
+function showPopup(el, click) {
+  var wl = lookupWL(el.dataset.l);
+  document.getElementById('ppWord').textContent = el.dataset.w;
+  document.getElementById('ppLemma').textContent = el.dataset.l || '';
+  var info = click === 1 ? el.dataset.d : el.dataset.s;
+  var tagClass = click === 1 ? 'tg' : 'to';
+  var tagLabel = click === 1 ? 'Det.' : 'Funct.';
+  var html = '<div class="wp-row"><span class="wp-tag ' + tagClass + '">' + tagLabel + '</span><span class="wp-val">' + info + '</span></div>';
+  html += '<div class="wp-row" style="margin-top:.25rem"><span class="wp-tag tp">NL</span><span class="wp-val">' + el.dataset.n + '</span></div>';
+  if (wl) {
+    html += '<hr class="wp-sep">';
+    var isBasis = wl.b;
+    var gv = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--magenta)' : 'var(--blue)') + ';">' + wl.g + '</span>';
+    if (isBasis) gv += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fce4f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    html += '<div class="wp-row"><span class="wp-tag tw">&#128218;</span><div>' + gv;
+    if (wl.a) html += '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>';
+    html += '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div></div></div>';
+  }
+  document.getElementById('ppContent').innerHTML = html;
+  document.getElementById('ppSep').style.display = 'none';
+  document.getElementById('ppHint').innerHTML = '';
+  var rect = el.getBoundingClientRect();
+  var top = rect.bottom + window.scrollY + 6;
+  var left = rect.left;
+  if (rect.bottom + 160 > window.innerHeight) top = rect.top + window.scrollY - 170;
+  if (left + 310 > window.innerWidth) left = window.innerWidth - 315;
+  if (left < 8) left = 8;
+  popup.style.top = top + 'px'; popup.style.left = left + 'px';
+  popup.classList.add('vis');
+}
+function hidePopup() { popup.classList.remove('vis'); }
+
+function updatePanel(w) {
+  var wl = lookupWL(w.dataset.l);
+  var wlHtml = '';
+  if (wl) {
+    var isBasis = wl.b;
+    var gv = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--magenta)' : 'var(--blue)') + ';">' + wl.g + '</span>';
+    if (isBasis) gv += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fce4f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    wlHtml = '<div class="ac-row" style="margin-top:.4rem"><span class="ac-tag tw">&#128218;</span><div>' + gv
+      + (wl.a ? '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>' : '')
+      + '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div></div></div>';
+  }
+  document.getElementById('analysisCard').innerHTML =
+    '<div class="ac-word">' + w.dataset.w + '</div>' +
+    '<div class="ac-lemma">' + (w.dataset.l||'') + '</div>' +
+    '<div class="ac-row"><span class="ac-tag tg">Det.</span><span class="ac-val">' + w.dataset.d + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag to">Funct.</span><span class="ac-val">' + w.dataset.s + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag tp">NL</span><span class="ac-val">' + w.dataset.n + '</span></div>' +
+    wlHtml;
+}
+
+/* ══════════════════════════════════════════
+   REVEAL
+══════════════════════════════════════════ */
+function toggleReveal() {
+  S.reveal = !S.reveal;
+  document.getElementById('btnReveal').classList.toggle('active', S.reveal);
+  document.getElementById('revealBar').classList.toggle('vis', S.reveal);
+  document.getElementById('latinText').classList.toggle('reveal-mode', S.reveal);
+  if (S.reveal) { S.revIdx = -1; wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); updCount(); }
+  else { wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); }
+}
+function revealNext() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0 && S.revIdx < wgroups.length) wgroups[S.revIdx].classList.remove('current');
+  S.revIdx = Math.min(S.revIdx + 1, wgroups.length - 1);
+  wgroups[S.revIdx].classList.add('revealed','current');
+  wgroups[S.revIdx].scrollIntoView({behavior:'smooth',block:'nearest'});
+  updCount();
+}
+function revealPrev() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0) {
+    wgroups[S.revIdx].classList.remove('current','revealed');
+    S.revIdx = Math.max(S.revIdx - 1, -1);
+    if (S.revIdx >= 0) wgroups[S.revIdx].classList.add('current');
+  }
+  updCount();
+}
+function revealAll() {
+  wgroups.forEach(function(g){ g.classList.add('revealed'); g.classList.remove('current'); });
+  S.revIdx = wgroups.length - 1; updCount();
+}
+function updCount() {
+  var done = document.querySelectorAll('.wg.revealed').length;
+  document.getElementById('revCount').textContent = done + ' / ' + wgroups.length;
+}
+
+/* ══════════════════════════════════════════
+   TOGGLE FUNCTIES
+══════════════════════════════════════════ */
+function toggleLines() {
+  S.lines = !S.lines;
+  document.getElementById('btnLines').classList.toggle('active', S.lines);
+  document.getElementById('plainView').classList.toggle('off', S.lines);
+  document.getElementById('numberedView').classList.toggle('on', S.lines);
+  // Scansie en stijl zijn incompatibel met numberedView
+  if (S.lines) {
+    if (S.scansie) toggleScansie();
+    if (S.stijl) toggleStijl();
+  }
+}
+function toggleInterlin() {
+  S.interlin = !S.interlin;
+  document.getElementById('btnInterlin').classList.toggle('active', S.interlin);
+  document.body.classList.toggle('interlin', S.interlin);
+  if (S.interlin) {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      if (!w.querySelector('.iln')) {
+        var sp = document.createElement('span'); sp.className = 'iln'; sp.textContent = w.dataset.n; w.appendChild(sp);
+      }
+    });
+    if (S.lines) toggleLines();
+  } else {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      var iln = w.querySelector('.iln'); if (iln) iln.remove();
+    });
+  }
+}
+function toggleTwocol() {
+  S.twocol = !S.twocol;
+  var btn = document.getElementById('btnTwocol');
+  if (btn) btn.classList.toggle('active', S.twocol);
+  document.body.classList.toggle('twocol', S.twocol);
+  if (S.twocol) renderVertaling();
+}
+function renderVertaling() {
+  var el = document.getElementById('vertaalTekst');
+  if (!el) return;
+  el.innerHTML = '<p>Terwijl het meisje dat zou sterven halsoverkop langs de oevers van de rivieren voor jou vluchtte, zag ze de reusachtige waterslang voor (haar) voeten niet, die verscholen zat op de oevers, in het hoge gras.</p><p>Maar het koor van de bosnimfen van gelijke leeftijd vulde de toppen van de bergen met gehuil; de toppen van het Rhodopegebergte huilden, de hoge Pangairon, het land van Rhesos, aan Mars gewijd; ook de Geten en de Hebros en Orithyia uit Acte.</p>';
+}
+function toggleFont() {
+  S.font = !S.font;
+  document.getElementById('btnFont').classList.toggle('active', S.font);
+  document.body.classList.toggle('font-lg', S.font);
+}
+
+/* ══════════════════════════════════════════
+   SCANSIE TOGGLE — NIEUW
+══════════════════════════════════════════ */
+function toggleScansie() {
+  S.scansie = !S.scansie;
+  var btn = document.getElementById('btnScansie');
+  if (btn) btn.classList.toggle('active', S.scansie);
+
+  var scanView = document.getElementById('scansieView');
+  var plainView = document.getElementById('plainView');
+  var sfView = document.getElementById('sfView');
+
+  if (S.scansie) {
+    // Zet plain view weg, toon scansie
+    plainView.classList.add('off');
+    scanView.classList.add('on');
+    // Stijlfiguren + regelnummers zijn incompatibel
+    if (S.stijl) { S.stijl = false; sfView.classList.remove('on'); document.getElementById('btnStijl').classList.remove('active'); }
+    if (S.lines) toggleLines();
+    if (S.interlin) toggleInterlin();
+  } else {
+    scanView.classList.remove('on');
+    plainView.classList.remove('off');
+  }
+}
+
+/* ══════════════════════════════════════════
+   STIJLFIGUREN TOGGLE — NIEUW
+══════════════════════════════════════════ */
+function toggleStijl() {
+  S.stijl = !S.stijl;
+  var btn = document.getElementById('btnStijl');
+  if (btn) btn.classList.toggle('active', S.stijl);
+
+  var sfView = document.getElementById('sfView');
+  var plainView = document.getElementById('plainView');
+  var scanView = document.getElementById('scansieView');
+
+  if (S.stijl) {
+    plainView.classList.add('off');
+    sfView.classList.add('on');
+    // Incompatibel met scansie + regelnummers
+    if (S.scansie) { S.scansie = false; scanView.classList.remove('on'); document.getElementById('btnScansie').classList.remove('active'); }
+    if (S.lines) toggleLines();
+    if (S.interlin) toggleInterlin();
+  } else {
+    sfView.classList.remove('on');
+    plainView.classList.remove('off');
+  }
+}
+
+/* ══════════════════════════════════════════
+   STIJLFIGUREN TOOLTIPS
+══════════════════════════════════════════ */
+(function() {
+  var tip = document.getElementById('sfTooltip');
+  var sfNames = {
+    allit: 'Alliteratie',
+    hyp: 'Hyperbaton',
+    chias: 'Chiasme',
+    epith: 'Epitheton ornans',
+    trikolon: 'Trikolon / accumulatie',
+    enjamb: 'Enjambement'
+  };
+
+  document.querySelectorAll('[data-sf][data-tip]').forEach(function(el) {
+    el.addEventListener('mouseenter', function(e) {
+      var sfType = el.dataset.sf;
+      var sfLabel = sfNames[sfType] || sfType;
+      tip.innerHTML = '<strong style="display:block;margin-bottom:.25rem;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;opacity:.7;">' + sfLabel + '</strong>' + el.dataset.tip;
+      tip.classList.add('vis');
+      positionTip(e);
+    });
+    el.addEventListener('mousemove', positionTip);
+    el.addEventListener('mouseleave', function() { tip.classList.remove('vis'); });
+  });
+
+  function positionTip(e) {
+    var tw = tip.offsetWidth || 280;
+    var th = tip.offsetHeight || 80;
+    var x = e.clientX + 12;
+    var y = e.clientY - th - 8;
+    if (x + tw > window.innerWidth - 8) x = e.clientX - tw - 12;
+    if (y < 8) y = e.clientY + 16;
+    tip.style.left = x + 'px';
+    tip.style.top = y + 'px';
+  }
+})();
+
+/* ══════════════════════════════════════════
+   DIDACTIEK TOGGLE
+══════════════════════════════════════════ */
+var D = { bs: false, lpd: false };
+function toggleLayer(layer) {
+  D[layer] = !D[layer];
+  var btnId = layer === 'bs' ? 'btnBs' : 'btnLpd';
+  var btn = document.getElementById(btnId);
+  if (btn) btn.classList.toggle('active', D[layer]);
+  document.querySelectorAll('.d-badge[data-layer="' + layer + '"]').forEach(function(b) {
+    b.classList.toggle('vis', D[layer]);
+  });
+}
+
+/* GRAMMATICALE NOTEN TOGGLE */
+function toggleNoten() {
+  var blk = document.getElementById('notenBlock');
+  var btn = document.getElementById('btnNoten');
+  if (!blk) return;
+  var open = blk.classList.toggle('vis');
+  if (btn) btn.classList.toggle('active', open);
+  if (open) blk.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ══════════════════════════════════════════
+   BADGE TOOLTIPS
+══════════════════════════════════════════ */
+(function annotateBadges(){
+  var TIPS = {
+    'badges-context|① Voorkennis activeren':
+      '① Voorkennis activeren: de mythe van Orpheus en Eurydice is voor leerlingen vaak bekend via popcultuur — deze context activeert en verdiept die kennis.',
+    'badges-context|WD2_03.03.01 – situeren in tijd & ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: het fragment speelt in Thracië (Rhodope, Hebros) — de geografische namen in de tekst krijgen betekenis via de contextkaart.',
+    'badges-kaart|④ Dual coding':
+      '④ Dual coding: een kaart van Thracië met Rhodope, Pangaion en Hebros maakt de accumulatie van geografische namen in v.461-463 visueel begrijpelijk.',
+    'badges-kaart|WD2_03.03.01 – situeren in tijd & ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: de geografische spreiding van de rouwkreet (bergen, volken, rivieren) toont hoe universeel Eurydices dood voelt bij Vergilius.',
+    'badges-reveal|⑤ Actieve verwerking':
+      '⑤ Actieve verwerking: de sterk hyperbatische woordvolgorde van Vergilius vraagt actieve reconstructie per woordgroep — woordgroep-voor-woordgroep onthullen maakt dat zichtbaar.',
+    'badges-reveal|⑦ Scaffolding':
+      '⑦ Scaffolding: de hyperbata (immanem … hydrum over twee verzen) en het enjambement zijn voor 4de-jaars nog uitdagend — opknippen verlicht de cognitieve belasting.',
+    'badges-reveal|WD2_03.02.01.01 – lectuurmethode toepassen':
+      'WD2_03.02.01.01 lectuurmethode toepassen: lineair lezen per kolon laat zien hoe Vergilius spanning opbouwt door het werkwoord (vidit) bewust laat te plaatsen.',
+    'badges-reveal|WD2_03.02.01 – tekst begrijpen':
+      'WD2_03.02.01 tekst begrijpen: OND–PV–LV opsporen is complex door de hyperbata — de woordgroep-aanpak geeft leerlingen houvast bij het ontwarren.',
+    'badges-noten|⑦ Scaffolding':
+      '⑦ Scaffolding: noten over moritura (part. fut.), het hyperbaton en de trikolon helpen leerlingen de Vergiliaanse stijl benoemen en niet louter ondergaan.',
+    'badges-noten|⑪ Feedback die denken aanzet':
+      '⑪ Feedback die denken aanzet: noten stellen interpretatieve vragen — waarom staat het object (hydrum) zo laat? Wat doet moritura met het pathos?',
+    'badges-noten|WD2_03.01.01 – taalsystematiek':
+      'WD2_03.01.01 taalsystematiek: participium futuri van een deponens (moritura), conj. imperf. na dum, en het hyperbaton zijn centrale taalkundige elementen in deze passage.',
+    'badges-wl|① Voorkennis activeren':
+      '① Voorkennis activeren: basiswoorden als fugere, pes, mori, herba en mons zijn voor 4de-jaars vertrouwd en helpen de tekst te ankeren.',
+    'badges-wl|⑧ Gespreide oefening':
+      '⑧ Gespreide oefening: poco-frequente poëziewoorden (hydrus, ripa, chorus, flere) worden hier in epische context aangeboden — herhaling via authentiek gebruik.',
+    'badges-wl|WD2_03.01.01 – basisvocabularium':
+      'WD2_03.01.01 basisvocabularium: ca. 7 van de 15 woorden zijn basiswoorden — solide basis voor een poëtische tekst met eigennamen en zeldzame dichterwoorden.',
+    'badges-wl|WD2_03.02.02 – betekenis geven aan teksten':
+      'WD2_03.02.02 betekenis geven aan teksten: immanis, mavortius en moritura zijn niet basaal maar semantisch transparant via Nederlandse leenwoorden (immanent, mars, mortuarium).'
+  };
+
+  var tip = document.createElement('div');
+  tip.className = 'd-tooltip';
+  document.body.appendChild(tip);
+
+  function show(badge, text) {
+    tip.textContent = text; tip.classList.add('vis');
+    var r = badge.getBoundingClientRect();
+    var tw = tip.offsetWidth, th = tip.offsetHeight, pad = 10;
+    var left = r.left + r.width/2 - tw/2;
+    left = Math.max(8, Math.min(window.innerWidth - tw - 8, left));
+    var top = r.top - th - pad;
+    if (top < 8) top = r.bottom + pad;
+    tip.style.left = (left + window.scrollX) + 'px';
+    tip.style.top = (top + window.scrollY) + 'px';
+  }
+  function hide() { tip.classList.remove('vis'); }
+
+  document.querySelectorAll('.d-badges').forEach(function(container){
+    var pid = container.id; if (!pid) return;
+    container.querySelectorAll('.d-badge').forEach(function(b){
+      var key = pid + '|' + b.textContent.trim();
+      var text = TIPS[key]; if (!text) return;
+      b.addEventListener('mouseenter', function(){ show(b, text); });
+      b.addEventListener('mouseleave', hide);
+      b.addEventListener('focus', function(){ show(b, text); });
+      b.addEventListener('blur', hide);
+    });
+  });
+})();
+
+/* KAART MODAL */
+function openKaartModal()  { document.getElementById('kaartModalOverlay').classList.add('open'); }
+function closeKaartModal() { document.getElementById('kaartModalOverlay').classList.remove('open'); }
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeKaartModal(); });
+
+/* WEERGAVE DROPDOWN */
+function toggleWeergaveMenu(e) {
+  e.stopPropagation();
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  var open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open'); btn.classList.remove('open');
+  }
+});
+
+/* Sync active state dropdown */
+var _origToggleLines = toggleLines;
+toggleLines = function() { _origToggleLines(); document.getElementById('btnLines').classList.toggle('active', S.lines); };
+var _origToggleInterlin = toggleInterlin;
+toggleInterlin = function() { _origToggleInterlin(); document.getElementById('btnInterlin').classList.toggle('active', S.interlin); };
+
+/* Scroll */
+window.addEventListener('scroll', function() {
+  var d = document.documentElement;
+  document.getElementById('scrollTop').classList.toggle('on', d.scrollTop > 280);
+});
+
+/* ══════════════════════════════════════════
+   KOLOM-RESIZER
+══════════════════════════════════════════ */
+(function(){
+  var resizer = document.getElementById('colResizer');
+  if (!resizer) return;
+  var outer = resizer.closest('.outer');
+  var dragging = false, startX, startPct;
+  function getPct() {
+    var val = getComputedStyle(document.documentElement).getPropertyValue('--col-split') || '60%';
+    return parseFloat(val);
+  }
+  resizer.addEventListener('mousedown', function(e) {
+    dragging = true; startX = e.clientX; startPct = getPct();
+    resizer.classList.add('dragging'); document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none'; e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var outerW = outer.getBoundingClientRect().width;
+    var newPct = Math.min(80, Math.max(30, startPct + (e.clientX - startX) / outerW * 100));
+    document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
+  });
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false; resizer.classList.remove('dragging');
+    document.body.style.cursor = ''; document.body.style.userSelect = '';
+  });
+  resizer.addEventListener('touchstart', function(e) {
+    dragging = true; startX = e.touches[0].clientX; startPct = getPct();
+    resizer.classList.add('dragging'); e.preventDefault();
+  }, {passive:false});
+  document.addEventListener('touchmove', function(e) {
+    if (!dragging) return;
+    var outerW = outer.getBoundingClientRect().width;
+    var newPct = Math.min(80, Math.max(30, startPct + (e.touches[0].clientX - startX) / outerW * 100));
+    document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
+  }, {passive:false});
+  document.addEventListener('touchend', function() { dragging = false; resizer.classList.remove('dragging'); });
+})();
+</script>
+</body>
+</html>
