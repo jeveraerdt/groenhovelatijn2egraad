@@ -62,10 +62,6 @@ body{font-family:var(--fb);overflow-x:hidden;background:var(--achtergrond);margi
 .weergave-chevron{transition:transform .18s;}
 #btnWeergave.open .weergave-chevron{transform:rotate(180deg);}
 
-/* PROGRESS */
-.rp{position:fixed;top:108px;left:0;right:0;height:2px;z-index:199;}
-.rp-fill{height:100%;background:var(--magenta);width:0%;transition:width .12s linear;}
-
 /* LAYOUT */
 .outer{max-width:1200px;margin:0 auto;padding:0 1.5rem;}
 .main-col{max-width:760px;margin:0 auto;padding:3rem 0 6rem;}
@@ -98,25 +94,55 @@ button.link-pill{font-size:.7rem;font-weight:500;font-family:var(--ft);letter-sp
 .extras-label{font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);}
 .extras-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:none;background:none;color:var(--accent);cursor:pointer;padding:0;opacity:.75;transition:opacity .15s,background .15s,color .15s;text-decoration:none;}
 .extras-icon:hover{opacity:1;background:#fbe6f1;}
+.extras-icon svg{width:18px;height:18px;}
+.extras-icon.active{opacity:1;background:#fbe6f1;color:var(--accent);}
+
+/* GRAMMATICALE NOTEN — verborgen tot toggle */
+.noten-block{display:none;}
+.noten-block.vis{display:block;}
 
 /* KAART MODAL */
-.kaart-modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(19,66,127,.4);z-index:450;align-items:center;justify-content:center;animation:fadeUp .2s ease both;}
-.kaart-modal-overlay.open{display:flex;}
-.kaart-modal{background:var(--wit);border-radius:12px;max-width:520px;width:90%;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 64px rgba(19,66,127,.2);}
-.kaart-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--rule);}
-.kaart-modal-title{font-family:var(--ft);font-size:.85rem;font-weight:600;color:var(--blue);letter-spacing:.04em;}
-.kaart-modal-close{background:none;border:none;padding:.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-light);transition:color .15s;}
+.kaart-modal-overlay{display:none;position:fixed;inset:0;background:rgba(19,66,127,.18);backdrop-filter:blur(2px);z-index:800;align-items:center;justify-content:center;}
+.kaart-modal-overlay.open{display:flex;animation:fadeUp .18s ease both;}
+.kaart-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;box-shadow:0 16px 48px rgba(19,66,127,.22);width:min(680px,92vw);max-height:80vh;display:flex;flex-direction:column;overflow:hidden;}
+.kaart-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);}
+.kaart-modal-title{font-family:var(--ft);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+.kaart-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.2rem;border-radius:6px;display:flex;transition:color .12s;}
 .kaart-modal-close:hover{color:var(--blue);}
-.kaart-modal-close svg{width:16px;height:16px;}
-.kaart-modal-body{flex:1;overflow-y:auto;padding:1.5rem;display:flex;align-items:center;justify-content:center;}
-.kaart-placeholder{text-align:center;color:var(--ink-light);font-family:var(--ft);font-size:.8rem;}
+.kaart-modal-close svg{width:15px;height:15px;}
+.kaart-modal-body{padding:1.5rem;overflow-y:auto;}
+.kaart-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;border:2px dashed rgba(19,66,127,.15);border-radius:10px;color:var(--ink-light);font-family:var(--ft);font-size:.82rem;}
 
-/* TEKST VIEWER */
-.latin-text{display:block;}
-.latin-para{font-family:var(--fb);font-size:1.18rem;line-height:2.3;color:var(--ink);margin-bottom:2rem;text-align:left;text-justify:inter-word;}
-.latin-para p{margin:0 0 1rem 0;}
-.latin-para p:last-child{margin-bottom:0;}
+/* LATIN TEXT */
+.latin-text{font-size:var(--fs);line-height:var(--lh);animation:fadeUp .5s .18s ease both;}
+body.font-lg .latin-text{--fs:1.35rem;--lh:2.45;}
+.latin-para{margin-bottom:2rem;}
 
+/* ── WORD GROUPS ── */
+/* Each .wg is a clickable phrase chunk */
+.wg{
+  display:inline;
+  border-radius:4px;
+  cursor:pointer;
+  transition:background .15s, outline .1s;
+  padding:1px 0;
+}
+.wg:hover{background:rgba(19,66,127,.07);}
+
+/* Reveal mode: dim everything */
+.reveal-mode .wg{
+  opacity:.12;
+  transition:opacity .3s;
+}
+.reveal-mode .wg.revealed{opacity:1;}
+.reveal-mode .wg.current{
+  opacity:1;
+  background:var(--hl);
+  outline:1px solid var(--hl-b);
+  border-radius:4px;
+}
+
+/* Word click: 1e klik = determinering (groen), 2e klik = syntaxis (oranje) */
 /* We highlight individual lat-words inside wg */
 .lat-word{
   display:inline;
@@ -263,7 +289,6 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 </head>
 <body>
 
-<div class="rp"><div class="rp-fill" id="rpFill"></div></div>
 <div class="word-popup" id="popup">
   <div class="wp-word" id="ppWord"></div>
   <div class="wp-lemma" id="ppLemma"></div>
@@ -321,6 +346,10 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
         </button>
       </div>
     </div>
+    <button class="ctrl-btn" id="btnFont" onclick="toggleFont()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12L8 4l5 8M5.5 9h5"/></svg>
+      Groter
+    </button>
   </div>
 </div>
 
@@ -498,289 +527,614 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 <span class="wg" data-wg="86"><span class="lat-word" data-w="prestabo" data-l="praestare" data-d="ind. fut. 1 enk." data-s="PV" data-n="zal verlenen">prestabo</span>.</span>
 </div>
 
-  </div>
+
+</div><!-- /plain-view -->
+
   <div class="numbered-view" id="numberedView">
-    <!-- Dit wordt door JavaScript gevuld -->
-  </div>
+    <div class="latin-line"><span class="ln">1</span><span class="lc">Et statim confirmatus cum traditoribus requisivit quid fecisset.</span></div>
+    <div class="latin-line"><span class="ln">2</span><span class="lc">At illi:</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">3</span><span class="lc">Comes iste Karolus laborat omnibus modis ad destructionem nostram,</span></div>
+    <div class="latin-line"><span class="ln">4</span><span class="lc">et ut in servos sibi nos vindicet, festinat,</span></div>
+    <div class="latin-line"><span class="ln">5</span><span class="lc">cujus traditionem jam conjuravimus,</span></div>
+    <div class="latin-line"><span class="ln">6</span><span class="lc">et debes amodo nobiscum eandem traditionem tam consilio quam opere peragere.</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">7</span><span class="lc">Igitur territus puer et totus in lacrimas fusus ait:</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">8</span><span class="lc">Absit a nobis, ut dominum nostrum tradamus et patriae consulem.</span></div>
+    <div class="latin-line"><span class="ln">9</span><span class="lc">Imo revera, si non desistitis, ego vadam et aperte traditionem vestram</span></div>
+    <div class="latin-line"><span class="ln">10</span><span class="lc">comiti et universis eloquar, nec super hoc pacto consilium vel auxilium,</span></div>
+    <div class="latin-line"><span class="ln">11</span><span class="lc">volente Deo, umquam prestabo.</span></div>
   </div>
 
-  <!-- Grammaticale noten -->
-  <div class="footnotes" id="notitiae" style="display:none;">
+  </div><!-- /latin-text -->
+
+  <div class="noten-block" id="notenBlock">
+  <div class="d-badges" id="badges-noten" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge bs" data-layer="bs">⑪ Feedback die denken aanzet</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.03 – morfologie &amp; syntaxis</span>
+  </div>
+  <div class="footnotes">
     <div class="fn-title">Grammaticale noten</div>
-    <div class="fn"><span class="fn-n">1</span><span><em>confirmatus cum traditoribus</em> — het deelwoord 'confirmatus' wordt gebruikt als adverbiale bepaling bij 'requisivit' (geregeld in latere teksten als "bevestigd/ondersteund door"), niet als predicatief adjectief. Dit geeft aan dat hij zijn handeling ondersteund door getuigen voert uit.</span></div>
-    <div class="fn"><span class="fn-n">2</span><span><em>laborat omnibus modis ad destructionem nostram, et ut... vindicet</em> — twee parallelle constructies (werkwoord + inf. finale; werkwoord + ut-zin) tonen intensiteit van voornemen aan. "op allerlei manieren" + "haast zich" versterkt het gevaar.</span></div>
-    <div class="fn"><span class="fn-n">3</span><span><em>cujus traditionem jam conjuravimus</em> — appositiaal gebruik van 'conjuravimus': de samenzwering is niet nieuw, maar een voortzetting ("wij hebben al gezworen"). Het participium 'traditionem' kan zowel 'verraad' (act.) als 'overlevering' (pass.) betekenen; hier duidelijk 'verraad'.</span></div>
-    <div class="fn"><span class="fn-n">4</span><span><em>totus in lacrimas fusus</em> — figuurlijke constructie met 'in' + accusatief: 'helemaal vervuld van tranen'. Vergelijkbaar met 'in furorem ire' (in woede ontsteken). Niet wortelijk 'in tranen storten' maar eerder 'helemaal door tranen overweldigd'.</span></div>
-    <div class="fn"><span class="fn-n">5</span><span><em>Absit a nobis, ut...</em> — optativische conjunctief: een wens uitdrukken (moge dit niet gebeuren). 'Absit' alleen kan ook imperatief zijn, maar met 'ut' wordt het duidelijk een inhoudzin na een verbum optandi.</span></div>
-    <div class="fn"><span class="fn-n">6</span><span><em>si non desistitis... ego vadam et eloquar</em> — voorwaarde + gevolg in toekomst. Let op: 'desistitis' (tegenwoordige tijd) is gebruikelijk in voorwaardezinnen, zelfs met toekomstige gevolgen.</span></div>
-    <div class="fn"><span class="fn-n">7</span><span><em>volente Deo</em> — ablativus absolutus: onafhankelijke voorwaarde die het gehele bewering nuanceert. Veel gebruikt in middeleeuws Latijn als voorbehoud (cf. moderne christelijke uitdrukkingen 'God willing').</span></div>
-    <div class="fn"><span class="fn-n">8</span><span><em>nec super hoc pacto consilium vel auxilium</em> — 'super' + abl. betekent 'betreffende/aangaande'. 'Nec... vel...' is dubbele ontkenning met disjunctie (zowel geen raad als geen hulp). Dit wordt versterkt door 'umquam' (nooit).</span></div>
+    <div class="fn"><span class="fn-n">1</span><span><em>confirmatus cum traditoribus</em> — het deelwoord 'confirmatus' wordt gebruikt als adverbiale bepaling bij 'requisivit', niet als predicatief adjectief. Dit geeft aan dat hij zijn handeling ondersteund door getuigen voert uit.</span></div>
+    <div class="fn"><span class="fn-n">2</span><span><em>laborat omnibus modis ad destructionem nostram, et ut… vindicet</em> — twee parallelle constructies (werkwoord + ad + acc.; werkwoord + ut-zin) tonen intensiteit van voornemen aan. "op allerlei manieren" + "haast zich" versterkt het gevaar.</span></div>
+    <div class="fn"><span class="fn-n">3</span><span><em>cujus traditionem jam conjuravimus</em> — appositiaal gebruik van 'conjuravimus': de samenzwering is niet nieuw, maar een voortzetting ("wij hebben al gezworen"). 'Traditionem' betekent hier duidelijk 'verraad' (actief), niet 'overlevering'.</span></div>
+    <div class="fn"><span class="fn-n">4</span><span><em>totus in lacrimas fusus</em> — figuurlijke constructie met 'in' + accusatief: 'helemaal vervuld van tranen'. Vergelijkbaar met 'in furorem ire'. Niet letterlijk 'in tranen storten' maar eerder 'helemaal door tranen overweldigd'.</span></div>
+    <div class="fn"><span class="fn-n">5</span><span><em>Absit a nobis, ut…</em> — optativische conjunctief: een wens uitdrukken (moge dit niet gebeuren). Met 'ut' wordt het duidelijk een inhoudzin na een verbum optandi.</span></div>
+    <div class="fn"><span class="fn-n">6</span><span><em>si non desistitis… ego vadam et eloquar</em> — voorwaarde + gevolg in toekomst. Let op: 'desistitis' (tegenwoordige tijd) is gebruikelijk in voorwaardezinnen, zelfs met toekomstige gevolgen.</span></div>
+    <div class="fn"><span class="fn-n">7</span><span><em>volente Deo</em> — ablativus absolutus: onafhankelijke voorwaarde die de gehele bewering nuanceert. Veel gebruikt in middeleeuws Latijn als voorbehoud (cf. moderne uitdrukking 'God willing').</span></div>
+    <div class="fn"><span class="fn-n">8</span><span><em>nec super hoc pacto consilium vel auxilium</em> — 'super' + abl. betekent 'betreffende/aangaande'. 'Nec… vel…' is dubbele ontkenning met disjunctie (zowel geen raad als geen hulp). Versterkt door 'umquam' (nooit).</span></div>
+  </div>
+  </div><!-- /noten-block -->
+
+  <!-- ══ WOORDENLIJST ══ -->
+  <div class="d-badges" id="badges-wl" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+    <span class="d-badge bs" data-layer="bs">⑧ Gespreide oefening</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – basisvocabularium</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven aan teksten</span>
+  </div>
+  <div id="woordenlijst-sectie" style="margin-top:3.5rem;padding-top:2rem;border-top:2px solid var(--rule);">
+    <div id="wlSectieLabel" style="font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;opacity:.85;">Tekst 5 · Thema 2 · 4de jaar</div>
+    <h2 style="font-family:var(--ft);font-size:1.3rem;font-weight:600;color:var(--blue);margin-bottom:.3rem;" id="wlSectieTitle">Woordenlijst</h2>
+    <p id="wlSectieInfo" style="font-family:var(--ft);font-size:.78rem;color:var(--ink-light);margin-bottom:1.5rem;">Woordenlijst wordt aangevuld woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.</p>
+    <div id="wlTable"></div>
   </div>
 
-  <!-- WOORDENLIJST SECTIE -->
-  <div id="woordenlijst-sectie" style="margin-top:4rem;padding-top:2rem;border-top:1px solid var(--rule);">
-    <div class="d-badges" id="badges-wl">
-      <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
-      <span class="d-badge bs" data-layer="bs">⑧ Gespreide oefening</span>
-      <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – basiswoordenschat</span>
-      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – woordenschatstrategieën</span>
-    </div>
-    <div class="panel-card">
-      <h3 style="color:var(--magenta);">Tekst 4 · Thema 2 — Woordenlijst (12 woorden)</h3>
-      <div id="word-list">
-        <!-- Dit wordt door JavaScript gevuld via de WL array -->
-      </div>
-      <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--rule);font-size:.78rem;color:var(--ink-light);">
-        <strong>Legenda:</strong> Woorden met <span style="background:#fbe6f1;color:var(--magenta);padding:0 3px;border-radius:3px;font-weight:bold;">●</span> zijn basiswoorden (Repertorium).
-      </div>
-    </div>
+</div><!-- /main-col -->
 
-    <!-- LET OP NOTITIES -->
-    <div class="panel-card" style="margin-top:1.5rem;">
-      <h3>Let op</h3>
-      <div class="panel-note"><span class="pn-tag">Conj.</span><em>debes... peragere</em>, <em>vadam et eloquar</em> — verschillende conjunctiefen voor verschillende intenties: gebod vs. dringende handeling.</div>
-      <div class="panel-note"><span class="pn-tag">Abl. abs.</span><em>volente Deo</em> — geheel onafhankelijk van de rest van de zin, als voorbehoud tegen grove schuld.</div>
-      <div class="panel-note"><span class="pn-tag">Trad./Rede</span><em>Comes iste Karolus laborat...</em> — indirecte rede zonder 'quod', direct in appositie. Heel Latijns en zeer Galbert van Brugge (12e eeuw).</div>
-      <div class="panel-note"><span class="pn-tag">PPP</span><em>confirmatus, territus, totus... fusus</em> — vier perfecta participia in rij; laat de snelheid en emotionele lading van de scene zien.</div>
-      <div class="panel-note"><span class="pn-tag">Fin.</span><em>ut... vindicet</em> — finale zin na 'festinat'; toont voorbereiding en dreiging. Voor 'ut'- finalezinnen: conjunctief in alle tijden.</div>
-    </div>
-  </div>
-
-</div>
-
-<div class="col-resizer" id="colResizer"></div>
+<div class="col-resizer" id="colResizer"><div class="col-resizer-handle"></div></div>
 
 <div class="side-panel" id="sidePanel">
+  <div class="analysis-card" id="analysisCard">
+    <div class="ac-empty">Klik op een woord voor grammaticahulp.</div>
+  </div>
+  <div class="panel-card" id="sidePanelVertaling">
+    <h3 style="color:var(--accent);">Vertaling</h3>
+    <div class="vertaling-tekst" id="vertaalTekst"></div>
+  </div>
   <div class="panel-card">
-    <h3>Vertaling</h3>
-    <div class="vertaling-tekst" id="vertalingTekst">
-      <p>En onmiddellijk vroeg hij bevestiging aan (lett.: met) de samenzweerders wat hij zou moeten doen. Zij antwoordden: "Die graaf Karel werkt op allerlei mogelijke manieren aan onze vernietiging, en haast zich om ons voor zichzelf als slaven op te eisen, wiens verraad wij al hebben gezworen, en jij moet ons van nu af aan datzelfde verraad met zowel raad als moeite uitvoeren."</p>
-      <p>De hevig geschrokken jongeman, helemaal in tranen vervuld, zei: "Moge het ons bespaard blijven, dat wij onze heer en de graaf van ons vaderland verraden. Waarlijk, als jullie niet ophouden, zal ik gaan en jullie samenzwering openlijk aan de graaf en de bevolking verkondigen, en ik zal nooit, bij de gunst van God, enig raad of hulp aangaande dit pact verlenen."</p>
-    </div>
-  </div>
-
-  <div class="analysis-card" id="analysisCard" style="display:none;">
-    <div class="ac-word" id="analysisWord"></div>
-    <div class="ac-lemma" id="analysisLemma"></div>
-    <div id="analysisContent"></div>
-  </div>
-
-  <div class="panel-card">
-    <h3>Lees verder</h3>
-    <p style="font-size:.82rem;line-height:1.6;color:var(--ink-mid);margin:0;">
-      Deze scene maakt deel uit van de kroniek van Galbert van Brugge, die de jaren 1127-1129 vastlegde. Zijn werk, <em>De multis &amp; variis incommoditatibus, quae evenerunt in regno Franciae…</em>, is een der meest kleurrijke bronnen over politieke intrige in de middeleeuwen.
-    </p>
+    <h3>Let op</h3>
+    <div class="panel-note"><span class="pn-tag">Conj.</span><em>debes… peragere</em>, <em>vadam et eloquar</em> — verschillende conjunctieven voor verschillende intenties: gebod vs. dringende handeling.</div>
+    <div class="panel-note"><span class="pn-tag">Abl. abs.</span><em>volente Deo</em> — geheel onafhankelijk van de rest van de zin, als voorbehoud.</div>
+    <div class="panel-note"><span class="pn-tag">Trad./Rede</span><em>Comes iste Karolus laborat…</em> — directe rede zonder aanhalingstekens. Heel Latijns en typisch Galbert van Brugge (12e eeuw).</div>
+    <div class="panel-note"><span class="pn-tag">PPP</span><em>confirmatus, territus, totus… fusus</em> — vier perfecta participia; laat snelheid en emotionele lading van de scene zien.</div>
+    <div class="panel-note"><span class="pn-tag">Fin.</span><em>ut… vindicet</em> — finale zin na 'festinat'; voor ut-finalezinnen: conjunctief in alle tijden.</div>
   </div>
 </div>
 
-</div>
-</div>
+</div><!-- /outer -->
 
-<button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12V4M4 8l4-4 4 4"/></svg>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4-4 4 4"/></svg>
 </button>
 
 <script>
-// Word list — moet nog worden gevuld met woordenlijst_volledig.js gegevens
-// Voor nu placeholder
-const WL = [
-  {g:"ut",a:"voegwoord",v:"opdat, dat, als",b:true,t:["diverse"],vol:{"4/2":1}},
-  {g:"in",a:"prepositie + acc./abl.",v:"naar, in, binnen",b:true,t:["diverse"],vol:{"4/2":2}},
-  {g:"et",a:"voegwoord",v:"en",b:true,t:["diverse"],vol:{"4/2":3}},
-  {g:"labor",a:"laborare, -avi, -atum",v:"werken, inspannen",b:false,t:["thema2"],vol:{"4/2":4}},
-  {g:"modus",a:"modus, -i (m.)",v:"wijze, manier",b:false,t:["thema2"],vol:{"4/2":5}},
-  {g:"traditio",a:"traditio, -onis (f.)",v:"overlevering, verraad",b:false,t:["thema2"],vol:{"4/2":6}},
-  {g:"comes",a:"comes, -itis (m.)",v:"graaf, metgezel",b:false,t:["thema2"],vol:{"4/2":7}},
-  {g:"territus",a:"territus (PPP)",v:"verscbrikt, bang",b:false,t:["thema2"],vol:{"4/2":8}},
-  {g:"nec",a:"voegwoord/bijwoord",v:"en niet, noch",b:true,t:["diverse"],vol:{"4/2":9}},
-  {g:"absit",a:"absum (optativisch)",v:"moge afwezig zijn, God beware",b:false,t:["thema2"],vol:{"4/2":10}},
-  {g:"dominus",a:"dominus, -i (m.)",v:"heer, meester",b:true,t:["diverse"],vol:{"4/2":11}},
-  {g:"deus",a:"deus, -i (m.)",v:"god",b:true,t:["diverse"],vol:{"4/2":12}}
+/* ══════════════════════════════════════════
+   WOORDENLIJST DATA — gefilterd voor deze tekst
+   t = teksten waarin het woord voorkomt
+   vol = volgorde per tekst
+══════════════════════════════════════════ */
+var WL = [
+  {g:"ut",a:"voegwoord",v:"opdat, dat, als",b:true,t:["th2/4"],volgorde:{"th2/4":1}},
+  {g:"in",a:"prepositie + acc./abl.",v:"naar, in, binnen",b:true,t:["th2/4"],volgorde:{"th2/4":2}},
+  {g:"et",a:"voegwoord",v:"en",b:true,t:["th2/4"],volgorde:{"th2/4":3}},
+  {g:"laborare",a:"laborare, -avi, -atum",v:"werken, inspannen",b:false,t:["th2/4"],volgorde:{"th2/4":4}},
+  {g:"modus",a:"modus, -i (m.)",v:"wijze, manier",b:false,t:["th2/4"],volgorde:{"th2/4":5}},
+  {g:"traditio",a:"traditio, -onis (f.)",v:"overlevering, verraad",b:false,t:["th2/4"],volgorde:{"th2/4":6}},
+  {g:"comes",a:"comes, -itis (m.)",v:"graaf, metgezel",b:false,t:["th2/4"],volgorde:{"th2/4":7}},
+  {g:"terrere",a:"terrere, -ui, territum",v:"verschrikken, bang maken",b:false,t:["th2/4"],volgorde:{"th2/4":8}},
+  {g:"nec",a:"voegwoord/bijwoord",v:"en niet, noch",b:true,t:["th2/4"],volgorde:{"th2/4":9}},
+  {g:"absum",a:"absum, abesse, afui",v:"afwezig zijn, ver zijn",b:false,t:["th2/4"],volgorde:{"th2/4":10}},
+  {g:"dominus",a:"dominus, -i (m.)",v:"heer, meester",b:true,t:["th2/4"],volgorde:{"th2/4":11}},
+  {g:"deus",a:"deus, -i (m.)",v:"god",b:true,t:["th2/4"],volgorde:{"th2/4":12}}
 ];
 
-const TIPS = {
-  'badges-context|① Voorkennis activeren':
-    '① Voorkennis activeren: de context activeert voorkennisover Karel de Goede en de politieke intriges in 12de-eeuwse Vlaanderen.',
-  'badges-context|WD2_03.03.01 – situeren in tijd & ruimte':
-    'WD2_03.03.01 – situeren in tijd & ruimte: het fragment laat zien hoe maatschappelijke macht en familie-loyaliteit botsen in een concrete historische crisis.',
+/* ══════════════════════════════════════════
+   WOORDENLIJST OPZOEKEN
+══════════════════════════════════════════ */
+function lookupWL(lemma) {
+  if (!lemma) return null;
+  var parts = lemma.toLowerCase().split(/[\/,\s]+/);
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (g === parts[j] || g.startsWith(parts[j])) return WL[i];
+    }
+  }
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (parts[j].length > 3 && g.includes(parts[j])) return WL[i];
+    }
+  }
+  return null;
+}
 
-  'badges-kaart|④ Dual coding':
-    '④ Dual coding: een historische kaart van Brugge en het graafschap toont waar deze samenzwering plaatsvond.',
-  'badges-kaart|WD2_03.03.01 – situeren in tijd & ruimte':
-    'WD2_03.03.01 – situeren in tijd & ruimte: geografische context (Brugge, het graafschap) geeft inzicht in de politieke haalbaarheid van de samenzwering.',
-
-  'badges-reveal|⑤ Actieve verwerking':
-    '⑤ Actieve verwerking: woordgroep-voor-woordgroep onthulling stelt leerlingen voor het dilemma van de zoon (loyaliteit vs. zelfbescherming).',
-  'badges-reveal|⑦ Scaffolding':
-    '⑦ Scaffolding: indirecte rede en appositie-constructies zijn lastig; stap-voor-stap lezen ondersteunt parsing van lange zinnen.',
-  'badges-reveal|WD2_03.02.01.01 – lectuurmethode toepassen':
-    'WD2_03.02.01.01 – lectuurmethode toepassen: lineair lezen per semantische eenheid maakt de retorische spanning tussen dreigement en moraal zichtbaar.',
-  'badges-reveal|WD2_03.02.01 – tekst begrijpen':
-    'WD2_03.02.01 – tekst begrijpen: begrijpen of de zoon zal gehoorzamen vereist volgen van mood en modaliteit (conjunctief vs. indicatief).',
-
-  'badges-noten|⑦ Scaffolding':
-    '⑦ Scaffolding: noten op conjunctief, participium en abl. abs. voorkomen dat leerlingen vastlopen op taalverschijnselen.',
-  'badges-noten|⑪ Feedback die denken aanzet':
-    '⑪ Feedback die denken aanzet: noten stellen interpretatieve vragen (waarom indirecte rede? wat betekent "volente Deo" hier?).',
-  'badges-noten|WD2_03.03 – morfologie & syntaxis':
-    'WD2_03.03 – morfologie & syntaxis: perfecta participia, appositie en abl. abs. zijn kernconstructies in deze tekst.',
-
-  'badges-wl|① Voorkennis activeren':
-    '① Voorkennis activeren: herkenning van basiswoorden (et, in, ut, nec, dominus, deus) steunt vlot lezen.',
-  'badges-wl|⑧ Gespreide oefening':
-    '⑧ Gespreide oefening: veelvoorkomende woorden als "comes", "traditio", "labor" worden hier in authentieke context herhaald.',
-  'badges-wl|WD2_03.01.01 – basiswoordenschat':
-    'WD2_03.01.01 – basiswoordenschat: 50% van de woorden zijn basiswoorden; de rest sectorvocabulaire (politiek, familie).',
-  'badges-wl|WD2_03.02.01 – woordenschatstrategieën':
-    'WD2_03.02.01 – woordenschatstrategieën: morfologische analyse (traditio ← tradere, labor ← laborare) helpt gues sing van onbekende woorden.'
+/* ══════════════════════════════════════════
+   RENDER WOORDENLIJST (hoofd + zijpaneel)
+══════════════════════════════════════════ */
+var currentTekst = 'th2/4';
+var tekstLabels = {
+  '6a/1':'Ludus 6A · Tekst 1','6a/2':'Ludus 6A · Tekst 2','6a/4':'Ludus 6A · Tekst 4','6a/7':'Ludus 6A · Tekst 7',
+  '6b/1':'Ludus 6B · Tekst 1','6b/2':'Ludus 6B · Tekst 2','6b/3':'Ludus 6B · Tekst 3','6b/4':'Ludus 6B · Tekst 4',
+  '6b/5':'Ludus 6B · Tekst 5','6b/8':'Ludus 6B · Tekst 8','6b/9':'Ludus 6B · Tekst 9',
+  '7a/1':'Ludus 7A · Tekst 1','7a/2':'Ludus 7A · Tekst 2','7a/3':'Ludus 7A · Tekst 3','7a/5':'Ludus 7A · Tekst 5',
+  '7a/6':'Ludus 7A · Tekst 6','7a/7':'Ludus 7A · Tekst 7','7a/8':'Ludus 7A · Tekst 8',
+  '7b/2':'Ludus 7B · Tekst 2','7b/4':'Ludus 7B · Tekst 4','7b/6':'Ludus 7B · Tekst 6','7b/12':'Ludus 7B · Tekst 12',
+  '8a/2':'Ludus 8A · Tekst 2','8a/3':'Ludus 8A · Tekst 3','8a/5':'Ludus 8A · Tekst 5','8a/6':'Ludus 8A · Tekst 6',
+  '8b/1':'Ludus 8B · Tekst 1','8b/3':'Ludus 8B · Tekst 3','8b/5':'Ludus 8B · Tekst 5','8b/6':'Ludus 8B · Tekst 6',
+  '8b/8':'Ludus 8B · Tekst 8','8b/9':'Ludus 8B · Tekst 9','8b/10':'Ludus 8B · Tekst 10',
+  '9a/1':'Ludus 9A · Tekst 1','9a/4':'Ludus 9A · Tekst 4',
+  '9b/3':'Ludus 9B · Tekst 3','9b/4':'Ludus 9B · Tekst 4','9b/5':'Ludus 9B · Tekst 5','9b/6':'Ludus 9B · Tekst 6',
+  '9b/7':'Ludus 9B · Tekst 7','9b/9':'Ludus 9B · Tekst 9','9b/10':'Ludus 9B · Tekst 10',
+  '10/3':'Ludus 10 · Tekst 3','10/8':'Ludus 10 · Tekst 8','10/9':'Ludus 10 · Tekst 9',
+  '10/14':'Ludus 10 · Tekst 14','10/19':'Ludus 10 · Tekst 19','10/21':'Ludus 10 · Tekst 21','10/26':'Ludus 10 · Tekst 26','th2/4':'Thema 2 · Tekst 4','th2/5':'Thema 2 · Tekst 5'
 };
 
-// FUNCTIONALITEIT — plaats onder deze script-tag
-document.addEventListener('DOMContentLoaded', () => {
-  buildWordList();
-  setupPopups();
-  setupReveal();
-  setupLayers();
-  setupTwocol();
-  setupScrollTop();
+function filterWL(tekst) {
+  currentTekst = tekst;
+  var label = tekstLabels[tekst] || tekst;
+  var filtered = WL.filter(function(w){ return w.t && w.t.indexOf(tekst) !== -1; })
+                   .sort(function(a,b){ return (a.volgorde && a.volgorde[tekst]||999) - (b.volgorde && b.volgorde[tekst]||999); });
+  // Update labels
+  var sectLabel = document.getElementById('wlSectieLabel');
+  var sectTitle = document.getElementById('wlSectieTitle');
+  var sectInfo  = document.getElementById('wlSectieInfo');
+  if (sectLabel) sectLabel.textContent = label;
+  if (sectTitle) sectTitle.textContent = 'Woordenlijst';
+  if (sectInfo)  sectInfo.innerHTML = filtered.length + ' woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.';
+  // Update side panel header
+  var spHead = document.querySelector('#sidePanelWl h3');
+  if (spHead) spHead.textContent = 'Woordenlijst — ' + label;
+  renderWLData(filtered);
+  renderWLSide(filtered);
+}
+
+function renderWLData(list) {
+  var el = document.getElementById('wlTable');
+  if (!el) return;
+  var html = '<div style="background:#fff;border:0.5px solid var(--rule);border-radius:12px;overflow:hidden;">';
+  list.forEach(function(w, i) {
+    var isLast = (i === list.length - 1);
+    var borderB = isLast ? '' : 'border-bottom:0.5px solid var(--rule);';
+    var latColor = w.b ? 'var(--magenta)' : 'var(--ink)';
+    html += '<div style="display:flex;align-items:center;gap:14px;padding:11px 16px;' + borderB + '">'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);width:28px;flex-shrink:0;text-align:right;">' + (i+1) + '</span>'
+      + '<span style="width:18px;height:18px;border-radius:50%;border:1.5px solid var(--rule);flex-shrink:0;display:inline-block;"></span>'
+      + '<span style="flex:1;min-width:0;">'
+        + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:14px;font-weight:500;color:' + latColor + ';">' + w.g + '</span>'
+        + (w.a ? '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);margin-left:.5rem;">' + w.a + '</span>' : '')
+      + '</span>'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:13px;color:var(--ink);flex:1.2;text-align:left;">' + w.v + '</span>'
+      + '<span style="font-size:16px;color:#d1d5db;flex-shrink:0;padding:2px 4px;line-height:1;">&#9734;</span>'
+      + '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderWLSide(list) {
+  var el = document.getElementById('wlSide');
+  if (!el) return;
+  var html = '';
+  var max = Math.min(20, list.length);
+  for (var i = 0; i < max; i++) {
+    var w = list[i];
+    html += '<div class="panel-word">'
+      + '<span class="pw-lat">' + w.g + (w.b ? '<span class="pw-basis">basis</span>' : '') + '</span>'
+      + '<span class="pw-nl">' + w.v.split(';')[0] + '</span>'
+      + '</div>';
+  }
+  if (list.length > 20) {
+    html += '<div style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:.7rem;color:var(--ink-light);padding:.5rem 0;text-align:center;">+ ' + (list.length - 20) + ' meer ↓ zie woordenlijst</div>';
+  }
+  el.innerHTML = html;
+}
+
+/* init woordenlijst */
+filterWL('th2/4');
+
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, revIdx:-1};
+var wgroups = Array.from(document.querySelectorAll('.wg'));
+var lastWord = null, clickN = 0;
+
+/* ══════════════════════════════════════════
+   WORD CLICKS
+══════════════════════════════════════════ */
+document.querySelectorAll('.lat-word').forEach(function(w) {
+  w.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (lastWord === w) { clickN++; } else {
+      if (lastWord) lastWord.classList.remove('st1','st2');
+      lastWord = w; clickN = 1;
+    }
+    w.classList.remove('st1','st2');
+    if (clickN === 1) {
+      w.classList.add('st1');
+      showPopup(w, 1);
+      updatePanel(w);
+    } else if (clickN === 2) {
+      w.classList.add('st2');
+      showPopup(w, 2);
+    } else {
+      clickN = 0; lastWord = null; hidePopup();
+    }
+  });
+});
+document.addEventListener('click', function() {
+  if (lastWord) { lastWord.classList.remove('st1','st2'); lastWord = null; clickN = 0; }
+  hidePopup();
 });
 
-function buildWordList() {
-  const list = document.getElementById('word-list');
-  WL.forEach(entry => {
-    const basis = entry.b ? ' <span class="pw-basis">●</span>' : '';
-    const div = document.createElement('div');
-    div.className = 'panel-word';
-    div.innerHTML = `<span class="pw-lat">${entry.g}</span><span class="pw-nl">${entry.v}${basis}</span>`;
-    list.appendChild(div);
+/* ══════════════════════════════════════════
+   POPUP
+══════════════════════════════════════════ */
+var popup = document.getElementById('popup');
+function showPopup(el, click) {
+  var wl = lookupWL(el.dataset.l);
+  document.getElementById('ppWord').textContent = el.dataset.w;
+  document.getElementById('ppLemma').textContent = el.dataset.l || '';
+
+  var info = click === 1 ? el.dataset.d : el.dataset.s;
+  var tagClass = click === 1 ? 'tg' : 'to';
+  var tagLabel = click === 1 ? 'Det.' : 'Funct.';
+  var html = '<div class="wp-row"><span class="wp-tag ' + tagClass + '">' + tagLabel + '</span><span class="wp-val">' + info + '</span></div>';
+
+  // Add NL from data-n
+  html += '<div class="wp-row" style="margin-top:.25rem"><span class="wp-tag tp">NL</span><span class="wp-val">' + el.dataset.n + '</span></div>';
+
+  // Add woordenlijst entry if found — weergave conform woordjestrainer
+  if (wl) {
+    html += '<hr class="wp-sep">';
+    var isBasis = wl.b;
+    var grondvorm = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--magenta)' : 'var(--blue)') + ';">' + wl.g + '</span>';
+    if (isBasis) grondvorm += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fce4f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    html += '<div class="wp-row"><span class="wp-tag tw">&#128218;</span><div>' + grondvorm;
+    if (wl.a) html += '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>';
+    html += '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>';
+    html += '</div></div>';
+  }
+
+  document.getElementById('ppContent').innerHTML = html;
+  document.getElementById('ppSep').style.display = 'none';
+  document.getElementById('ppHint').innerHTML = '';
+
+  // Position
+  var rect = el.getBoundingClientRect();
+  var top = rect.bottom + window.scrollY + 6;
+  var left = rect.left;
+  if (rect.bottom + 160 > window.innerHeight) top = rect.top + window.scrollY - 170;
+  if (left + 310 > window.innerWidth) left = window.innerWidth - 315;
+  if (left < 8) left = 8;
+  popup.style.top = top + 'px';
+  popup.style.left = left + 'px';
+  popup.classList.add('vis');
+}
+function hidePopup() { popup.classList.remove('vis'); }
+
+function updatePanel(w) {
+  var wl = lookupWL(w.dataset.l);
+  var wlHtml = '';
+  if (wl) {
+    var isBasis = wl.b;
+    var grondvorm = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--magenta)' : 'var(--blue)') + ';">' + wl.g + '</span>';
+    if (isBasis) grondvorm += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fce4f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    wlHtml = '<div class="ac-row" style="margin-top:.4rem"><span class="ac-tag tw">&#128218;</span><div>' + grondvorm
+      + (wl.a ? '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>' : '')
+      + '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>'
+      + '</div></div>';
+  }
+  document.getElementById('analysisCard').innerHTML =
+    '<div class="ac-word">' + w.dataset.w + '</div>' +
+    '<div class="ac-lemma">' + (w.dataset.l||'') + '</div>' +
+    '<div class="ac-row"><span class="ac-tag tg">Det.</span><span class="ac-val">' + w.dataset.d + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag to">Funct.</span><span class="ac-val">' + w.dataset.s + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag tp">NL</span><span class="ac-val">' + w.dataset.n + '</span></div>' +
+    wlHtml;
+}
+
+/* ══════════════════════════════════════════
+   REVEAL PER WOORDGROEP
+══════════════════════════════════════════ */
+function toggleReveal() {
+  S.reveal = !S.reveal;
+  document.getElementById('btnReveal').classList.toggle('active', S.reveal);
+  document.getElementById('revealBar').classList.toggle('vis', S.reveal);
+  document.getElementById('latinText').classList.toggle('reveal-mode', S.reveal);
+  if (S.reveal) {
+    S.revIdx = -1;
+    wgroups.forEach(function(g){ g.classList.remove('revealed','current'); });
+    updCount();
+  } else {
+    wgroups.forEach(function(g){ g.classList.remove('revealed','current'); });
+  }
+}
+function revealNext() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0 && S.revIdx < wgroups.length) wgroups[S.revIdx].classList.remove('current');
+  S.revIdx = Math.min(S.revIdx + 1, wgroups.length - 1);
+  wgroups[S.revIdx].classList.add('revealed','current');
+  wgroups[S.revIdx].scrollIntoView({behavior:'smooth', block:'nearest'});
+  updCount();
+}
+function revealPrev() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0) {
+    wgroups[S.revIdx].classList.remove('current','revealed');
+    S.revIdx = Math.max(S.revIdx - 1, -1);
+    if (S.revIdx >= 0) wgroups[S.revIdx].classList.add('current');
+  }
+  updCount();
+}
+function revealAll() {
+  wgroups.forEach(function(g){ g.classList.add('revealed'); g.classList.remove('current'); });
+  S.revIdx = wgroups.length - 1;
+  updCount();
+}
+function updCount() {
+  var done = document.querySelectorAll('.wg.revealed').length;
+  document.getElementById('revCount').textContent = done + ' / ' + wgroups.length;
+}
+
+/* ══════════════════════════════════════════
+   TOGGLE FUNCTIES
+══════════════════════════════════════════ */
+function toggleLines() {
+  S.lines = !S.lines;
+  document.getElementById('btnLines').classList.toggle('active', S.lines);
+  document.getElementById('plainView').classList.toggle('off', S.lines);
+  document.getElementById('numberedView').classList.toggle('on', S.lines);
+  if (S.lines && S.reveal) toggleReveal();
+}
+function toggleInterlin() {
+  S.interlin = !S.interlin;
+  document.getElementById('btnInterlin').classList.toggle('active', S.interlin);
+  document.body.classList.toggle('interlin', S.interlin);
+  if (S.interlin) {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      if (!w.querySelector('.iln')) {
+        var sp = document.createElement('span');
+        sp.className = 'iln';
+        sp.textContent = w.dataset.n;
+        w.appendChild(sp);
+      }
+    });
+    if (S.lines) toggleLines();
+  } else {
+    // Verwijder alle .iln spans én reset inline stijl op het woord
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      var iln = w.querySelector('.iln');
+      if (iln) iln.remove();
+      w.style.display = '';
+      w.style.flexDirection = '';
+      w.style.alignItems = '';
+      w.style.verticalAlign = '';
+      w.style.margin = '';
+    });
+  }
+}
+function toggleTwocol() {
+  S.twocol = !S.twocol;
+  var btn = document.getElementById('btnTwocol');
+  if (btn) btn.classList.toggle('active', S.twocol);
+  document.body.classList.toggle('twocol', S.twocol);
+  if (S.twocol) renderVertaling();
+}
+function renderVertaling() {
+  var el = document.getElementById('vertaalTekst');
+  if (!el) return;
+  el.innerHTML = `<p>En onmiddellijk vroeg hij, bevestigd door de samenzweerders, wat hij moest doen. Maar zij antwoordden:</p>
+<p>"Die graaf Karel werkt op allerlei mogelijke manieren aan onze vernietiging, en haast zich om ons voor zichzelf als slaven op te eisen — wiens verraad wij al gezworen hebben. En jij moet van nu af aan datzelfde verraad met ons, met zowel raad als daad, uitvoeren."</p>
+<p>De hevig geschrokken jongeman, helemaal in tranen, zei: "Moge het ons bespaard blijven, dat wij onze heer en de graaf van ons vaderland verraden. Integendeel, als jullie niet ophouden, zal ik gaan en jullie samenzwering openlijk aan de graaf en de bevolking verkondigen, en ik zal nooit, met Gods wil, enige raad of hulp over dit pact verlenen."</p>`;
+}
+function toggleFont() {
+  S.font = !S.font;
+  document.getElementById('btnFont').classList.toggle('active', S.font);
+  document.body.classList.toggle('font-lg', S.font);
+}
+
+/* ══════════════════════════════════════════
+   DIDACTIEK TOGGLE SYSTEEM
+══════════════════════════════════════════ */
+var D = { bs: false, lpd: false };
+
+function toggleLayer(layer) {
+  D[layer] = !D[layer];
+  var btnId = layer === 'bs' ? 'btnBs' : 'btnLpd';
+  var btn = document.getElementById(btnId);
+  if (btn) btn.classList.toggle('active', D[layer]);
+  document.querySelectorAll('.d-badge[data-layer="' + layer + '"]').forEach(function(b) {
+    b.classList.toggle('vis', D[layer]);
   });
 }
 
-function setupPopups() {
-  document.querySelectorAll('.lat-word').forEach(word => {
-    word.addEventListener('click', (e) => {
-      const w = word.dataset.w, l = word.dataset.l, d = word.dataset.d, s = word.dataset.s, n = word.dataset.n;
-      const popup = document.getElementById('popup');
-      document.getElementById('ppWord').textContent = w;
-      document.getElementById('ppLemma').textContent = l;
-      let content = `<div class="wp-row"><span class="wp-tag tg">${d}</span></div>`;
-      content += `<div class="wp-row"><span class="wp-val"><strong>Rol:</strong> ${s}</span></div>`;
-      content += `<div class="wp-row"><span class="wp-val"><strong>NL:</strong> ${n}</span></div>`;
-      document.getElementById('ppContent').innerHTML = content;
-      popup.classList.add('vis');
-      popup.style.left = e.pageX + 'px';
-      popup.style.top = (e.pageY + 10) + 'px';
+
+/* GRAMMATICALE NOTEN TOGGLE */
+function toggleNoten() {
+  var blk = document.getElementById('notenBlock');
+  var btn = document.getElementById('btnNoten');
+  if (!blk) return;
+  var open = blk.classList.toggle('vis');
+  if (btn) btn.classList.toggle('active', open);
+  if (open) blk.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* TOOLTIPS OP DIDACTIEK-BADGES — contextspecifiek per locatie + bouwsteen/LPD */
+(function annotateBadges(){
+  // Key = parent-id van .d-badges container + '|' + badge-tekst
+  var TIPS = {
+    'badges-context|① Voorkennis activeren':
+      '① Voorkennis activeren: de context activeert voorkennis over Karel de Goede en de politieke intriges in 12de-eeuwse Vlaanderen.',
+    'badges-context|WD2_03.03.01 – situeren in tijd & ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: het fragment laat zien hoe maatschappelijke macht en familie-loyaliteit botsen in een concrete historische crisis.',
+    'badges-kaart|④ Dual coding':
+      '④ Dual coding: een historische kaart van Brugge en het graafschap toont waar deze samenzwering plaatsvond.',
+    'badges-kaart|WD2_03.03.01 – situeren in tijd & ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: geografische context (Brugge, het graafschap) geeft inzicht in de politieke haalbaarheid van de samenzwering.',
+    'badges-reveal|⑤ Actieve verwerking':
+      '⑤ Actieve verwerking: woordgroep-voor-woordgroep-onthulling stelt leerlingen voor het dilemma van de zoon — loyaliteit vs. zelfbescherming.',
+    'badges-reveal|⑦ Scaffolding':
+      '⑦ Scaffolding: indirecte rede en appositie-constructies zijn lastig; stap-voor-stap lezen ondersteunt parsing van lange zinnen.',
+    'badges-reveal|WD2_03.02.01.01 – lectuurmethode toepassen':
+      'WD2_03.02.01.01 lectuurmethode toepassen: lineair lezen per semantische eenheid maakt de retorische spanning tussen dreigement en moraal zichtbaar.',
+    'badges-reveal|WD2_03.02.01 – tekst begrijpen':
+      'WD2_03.02.01 tekst begrijpen: begrijpen of de zoon zal gehoorzamen vereist volgen van mood en modaliteit (conjunctief vs. indicatief).',
+    'badges-noten|⑦ Scaffolding':
+      '⑦ Scaffolding: noten op conjunctief, participium en abl. abs. voorkomen dat leerlingen vastlopen op taalverschijnselen.',
+    'badges-noten|⑪ Feedback die denken aanzet':
+      '⑪ Feedback die denken aanzet: noten stellen interpretatieve vragen (waarom indirecte rede? wat betekent "volente Deo" hier?).',
+    'badges-noten|WD2_03.03 – morfologie & syntaxis':
+      'WD2_03.03 morfologie & syntaxis: perfecta participia, appositie en abl. abs. zijn kernconstructies in deze tekst.',
+    'badges-wl|① Voorkennis activeren':
+      '① Voorkennis activeren: herkenning van basiswoorden (et, in, ut, nec, dominus, deus) steunt vlot lezen.',
+    'badges-wl|⑧ Gespreide oefening':
+      '⑧ Gespreide oefening: veelvoorkomende woorden als "comes", "traditio", "laborare" worden hier in authentieke context herhaald.',
+    'badges-wl|WD2_03.01.01 – basisvocabularium':
+      'WD2_03.01.01 basisvocabularium: 50% van de woorden zijn basiswoorden; de rest sectorvocabulaire (politiek, familie).',
+    'badges-wl|WD2_03.02.02 – betekenis geven aan teksten':
+      'WD2_03.02.02 betekenis geven aan teksten: morfologische analyse (traditio ← tradere, laborare) helpt bij het raden van onbekende woorden.'
+  };
+
+  // Zorg voor één globale tooltip-node
+  var tip = document.createElement('div');
+  tip.className = 'd-tooltip';
+  document.body.appendChild(tip);
+
+  function show(badge, text) {
+    tip.textContent = text;
+    tip.classList.add('vis');
+    var r = badge.getBoundingClientRect();
+    var tw = tip.offsetWidth;
+    var th = tip.offsetHeight;
+    var pad = 10;
+    var left = r.left + r.width/2 - tw/2;
+    left = Math.max(8, Math.min(window.innerWidth - tw - 8, left));
+    var top = r.top - th - pad;
+    if (top < 8) top = r.bottom + pad; // klap onder als bovenaan
+    tip.style.left = (left + window.scrollX) + 'px';
+    tip.style.top  = (top  + window.scrollY) + 'px';
+  }
+  function hide() { tip.classList.remove('vis'); }
+
+  document.querySelectorAll('.d-badges').forEach(function(container){
+    var pid = container.id;
+    if (!pid) return;
+    container.querySelectorAll('.d-badge').forEach(function(b){
+      var key = pid + '|' + b.textContent.trim();
+      var text = TIPS[key];
+      if (!text) return;
+      b.addEventListener('mouseenter', function(){ show(b, text); });
+      b.addEventListener('mouseleave', hide);
+      b.addEventListener('focus',      function(){ show(b, text); });
+      b.addEventListener('blur',       hide);
     });
   });
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.lat-word')) {
-      document.getElementById('popup').classList.remove('vis');
-    }
-  });
-}
+})();
 
-function setupReveal() {
-  const wgs = document.querySelectorAll('.wg');
-  const revealBar = document.getElementById('revealBar');
-  let currentWg = -1;
-  revealBar.classList.add('vis');
-  document.getElementById('revCount').textContent = '0 / ' + wgs.length;
-  
-  window.revealNext = () => {
-    if (currentWg + 1 < wgs.length) {
-      wgs[++currentWg].style.visibility = 'visible';
-      document.getElementById('revCount').textContent = (currentWg + 1) + ' / ' + wgs.length;
-    }
-  };
-  window.revealPrev = () => {
-    if (currentWg >= 0) {
-      wgs[currentWg--].style.visibility = 'hidden';
-      document.getElementById('revCount').textContent = (currentWg + 1) + ' / ' + wgs.length;
-    }
-  };
-  window.revealAll = () => {
-    wgs.forEach(w => w.style.visibility = 'visible');
-    currentWg = wgs.length - 1;
-    document.getElementById('revCount').textContent = wgs.length + ' / ' + wgs.length;
-  };
-  wgs.forEach(w => w.style.visibility = 'hidden');
-}
+/* KAART MODAL */
+function openKaartModal()  { document.getElementById('kaartModalOverlay').classList.add('open'); }
+function closeKaartModal() { document.getElementById('kaartModalOverlay').classList.remove('open'); }
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeKaartModal(); });
 
-function setupLayers() {
-  window.toggleLayer = (layer) => {
-    const badges = document.querySelectorAll('.d-badge.' + layer);
-    badges.forEach(b => b.classList.toggle('vis'));
-  };
-  window.toggleReveal = () => {
-    document.getElementById('revealBar').classList.toggle('vis');
-  };
-}
-
-function setupTwocol() {
-  window.toggleTwocol = () => {
-    document.body.classList.toggle('twocol');
-  };
-  window.toggleLines = () => {
-    document.body.classList.toggle('lined');
-    document.getElementById('plainView').style.display = document.body.classList.contains('lined') ? 'none' : 'block';
-    document.getElementById('numberedView').style.display = document.body.classList.contains('lined') ? 'block' : 'none';
-  };
-  window.toggleInterlin = () => {
-    document.body.classList.toggle('interlin');
-  };
-}
-
-function setupScrollTop() {
-  const btn = document.getElementById('scrollTop');
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('on', window.scrollY > 300);
-  });
-}
-
-window.scrollToTop = () => {
-  window.scrollTo({top: 0, behavior: 'smooth'});
-};
-
-window.toggleWeergaveMenu = (e) => {
-  const menu = document.getElementById('weergaveMenu');
-  menu.classList.toggle('open');
+/* WEERGAVE DROPDOWN */
+function toggleWeergaveMenu(e) {
   e.stopPropagation();
-};
-
-window.toggleNoten = () => {
-  const noten = document.getElementById('notitiae');
-  noten.style.display = noten.style.display === 'none' ? 'block' : 'none';
-};
-
-window.closeKaartModal = () => {
-  document.getElementById('kaartModalOverlay').classList.remove('open');
-};
-
-// Progress bar
-window.addEventListener('scroll', () => {
-  const h = document.documentElement.scrollHeight - window.innerHeight;
-  const fill = document.getElementById('rpFill');
-  if (fill) fill.style.width = (window.scrollY / h * 100) + '%';
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  var open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+  }
 });
 
-// Tooltip system
-const badges = document.querySelectorAll('.d-badge');
-badges.forEach(badge => {
-  badge.addEventListener('mouseenter', (e) => {
-    const parent = badge.closest('[id]');
-    if (!parent) return;
-    const key = parent.id + '|' + badge.textContent.trim();
-    const tip = TIPS[key];
-    if (tip) {
-      const tooltip = document.createElement('div');
-      tooltip.className = 'd-tooltip vis';
-      tooltip.textContent = tip;
-      badge.appendChild(tooltip);
-      setTimeout(() => tooltip.remove(), 3000);
-    }
+/* Sync active state inside dropdown */
+var _origToggleLines = toggleLines;
+toggleLines = function() { _origToggleLines(); document.getElementById('btnLines').classList.toggle('active', S.lines); };
+var _origToggleInterlin = toggleInterlin;
+toggleInterlin = function() { _origToggleInterlin(); document.getElementById('btnInterlin').classList.toggle('active', S.interlin); };
+
+/* Scroll */
+window.addEventListener('scroll', function() {
+  var d = document.documentElement;
+  var pct = d.scrollTop / (d.scrollHeight - d.clientHeight);
+  document.getElementById('scrollTop').classList.toggle('on', d.scrollTop > 280);
+});
+
+/* ══════════════════════════════════════════
+   KOLOM-RESIZER (drag to resize)
+══════════════════════════════════════════ */
+(function(){
+  var resizer = document.getElementById('colResizer');
+  if (!resizer) return;
+  var outer = resizer.closest('.outer');
+  var dragging = false;
+  var startX, startPct;
+
+  function getPct() {
+    var val = getComputedStyle(document.documentElement).getPropertyValue('--col-split') || '60%';
+    return parseFloat(val);
+  }
+
+  resizer.addEventListener('mousedown', function(e) {
+    dragging = true;
+    startX = e.clientX;
+    startPct = getPct();
+    resizer.classList.add('dragging');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
   });
-});
-</script>
 
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var outerW = outer.getBoundingClientRect().width;
+    var delta = e.clientX - startX;
+    var newPct = Math.min(80, Math.max(30, startPct + (delta / outerW) * 100));
+    document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
+  });
+
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    resizer.classList.remove('dragging');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+  });
+
+  /* Touch support */
+  resizer.addEventListener('touchstart', function(e) {
+    dragging = true;
+    startX = e.touches[0].clientX;
+    startPct = getPct();
+    resizer.classList.add('dragging');
+    e.preventDefault();
+  }, {passive: false});
+
+  document.addEventListener('touchmove', function(e) {
+    if (!dragging) return;
+    var outerW = outer.getBoundingClientRect().width;
+    var delta = e.touches[0].clientX - startX;
+    var newPct = Math.min(80, Math.max(30, startPct + (delta / outerW) * 100));
+    document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
+  }, {passive: false});
+
+  document.addEventListener('touchend', function() {
+    dragging = false;
+    resizer.classList.remove('dragging');
+  });
+})();
+
+</script>
 </body>
 </html>
