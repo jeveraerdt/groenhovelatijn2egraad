@@ -18,18 +18,16 @@
   }
 
   :root {
-    /* Jaarkleur + achtergrond */
-    --jaar-kleur: #65b32e;            /* Vital Green — 4de jaar */
-    --accent: #FF3B1D;                /* Waregem Pulse Red */
-    --achtergrond: #e0efd5;           /* Vital Green @ 20% op wit */
+    --jaar-kleur: #65b32e;
+    --accent: #FF3B1D;
+    --achtergrond: #e0efd5;
     --wit: #f3f1ef;
     --zwart: #010100;
     --tekst-zacht: #5a6b4a;
     --rand: #c8d4c0;
     --radius: 12px;
-
-    --ft: 'Flanders Art Sans', Arial, sans-serif;   /* titels */
-    --fb: 'Noto Sans', Arial, sans-serif;           /* body */
+    --ft: 'Flanders Art Sans', Arial, sans-serif;
+    --fb: 'Noto Sans', Arial, sans-serif;
   }
 
   * { box-sizing: border-box; }
@@ -44,7 +42,7 @@
     flex-direction: column;
   }
 
-  /* ══════════════════════════════════ MERKLINT ══════════════════════════════════ */
+  /* ══ MERKLINT ══ */
   .site-header {
     background: var(--jaar-kleur);
     color: var(--wit);
@@ -72,7 +70,7 @@
     margin-left: auto;
   }
 
-  /* ══════════════════════════════════ TOOLBAR ══════════════════════════════════ */
+  /* ══ TOOLBAR ══ */
   .site-toolbar {
     background: var(--wit);
     border-bottom: 1px solid var(--rand);
@@ -101,14 +99,14 @@
     transition: background .15s, border-color .15s, color .15s;
   }
   .back-btn:hover, .ctrl-btn:hover {
-    background: #ffea3d;              /* Balanced Yellow — hover-accent 4de jaar */
-    color: #006633;                   /* Deep Forest — leesbaar op geel */
+    background: #ffea3d;
+    color: #006633;
     border-color: #ffea3d;
   }
   .back-btn svg { width: 14px; height: 14px; }
   .topbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .4rem; }
 
-  /* ══════════════════════════════════ CONTENT ══════════════════════════════════ */
+  /* ══ CONTENT ══ */
   .content-wrap {
     flex: 1;
     padding: 2rem 1.5rem 3rem;
@@ -224,7 +222,7 @@
 <body>
 
 <header class="site-header">
-<img class="logo" src="../images/nav/logo_mono_wit.png" alt="Groenhove">
+  <img class="logo" src="../images/nav/logo_mono_wit.png" alt="Groenhove">
   <h1>Teksten</h1>
   <span class="sub">S.O. Groenhove Waregem</span>
 </header>
@@ -253,23 +251,23 @@
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 1</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 2</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 3</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
     </div>
   </div>
@@ -283,37 +281,37 @@
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 1</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 2</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 3</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 4</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
-      <a class="tekst-kaart coming-soon" href="#">
-        <span class="kaart-badge">Binnenkort</span>
+      <!-- TEKST 5 — ACTIEF -->
+      <a class="tekst-kaart" href="tekst5-thema2-4de.html">
         <div class="kaart-meta">Tekst 5</div>
-        <div class="kaart-titel">—</div>
-        <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-titel">De aanslag op Karel de Goede</div>
+        <div class="kaart-auteur">Galbert van Brugge</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
     </div>
   </div>
@@ -327,23 +325,23 @@
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 1</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 2</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
       <a class="tekst-kaart coming-soon" href="#">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 3</div>
-        <div class="kaart-titel">—</div>
+        <div class="kaart-titel">&mdash;</div>
         <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">›</div>
+        <div class="kaart-pijl">&#8250;</div>
       </a>
     </div>
   </div>
