@@ -10,7 +10,8 @@
 <style>
   @font-face {
     font-family: 'Flanders Art Sans';
-    src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+    src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.woff2') format('woff2'),
+         url('../fonts/flanders-art-sans/FlandersArtSans-Bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -23,7 +24,7 @@
     --achtergrond: #e0efd5;
     --wit: #f3f1ef;
     --zwart: #010100;
-    --tekst-zacht: #5a6b4a;
+    --tekst-zacht: #6b7280;
     --rand: #c8d4c0;
     --radius: 12px;
 
@@ -31,9 +32,8 @@
     --fb: 'Noto Sans', Arial, sans-serif;
   }
 
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    margin: 0;
     font-family: var(--fb);
     background: var(--achtergrond);
     color: var(--zwart);
@@ -44,7 +44,12 @@
 
   /* ══════════════════════════════════ HERO ══════════════════════════════════ */
   .hero { width: 100%; position: relative; flex-shrink: 0; background: transparent; }
-  .hero-inhoud { position: relative; z-index: 1; padding: 3.5rem 2rem 3rem; text-align: center; }
+  .hero-inhoud {
+    position: relative;
+    z-index: 1;
+    padding: 3.5rem 2rem 3rem;
+    text-align: center;
+  }
   .hero h1 {
     font-family: var(--ft);
     font-size: 38px;
@@ -53,7 +58,7 @@
     line-height: 1.2;
     margin-bottom: 5px;
   }
-  .hero h1 .latijn { color: var(--jaar-kleur); }
+  .hero h1 .themas { color: var(--jaar-kleur); }
   .hero h1 .jaar { color: rgba(101, 179, 46, 0.6); }
   .hero .ondertitel {
     font-size: 13px;
@@ -64,9 +69,27 @@
   .school-logo {
     width: 44px;
     height: auto;
-    margin: 10px auto 0;
+    margin-top: 10px;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+  /* ══════════════════════════════════ TERUG ══════════════════════════════════ */
+  .terug-wrap {
+    padding: 1.25rem 2rem 0;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .terug-link {
+    font-size: 12px;
+    color: var(--tekst-zacht);
+    text-decoration: none;
+    font-family: var(--fb);
+    transition: color 0.15s ease;
+  }
+  .terug-link:hover { color: var(--jaar-kleur); }
 
   /* ══════════════════════════════════ CONTENT ══════════════════════════════════ */
   .content-wrap {
@@ -76,16 +99,6 @@
     margin: 0 auto;
     padding: 1.5rem 2rem 3rem;
   }
-  .terug {
-    display: inline-block;
-    font-family: var(--fb);
-    font-size: .9rem;
-    color: var(--tekst-zacht);
-    text-decoration: none;
-    margin-bottom: 1.5rem;
-    transition: color .15s;
-  }
-  .terug:hover { color: var(--jaar-kleur); }
 
   /* ══════════════════════════════════ TEGELS ══════════════════════════════════ */
   .tegel-grid {
@@ -156,22 +169,29 @@
     font-size: 12px;
     color: var(--tekst-zacht);
   }
+
+  @media (max-width: 640px) {
+    .hero-inhoud { padding: 3rem 1.25rem 2.5rem; }
+    .hero h1 { font-size: 32px; }
+    .terug-wrap, .content-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .tegel-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
 <div class="hero">
   <div class="hero-inhoud">
-    <h1><span class="latijn">Latijn</span> <span class="jaar">4de jaar</span></h1>
-    <p class="ondertitel">S.O. Groenhove campus Atheneum</p>
-    <img class="school-logo" src="images/nav/logo.svg" alt="Groenhove">
+  <h1><span class="themas">Thema's</span></h1>    <p class="ondertitel">S.O. Groenhove campus Atheneum</p>
+    <img class="school-logo" src="../images/nav/logo.svg" alt="Groenhove">
   </div>
 </div>
 
+<div class="terug-wrap">
+  <a class="terug-link" href="index.html">&#8592; Terug naar 4de jaar</a>
+</div>
+
 <div class="content-wrap">
-
-  <a class="terug" href="index.html">← Terug naar Latijn</a>
-
   <div class="tegel-grid">
 
     <a class="tegel" href="cultuur.html">
@@ -193,7 +213,6 @@
     </a>
 
   </div>
-
 </div>
 
 <p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum</p>
