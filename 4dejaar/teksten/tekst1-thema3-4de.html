@@ -144,96 +144,141 @@ body.interlin .lat-word .iln{display:block;font-family:var(--ft);font-size:.52em
 .lc{flex:1;}
 
 /* ══════════════════════════════════════════
-   SCANSIE WEERGAVE
-   Elke hexametervoet wordt gemarkeerd.
-   .scan-d = dactylus, .scan-s = spondeus
-   .scan-word is de container per syllabe-groep
+   SCANSIE WEERGAVE — klassieke notatie
+   Syllaben met – (lang) en ∪ (kort) boven
+   de tekst, cesuren als |
 ══════════════════════════════════════════ */
 .scansie-view{display:none;}
 .scansie-view.on{display:block;margin-bottom:2rem;animation:fadeUp .3s ease both;}
 
+/* Eén vers = twee rijen: tekens + tekst */
 .scan-line{
+  display:table;
+  border-collapse:separate;
+  border-spacing:0;
+  margin-bottom:2.6rem;
   font-family:var(--fb);
   font-size:var(--fs);
-  line-height:1;
-  margin-bottom:2.8rem;
   position:relative;
 }
-.scan-line-nr{
-  font-family:var(--ft);font-size:.6rem;color:#ccc;
-  position:absolute;left:-2rem;top:.15rem;user-select:none;
+.scan-row-marks{display:table-row;}
+.scan-row-text {display:table-row;}
+
+/* Elke syllabe is een tabelcel */
+.scan-syl{
+  display:table-cell;
+  text-align:center;
+  padding:0 .08rem;
+  vertical-align:bottom;
+  white-space:pre;
+}
+/* Tekens-rij: – en ∪ */
+.scan-syl .mark{
+  display:block;
+  font-size:1.05em;
+  line-height:1.1;
+  color:var(--ink);
+  font-family:serif;   /* klassieke look */
+  letter-spacing:0;
+  text-align:center;
+  min-width:.6em;
+}
+/* Tekst-rij: de letters zelf */
+.scan-syl .lett{
+  display:block;
+  line-height:1.8;
+  text-align:center;
+  font-family:var(--fb);
+  font-size:inherit;
+  color:var(--ink);
 }
 
-/* Voeten: inline-flex voor syllabe-labels boven de tekst */
-.scan-foot{
-  display:inline-flex;
-  flex-direction:column;
-  align-items:stretch;
+/* Kleur: long syllabe = blauw, kort = roze */
+.scan-syl.lon .mark{color:var(--dact);}
+.scan-syl.sho .mark{color:var(--spon);}
+.scan-syl.anc .mark{color:var(--ink-light);}  /* anceps (×) */
+
+/* Cesuur-cel */
+.scan-ces-cel{
+  display:table-cell;
   vertical-align:bottom;
+  padding:0 .1rem;
   position:relative;
-  padding-bottom:.15rem;
 }
-.scan-foot-label{
+.scan-ces-cel .mark{
+  display:block;
+  font-size:1.1em;
+  line-height:1.1;
+  color:var(--ces-color);
+  font-weight:700;
+  text-align:center;
+}
+.scan-ces-cel .lett{
+  display:block;
+  line-height:1.8;
+  font-size:inherit;
+  color:transparent;   /* onzichtbaar spacer */
+  user-select:none;
+}
+/* Cesuur-naam tooltip */
+/* cesuur-naam uitgeschakeld */
+.scan-ces-cel[data-ces]::before{ content:none; }
+
+/* Voetscheider (|) = ook table-cell maar lighter */
+.scan-div-cel{
+  display:table-cell;
+  vertical-align:bottom;
+  padding:0 .05rem;
+}
+.scan-div-cel .mark{
+  display:block;
+  font-size:1.1em;
+  line-height:1.1;
+  color:var(--ink-light);
+  text-align:center;
+}
+.scan-div-cel .lett{
+  display:block;
+  line-height:1.8;
+  font-size:inherit;
+  color:transparent;
+  user-select:none;
+}
+
+/* Voetnummer boven elke voet — als extra rij */
+.scan-foot-nr{
+  display:table-cell;
+  text-align:center;
+  vertical-align:bottom;
   font-family:var(--ft);
   font-size:.58rem;
   font-weight:700;
-  letter-spacing:.04em;
-  text-align:center;
-  padding:.08rem .2rem;
-  border-radius:4px 4px 0 0;
-  line-height:1.2;
-  white-space:nowrap;
+  color:var(--ink-light);
+  padding-bottom:.15rem;
+  letter-spacing:.02em;
 }
-.scan-foot.d .scan-foot-label{background:var(--dact);color:#fff;}
-.scan-foot.s .scan-foot-label{background:var(--spon);color:#fff;}
-
-/* De tekst zelf in de voet */
-.scan-foot-text{
-  font-family:var(--fb);
-  font-size:inherit;
-  line-height:1.7;
-  padding:0 .15rem;
-  border-bottom:2.5px solid transparent;
-  display:block;
-}
-.scan-foot.d .scan-foot-text{border-color:var(--dact);}
-.scan-foot.s .scan-foot-text{border-color:var(--spon);}
-
-/* Cesuur */
-.scan-ces{
-  display:inline-block;
-  vertical-align:bottom;
-  width:0;
-  height:1.5em;
-  border-left:2px dashed var(--ces-color);
-  position:relative;
-  margin:0 3px;
-}
-.scan-ces::after{
-  content:attr(data-label);
-  position:absolute;
-  bottom:calc(100% + 2px);
-  left:50%;
-  transform:translateX(-50%);
-  font-family:var(--ft);
-  font-size:.52rem;
-  font-weight:700;
-  color:var(--ces-color);
-  white-space:nowrap;
-  background:var(--wit);
-  padding:0 .2rem;
+/* Lege cel voor | en ‖ in de nummers-rij */
+.scan-nr-empty{
+  display:table-cell;
+  padding:0 .05rem;
 }
 
-/* Scansie legenda */
+/* Versnummer links */
+.scan-line-nr{
+  font-family:var(--ft);font-size:.6rem;color:#bbb;
+  display:block;margin-bottom:.3rem;
+}
+
+/* Legenda */
 .scan-legenda{
-  display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center;
-  margin-bottom:1.5rem;
-  font-family:var(--ft);font-size:.7rem;
-  padding:.6rem 1rem;
+  display:flex;gap:1.4rem;flex-wrap:wrap;align-items:center;
+  margin-bottom:1.8rem;
+  font-family:var(--ft);font-size:.72rem;
+  padding:.65rem 1.1rem;
   background:var(--paper);border:1px solid var(--rule);border-radius:8px;
 }
-.scan-leg-item{display:flex;align-items:center;gap:.35rem;}
-.scan-leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.scan-leg-item{display:flex;align-items:center;gap:.4rem;}
+.scan-leg-mark{font-family:serif;font-size:1.1em;font-weight:normal;}
 
 /* ══════════════════════════════════════════
    STIJLFIGUREN WEERGAVE
@@ -452,7 +497,7 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   <div class="text-header">
     <div class="text-meta">Thema 3 · Tekst 1 · 4de jaar</div>
     <h1 class="text-title">SSSluipmoord</h1>
-    <div class="text-sub">naar P. Vergilius Maro, <em>Georgica</em> IV, 457–463 · de dood van Eurydice</div>
+    <div class="text-sub">naar Vergilius, <em>Georgica</em> IV, 457–463 · de dood van Eurydice</div>
   </div>
 
   <div class="context-block" data-bs="1" data-lpd="WD2_03.03.01">
@@ -596,72 +641,67 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
     <div class="latin-line"><span class="ln">459</span><span class="lc">servantem ripas alta non vidit in herba.</span></div>
     <div class="latin-line"><span class="ln">460</span><span class="lc">At chorus aequalis Dryadum clamore supremos</span></div>
     <div class="latin-line"><span class="ln">461</span><span class="lc">implerunt montes; flerunt Rhodopeiae arces</span></div>
-    <div class="latin-line"><span class="ln">462</span><span class="lc">altaque Pangaea et Rhesi mavortia tellus</span></div>
-    <div class="latin-line"><span class="ln">463</span><span class="lc">atque Getae atque Hebrus et Actias Orithyia.</span></div>
-  </div>
-
-  <!-- ══ SCANSIE VIEW ══ -->
+    <div class="latin-line"><span class="ln">462</span><span class="lc">altaque Pangaea et Rhesi mavortia tellus</spa  <!-- ══ SCANSIE VIEW ══ -->
   <div class="scansie-view" id="scansieView">
     <div class="scan-legenda">
       <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Legende</span>
-      <span class="scan-leg-item"><span class="scan-leg-dot" style="background:var(--dact);"></span>dactylus (– ∪ ∪)</span>
-      <span class="scan-leg-item"><span class="scan-leg-dot" style="background:var(--spon);"></span>spondeus (– –)</span>
-      <span class="scan-leg-item"><span class="scan-leg-dot" style="border:2px dashed var(--ces-color);background:transparent;height:12px;width:2px;border-radius:0;"></span>cesuur</span>
+      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--dact);font-size:1.1em;">–</span> lange lettergreep</span>
+      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--spon);font-size:1.1em;">∪</span> korte lettergreep</span>
+      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ink-light);font-size:1.1em;">×</span> anceps (vrij)</span>
+      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ink-light);">|</span> voetgrens</span>
+      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ces-color);">‖</span> cesuur</span>
     </div>
-    <!-- Vers 457: Il-la qui-dem dum te fu-ge-ret per flu-mi-na prae-ceps
-         D    S      D       D        S     S(anceps)
-         Illa-qui-dem | dum-te | fu-ge-ret | per-flu-mi-na | prae-ceps
-         D(Illa quidem) S(dum te) D(fugeret) D(per flumina) Sp(praeceps)
-         Werkelijke scansie (Georgica 4.457):
-         Il-lă quĭ-dem / dum tē fŭ-gĕ-ret / per flū-mĭ-nă / praē-cēps
-         D(Illă quĭ-) S(dem dum) D(tē fŭgĕ-) D(ret per flū-) S(mĭnă praē-) S(cēps) — nee
-         
-         Correct: Dactylische hexameter, elke voet als blok weergeven -->
     <div class="scan-line">
       <span class="scan-line-nr">457</span>
-      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">Il-la-qui-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">dem,</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">dum te fu-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">ge-ret</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">per flu-mi-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">na praeceps</span></span>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody>
+        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
+        <tr class="scan-row-text"><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Il-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">la</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">qui-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dem,</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dum</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">fu-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ge-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ret</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">per</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">flu-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mi-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">na</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">prae-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ceps</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr>
+      </tbody></table>
     </div>
-    <!-- Vers 458: im-ma-nem an-te pe-des hyd-rum mo-ri-tu-ra pu-el-la
-         Im-mānem | an-te pĕ-des | hȳd-rum mŏ-rĭ-tū-rā | pŭ-el-lā
-         S(imma-) D(nem an-te) D(pedes hyd-) D(rum mori-) S(tura pu-) S(ella) -->
     <div class="scan-line">
       <span class="scan-line-nr">458</span>
-      <span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">im-ma-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">nem an-te</span></span><span class="scan-ces" data-label="trithemimeres"></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">pe-des hyd-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">rum mo-ri-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">tu-ra pu-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">el-la</span></span>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody>
+        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
+        <tr class="scan-row-text"><td class="scan-syl lon"><span class="mark">–</span><span class="lett">im-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mā-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">nem</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">an-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">te</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pe-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">des</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">hyd-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">rum</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">mo-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ri-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tu-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ra</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pu-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">el-la</span></td></tr>
+      </tbody></table>
     </div>
-    <!-- Vers 459: ser-van-tem ri-pas al-ta non vi-dit in her-ba
-         Sēr-van-tem | rī-pas al-ta | nōn vī-dit | in hēr-bā
-         D(servan-) S(tem ri-) D(pas al-ta) S(non vi-) S(dit in) S(her-ba) -->
     <div class="scan-line">
       <span class="scan-line-nr">459</span>
-      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">ser-van-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">tem ri-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">pas al-ta</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">non vi-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">dit in</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">her-ba</span></span>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody>
+        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
+        <tr class="scan-row-text"><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ser-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">van-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">tem</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pas</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">non</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">vi-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dit</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">in</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">her-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ba</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr>
+      </tbody></table>
     </div>
-    <!-- Vers 460: at cho-rus ae-qua-lis dry-a-dum cla-mo-re su-pre-mos
-         At chŏ-rus | aē-quā-lis | Drȳ-ă-dum | clā-mō-re sŭ-prē-mos
-         S(at cho-) D(rus ae-) S(qua-lis) D(Dry-a-) D(dum cla-) S(mo-re su-pre-mos) -->
     <div class="scan-line">
       <span class="scan-line-nr">460</span>
-      <span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">at cho-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">rus ae-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">qua-lis</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">Dry-a-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">dum cla-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">mo-re su-pre-mos</span></span>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody>
+        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
+        <tr class="scan-row-text"><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">cho-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">rus</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ae-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">qua-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">lis</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Dry-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">a-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">dum</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">cla-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mo-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">re</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">su-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pre-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mos</span></td></tr>
+      </tbody></table>
     </div>
-    <!-- Vers 461: im-ple-runt mon-tes; fle-runt Rho-do-pe-iae ar-ces
-         Im-plē-runt | mōn-tēs; | flē-runt Rhō-dō-pē-iae | ār-cēs
-         D(im-ple-) S(runt mon-) S(tes fle-) D(runt Rho-) D(do-pe-i-) S(ae ar-ces) -->
     <div class="scan-line">
       <span class="scan-line-nr">461</span>
-      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">im-ple-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">runt mon-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">tes; fle-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">runt Rho-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">do-pe-i-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">ae ar-ces</span></span>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody>
+        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
+        <tr class="scan-row-text"><td class="scan-syl lon"><span class="mark">–</span><span class="lett">im-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ple-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">runt</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mon-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tes;</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">fle-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">runt</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Rho-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">do-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">pe-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">i-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ae</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ar-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ces</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr>
+      </tbody></table>
     </div>
-    <!-- Vers 462: al-ta-que Pan-ga-ea et Rhe-si ma-vor-ti-a tel-lus
-         Al-tă-que | Pān-gaē-a | ēt Rhē-sī | mā-vōr-tĭ-ă | tel-lus
-         D(al-ta-) D(que Pan-) S(ga-ea) S(et Rhe-) D(si ma-) S(vor-ti-a tel-lus) -->
     <div class="scan-line">
       <span class="scan-line-nr">462</span>
-      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">al-ta-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">que Pan-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">ga-ea</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">et Rhe-</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">si ma-vor-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">ti-a tel-lus</span></span>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody>
+        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
+        <tr class="scan-row-text"><td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">que</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Pan-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ga-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">e-a</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Rhe-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">si</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ma-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">vor-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">a</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tel-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">lus</span></td></tr>
+      </tbody></table>
     </div>
-    <!-- Vers 463: at-que Ge-tae at-que Heb-rus et Ac-ti-as O-ri-thy-ia
-         At-que Gĕ-tae | ăt-que Hĕb-rus | ēt Āc-tĭ-ăs | Ō-rĭ-thȳ-ĭ-ă
-         D(at-que ge-) S(tae at-) D(que Heb-) S(rus et) D(Ac-ti-) S(as O-ri-thy-ia) -->
     <div class="scan-line">
       <span class="scan-line-nr">463</span>
-      <span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">at-que Ge-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">tae at-</span></span><span class="scan-ces" data-label="penthemimeres"></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">que Heb-</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">rus et</span></span><span class="scan-foot d"><span class="scan-foot-label">D</span><span class="scan-foot-text">Ac-ti-as</span></span><span class="scan-foot s"><span class="scan-foot-label">S</span><span class="scan-foot-text">O-ri-thy-ia</span></span>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody>
+        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
+        <tr class="scan-row-text"><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">que</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">Ge-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tae</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">que</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">Heb-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">rus</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Ac-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ti-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">as</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">O-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">thy-ia</span></td></tr>
+      </tbody></table>
+    </div>
+  </div><!-- /scansie-view -->"scan-syl lon"><span class="mark">–</span><span class="lett">thy-ia</span></td></tr>
+      </tbody></table>
     </div>
   </div><!-- /scansie-view -->
 
