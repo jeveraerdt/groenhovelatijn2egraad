@@ -97,6 +97,7 @@ body.twocol .side-panel{display:flex!important;flex-direction:column;gap:1rem;pa
 .extras-label{font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);}
 .extras-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:none;background:none;color:var(--accent);cursor:pointer;padding:0;opacity:.75;transition:opacity .15s,background .15s,color .15s;text-decoration:none;}
 .extras-icon:hover{opacity:1;background:#fbe6f1;}
+.extras-icon svg{width:16px;height:16px;}
 
 /* KAART MODAL */
 .kaart-modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(19,66,127,.4);z-index:450;align-items:center;justify-content:center;}
@@ -641,7 +642,11 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
     <div class="latin-line"><span class="ln">459</span><span class="lc">servantem ripas alta non vidit in herba.</span></div>
     <div class="latin-line"><span class="ln">460</span><span class="lc">At chorus aequalis Dryadum clamore supremos</span></div>
     <div class="latin-line"><span class="ln">461</span><span class="lc">implerunt montes; flerunt Rhodopeiae arces</span></div>
-    <div class="latin-line"><span class="ln">462</span><span class="lc">altaque Pangaea et Rhesi mavortia tellus</spa  <!-- ══ SCANSIE VIEW ══ -->
+    <div class="latin-line"><span class="ln">462</span><span class="lc">altaque Pangaea et Rhesi mavortia tellus</span></div>
+    <div class="latin-line"><span class="ln">463</span><span class="lc">atque Getae atque Hebrus et Actias Orithyia.</span></div>
+  </div><!-- /numbered-view -->
+
+  <!-- ══ SCANSIE VIEW ══ -->
   <div class="scansie-view" id="scansieView">
     <div class="scan-legenda">
       <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Legende</span>
@@ -1146,21 +1151,22 @@ function toggleScansie() {
   var btn = document.getElementById('btnScansie');
   if (btn) btn.classList.toggle('active', S.scansie);
 
-  var scanView = document.getElementById('scansieView');
+  var scanView  = document.getElementById('scansieView');
   var plainView = document.getElementById('plainView');
-  var sfView = document.getElementById('sfView');
+  var numView   = document.getElementById('numberedView');
+  var sfView    = document.getElementById('sfView');
 
   if (S.scansie) {
-    // Zet plain view weg, toon scansie
-    plainView.classList.add('off');
+    plainView.style.display = 'none';
+    if (numView) numView.style.display = 'none';
     scanView.classList.add('on');
-    // Stijlfiguren + regelnummers zijn incompatibel
     if (S.stijl) { S.stijl = false; sfView.classList.remove('on'); document.getElementById('btnStijl').classList.remove('active'); }
-    if (S.lines) toggleLines();
     if (S.interlin) toggleInterlin();
+    S.lines = false; document.getElementById('btnLines').classList.remove('active');
   } else {
     scanView.classList.remove('on');
-    plainView.classList.remove('off');
+    plainView.style.display = '';
+    if (numView) numView.style.display = '';
   }
 }
 
@@ -1172,20 +1178,22 @@ function toggleStijl() {
   var btn = document.getElementById('btnStijl');
   if (btn) btn.classList.toggle('active', S.stijl);
 
-  var sfView = document.getElementById('sfView');
+  var sfView    = document.getElementById('sfView');
   var plainView = document.getElementById('plainView');
-  var scanView = document.getElementById('scansieView');
+  var numView   = document.getElementById('numberedView');
+  var scanView  = document.getElementById('scansieView');
 
   if (S.stijl) {
-    plainView.classList.add('off');
+    plainView.style.display = 'none';
+    if (numView) numView.style.display = 'none';
     sfView.classList.add('on');
-    // Incompatibel met scansie + regelnummers
     if (S.scansie) { S.scansie = false; scanView.classList.remove('on'); document.getElementById('btnScansie').classList.remove('active'); }
-    if (S.lines) toggleLines();
     if (S.interlin) toggleInterlin();
+    S.lines = false; document.getElementById('btnLines').classList.remove('active');
   } else {
     sfView.classList.remove('on');
-    plainView.classList.remove('off');
+    plainView.style.display = '';
+    if (numView) numView.style.display = '';
   }
 }
 
