@@ -41,16 +41,15 @@
 </style>
 <style>
 :root {
+  /* Tekst-viewer specifieke tokens (rest komt uit _theme.css) */
   --green:#2d7a3a; --green-bg:#e8f5eb;
   --orange:#c05a00; --orange-bg:#fff0e0;
   --purple:#6a1a8a; --purple-bg:#f3e8fb;
   --hl:#fff3c4; --hl-b:#e8c840;
   --lh:2.3; --fs:1.18rem;
-  /* Scansie */
   --dact:#1d4ed8; --spon:#be185d; --ces-color:#d97706;
-  /* Stijlfiguren */
-  --sf-allit:#7c3aed; --sf-hyp:#0891b2; --sf-metaf:#b45309;
-  --sf-chias:#16a34a; --sf-epith:#db2777; --sf-simul:#c2410c;
+  --sf-allit:#7c3aed; --sf-hyp:#0891b2; --sf-epith:#db2777;
+  --sf-simul:#c2410c; --sf-metaf:#b45309;
 }
 /* Body font override: tekst-viewer gebruikt EB Garamond als basis */
 body{font-family:var(--fb);overflow-x:hidden;background:var(--achtergrond);margin:0;padding:0;}
@@ -63,12 +62,10 @@ body{font-family:var(--fb);overflow-x:hidden;background:var(--achtergrond);margi
 .weergave-item:hover{background:#eef3fa;}
 .weergave-item.active{color:var(--magenta);}
 .weergave-item svg{width:12px;height:12px;flex-shrink:0;}
+.weergave-menu .d-badges{display:none!important;}
 .weergave-chevron{transition:transform .18s;}
 #btnWeergave.open .weergave-chevron{transform:rotate(180deg);}
 
-/* PROGRESS */
-.rp{position:fixed;top:108px;left:0;right:0;height:2px;z-index:199;}
-.rp-fill{height:100%;background:var(--magenta);width:0%;transition:width .12s linear;}
 
 /* LAYOUT */
 .outer{max-width:1200px;margin:0 auto;padding:0 1.5rem;}
@@ -120,6 +117,10 @@ button.link-pill{font-size:.7rem;font-weight:500;font-family:var(--ft);letter-sp
 .kaart-modal-close svg{width:15px;height:15px;}
 .kaart-modal-body{padding:1.5rem;overflow-y:auto;}
 .kaart-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;border:2px dashed rgba(19,66,127,.15);border-radius:10px;color:var(--ink-light);font-family:var(--ft);font-size:.82rem;}
+
+/* VERS-NUMMERS IN PLAIN VIEW */
+.vers-blok{position:relative;}
+.vers-nr-label{display:inline-block;font-family:var(--ft);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:.7;margin-bottom:.15rem;margin-right:.5rem;vertical-align:middle;}
 
 /* LATIN TEXT */
 .latin-text{font-size:var(--fs);line-height:var(--lh);animation:fadeUp .5s .18s ease both;}
@@ -292,52 +293,95 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 .d-badge{cursor:help;}
 
 
-/* ══ SCANSIE WEERGAVE ══ */
-.scansie-view{display:none;}
-.scansie-view.on{display:block;margin-bottom:2rem;animation:fadeUp .3s ease both;}
-.scan-line{display:table;border-collapse:separate;border-spacing:0;margin-bottom:2.6rem;font-family:var(--fb);font-size:var(--fs);position:relative;}
-.scan-line-nr{font-family:var(--ft);font-size:.6rem;color:#bbb;display:block;margin-bottom:.3rem;}
-.scan-syl{display:table-cell;text-align:center;padding:0 .08rem;vertical-align:bottom;white-space:pre;}
-.scan-syl .mark{display:block;font-size:1.05em;line-height:1.1;font-family:serif;text-align:center;min-width:.6em;}
-.scan-syl .lett{display:block;line-height:1.8;text-align:center;font-family:var(--fb);font-size:inherit;color:var(--ink);}
+/* ══ POËZIE MODAL ══ */
+.poetry-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:800;align-items:flex-start;justify-content:center;padding-top:5vh;overflow-y:auto;}
+.poetry-overlay.open{display:flex;animation:fadeUp .2s ease both;}
+.poetry-modal{background:var(--wit);border-radius:16px;width:min(820px,94vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.4);overflow:hidden;}
+.poetry-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.4rem;border-bottom:1px solid var(--rule);flex-shrink:0;}
+.poetry-modal-title{font-family:var(--ft);font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+.poetry-modal-nav{display:flex;align-items:center;gap:.6rem;}
+.poetry-nav-btn{font-family:var(--ft);font-size:.78rem;background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.3rem .75rem;cursor:pointer;color:var(--ink);transition:background .15s,color .15s,border-color .15s;}
+.poetry-nav-btn:hover{background:#ffea3d;color:#006633;border-color:#ffea3d;}
+.poetry-nav-btn:disabled{opacity:.35;cursor:default;}
+.poetry-nav-btn:disabled:hover{background:transparent;color:var(--ink);border-color:var(--rand);}
+.poetry-vers-label{font-family:var(--ft);font-size:.72rem;color:var(--ink-light);min-width:4rem;text-align:center;}
+.poetry-modal-close{background:none;border:none;padding:.35rem;cursor:pointer;color:var(--ink-light);border-radius:6px;display:flex;transition:color .15s;}
+.poetry-modal-close:hover{color:var(--blue);}
+.poetry-modal-close svg{width:16px;height:16px;}
+.poetry-modal-body{flex:1;overflow-y:auto;padding:1.5rem 1.75rem;}
+
+/* Scansie in modal */
+.scan-line{display:table;border-collapse:separate;border-spacing:0;margin-bottom:.5rem;font-family:var(--fb);font-size:1.1rem;}
+.scan-vers-tekst{font-family:var(--fb);font-size:1.1rem;color:var(--ink-light);font-style:italic;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--rule);}
+.scan-legenda{display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center;margin-bottom:1.4rem;font-family:var(--ft);font-size:.7rem;padding:.6rem 1rem;background:var(--achtergrond);border:1px solid var(--rule);border-radius:8px;}
+.scan-leg-item{display:flex;align-items:center;gap:.35rem;}
+.scan-leg-mark{font-family:serif;font-size:1.1em;}
+.scan-syl{display:table-cell;text-align:center;padding:0 .1rem;vertical-align:bottom;white-space:pre;}
+.scan-syl .mark{display:block;font-family:serif;font-size:1.15em;line-height:1.1;text-align:center;min-width:.65em;}
+.scan-syl .lett{display:block;line-height:1.9;text-align:center;font-family:var(--fb);font-size:1rem;color:var(--ink);}
 .scan-syl.lon .mark{color:var(--dact);}
 .scan-syl.sho .mark{color:var(--spon);}
 .scan-syl.anc .mark{color:var(--ink-light);}
-.scan-ces-cel{display:table-cell;vertical-align:bottom;padding:0 .1rem;}
-.scan-ces-cel .mark{display:block;font-size:1.1em;line-height:1.1;color:var(--ces-color);font-weight:700;text-align:center;}
-.scan-ces-cel .lett{display:block;line-height:1.8;font-size:inherit;color:transparent;user-select:none;}
-.scan-div-cel{display:table-cell;vertical-align:bottom;padding:0 .05rem;}
+.scan-ces-cel{display:table-cell;vertical-align:bottom;padding:0 .12rem;}
+.scan-ces-cel .mark{display:block;font-size:1.15em;line-height:1.1;color:var(--ces-color);font-weight:700;text-align:center;}
+.scan-ces-cel .lett{display:block;line-height:1.9;color:transparent;user-select:none;}
+.scan-div-cel{display:table-cell;vertical-align:bottom;padding:0 .06rem;}
 .scan-div-cel .mark{display:block;font-size:1.1em;line-height:1.1;color:var(--ink-light);text-align:center;}
-.scan-div-cel .lett{display:block;line-height:1.8;font-size:inherit;color:transparent;user-select:none;}
-.scan-foot-nr{display:table-cell;text-align:center;vertical-align:bottom;font-family:var(--ft);font-size:.58rem;font-weight:700;color:var(--ink-light);padding-bottom:.15rem;}
+.scan-div-cel .lett{display:block;line-height:1.9;color:transparent;user-select:none;}
+.scan-foot-nr{display:table-cell;text-align:center;vertical-align:bottom;font-family:var(--ft);font-size:.58rem;font-weight:700;color:var(--ink-light);padding-bottom:.2rem;}
 .scan-nr-empty{display:table-cell;padding:0 .05rem;}
-.scan-legenda{display:flex;gap:1.4rem;flex-wrap:wrap;align-items:center;margin-bottom:1.8rem;font-family:var(--ft);font-size:.72rem;padding:.65rem 1.1rem;background:var(--paper);border:1px solid var(--rule);border-radius:8px;}
-.scan-leg-item{display:flex;align-items:center;gap:.4rem;}
-.scan-leg-mark{font-family:serif;font-size:1.1em;}
 
-/* ══ STIJLFIGUREN WEERGAVE ══ */
-.sf-view{display:none;}
-.sf-view.on{display:block;animation:fadeUp .3s ease both;}
+/* Stijlfiguren in modal */
+.sf-vers-tekst{font-family:var(--fb);font-size:1.15rem;line-height:2.2;color:var(--ink);}
+.sf-legenda{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.4rem;font-family:var(--ft);font-size:.7rem;padding:.6rem 1rem;background:var(--achtergrond);border:1px solid var(--rule);border-radius:8px;}
+.sf-leg-item{display:flex;align-items:center;gap:.35rem;}
 .sf-allit{background:rgba(124,58,237,.12);color:var(--sf-allit);border-bottom:2px solid var(--sf-allit);border-radius:2px;padding:0 1px;}
 .sf-hyp{background:rgba(8,145,178,.1);color:var(--sf-hyp);border-bottom:2px dotted var(--sf-hyp);border-radius:2px;padding:0 1px;}
 .sf-epith{background:rgba(219,39,119,.1);color:var(--sf-epith);border-bottom:2px dashed var(--sf-epith);border-radius:2px;padding:0 1px;}
 .sf-trikolon{background:rgba(194,65,12,.1);color:var(--sf-simul);border-bottom:2px solid var(--sf-simul);border-radius:2px;padding:0 1px;}
 .sf-enjamb{background:rgba(180,83,9,.08);border-left:3px solid var(--sf-metaf);padding-left:3px;border-radius:2px;}
-.sf-legenda{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.5rem;font-family:var(--ft);font-size:.7rem;padding:.6rem 1rem;background:var(--paper);border:1px solid var(--rule);border-radius:8px;}
-.sf-leg-item{display:flex;align-items:center;gap:.35rem;}
-.sf-leg-dot{width:20px;height:4px;flex-shrink:0;border-radius:2px;}
-.sf-tooltip{position:fixed;z-index:900;background:#1a2238;color:#fff;font-family:var(--ft);font-size:.78rem;font-weight:500;line-height:1.45;padding:.7rem .95rem;border-radius:10px;max-width:320px;box-shadow:0 12px 32px rgba(0,0,0,.28);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s;}
-.sf-tooltip.vis{opacity:1;transform:translateY(0);}
+[data-tip]{cursor:help;}
+.sf-tooltip{position:fixed;z-index:1200;background:#1a2238;color:#fff;font-family:var(--ft);font-size:.78rem;line-height:1.45;padding:.7rem .95rem;border-radius:10px;max-width:320px;box-shadow:0 12px 32px rgba(0,0,0,.35);pointer-events:none;opacity:0;transition:opacity .15s;}
+.sf-tooltip.vis{opacity:1;}
 .menu-divider{height:1px;background:rgba(19,66,127,.08);margin:.3rem 0;}
 .menu-section{font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(19,66,127,.4);padding:.2rem .9rem .1rem;}
+
+/* ══ LECTUURANALYSE REMINDER ══ */
+.la-reminder{
+  display:none;align-items:center;gap:.6rem;
+  margin-bottom:.75rem;padding:.5rem .9rem;
+  background:linear-gradient(135deg,#fff8f0,#fff3e8);
+  border:1.5px solid #f0c070;border-radius:10px;
+  font-family:var(--ft);font-size:.75rem;color:#8a5a00;
+  cursor:pointer;transition:background .15s;
+  animation:fadeUp .25s ease both;
+}
+.la-reminder.vis{display:flex;}
+.la-reminder:hover{background:#fff0d0;}
+.la-reminder-icon{font-size:1rem;flex-shrink:0;}
+.la-reminder-text{flex:1;line-height:1.4;}
+.la-reminder-link{font-weight:700;text-decoration:underline;white-space:nowrap;}
+
+/* ══ LECTUURANALYSE MODAL ══ */
+.la-modal .poetry-modal-body{padding:1.25rem 1.5rem;}
+.la-sectie{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule);}
+.la-sectie:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.la-sectie-titel{font-family:var(--ft);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
+.la-sectie-titel svg{width:11px;height:11px;flex-shrink:0;}
+.la-vers-tekst{font-family:var(--fb);font-size:1rem;font-style:italic;color:var(--ink-light);margin-bottom:.9rem;padding:.5rem .75rem;background:var(--achtergrond);border-radius:6px;line-height:1.6;}
+.la-vraag{font-family:var(--fb);font-size:.9rem;line-height:1.6;color:var(--ink);margin-bottom:.5rem;padding-left:.85rem;border-left:3px solid var(--blue);}
+.la-vraag + .la-vraag{margin-top:.6rem;}
+.la-toelichting{font-family:var(--ft);font-size:.78rem;color:var(--ink-light);line-height:1.55;margin-top:.4rem;padding-left:.85rem;}
+.la-badge-rij{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.6rem;padding-left:.85rem;}
+.la-badge{font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.04em;padding:.12rem .4rem;border-radius:10px;}
+.la-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;}
+.la-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
 @media(max-width:900px){body.twocol .outer{display:block;}body.twocol .main-col{padding:2rem 0 5rem;}body.twocol .side-panel{display:none!important;}}
 @media(max-width:600px){.main-col{padding:2rem 0 5rem;}.outer{padding:0 1rem;}.text-title{font-size:1.7rem;}.site-header{padding:0 14px;}.site-toolbar{padding:8px 14px;height:auto;flex-wrap:wrap;}.topbar-label,.topbar-divider{display:none;}}
 </style>
 </head>
 <body>
 
-<div class="rp"><div class="rp-fill" id="rpFill"></div></div>
-<div class="sf-tooltip" id="sfTooltip"></div>
 <div class="word-popup" id="popup">
   <div class="wp-word" id="ppWord"></div>
   <div class="wp-lemma" id="ppLemma"></div>
@@ -385,11 +429,20 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
         </button>
         <div class="menu-divider"></div>
         <div class="menu-section">Poëzie-analyse</div>
-        <button class="weergave-item" id="btnScansie" onclick="toggleScansie();event.stopPropagation()">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12 L4 4 L6 12 L8 4 L10 12 L12 4 L14 12"/><line x1="2" y1="14" x2="14" y2="14" stroke-dasharray="2,2"/></svg>
+        <div class="d-badges" id="badges-scansie" style="padding:0 .25rem .2rem;">
+          <span class="d-badge bs" data-layer="bs">⑨ Interleaving</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven</span>
+        </div>
+        <button class="weergave-item" id="btnScansie" onclick="openScansieModal();event.stopPropagation()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12L4 4L6 12L8 4L10 12L12 4L14 12"/><line x1="2" y1="14" x2="14" y2="14" stroke-dasharray="2,2"/></svg>
           Scansie
         </button>
-        <button class="weergave-item" id="btnStijl" onclick="toggleStijl();event.stopPropagation()">
+        <div class="d-badges" id="badges-stijl" style="padding:0 .25rem .2rem;">
+          <span class="d-badge bs" data-layer="bs">⑤ Actief verwerken</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02.01 – stijlfiguren herkennen</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02.02 – hoe auteur lezer beïnvloedt</span>
+        </div>
+        <button class="weergave-item" id="btnStijl" onclick="openStijlModal();event.stopPropagation()">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="8" r="2"/><circle cx="11" cy="5" r="2"/><circle cx="11" cy="11" r="2"/><line x1="7" y1="8" x2="9" y2="5.8"/><line x1="7" y1="8" x2="9" y2="10.2"/></svg>
           Stijlfiguren
         </button>
@@ -421,6 +474,14 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
     <div class="text-sub">naar Vergilius, <em>Georgica</em> IV, 457–463 · de dood van Eurydice</div>
   </div>
 
+  <div class="d-badges" id="badges-hero" style="margin-bottom:.25rem;">
+    <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+  </div>
+  <img src="../../images/teksten/thema34des/eurydice.jpg"
+       alt="Schilderij van Eurydice"
+       style="border-radius:12px;width:100%;max-height:320px;object-fit:cover;margin-bottom:1.5rem;">
+
   <div class="context-block" data-subtitel="Historische achtergrond" data-bs="1" data-lpd="WD2_03.03.01">
     <div class="d-badges" id="badges-context">
       <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
@@ -428,13 +489,23 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
     </div>
     <strong>Context</strong>
     <span class="context-subtitel">Mythologische achtergrond</span>
-    <p>Orpheus, de legendarische dichter en citharaspeler, trouwde met de nimf Eurydice. Op hun trouwdag vluchtte Eurydice weg van Aristaeus, die haar achtervolgde. Daarbij werd ze gebeten door een slang en stierf. Vergilius vertelt dit verhaal in zijn Georgica (ca. 29 v.Chr.), een didactisch leerdicht over landbouw en bijenteelt. Het fragment dat volgt beschrijft de fatale vlucht van Eurydice vanuit het perspectief van een aanklacht tegen Orpheus.</p>
+    <p>Orpheus, de legendarische dichter en citharaspeler, trouwde met de nimf Eurydice. Op hun trouwdag vluchtte Eurydice weg van Aristaeus, die haar achtervolgde. Daarbij werd ze gebeten door een slang en stierf. Vergilius vertelt dit verhaal in zijn <em>Georgica</em> (ca. 29 v.Chr.), een didactisch leerdicht over landbouw en bijenteelt. Het fragment beschrijft de fatale vlucht van Eurydice vanuit het perspectief van een aanklacht tegen Orpheus.</p>
   </div>
 
   <div class="extras-strip">
     <div class="d-badges" id="badges-kaart">
       <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
       <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <div class="d-badges" id="badges-lectuur" style="margin-bottom:.3rem;">
+      <span class="d-badge bs" data-layer="bs">⑥ Check begrip hele klas</span>
+      <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – tekst begrijpen</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven</span>
+    </div>
+    <div class="d-badges" id="badges-tweekolom" style="margin-bottom:.3rem;">
+      <span class="d-badge bs" data-layer="bs">⑦ Scaffolding → zelfstandig</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.02 – talige hulpmiddelen</span>
     </div>
     <div class="extras-row">
       <span class="extras-label">Extra's</span>
@@ -443,6 +514,12 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
       </a>
       <button type="button" class="extras-icon" id="btnNoten" onclick="toggleNoten()" title="Grammaticale noten tonen / verbergen" aria-label="Grammaticale noten">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 3.5h11M2.5 7h11M2.5 10.5h7"/><circle cx="12" cy="11" r="1.6" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button type="button" class="extras-icon" id="btnVertaling" onclick="toggleTwocol()" title="Vertaling tonen (tweekolom)" aria-label="Vertaling">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4h6M4 2v2M2 4c0 2.5 2 4 4 4M6 4c0 1.5-.5 3-2 4"/><path d="M8 12l1.5-4 1.5 4M9 10.5h2"/><rect x="8" y="6" width="6" height="8" rx="1" stroke="none" fill="none"/><path d="M8.5 14h5"/></svg>
+      </button>
+      <button type="button" class="extras-icon d-badge-trigger" id="btnLectuur" onclick="openLectuurModal()" title="Lectuuranalyse openen" aria-label="Lectuuranalyse">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v9a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M2 3l6 4 6-4"/><path d="M6 9h4M6 11h2"/></svg>
       </button>
     </div>
   </div>
@@ -478,6 +555,11 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
     <button class="sec" onclick="revealAll()">Alles tonen</button>
     <span class="rev-count" id="revCount">0 / 0</span>
   </div>
+  <div class="la-reminder" id="laReminder" onclick="openLectuurFromReminder()">
+    <span class="la-reminder-icon">💡</span>
+    <span class="la-reminder-text">Lectuuranalyse — <span class="la-reminder-link" id="laReminderTekst">vraag bij dit vers</span></span>
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;flex-shrink:0;opacity:.6"><path d="M6 4l4 4-4 4"/></svg>
+  </div>
 
   <div class="d-badges" id="badges-tekst" style="margin-bottom:.5rem;">
     <span class="d-badge bs" data-layer="bs">③ Voorbeelden &amp; modelling</span>
@@ -488,25 +570,31 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   <div class="latin-text" id="latinText">
   <div class="plain-view" id="plainView">
 
-<div class="latin-para">
+<div class="latin-para vers-blok">
+<span class="vers-nr-label">v. 457</span>
 <span class="wg" data-wg="1"><span class="lat-word" data-w="Illa" data-l="ille, illa, illud" data-d="nom. enk. f." data-s="OND van fugeret" data-n="zij">Illa</span></span>
-<span class="wg" data-wg="2"><span class="lat-word" data-w="quidem" data-l="quidem" data-d="bijw." data-s="beklemtoningspartikel bij OND" data-n="inderdaad, weliswaar">quidem</span>,</span>
+<span class="wg" data-wg="2"><span class="lat-word" data-w="quidem" data-l="quidem" data-d="bijw." data-s="beklemtoningspartikel" data-n="inderdaad">quidem</span>,</span>
 <span class="wg" data-wg="3"><span class="lat-word" data-w="dum" data-l="dum" data-d="vgw. temporeel" data-s="inleider temporele bijzin" data-n="terwijl">dum</span></span>
 <span class="wg" data-wg="4"><span class="lat-word" data-w="te" data-l="tu" data-d="acc. 2 enk." data-s="LV bij fugeret" data-n="jou">te</span></span>
 <span class="wg" data-wg="5"><span class="lat-word" data-w="fugeret" data-l="fugere" data-d="A. conj. imperf. 3 enk." data-s="PV temporele bijzin" data-n="vluchtte voor">fugeret</span></span>
-<span class="wg" data-wg="6"><span class="lat-word" data-w="per" data-l="per" data-d="prep. + acc." data-s="BWB van richting" data-n="langs, door">per</span></span>
+<span class="wg" data-wg="6"><span class="lat-word" data-w="per" data-l="per" data-d="prep. + acc." data-s="BWB van richting" data-n="langs">per</span></span>
 <span class="wg" data-wg="7"><span class="lat-word" data-w="flumina" data-l="flumen, fluminis" data-d="acc. mv. n." data-s="LV bij per" data-n="rivieren">flumina</span></span>
-<span class="wg" data-wg="8"><span class="lat-word" data-w="praeceps" data-l="praeceps, praecipitis" data-d="nom. enk. f." data-s="praedicatief attribuut bij illa" data-n="halsoverkop">praeceps</span>,</span>
+<span class="wg" data-wg="8"><span class="lat-word" data-w="praeceps" data-l="praeceps, praecipitis" data-d="nom. enk. f." data-s="praed. attr. bij illa" data-n="halsoverkop">praeceps</span>,</span>
 </div>
 
-<div class="latin-para tekst-scheiding">
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 458</span>
 <span class="wg" data-wg="9"><span class="lat-word" data-w="immanem" data-l="immanis, -e" data-d="acc. enk. m." data-s="attribuut bij hydrum" data-n="reusachtig">immanem</span></span>
 <span class="wg" data-wg="10"><span class="lat-word" data-w="ante" data-l="ante" data-d="prep. + acc." data-s="BWB van plaats" data-n="voor">ante</span></span>
 <span class="wg" data-wg="11"><span class="lat-word" data-w="pedes" data-l="pes, pedis" data-d="acc. mv. m." data-s="LV bij ante" data-n="voeten">pedes</span></span>
 <span class="wg" data-wg="12"><span class="lat-word" data-w="hydrum" data-l="hydrus, -i" data-d="acc. enk. m." data-s="LV bij vidit" data-n="waterslang">hydrum</span></span>
-<span class="wg" data-wg="13"><span class="lat-word" data-w="moritura" data-l="mori" data-d="part. fut. act. nom. enk. f." data-s="praedicatief attribuut bij puella" data-n="die zou sterven">moritura</span></span>
+<span class="wg" data-wg="13"><span class="lat-word" data-w="moritura" data-l="mori" data-d="part. fut. act. nom. enk. f." data-s="praed. attr. bij puella" data-n="die zou sterven">moritura</span></span>
 <span class="wg" data-wg="14"><span class="lat-word" data-w="puella" data-l="puella, -ae" data-d="nom. enk. f." data-s="OND van vidit" data-n="het meisje">puella</span></span>
-<span class="wg" data-wg="15"><span class="lat-word" data-w="servantem" data-l="servare" data-d="part. praes. act. acc. enk. m." data-s="praedicatief attribuut bij hydrum" data-n="dat bewaakte">servantem</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 459</span>
+<span class="wg" data-wg="15"><span class="lat-word" data-w="servantem" data-l="servare" data-d="part. praes. act. acc. enk. m." data-s="praed. attr. bij hydrum" data-n="dat bewaakte">servantem</span></span>
 <span class="wg" data-wg="16"><span class="lat-word" data-w="ripas" data-l="ripa, -ae" data-d="acc. mv. f." data-s="LV bij servantem" data-n="oevers">ripas</span></span>
 <span class="wg" data-wg="17"><span class="lat-word" data-w="alta" data-l="altus, -a, -um" data-d="abl. enk. f." data-s="attribuut bij herba" data-n="hoog">alta</span></span>
 <span class="wg" data-wg="18"><span class="lat-word" data-w="non" data-l="non" data-d="bijw. ontkenning" data-s="ontkenning bij vidit" data-n="niet">non</span></span>
@@ -515,7 +603,8 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 <span class="wg" data-wg="21"><span class="lat-word" data-w="herba" data-l="herba, -ae" data-d="abl. enk. f." data-s="LV bij in" data-n="gras">herba</span>.</span>
 </div>
 
-<div class="latin-para tekst-scheiding">
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 460</span>
 <span class="wg" data-wg="22"><span class="lat-word" data-w="At" data-l="at" data-d="vgw." data-s="tegenstellend" data-n="maar">At</span></span>
 <span class="wg" data-wg="23"><span class="lat-word" data-w="chorus" data-l="chorus, -i" data-d="nom. enk. m." data-s="OND van implerunt" data-n="koor">chorus</span></span>
 <span class="wg" data-wg="24"><span class="lat-word" data-w="aequalis" data-l="aequalis, -e" data-d="nom. enk. m." data-s="attribuut bij chorus" data-n="van gelijke leeftijd">aequalis</span></span>
@@ -524,7 +613,8 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 <span class="wg" data-wg="27"><span class="lat-word" data-w="supremos" data-l="supremus, -a, -um" data-d="acc. mv. m." data-s="attribuut bij montes" data-n="hoogste">supremos</span></span>
 </div>
 
-<div class="latin-para tekst-scheiding">
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 461</span>
 <span class="wg" data-wg="28"><span class="lat-word" data-w="implerunt" data-l="implere" data-d="A. ind. perf. 3 mv." data-s="PV hoofdwerkwoord" data-n="vulden">implerunt</span></span>
 <span class="wg" data-wg="29"><span class="lat-word" data-w="montes" data-l="mons, montis" data-d="acc. mv. m." data-s="LV bij implerunt" data-n="bergen">montes</span>;</span>
 <span class="wg" data-wg="30"><span class="lat-word" data-w="flerunt" data-l="flere" data-d="A. ind. perf. 3 mv." data-s="PV gecoördineerd" data-n="huilden">flerunt</span></span>
@@ -532,7 +622,8 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 <span class="wg" data-wg="32"><span class="lat-word" data-w="arces" data-l="arx, arcis" data-d="nom. mv. f." data-s="OND van flerunt" data-n="toppen">arces</span></span>
 </div>
 
-<div class="latin-para tekst-scheiding">
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 462</span>
 <span class="wg" data-wg="33"><span class="lat-word" data-w="altaque" data-l="altus, -a, -um" data-d="nom. enk. n." data-s="attribuut bij Pangaea" data-n="en het hoge">altaque</span></span>
 <span class="wg" data-wg="34"><span class="lat-word" data-w="Pangaea" data-l="Pangaea, -orum" data-d="nom. mv. n." data-s="OND van flerunt" data-n="de Pangaion">Pangaea</span></span>
 <span class="wg" data-wg="35"><span class="lat-word" data-w="et" data-l="et" data-d="vgw." data-s="nevenschikkend" data-n="en">et</span></span>
@@ -541,7 +632,8 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 <span class="wg" data-wg="38"><span class="lat-word" data-w="tellus" data-l="tellus, telluris" data-d="nom. enk. f." data-s="OND van flerunt" data-n="land">tellus</span></span>
 </div>
 
-<div class="latin-para tekst-scheiding">
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 463</span>
 <span class="wg" data-wg="39"><span class="lat-word" data-w="atque" data-l="atque" data-d="vgw." data-s="nevenschikkend" data-n="en ook">atque</span></span>
 <span class="wg" data-wg="40"><span class="lat-word" data-w="Getae" data-l="Getae, -arum" data-d="nom. mv. m." data-s="OND van flerunt" data-n="de Geten">Getae</span></span>
 <span class="wg" data-wg="41"><span class="lat-word" data-w="atque" data-l="atque" data-d="vgw." data-s="nevenschikkend" data-n="en ook">atque</span></span>
@@ -561,97 +653,6 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
     <div class="latin-line"><span class="ln">461</span><span class="lc">implerunt montes; flerunt Rhodopeiae arces</span></div>
     <div class="latin-line"><span class="ln">462</span><span class="lc">altaque Pangaea et Rhesi mavortia tellus</span></div>
     <div class="latin-line"><span class="ln">463</span><span class="lc">atque Getae atque Hebrus et Actias Orithyia.</span></div>
-
-  <!-- ══ SCANSIE VIEW ══ -->
-  <div class="scansie-view" id="scansieView">
-    <div class="scan-legenda">
-      <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Legende</span>
-      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--dact);">–</span> lang</span>
-      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--spon);">∪</span> kort</span>
-      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ink-light);">×</span> anceps</span>
-      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ink-light);">|</span> voetgrens</span>
-      <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ces-color);">‖</span> cesuur</span>
-    </div>
-    <div class="scan-line">
-      <span class="scan-line-nr">457</span>
-      <table style="border-collapse:separate;border-spacing:0;"><tbody>
-        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
-        <tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Il-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">la</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">qui-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dem,</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dum</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">fu-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ge-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ret</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">per</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">flu-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mi-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">na</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">prae-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ceps</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr>
-      </tbody></table>
-    </div>
-    <div class="scan-line">
-      <span class="scan-line-nr">458</span>
-      <table style="border-collapse:separate;border-spacing:0;"><tbody>
-        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
-        <tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">im-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mā-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">nem</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">an-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">te</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pe-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">des</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">hyd-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">rum</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">mo-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ri-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tu-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ra</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pu-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">el-la</span></td></tr>
-      </tbody></table>
-    </div>
-    <div class="scan-line">
-      <span class="scan-line-nr">459</span>
-      <table style="border-collapse:separate;border-spacing:0;"><tbody>
-        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
-        <tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ser-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">van-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">tem</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pas</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">non</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">vi-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dit</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">in</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">her-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ba</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr>
-      </tbody></table>
-    </div>
-    <div class="scan-line">
-      <span class="scan-line-nr">460</span>
-      <table style="border-collapse:separate;border-spacing:0;"><tbody>
-        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
-        <tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">cho-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">rus</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ae-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">qua-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">lis</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Dry-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">a-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">dum</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">cla-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mo-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">re</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">su-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pre-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mos</span></td></tr>
-      </tbody></table>
-    </div>
-    <div class="scan-line">
-      <span class="scan-line-nr">461</span>
-      <table style="border-collapse:separate;border-spacing:0;"><tbody>
-        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
-        <tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">im-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ple-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">runt</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mon-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tes;</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">fle-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">runt</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Rho-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">do-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">pe-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">i-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ae</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ar-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ces</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr>
-      </tbody></table>
-    </div>
-    <div class="scan-line">
-      <span class="scan-line-nr">462</span>
-      <table style="border-collapse:separate;border-spacing:0;"><tbody>
-        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
-        <tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">que</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Pan-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ga-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">e-a</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Rhe-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">si</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ma-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">vor-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">a</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tel-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">lus</span></td></tr>
-      </tbody></table>
-    </div>
-    <div class="scan-line">
-      <span class="scan-line-nr">463</span>
-      <table style="border-collapse:separate;border-spacing:0;"><tbody>
-        <tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr>
-        <tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">que</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">Ge-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tae</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">que</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">Heb-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">rus</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Ac-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ti-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">as</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">O-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">thy-ia</span></td></tr>
-      </tbody></table>
-    </div>
-  </div>
-  <!-- ══ STIJLFIGUREN VIEW ══ -->
-  <div class="sf-view" id="sfView">
-    <div class="sf-legenda">
-      <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Stijlfiguren</span>
-      <span class="sf-leg-item"><span class="sf-leg-dot" style="background:var(--sf-allit);"></span><span style="color:var(--sf-allit);font-family:var(--ft);">Alliteratie</span></span>
-      <span class="sf-leg-item"><span class="sf-leg-dot" style="border-bottom:2px dotted var(--sf-hyp);background:transparent;height:2px;"></span><span style="color:var(--sf-hyp);font-family:var(--ft);">Hyperbaton</span></span>
-      <span class="sf-leg-item"><span class="sf-leg-dot" style="border-bottom:2px dashed var(--sf-epith);background:transparent;height:2px;"></span><span style="color:var(--sf-epith);font-family:var(--ft);">Epitheton ornans</span></span>
-      <span class="sf-leg-item"><span class="sf-leg-dot" style="background:var(--sf-simul);"></span><span style="color:var(--sf-simul);font-family:var(--ft);">Trikolon / accumulatie</span></span>
-      <span class="sf-leg-item"><span class="sf-leg-dot" style="background:var(--sf-metaf);height:14px;width:3px;border-radius:1px;"></span><span style="color:var(--sf-metaf);font-family:var(--ft);">Enjambement</span></span>
-    </div>
-    <div style="font-family:var(--fb);font-size:var(--fs);line-height:var(--lh);">
-      <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'Illa' staat ver van 'praeceps' — de vlucht zelf staat ertussen.">Illa</span> quidem, dum te
-      <span class="sf-allit" data-sf="allit" data-tip="Alliteratie: 'fugeret … flumina' — de f-klank bootst het vluchten na.">fugeret</span> per
-      <span class="sf-allit" data-sf="allit" data-tip="Alliteratie: 'fugeret … flumina' — herhaalde f-klank.">flumina</span>
-      <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'praeceps' staat ver van zijn nomen 'Illa'."> praeceps</span>,<br>
-      <span class="sf-enjamb" data-sf="enjamb" data-tip="Enjambement v.457→459: object en werkwoord volgen pas twee verzen later."><span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'immanem' ver voor 'hydrum' — Rahmenstellung.">immanem</span> ante pedes
-      <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'hydrum' sluit de omraming 'immanem … hydrum'.">hydrum</span></span>
-      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans + part. fut.: 'moritura puella' — het lot staat in de naam.">moritura puella</span>
-      <span class="sf-hyp" data-sf="hyp" data-tip="Hyperbaton: 'servantem ripas' beschrijft 'hydrum' van het vorige vers.">servantem ripas</span>
-      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'alta … herba' — de hoge grassen verklaren de onzichtbaarheid.">alta</span> non vidit in
-      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'alta … herba' — hoort bij 'alta' ver vooraan (hyperbaton).">herba</span>.<br><br>
-      At <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'chorus aequalis Dryadum' — leeftijdsgenoten van Eurydice, wat de rouw versterkt.">chorus aequalis Dryadum</span>
-      <span class="sf-allit" data-sf="allit" data-tip="Alliteratie: 'clamore … supremos' — c/s-klanken versterken het galmen.">clamore supremos</span><br>
-      <span class="sf-trikolon" data-sf="trikolon" data-tip="Trikolon / accumulatie: zes leden rouwen — bergen, vlaktes, volken, rivier, mythologisch figuur. Het universum rouwt."><span class="sf-enjamb" data-sf="enjamb" data-tip="Enjambement v.460→461: subject (chorus) en PV (implerunt) op verschillende verzen.">implerunt montes;</span>
-      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'Rhodopeiae arces' — mythologisch gekleurde toppen, vaderland van Orpheus.">flerunt Rhodopeiae arces</span><br>
-      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans + hyperbaton: 'alta … Pangaea'.">altaque Pangaea</span> et
-      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'mavortia tellus' — contrast: zelfs het land van Mars huilt.">Rhesi mavortia tellus</span><br>
-      atque Getae atque Hebrus et
-      <span class="sf-epith" data-sf="epith" data-tip="Epitheton ornans: 'Actias Orithyia' — sluit de accumulatie af met een klinkende naam.">Actias Orithyia</span>.</span>
-    </div>
   </div>
   </div><!-- /latin-text -->
 
@@ -663,14 +664,14 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   </div>
   <div class="footnotes">
     <div class="fn-title">Grammaticale noten</div>
-    <div class="fn"><span class="fn-n">1</span><span><em>dum te fugeret per flumina praeceps</em> — temporele bijzin met conjunctief imperfecti: de conjunctief duidt op gelijktijdigheid en causaliteit. <em>Praeceps</em> als predicatief attribuut bij <em>illa</em> staat ver van zijn nomen — bewust hyperbaton.</span></div>
-    <div class="fn"><span class="fn-n">2</span><span><em>moritura puella</em> — participium futuri actief van <em>mori</em> (deponens). Het part. fut. drukt noodlot uit: 'het meisje dat zou sterven'. Sterk pathos: haar dood staat al in haar naam gegrift.</span></div>
-    <div class="fn"><span class="fn-n">3</span><span><em>immanem … hydrum … servantem ripas</em> — dubbel hyperbaton over twee verzen. Klassieke Vergiliaanse "Rahmenstellung": de slang wordt letterlijk ingesloten door zijn eigen beschrijving.</span></div>
-    <div class="fn"><span class="fn-n">4</span><span><em>alta non vidit in herba</em> — de ontkenning <em>non</em> staat dramatisch laat in de zin (pas v.459 na de introductie op v.457). Bewust retardatio-effect.</span></div>
-    <div class="fn"><span class="fn-n">5</span><span><em>chorus aequalis Dryadum clamore supremos / implerunt montes</em> — enjambement over versgrens 460–461: subject en werkwoord staan op verschillende verzen.</span></div>
-    <div class="fn"><span class="fn-n">6</span><span><em>flerunt … arces / altaque Pangaea … tellus / atque Getae … Hebrus … Orithyia</em> — trikolon-accumulatie van zes leden. De rouw breidt zich uit als kringen op water. Let op de anafora van <em>atque … atque</em>.</span></div>
+    <div class="fn"><span class="fn-n">1</span><span><em>dum te fugeret per flumina praeceps</em> — temporele bijzin met conjunctief imperfecti: gelijktijdigheid + causaliteit. <em>Praeceps</em> als predicatief attribuut bij <em>illa</em> staat ver van zijn nomen — bewust hyperbaton.</span></div>
+    <div class="fn"><span class="fn-n">2</span><span><em>moritura puella</em> — part. fut. act. van deponens <em>mori</em>. Drukt noodlot uit: haar dood staat al in haar naam gegrift vóór ze valt.</span></div>
+    <div class="fn"><span class="fn-n">3</span><span><em>immanem … hydrum … servantem ripas</em> — dubbel hyperbaton over twee verzen. Klassieke Vergiliaanse Rahmenstellung: de slang wordt ingesloten door zijn eigen beschrijving.</span></div>
+    <div class="fn"><span class="fn-n">4</span><span><em>alta non vidit in herba</em> — de ontkenning <em>non</em> staat dramatisch laat in de zin (v.459, na de introductie op v.457). Bewust retardatio-effect.</span></div>
+    <div class="fn"><span class="fn-n">5</span><span><em>chorus aequalis Dryadum clamore supremos / implerunt montes</em> — enjambement over versgrens 460–461: subject en werkwoord op verschillende verzen.</span></div>
+    <div class="fn"><span class="fn-n">6</span><span><em>flerunt … arces / Pangaea / tellus / Getae / Hebrus / Orithyia</em> — trikolon-accumulatie van zes leden. De rouw breidt zich uit als kringen op water. Let op de anafora van <em>atque … atque</em>.</span></div>
     <div class="fn"><span class="fn-n">7</span><span><em>Rhesi mavortia tellus</em> — <em>mavortius</em> = afgeleid van Mars. Contrast: zelfs het krijgshaftige land van Rhesos huilt.</span></div>
-    <div class="fn"><span class="fn-n">8</span><span><em>Actias Orithyia</em> — Orithyia, dochter van de Atheense koning Erechtheus, werd ontvoerd naar Thracië. Het fragment sluit af met een naam die zelf een verhaal van onvrijwillige vlucht draagt.</span></div>
+    <div class="fn"><span class="fn-n">8</span><span><em>Actias Orithyia</em> — Orithyia, dochter van de Atheense koning Erechtheus, ontvoerd naar Thracië. Sluit af met een naam die zelf een verhaal van onvrijwillige vlucht draagt.</span></div>
   </div>
   </div><!-- /noten-block -->
 
@@ -848,7 +849,7 @@ filterWL('th3/1');
 /* ══════════════════════════════════════════
    STATE
 ══════════════════════════════════════════ */
-var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, scansie:false, stijl:false, revIdx:-1};
+var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, revIdx:-1};
 var wgroups = Array.from(document.querySelectorAll('.wg'));
 var lastWord = null, clickN = 0;
 
@@ -956,11 +957,12 @@ function toggleReveal() {
   document.getElementById('revealBar').classList.toggle('vis', S.reveal);
   document.getElementById('latinText').classList.toggle('reveal-mode', S.reveal);
   if (S.reveal) {
-    S.revIdx = -1;
-    wgroups.forEach(function(g){ g.classList.remove('revealed','current'); });
-    updCount();
+    S.revIdx = -1; wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); updCount();
   } else {
     wgroups.forEach(function(g){ g.classList.remove('revealed','current'); });
+    var rem = document.getElementById('laReminder');
+    if (rem) rem.classList.remove('vis');
+    laReminderActiveIdx = -1;
   }
 }
 function revealNext() {
@@ -970,6 +972,7 @@ function revealNext() {
   wgroups[S.revIdx].classList.add('revealed','current');
   wgroups[S.revIdx].scrollIntoView({behavior:'smooth', block:'nearest'});
   updCount();
+  checkLaReminder(parseInt(wgroups[S.revIdx].dataset.wg));
 }
 function revealPrev() {
   if (!S.reveal) return;
@@ -1045,66 +1048,6 @@ function toggleFont() {
   document.body.classList.toggle('font-lg', S.font);
 }
 
-
-/* ══ SCANSIE TOGGLE ══ */
-function toggleScansie() {
-  S.scansie = !S.scansie;
-  document.getElementById('btnScansie').classList.toggle('active', S.scansie);
-  var scanView  = document.getElementById('scansieView');
-  var plainView = document.getElementById('plainView');
-  var numView   = document.getElementById('numberedView');
-  var sfView    = document.getElementById('sfView');
-  if (S.scansie) {
-    plainView.style.display = 'none';
-    if (numView) numView.style.display = 'none';
-    scanView.classList.add('on');
-    if (S.stijl) { S.stijl = false; sfView.classList.remove('on'); document.getElementById('btnStijl').classList.remove('active'); }
-    if (S.interlin) toggleInterlin();
-    S.lines = false; document.getElementById('btnLines').classList.remove('active');
-  } else {
-    scanView.classList.remove('on');
-    plainView.style.display = '';
-    if (numView) numView.style.display = '';
-  }
-}
-
-/* ══ STIJLFIGUREN TOGGLE ══ */
-function toggleStijl() {
-  S.stijl = !S.stijl;
-  document.getElementById('btnStijl').classList.toggle('active', S.stijl);
-  var sfView    = document.getElementById('sfView');
-  var plainView = document.getElementById('plainView');
-  var numView   = document.getElementById('numberedView');
-  var scanView  = document.getElementById('scansieView');
-  if (S.stijl) {
-    plainView.style.display = 'none';
-    if (numView) numView.style.display = 'none';
-    sfView.classList.add('on');
-    if (S.scansie) { S.scansie = false; scanView.classList.remove('on'); document.getElementById('btnScansie').classList.remove('active'); }
-    if (S.interlin) toggleInterlin();
-    S.lines = false; document.getElementById('btnLines').classList.remove('active');
-  } else {
-    sfView.classList.remove('on');
-    plainView.style.display = '';
-    if (numView) numView.style.display = '';
-  }
-}
-
-/* ══ STIJLFIGUREN TOOLTIPS ══ */
-(function(){
-  var tip = document.getElementById('sfTooltip');
-  var sfNames = {allit:'Alliteratie',hyp:'Hyperbaton',epith:'Epitheton ornans',trikolon:'Trikolon / accumulatie',enjamb:'Enjambement'};
-  document.querySelectorAll('[data-sf][data-tip]').forEach(function(el){
-    el.addEventListener('mouseenter',function(e){
-      tip.innerHTML='<strong style="display:block;margin-bottom:.25rem;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;opacity:.7;">'+(sfNames[el.dataset.sf]||el.dataset.sf)+'</strong>'+el.dataset.tip;
-      tip.classList.add('vis'); pos(e);
-    });
-    el.addEventListener('mousemove',pos);
-    el.addEventListener('mouseleave',function(){tip.classList.remove('vis');});
-  });
-  function pos(e){var tw=tip.offsetWidth||280,th=tip.offsetHeight||80,x=e.clientX+12,y=e.clientY-th-8;if(x+tw>window.innerWidth-8)x=e.clientX-tw-12;if(y<8)y=e.clientY+16;tip.style.left=x+'px';tip.style.top=y+'px';}
-})();
-
 /* ══════════════════════════════════════════
    DIDACTIEK TOGGLE SYSTEEM
 ══════════════════════════════════════════ */
@@ -1135,36 +1078,62 @@ function toggleNoten() {
 (function annotateBadges(){
   // Key = parent-id van .d-badges container + '|' + badge-tekst
   var TIPS = {
+    'badges-hero|④ Dual coding':
+      '④ Dual coding: het schilderij van Eurydice verbindt het visuele verhaal aan Vergilius\' tekst — leerlingen verankeren de mythologische context via woordbeelden én afbeelding.',
+    'badges-hero|WD2_03.03.01 – situeren in tijd & ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: de afbeelding situeert de mythe van Orpheus en Eurydice als bron van Vergilius\' Georgica IV (ca. 29 v.Chr.).',
     'badges-context|① Voorkennis activeren':
-      '① Voorkennis activeren: de context over de aanslag van 1127 activeert kennis over de middeleeuwse Vlaamse grafelijkheid en bereidt de leerling voor op Galberts getuigenisstijl.',
+      '① Voorkennis activeren: de context over Orpheus en Eurydice activeert kennis over de Griekse mythologie en bereidt de leerling voor op Vergilius\' epische stijl.',
     'badges-context|WD2_03.03.01 – situeren in tijd & ruimte':
-      'WD2_03.03.01 situeren in tijd & ruimte: de tekst speelt in Brugge, 1127 — de graaf bidt in de Sint-Donaaskerk terwijl Borsiard de trap op komt.',
+      'WD2_03.03.01 situeren in tijd & ruimte: de tekst speelt in de antieke mythe — Eurydice vlucht op haar trouwdag langs de oevers van de Peneus terwijl Aristaeus haar achtervolgt.',
     'badges-kaart|④ Dual coding':
-      '④ Dual coding: een plattegrond van de Sint-Donaaskerk verbindt de plaatsbepalingen (in eodem solario, juxta altare) aan een concrete ruimtelijke context.',
+      '④ Dual coding: de mythologische kaart verbindt de plaatsbepalingen (per gramina) en de personages (Aristaeus, Eurydice) aan een concreet verhaallandschap.',
     'badges-kaart|WD2_03.03.01 – situeren in tijd & ruimte':
-      'WD2_03.03.01 situeren in tijd & ruimte: de geografische situering in Brugge maakt de tekst concreet en toont waarom Galbert als ooggetuige kon schrijven.',
+      'WD2_03.03.01 situeren in tijd & ruimte: de geografische situering in Thracië en Griekenland maakt de mythe concreet en toont waarom Vergilius dit verhaal als aanklacht formuleert.',
     'badges-reveal|⑤ Actieve verwerking':
-      '⑤ Actieve verwerking: de woordgroep-voor-woordgroep-onthulling verplicht de leerling actief te voorspellen en bij te stellen — kern van WD2_03.02.01.01.',
+      '⑤ Actieve verwerking: de woordgroep-voor-woordgroep-onthulling verplicht de leerling actief te voorspellen en bij te stellen — essentieel bij Vergilius\' complexe hyperbaton en enjambement.',
     'badges-reveal|⑦ Scaffolding':
-      '⑦ Scaffolding: de abl. abs. en consecutieve bijzin worden per woordgroep opgeknipt zodat de syntactische belasting behapbaar blijft.',
+      '⑦ Scaffolding: de abl. abs. (illa quidem), het PPP (moritura) en de bijzin (dum te fugit) worden per woordgroep opgeknipt zodat de syntactische belasting behapbaar blijft.',
     'badges-reveal|WD2_03.02.01.01 – lectuurmethode toepassen':
-      'WD2_03.02.01.01 lectuurmethode toepassen: lineair lezen per kolon onthult Galberts cinematografische spanningsopbouw van achtervolging tot et ecce!.',
+      'WD2_03.02.01.01 lectuurmethode toepassen: lineair lezen per kolon onthult Vergilius\' tragische vertragingstechniek — de lezer begrijpt dat Eurydice sterft net vóór ze het zelf weet.',
     'badges-reveal|WD2_03.02.01 – tekst begrijpen':
-      'WD2_03.02.01 tekst begrijpen: de leerling past lectuurstrategieën toe: OND–PV–LV opsporen vóór bijzinnen ontwarren.',
+      'WD2_03.02.01 tekst begrijpen: de leerling past lectuurstrategieën toe: OND–PV–LV opsporen vóór hyperbaton en participiumgroepen ontwarren.',
+    'badges-scansie|⑨ Interleaving':
+      '⑨ Interleaving: de scansie-analyse wordt verweven met de syntaxisstudie — leerlingen trainen metrisch lezen en betekenisanalyse in dezelfde sessie (WD2_03.02.02).',
+    'badges-scansie|WD2_03.02.02 – betekenis geven':
+      'WD2_03.02.02 betekenis geven: metrische analyse van de hexameter onthult hoe spondeïsche verzwaringen de tragische sfeer van Eurydice\' dood versterken.',
+    'badges-stijl|⑤ Actief verwerken':
+      '⑤ Actief verwerken: leerlingen herkennen en benoemen stijlfiguren (anafoor illa quidem, personificatie Mors) en analyseren hun effect op de lezer.',
+    'badges-stijl|WD2_03.02.02.01 – stijlfiguren herkennen':
+      'WD2_03.02.02.01 stijlfiguren herkennen: anafoor, hyperbaton, personificatie en het moritura als proleptisch PPP zijn de sleutelstijlfiguren in dit fragment.',
+    'badges-stijl|WD2_03.02.02.02 – hoe auteur lezer beïnvloedt':
+      'WD2_03.02.02.02 hoe auteur lezer beïnvloedt: Vergilius gebruikt het standpunt van de verteller (tu causam) om de aanklacht tegen Orpheus maximaal emotioneel te laden.',
+    'badges-lectuur|⑥ Check begrip hele klas':
+      '⑥ Check begrip hele klas: de lectuuranalyse biedt per vers een gestructureerde bespreking van de narratieve eenheden — ideaal als klassikale check na het lezen.',
+    'badges-lectuur|⑦ Scaffolding':
+      '⑦ Scaffolding: de 6 analysepanels ondersteunen de leerling stapsgewijs van globale textstructuur naar detailanalyse van Vergilius\' vertelstandpunt.',
+    'badges-lectuur|WD2_03.02.01 – tekst begrijpen':
+      'WD2_03.02.01 tekst begrijpen: de lectuuranalyse begeleidt de vertaalstrategie van globaal samenvatten naar vers-voor-vers interpreteren.',
+    'badges-lectuur|WD2_03.02.02 – betekenis geven':
+      'WD2_03.02.02 betekenis geven: het analysepanel verbindt stijlfiguren en metriek aan de intentie van Vergilius als auctor.',
+    'badges-tweekolom|⑦ Scaffolding → zelfstandig':
+      '⑦ Scaffolding → zelfstandig: de Nederlandse vertaling biedt vertalingssteun voor leerlingen die vastlopen, zodat ze nadien zelfstandig de tekst herconstrueren.',
+    'badges-tweekolom|WD2_03.02.01.02 – talige hulpmiddelen':
+      'WD2_03.02.01.02 talige hulpmiddelen: de interlineaire en tweekolom-vertaling fungeren als tijdelijk hulpmiddel om de tekst te begrijpen — niet als eindproduct.',
     'badges-noten|⑦ Scaffolding':
-      '⑦ Scaffolding: de noten lichten de abl. abs., het deponens persequebantur en de consecutieve bijzin toe — constructies die extra begeleiding vragen.',
+      '⑦ Scaffolding: de noten lichten de abl. abs. (illa quidem), het proleptische PPP (moritura) en de apostrofe (tu causam) toe — constructies die extra begeleiding vragen.',
     'badges-noten|⑪ Feedback die denken aanzet':
-      '⑪ Feedback die denken aanzet: noot 5 (et ecce!) daagt de leerling uit na te denken over Galberts narratieve techniek — van morfologie naar literaire analyse.',
+      '⑪ Feedback die denken aanzet: noot over moritura daagt de leerling uit na te denken over Vergilius\' verteltechniek — het lot van Eurydice is al beslist vóór ze het weet.',
     'badges-noten|WD2_03.01.01 – taalsystematiek':
-      'WD2_03.01.01 taalsystematiek: abl. abs., PPP als praed. attr., deponens en consecutieve bijzin — elk een kernonderdeel van de morfologische en syntactische analyse.',
+      'WD2_03.01.01 taalsystematiek: abl. abs., PPP als praed. attr., apostrofe en de dativus auctoris — elk een kernonderdeel van de morfologische en syntactische analyse.',
     'badges-wl|① Voorkennis activeren':
-      '① Voorkennis activeren: woorden als comes, miles en gladius komen terug uit eerdere teksten en worden actief herhaald.',
+      '① Voorkennis activeren: woorden als virgo, serpens en mors komen terug uit de mythologische woordenschat en worden actief herhaald bij het lezen van Vergilius.',
     'badges-wl|⑧ Gespreide oefening':
-      '⑧ Gespreide oefening: de woordenlijst wordt aangevuld in woordenlijst_volledig.js zodra de 4de-jaarlijst beschikbaar is.',
+      '⑧ Gespreide oefening: de woordenlijst (th3/1) bevat 15 woorden die over meerdere lessen worden ingeoefend als onderdeel van de Vergiliuswoordenschat.',
     'badges-wl|WD2_03.01.01 – basisvocabularium':
-      'WD2_03.01.01 basisvocabularium: centrale woorden als comes, miles, gladius en pauper behoren tot het te kennen basisvocabularium 2de graad.',
+      'WD2_03.01.01 basisvocabularium: centrale woorden als virgo, calcis, vestigia en serpens behoren tot het te kennen basisvocabularium 2de graad.',
     'badges-wl|WD2_03.02.02 – betekenis geven aan teksten':
-      'WD2_03.02.02 betekenis geven aan teksten: furibundus (furia) en devotus (devotie) worden herkend via Nederlandse leenwoorden en dragen bij aan de semantische analyse.'
+      'WD2_03.02.02 betekenis geven aan teksten: moritura (van morior) en persequebantur (deponens) worden herkend via etymologie en dragen bij aan de semantische analyse.'
   };
 
   // Zorg voor één globale tooltip-node
@@ -1234,8 +1203,6 @@ toggleInterlin = function() { _origToggleInterlin(); document.getElementById('bt
 /* Scroll */
 window.addEventListener('scroll', function() {
   var d = document.documentElement;
-  var pct = d.scrollTop / (d.scrollHeight - d.clientHeight);
-  document.getElementById('rpFill').style.width = (pct*100) + '%';
   document.getElementById('scrollTop').classList.toggle('on', d.scrollTop > 280);
 });
 
@@ -1302,6 +1269,397 @@ window.addEventListener('scroll', function() {
     resizer.classList.remove('dragging');
   });
 })();
+
+</script>
+
+
+<!-- ══ LECTUURANALYSE MODAL ══ -->
+<div class="poetry-overlay" id="lectuurOverlay" onclick="closePoetryModal('lectuur')">
+  <div class="poetry-modal la-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Lectuuranalyse — Sluipmoord</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="laPrev" onclick="navVers('la',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="laLabel">v. 457 · 1/6</span>
+        <button class="poetry-nav-btn" id="laNext" onclick="navVers('la',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('lectuur')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+  <div class="poetry-vers-panel la-panel" id="la-vers-0" style="display:block">
+    <div class="la-vers-tekst">Illa quidem, dum te fugeret per flumina praeceps,</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>
+        Toelichting
+      </div>
+      <p class="la-toelichting"><em>illa</em> = Eurydice. <em>te</em> = Aristaeus, de imker die haar achtervolgde. De conjunctief <em>fugeret</em> in de <em>dum</em>-bijzin drukt gelijktijdigheid én oorzakelijkheid uit: terwijl ze vluchtte, en precies doordat ze vluchtte. <em>Praeceps</em> (halsoverkop) staat ver achteraan — hyperbaton dat de val al aankondigt.</p>
+      <div class="la-badge-rij"><span class="la-badge bs">① Voorkennis</span><span class="la-badge lpd">WD2_03.03.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M3 8h7M3 11h5"/></svg>
+        Inhoudsvraag
+      </div>
+      <p class="la-vraag">Wie is <em>illa</em> en voor wie vlucht ze? Wat verraadt <em>te</em> over het perspectief van de verteller?</p><p class="la-vraag">Welke woordvolgorde is ongewoon in deze vers? Waarom plaatst Vergilius <em>praeceps</em> zo laat?</p>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑥ Check begrip</span><span class="la-badge lpd">WD2_03.02.01</span></div>
+    </div>
+  </div>
+  <div class="poetry-vers-panel la-panel" id="la-vers-1" style="display:none">
+    <div class="la-vers-tekst">immanem ante pedes hydrum moritura puella</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>
+        Toelichting
+      </div>
+      <p class="la-toelichting"><em>moritura</em> is het participium futuri van het deponens <em>mori</em>: "die zou sterven / gedoemd te sterven". Het lot staat al in de naam van het meisje gegrift, nog vóór de slang toeslaat. <em>Immanem … hydrum</em> omhult de versregel — de slang is overal tegelijk.</p>
+      <div class="la-badge-rij"><span class="la-badge bs">① Voorkennis</span><span class="la-badge bs">③ Modelling</span><span class="la-badge lpd">WD2_03.01.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M3 8h7M3 11h5"/></svg>
+        Inhoudsvraag
+      </div>
+      <p class="la-vraag">Welk grammaticaal fenomeen zit er in <em>moritura</em>? Wat is het effect op de lezer?</p><p class="la-vraag">Teken de zinsbouw van v.458: welke woorden horen bij elkaar maar staan ver uit elkaar?</p>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge lpd">WD2_03.02.01</span><span class="la-badge lpd">WD2_03.01.01</span></div>
+    </div>
+  </div>
+  <div class="poetry-vers-panel la-panel" id="la-vers-2" style="display:none">
+    <div class="la-vers-tekst">servantem ripas alta non vidit in herba.</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>
+        Toelichting
+      </div>
+      <p class="la-toelichting">Het werkwoord <em>vidit</em> en de ontkenning <em>non</em> verschijnen pas in vers 459 — twee verzen nadat de slang werd geïntroduceerd (v.457). Dit is bewust retardatio: Vergilius houdt de afloop zo lang mogelijk op, zodat de lezer de angst mee beleeft.</p>
+      <div class="la-badge-rij"><span class="la-badge bs">② Structuur + uitdaging</span><span class="la-badge lpd">WD2_03.02.02</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>
+        Stijlvraag
+      </div>
+      <p class="la-vraag">Vergilius plaatst <em>non vidit</em> pas op het einde van vers 459, terwijl de slang al in vers 458 is beschreven. Welk effect heeft dit op de lezer?</p><p class="la-vraag">Zoek het epitheton ornans in deze versregel. Welke functie heeft het?</p>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.01</span><span class="la-badge lpd">WD2_03.02.02.02</span></div>
+    </div>
+  </div>
+  <div class="poetry-vers-panel la-panel" id="la-vers-3" style="display:none">
+    <div class="la-vers-tekst">At chorus aequalis Dryadum clamore supremos</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>
+        Toelichting
+      </div>
+      <p class="la-toelichting"><em>At</em> markeert de overgang van het persoonlijke drama naar de kosmische rouw. De Dryaden zijn bosnimfen — leeftijdsgenoten van Eurydice (<em>aequalis</em>). Hun gehuil vult de bergtoppen: van intiem naar universum.</p>
+      <div class="la-badge-rij"><span class="la-badge bs">① Voorkennis</span><span class="la-badge bs">④ Dual coding</span><span class="la-badge lpd">WD2_03.03.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2C5.8 2 4 3.8 4 6c0 3.5 4 8 4 8s4-4.5 4-8c0-2.2-1.8-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
+        Situeer op de kaart
+      </div>
+      <p class="la-vraag">De geografische namen die volgen (Rhodope, Pangaea, Hebrus…) liggen allemaal in Thracië. Situeer ze op de kaart. Welke ligt het verst van Brugge — pardon, van Troje?</p>
+      <div class="la-badge-rij"><span class="la-badge bs">④ Dual coding</span><span class="la-badge lpd">WD2_03.03.01</span><span class="la-badge lpd">WD2_03.03.02</span></div>
+    </div>
+  </div>
+  <div class="poetry-vers-panel la-panel" id="la-vers-4" style="display:none">
+    <div class="la-vers-tekst">implerunt montes; flerunt Rhodopeiae arces / altaque Pangaea et Rhesi mavortia tellus</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>
+        Stijlvraag
+      </div>
+      <p class="la-vraag">Zoek alle epitheta ornantia in v.461–462. Noteer: welk adjectief hoort bij welk nomen?</p><p class="la-vraag"><em>Rhesi mavortia tellus</em>: het land van Rhesos is "aan Mars gewijd". Welk contrast creëert Vergilius hiermee ten opzichte van de rouw?</p>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑥ Check begrip</span><span class="la-badge lpd">WD2_03.02.02.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M3 8h7M3 11h5"/></svg>
+        Inhoudsvraag
+      </div>
+      <p class="la-vraag">Vergilius gebruikt enjambement: <em>clamore supremos</em> (v.460) hoort bij <em>implerunt montes</em> (v.461). Wat is het effect van dit enjambement?</p>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge lpd">WD2_03.02.02.02</span></div>
+    </div>
+  </div>
+  <div class="poetry-vers-panel la-panel" id="la-vers-5" style="display:none">
+    <div class="la-vers-tekst">atque Getae atque Hebrus et Actias Orithyia.</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>
+        Stijlvraag
+      </div>
+      <p class="la-vraag">De hele passage v.460–463 is een grote accumulatie. Tel de leden: hoeveel "getuigen" van de rouw somt Vergilius op? Welk effect heeft die herhaling op de lezer?</p><p class="la-vraag"><em>Actias Orithyia</em> is de mythologische afsluiting. Orithyia was zelf een meisje dat onvrijwillig werd weggevoerd. Hoe verbindt Vergilius haar verhaal met dat van Eurydice?</p>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.02</span><span class="la-badge lpd">WD2_03.02.02.03</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h5"/><path d="M12 9l1.5 3-1.5 3M14 9l-1.5 3 1.5 3"/></svg>
+        Verdieping — auteursperspectief
+      </div>
+      <p class="la-vraag">Het fragment begint met een aanklacht: <em>dum te fugeret</em> — Eurydice vluchtte <em>voor jou</em> (Orpheus). Hoe legt Vergilius via stijl en inhoud de schuld bij Orpheus? Gebruik minstens twee voorbeelden uit de tekst.</p>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.03</span><span class="la-badge lpd">WD2_03.02.01</span></div>
+    </div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCANSIE MODAL ══ -->
+<div class="poetry-overlay" id="scansieOverlay" onclick="closePoetryModal('scansie')">
+  <div class="poetry-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Scansie · dactylische hexameter</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="scanPrev" onclick="navVers('scan',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="scanLabel">vers 457 · 1/7</span>
+        <button class="poetry-nav-btn" id="scanNext" onclick="navVers('scan',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('scansie')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+      <div class="scan-legenda">
+        <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Legende</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--dact);">–</span> lang</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--spon);">∪</span> kort</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ink-light);">×</span> anceps</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ink-light);">|</span> voetgrens</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ces-color);">‖</span> cesuur</span>
+      </div>
+      <div class="poetry-vers-panel" id="scan-vers-0" style="display:block">
+      <div class="scan-vers-tekst">Illa quidem, dum te fugeret per flumina praeceps,</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr><tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Il-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">la</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">qui-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dem,</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dum</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">fu-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ge-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ret</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">per</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">flu-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mi-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">na</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">prae-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ceps</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr></tbody></table>
+    </div>
+<div class="poetry-vers-panel" id="scan-vers-1" style="display:none">
+      <div class="scan-vers-tekst">immanem ante pedes hydrum moritura puella</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr><tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">im-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mā-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">nem</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">an-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">te</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pe-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">des</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">hyd-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">rum</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">mo-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ri-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tu-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ra</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pu-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">el-la</span></td></tr></tbody></table>
+    </div>
+<div class="poetry-vers-panel" id="scan-vers-2" style="display:none">
+      <div class="scan-vers-tekst">servantem ripas alta non vidit in herba.</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr><tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ser-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">van-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">tem</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pas</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">non</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">vi-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">dit</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">in</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">her-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ba</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr></tbody></table>
+    </div>
+<div class="poetry-vers-panel" id="scan-vers-3" style="display:none">
+      <div class="scan-vers-tekst">At chorus aequalis Dryadum clamore supremos</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr><tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">cho-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">rus</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ae-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">qua-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">lis</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Dry-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">a-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">dum</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">cla-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mo-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">re</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">su-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">pre-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mos</span></td></tr></tbody></table>
+    </div>
+<div class="poetry-vers-panel" id="scan-vers-4" style="display:none">
+      <div class="scan-vers-tekst">implerunt montes; flerunt Rhodopeiae arces</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr><tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">im-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ple-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">runt</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">mon-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tes;</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">fle-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">runt</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Rho-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">do-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">pe-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">i-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ae</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ar-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ces</span></td><td class="scan-syl anc"><span class="mark">×</span><span class="lett">×</span></td></tr></tbody></table>
+    </div>
+<div class="poetry-vers-panel" id="scan-vers-5" style="display:none">
+      <div class="scan-vers-tekst">altaque Pangaea et Rhesi mavortia tellus</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr><tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">que</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Pan-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ga-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">e-a</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Rhe-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">si</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ma-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">vor-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">a</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tel-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">lus</span></td></tr></tbody></table>
+    </div>
+<div class="poetry-vers-panel" id="scan-vers-6" style="display:none">
+      <div class="scan-vers-tekst">atque Getae atque Hebrus et Actias Orithyia.</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr><td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td><td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td></tr><tr><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">que</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">Ge-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">tae</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">at-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">que</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">Heb-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">rus</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">Ac-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ti-</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">as</span></td><td class="scan-syl sho"><span class="mark">∪</span><span class="lett">O-</span></td><td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td><td class="scan-syl lon"><span class="mark">–</span><span class="lett">thy-ia</span></td></tr></tbody></table>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ STIJLFIGUREN MODAL ══ -->
+<div class="sf-tooltip" id="sfTooltip"></div>
+<div class="poetry-overlay" id="stijlOverlay" onclick="closePoetryModal('stijl')">
+  <div class="poetry-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Stijlfiguren</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="sfPrev" onclick="navVers('sf',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="sfLabel">vers 457 · 1/7</span>
+        <button class="poetry-nav-btn" id="sfNext" onclick="navVers('sf',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('stijl')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+      <div class="sf-legenda">
+        <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Stijlfiguren</span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:3px;background:var(--sf-allit);border-radius:1px;"></span><span style="color:var(--sf-allit);font-family:var(--ft);">Alliteratie</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:0;border-bottom:2px dotted var(--sf-hyp);"></span><span style="color:var(--sf-hyp);font-family:var(--ft);">Hyperbaton</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:0;border-bottom:2px dashed var(--sf-epith);"></span><span style="color:var(--sf-epith);font-family:var(--ft);">Epitheton ornans</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:3px;background:var(--sf-simul);border-radius:1px;"></span><span style="color:var(--sf-simul);font-family:var(--ft);">Trikolon</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:3px;height:14px;background:var(--sf-metaf);border-radius:1px;"></span><span style="color:var(--sf-metaf);font-family:var(--ft);">Enjambement</span></span>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-0" style="display:block">
+      <div class="sf-vers-tekst"><span class="sf-hyp" data-tip="Hyperbaton: 'Illa' staat ver van 'praeceps' — de vlucht zelf staat ertussen.">Illa</span> quidem, dum te <span class="sf-allit" data-tip="Alliteratie f-f: 'fugeret … flumina' bootst het vluchten en stromen na.">fugeret</span> per <span class="sf-allit" data-tip="Alliteratie f-f: herhaling van de f-klank.">flumina</span> <span class="sf-hyp" data-tip="Hyperbaton: 'praeceps' staat ver van 'Illa' — de hele bijzin staat ertussen.">praeceps</span>,</div>
+    </div>
+<div class="poetry-vers-panel" id="sf-vers-1" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-hyp" data-tip="Hyperbaton + Rahmenstellung: 'immanem' omhult 'hydrum' over twee verzen.">immanem</span> ante pedes <span class="sf-hyp" data-tip="Hyperbaton: 'hydrum' sluit de Rahmenstellung 'immanem … hydrum'.">hydrum</span> <span class="sf-epith" data-tip="Epitheton ornans: 'moritura puella' — het noodlot staat in de naam gegrift.">moritura puella</span></div>
+    </div>
+<div class="poetry-vers-panel" id="sf-vers-2" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-hyp" data-tip="Enjambement + hyperbaton: 'servantem ripas' beschrijft 'hydrum' van het vorige vers.">servantem ripas</span> <span class="sf-epith" data-tip="Epitheton ornans: 'alta … herba' — de hoge grassen verklaren de onzichtbaarheid van de slang.">alta</span> non vidit in <span class="sf-epith" data-tip="Epitheton ornans: 'alta' hoort bij 'herba' maar staat er ver van (hyperbaton).">herba</span>.</div>
+    </div>
+<div class="poetry-vers-panel" id="sf-vers-3" style="display:none">
+      <div class="sf-vers-tekst">At <span class="sf-epith" data-tip="Epitheton ornans: 'chorus aequalis Dryadum' — leeftijdsgenoten van Eurydice, versterkt de rouw.">chorus aequalis Dryadum</span> <span class="sf-allit" data-tip="Alliteratie c/s: 'clamore … supremos' versterkt het galmen van de klacht.">clamore supremos</span></div>
+    </div>
+<div class="poetry-vers-panel" id="sf-vers-4" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-enjamb" data-tip="Enjambement: subject (chorus, v.460) en PV (implerunt, v.461) op verschillende verzen — net als Eurydice's situatie die zich over twee realiteiten uitstrekt.">implerunt montes</span>; <span class="sf-epith" data-tip="Epitheton ornans: 'Rhodopeiae arces' — mythologisch gekleurde toppen, het vaderland van Orpheus.">flerunt Rhodopeiae arces</span></div>
+    </div>
+<div class="poetry-vers-panel" id="sf-vers-5" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-trikolon" data-tip="Trikolon / accumulatie (begin): de rouw breidt zich geografisch uit — Pangaea, Rhesi tellus …">altaque Pangaea</span> et <span class="sf-epith" data-tip="Epitheton ornans: 'mavortia tellus' — aan Mars gewijd; contrast: zelfs het land van Mars huilt.">Rhesi mavortia tellus</span></div>
+    </div>
+<div class="poetry-vers-panel" id="sf-vers-6" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-trikolon" data-tip="Trikolon / accumulatie (slot): Getae, Hebrus, Orithyia — zes leden totaal. Het universum rouwt.">atque Getae atque Hebrus</span> et <span class="sf-epith" data-tip="Epitheton ornans: 'Actias Orithyia' — geografisch epitheton, klinkende slotnaam.">Actias Orithyia</span>.</div>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+/* ══ LECTUURANALYSE MODAL ══ */
+var laIdx = 0;
+var laReminderActiveIdx = -1;
+var LA_VERS_LABELS = ['v. 457','v. 458','v. 459','v. 460','v. 461–462','v. 463'];
+var LA_TRIGGER_MAP = {
+  5:  {idx:0, tekst:"Vraag bij v.457 — wie vlucht voor wie?"},
+  13: {idx:1, tekst:"Vraag bij v.458 — wat verraadt 'moritura'?"},
+  18: {idx:2, tekst:"Vraag bij v.459 — waarom staat 'non' zo laat?"},
+  23: {idx:3, tekst:"Vraag bij v.460 — wie zijn de Dryaden?"},
+  31: {idx:4, tekst:"Vraag bij v.461–462 — epitheta + trikolon"},
+  42: {idx:5, tekst:"Vraag bij v.463 — trikolon en sloteffect"}
+};
+
+function openLectuurModal() {
+  document.getElementById('lectuurOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateLaLabel();
+}
+function openLectuurFromReminder() {
+  if (laReminderActiveIdx >= 0) {
+    var panels = document.querySelectorAll('.la-panel');
+    panels[laIdx].style.display = 'none';
+    laIdx = laReminderActiveIdx;
+    panels[laIdx].style.display = 'block';
+    updateLaLabel();
+  }
+  openLectuurModal();
+}
+function updateLaLabel() {
+  var n = LA_VERS_LABELS.length;
+  document.getElementById('laLabel').textContent = LA_VERS_LABELS[laIdx] + ' · ' + (laIdx+1) + '/' + n;
+  document.getElementById('laPrev').disabled = laIdx === 0;
+  document.getElementById('laNext').disabled = laIdx === n-1;
+}
+function checkLaReminder(wgNr) {
+  var trigger = LA_TRIGGER_MAP[wgNr];
+  if (trigger) {
+    laReminderActiveIdx = trigger.idx;
+    document.getElementById('laReminderTekst').textContent = trigger.tekst;
+    document.getElementById('laReminder').classList.add('vis');
+  }
+}
+
+/* Uitbreiding navVers voor 'la' type */
+var _origNavVers = navVers;
+navVers = function(type, dir) {
+  if (type === 'la') {
+    var panels = document.querySelectorAll('.la-panel');
+    panels[laIdx].style.display = 'none';
+    laIdx = Math.max(0, Math.min(panels.length-1, laIdx + dir));
+    panels[laIdx].style.display = 'block';
+    updateLaLabel();
+  } else {
+    _origNavVers(type, dir);
+  }
+};
+
+/* Uitbreiding closePoetryModal voor 'lectuur' type */
+var _origClose = closePoetryModal;
+closePoetryModal = function(type) {
+  if (type === 'lectuur') {
+    var el = document.getElementById('lectuurOverlay');
+    if (el) el.classList.remove('open');
+    document.body.style.overflow = '';
+  } else {
+    _origClose(type);
+  }
+};
+
+/* Escape sluit ook lectuur modal */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closePoetryModal('lectuur'); }
+});
+
+/* ══ POËZIE MODALS ══ */
+var scanIdx = 0, sfIdx = 0;
+
+function navVers(type, dir) {
+  if (type === 'scan') {
+    var panels = document.querySelectorAll('#scansieOverlay .poetry-vers-panel');
+    panels[scanIdx].style.display = 'none';
+    scanIdx = Math.max(0, Math.min(panels.length-1, scanIdx + dir));
+    panels[scanIdx].style.display = 'block';
+    updateScanLabel();
+  } else if (type === 'sf') {
+    var panels = document.querySelectorAll('#stijlOverlay .poetry-vers-panel');
+    panels[sfIdx].style.display = 'none';
+    sfIdx = Math.max(0, Math.min(panels.length-1, sfIdx + dir));
+    panels[sfIdx].style.display = 'block';
+    updateSfLabel();
+    bindSfTooltips();
+  }
+}
+
+function closePoetryModal(type) {
+  if (type === 'scansie') {
+    document.getElementById('scansieOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  } else if (type === 'stijl') {
+    document.getElementById('stijlOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+var VERS_NRS = [457,458,459,460,461,462,463];
+
+function openScansieModal() {
+  document.getElementById('scansieOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateScanLabel();
+}
+function openStijlModal() {
+  document.getElementById('stijlOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateSfLabel();
+  bindSfTooltips();
+}
+
+function updateScanLabel() {
+  var n = VERS_NRS.length;
+  document.getElementById('scanLabel').textContent = 'vers ' + VERS_NRS[scanIdx] + ' · ' + (scanIdx+1) + '/' + n;
+  document.getElementById('scanPrev').disabled = scanIdx === 0;
+  document.getElementById('scanNext').disabled = scanIdx === n-1;
+}
+function updateSfLabel() {
+  var n = VERS_NRS.length;
+  document.getElementById('sfLabel').textContent = 'vers ' + VERS_NRS[sfIdx] + ' · ' + (sfIdx+1) + '/' + n;
+  document.getElementById('sfPrev').disabled = sfIdx === 0;
+  document.getElementById('sfNext').disabled = sfIdx === n-1;
+}
+function bindSfTooltips() {
+  var tip = document.getElementById('sfTooltip');
+  document.querySelectorAll('#sf-vers-' + sfIdx + ' [data-tip]').forEach(function(el) {
+    el.onmouseenter = function(e) { tip.textContent = el.dataset.tip; tip.classList.add('vis'); moveTip(e); };
+    el.onmousemove  = moveTip;
+    el.onmouseleave = function() { tip.classList.remove('vis'); };
+  });
+  function moveTip(e) {
+    var tw = tip.offsetWidth||280, th = tip.offsetHeight||60;
+    var x = e.clientX+12, y = e.clientY-th-8;
+    if (x+tw > window.innerWidth-8) x = e.clientX-tw-12;
+    if (y<8) y = e.clientY+16;
+    tip.style.left = x+'px'; tip.style.top = y+'px';
+  }
+}
 
 </script>
 </body>
