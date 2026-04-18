@@ -274,7 +274,7 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 /* ══ DIDACTIEK TOGGLE SYSTEEM ══ */
 
 /* Badges die op elementen verschijnen */
-.d-badge{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .5rem;border-radius:20px;vertical-align:middle;margin:0 .2rem .1rem;white-space:nowrap;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none;transform:scale(.85);}
+.d-badge{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .5rem;border-radius:20px;vertical-align:middle;margin:0 .2rem .1rem;white-space:nowrap;transition:opacity .2s,transform .2s;opacity:0;transform:scale(.85);}
 .d-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;}
 .d-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
 .d-badge.vis{opacity:1;pointer-events:auto;transform:scale(1);}
@@ -287,7 +287,7 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 
 /* Donkere hover-tooltip op badges */
 .d-tooltip{
-  position:absolute;z-index:900;
+  position:fixed;z-index:1200;
   background:#1a2238;color:#fff;
   font-family:var(--ft);font-size:.78rem;font-weight:500;
   line-height:1.45;letter-spacing:.005em;
@@ -1195,8 +1195,8 @@ function toggleNoten() {
     left = Math.max(8, Math.min(window.innerWidth - tw - 8, left));
     var top = r.top - th - pad;
     if (top < 8) top = r.bottom + pad; // klap onder als bovenaan
-    tip.style.left = (left + window.scrollX) + 'px';
-    tip.style.top  = (top  + window.scrollY) + 'px';
+    tip.style.left = left + 'px';
+    tip.style.top  = top  + 'px';
   }
   function hide() { tip.classList.remove('vis'); }
 
@@ -1213,13 +1213,11 @@ function toggleNoten() {
       b.addEventListener('blur',       hide);
     });
   });
-  // Badges met data-tip (lectuuranalyse, geen container-id nodig)
+  // Badges met data-tip (lectuuranalyse) — toon alleen als badge zichtbaar is (.vis)
   document.querySelectorAll('.d-badge[data-tip]').forEach(function(b){
     var text = b.getAttribute('data-tip');
-    b.addEventListener('mouseenter', function(){ show(b, text); });
+    b.addEventListener('mouseenter', function(){ if(b.classList.contains('vis')) show(b, text); });
     b.addEventListener('mouseleave', hide);
-    b.addEventListener('focus',      function(){ show(b, text); });
-    b.addEventListener('blur',       hide);
   });
 })();
 
@@ -1660,42 +1658,18 @@ function checkLaReminder(wgNr) {
   }
 }
 
-/* Uitbreiding navVers voor 'la' type */
-var _origNavVers = navVers;
-navVers = function(type, dir) {
+/* ══ POËZIE + LECTUUR MODALS — unified ══ */
+var scanIdx = 0, sfIdx = 0;
+var VERS_NRS = [457,458,459,460,461,462,463];
+
+function navVers(type, dir) {
   if (type === 'la') {
     var panels = document.querySelectorAll('.la-panel');
     panels[laIdx].style.display = 'none';
     laIdx = Math.max(0, Math.min(panels.length-1, laIdx + dir));
     panels[laIdx].style.display = 'block';
     updateLaLabel();
-  } else {
-    _origNavVers(type, dir);
-  }
-};
-
-/* Uitbreiding closePoetryModal voor 'lectuur' type */
-var _origClose = closePoetryModal;
-closePoetryModal = function(type) {
-  if (type === 'lectuur') {
-    var el = document.getElementById('lectuurOverlay');
-    if (el) el.classList.remove('open');
-    document.body.style.overflow = '';
-  } else {
-    _origClose(type);
-  }
-};
-
-/* Escape sluit ook lectuur modal */
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closePoetryModal('lectuur'); }
-});
-
-/* ══ POËZIE MODALS ══ */
-var scanIdx = 0, sfIdx = 0;
-
-function navVers(type, dir) {
-  if (type === 'scan') {
+  } else if (type === 'scan') {
     var panels = document.querySelectorAll('#scansieOverlay .poetry-vers-panel');
     panels[scanIdx].style.display = 'none';
     scanIdx = Math.max(0, Math.min(panels.length-1, scanIdx + dir));
@@ -1712,15 +1686,20 @@ function navVers(type, dir) {
 }
 
 function closePoetryModal(type) {
-  if (type === 'scansie') {
-    document.getElementById('scansieOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  } else if (type === 'stijl') {
-    document.getElementById('stijlOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
+  var map = { scansie:'scansieOverlay', stijl:'stijlOverlay', lectuur:'lectuurOverlay' };
+  var el = document.getElementById(map[type]);
+  if (el) el.classList.remove('open');
+  document.body.style.overflow = '';
 }
-var VERS_NRS = [457,458,459,460,461,462,463];
+
+/* Escape sluit alle poëzie/lectuur-modals */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closePoetryModal('lectuur');
+    closePoetryModal('scansie');
+    closePoetryModal('stijl');
+  }
+});
 
 /* toggleKaartAntwoord vervallen — kaart gebruikt nu toggleAntwoord */
 
