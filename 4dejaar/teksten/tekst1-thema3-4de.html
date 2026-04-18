@@ -380,14 +380,9 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 .la-antwoord-btn.open svg{transform:rotate(180deg);}
 .la-antwoord{display:none;margin-top:.55rem;padding:.7rem 1rem;background:#f0fdf4;border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-family:var(--fb);font-size:.84rem;line-height:1.65;color:var(--ink);}
 .la-antwoord.vis{display:block;animation:fadeUp .18s ease both;}
-.la-kaart-wrap{position:relative;margin:.5rem 0;border-radius:8px;overflow:hidden;cursor:pointer;}
-.la-kaart-img{width:100%;display:block;border-radius:8px;border:1px solid var(--rule);transition:filter .25s;}
-.la-kaart-wrap:hover .la-kaart-img,.la-kaart-wrap.open .la-kaart-img{filter:brightness(.45);}
-.la-kaart-overlay{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem 1rem;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;pointer-events:none;transition:opacity .2s;}
-.la-kaart-wrap.open .la-kaart-overlay{opacity:0;}
-.la-kaart-overlay svg{width:12px;height:12px;}
-.la-kaart-antwoord{display:none;position:absolute;inset:0;padding:1rem 1.2rem;background:rgba(0,0,0,.72);color:#fff;font-family:var(--fb);font-size:.84rem;line-height:1.7;border-radius:8px;align-items:center;justify-content:center;flex-direction:column;text-align:left;}
-.la-kaart-wrap.open .la-kaart-antwoord{display:flex;}
+.la-kaart-img-inline{width:100%;border-radius:8px 8px 0 0;border:1px solid var(--rule);border-bottom:none;display:block;}
+.la-kaart-container{padding:0!important;background:transparent!important;border-left:none!important;border-radius:8px;overflow:hidden;}
+.la-kaart-legenda{font-family:var(--fb);font-size:.82rem;line-height:1.8;color:var(--ink);display:flex;flex-direction:column;gap:.1rem;padding:.6rem .85rem;background:#f0fdf4;border:1px solid var(--rule);border-radius:0 0 8px 8px;}
 .la-sectie{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule);}
 .la-sectie:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .la-sectie-titel{font-family:var(--ft);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
@@ -1443,20 +1438,22 @@ window.addEventListener('scroll', function() {
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2C5.8 2 4 3.8 4 6c0 3.5 4 8 4 8s4-4.5 4-8c0-2.2-1.8-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
         Situeer op de kaart
       </div>
-      <div class="la-kaart-wrap">
-        <img src="../../images/teksten/thema34des/kaarttekst1.jpg" alt="Kaart van Thracië met Rhodope, Pangaea en Hebrus" class="la-kaart-img" onclick="toggleKaartAntwoord(this)">
-        <div class="la-kaart-overlay" onclick="toggleKaartAntwoord(this.previousElementSibling)">
+      <p class="la-vraag">De geografische namen die volgen (Rhodope, Pangaea, Hebrus…) liggen allemaal in Thracië. Situeer ze op de kaart. Welke ligt het verst van Troje?</p>
+      <div class="la-antwoord-wrap">
+        <button class="la-antwoord-btn" onclick="toggleAntwoord(this)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
-          Toon antwoord op kaart
-        </div>
-        <div class="la-kaart-antwoord">
-          <strong>Rhodope</strong> — bergketen in zuidelijk Thracië (modern Bulgarije/Griekenland)<br>
-          <strong>Pangaea</strong> — bergmassief ten oosten van Makedonie<br>
-          <strong>Hebrus</strong> — grote rivier van Thracië (modern Maritsa)<br>
-          <em>Verst van Troje: Rhodope, het verst landinwaarts naar het noorden.</em>
+          Toon kaart met antwoord
+        </button>
+        <div class="la-antwoord la-kaart-container">
+          <img src="../../images/teksten/thema34des/kaarttekst1.jpg" alt="Kaart van Thracië met Rhodope, Pangaea en Hebrus" class="la-kaart-img-inline">
+          <div class="la-kaart-legenda">
+            <span><strong>Rhodope</strong> — bergketen in zuidelijk Thracië (modern Bulgarije/Griekenland)</span>
+            <span><strong>Pangaea</strong> — bergmassief ten oosten van Makedonie</span>
+            <span><strong>Hebrus</strong> — grote rivier van Thracië (modern Maritsa)</span>
+            <em>Verst van Troje: Rhodope (verst landinwaarts naar het noorden)</em>
+          </div>
         </div>
       </div>
-      <p class="la-vraag">De geografische namen die volgen (Rhodope, Pangaea, Hebrus…) liggen allemaal in Thracië. Situeer ze op de kaart. Welke ligt het verst van Troje?</p>
       <div class="la-badge-rij"><span class="d-badge bs" data-tip="④ Dual coding: de kaart verbindt geografische namen in de tekst aan een visuele voorstelling van Thracië." data-layer="bs">④ Dual coding</span><span class="d-badge lpd" data-tip="WD2_03.03.01 situeren in tijd & ruimte: de geografische en mythologische context van het fragment." data-layer="lpd">WD2_03.03.01</span><span class="d-badge lpd" data-tip="WD2_03.03.02 maatschappij & cultuur: de Thracische namen situeren de mythe in een reële culturele wereld." data-layer="lpd">WD2_03.03.02</span></div>
     </div>
   </div>
@@ -1725,10 +1722,7 @@ function closePoetryModal(type) {
 }
 var VERS_NRS = [457,458,459,460,461,462,463];
 
-function toggleKaartAntwoord(img) {
-  var wrap = img.closest('.la-kaart-wrap');
-  wrap.classList.toggle('open');
-}
+/* toggleKaartAntwoord vervallen — kaart gebruikt nu toggleAntwoord */
 
 function toggleAntwoord(btn) {
   var wrap = btn.parentElement;
