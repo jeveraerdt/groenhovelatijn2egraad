@@ -373,6 +373,14 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 
 /* ══ LECTUURANALYSE MODAL ══ */
 .la-modal .poetry-modal-body{padding:1.25rem 1.5rem;}
+.la-antwoord-wrap{margin-top:.5rem;}
+.la-antwoord-btn{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--ft);font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);background:none;border:1.5px solid var(--blue);border-radius:20px;padding:.2rem .7rem;cursor:pointer;opacity:.75;transition:opacity .15s,background .15s,color .15s;}
+.la-antwoord-btn:hover{opacity:1;background:var(--blue);color:#fff;}
+.la-antwoord-btn svg{width:11px;height:11px;flex-shrink:0;transition:transform .2s;}
+.la-antwoord-btn.open svg{transform:rotate(180deg);}
+.la-antwoord{display:none;margin-top:.55rem;padding:.7rem 1rem;background:#f0fdf4;border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-family:var(--fb);font-size:.84rem;line-height:1.65;color:var(--ink);}
+.la-antwoord.vis{display:block;animation:fadeUp .18s ease both;}
+.la-kaart-img{width:100%;border-radius:8px;margin:.5rem 0;border:1px solid var(--rule);}
 .la-sectie{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule);}
 .la-sectie:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .la-sectie-titel{font-family:var(--ft);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
@@ -1144,7 +1152,29 @@ function toggleNoten() {
     'badges-wl|WD2_03.01.01 – basisvocabularium':
       'WD2_03.01.01 basisvocabularium: centrale woorden als virgo, calcis, vestigia en serpens behoren tot het te kennen basisvocabularium 2de graad.',
     'badges-wl|WD2_03.02.02 – betekenis geven aan teksten':
-      'WD2_03.02.02 betekenis geven aan teksten: moritura (van morior) en persequebantur (deponens) worden herkend via etymologie en dragen bij aan de semantische analyse.'
+      'WD2_03.02.02 betekenis geven aan teksten: moritura (van morior) en persequebantur (deponens) worden herkend via etymologie en dragen bij aan de semantische analyse.',
+    'badges-hero|WD2_03.03.01 – situeren in tijd & ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: het schilderij situeert de mythe van Orpheus en Eurydice in de antieke wereld en biedt visuele context vóór het lezen van Vergilius.',
+    'badges-hero|WD2_03.03.01 – situeren in tijd &amp; ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: het schilderij situeert de mythe van Orpheus en Eurydice in de antieke wereld en biedt visuele context vóór het lezen van Vergilius.',
+    'badges-context|WD2_03.03.01 – situeren in tijd & ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: de mythologische achtergrond plaatst de tekst in de Griekse mythe van Orpheus en Eurydice en in Vergilius\' Georgica (ca. 29 v.Chr.).',
+    'badges-context|WD2_03.03.01 – situeren in tijd &amp; ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: de mythologische achtergrond plaatst de tekst in de Griekse mythe van Orpheus en Eurydice en in Vergilius\' Georgica (ca. 29 v.Chr.).',
+    'badges-kaart|WD2_03.03.01 – situeren in tijd & ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: de kaart verbindt de geografische namen in de tekst (Rhodope, Pangaea, Hebrus) aan een concreet landschap in Thracië.',
+    'badges-kaart|WD2_03.03.01 – situeren in tijd &amp; ruimte':
+      'WD2_03.03.01 situeren in tijd & ruimte: de kaart verbindt de geografische namen in de tekst (Rhodope, Pangaea, Hebrus) aan een concreet landschap in Thracië.',
+    'badges-tekst|③ Voorbeelden & modelling':
+      '③ Voorbeelden & modelling: de leerkracht demonstreert de lectuurmethode (OND–PV–LV opsporen) op de eerste woordgroepen vóór leerlingen zelfstandig verdergaan.',
+    'badges-tekst|③ Voorbeelden &amp; modelling':
+      '③ Voorbeelden & modelling: de leerkracht demonstreert de lectuurmethode (OND–PV–LV opsporen) op de eerste woordgroepen vóór leerlingen zelfstandig verdergaan.',
+    'badges-tekst|⑤ Actieve verwerking':
+      '⑤ Actieve verwerking: leerlingen lezen actief mee per woordgroep en reconstrueren zelf de syntaxis van Vergilius\' hyperbatische stijl.',
+    'badges-tekst|WD2_03.02.01.01 – lectuurmethode toepassen':
+      'WD2_03.02.01.01 lectuurmethode toepassen: de tekst wordt lineair gelezen per kolon — eerst OND en PV lokaliseren, dan bijzinnen en participiumgroepen ontvouwen.',
+    'badges-tekst|WD2_03.01.01 – taalsystematiek':
+      'WD2_03.01.01 taalsystematiek: morfologische analyse van participia (moritura, servantem), de abl. abs. en de conj. imperf. in de dum-bijzin.'
   };
 
   // Zorg voor één globale tooltip-node
@@ -1314,8 +1344,20 @@ window.addEventListener('scroll', function() {
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M3 8h7M3 11h5"/></svg>
         Inhoudsvraag
       </div>
-      <p class="la-vraag">Wie is <em>illa</em> en voor wie vlucht ze? Wat verraadt <em>te</em> over het perspectief van de verteller?</p><p class="la-vraag">Welke woordvolgorde is ongewoon in deze vers? Waarom plaatst Vergilius <em>praeceps</em> zo laat?</p>
+      <p class="la-vraag">Wie is <em>illa</em> en voor wie vlucht ze? Wat verraadt <em>te</em> over het perspectief van de verteller?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Illa</em> = Eurydice. <em>Te</em> = Aristaeus, de imker die haar achtervolgde. De verteller richt zich tot Orpheus (<em>te causam</em> later) — het perspectief is een aanklacht: door jou vluchtte ze.</div></div>
+      <p class="la-vraag">Welke woordvolgorde is ongewoon in deze vers? Waarom plaatst Vergilius <em>praeceps</em> zo laat?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Praeceps</em> is een praedicatief attribuut bij <em>illa</em> maar staat helemaal achteraan (hyperbaton). Het effect: de val hangt al de hele versregel in de lucht — pas op het laatste woord "valt" Eurydice.</div></div>
       <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑥ Check begrip</span><span class="la-badge lpd">WD2_03.02.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h5v5H2zM9 4h5v5H9zM2 11h5v3H2zM9 11h5v3H9z"/></svg>
+        Grammaticavraag
+      </div>
+      <p class="la-vraag">Bepaal de functie van <em>fugeret</em>: welk tempus, welke modus en waarom de conjunctief in een <em>dum</em>-bijzin?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Fugeret</em>: actief conjunctief imperfectum, 3e persoon enkelvoud van <em>fugere</em>. De <em>dum</em>-bijzin drukt gelijktijdigheid met de hoofdzin uit; de conjunctief voegt een kleur van intentionaliteit toe — ze vluchtte <em>terwijl</em> en <em>omdat</em> ze vluchtte. PV van de temporele bijzin, OND = <em>illa</em>.</div></div>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.01.01</span></div>
     </div>
   </div>
   <div class="poetry-vers-panel la-panel" id="la-vers-1" style="display:none">
@@ -1333,8 +1375,20 @@ window.addEventListener('scroll', function() {
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M3 8h7M3 11h5"/></svg>
         Inhoudsvraag
       </div>
-      <p class="la-vraag">Welk grammaticaal fenomeen zit er in <em>moritura</em>? Wat is het effect op de lezer?</p><p class="la-vraag">Teken de zinsbouw van v.458: welke woorden horen bij elkaar maar staan ver uit elkaar?</p>
+      <p class="la-vraag">Welk grammaticaal fenomeen zit er in <em>moritura</em>? Wat is het effect op de lezer?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Moritura</em> is een participium futuri actief van het deponens <em>mori</em> (sterven): "gedoemd te sterven / die zou sterven". Het staat als praedicatief attribuut bij <em>puella</em>. Effect: de lezer weet het lot van Eurydice al vóór de slang toeslaat — tragische ironie.</div></div>
+      <p class="la-vraag">Teken de zinsbouw van v.458: welke woorden horen bij elkaar maar staan ver uit elkaar?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Hyperbaton: <em>immanem</em> (acc.) hoort bij <em>hydrum</em> maar omhult de hele versregel. Schema: [<em>immanem</em> — ante pedes — hydrum] // [<em>moritura</em> — puella]. De slang omringt het meisje ook in de woordschikking.</div></div>
       <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge lpd">WD2_03.02.01</span><span class="la-badge lpd">WD2_03.01.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h5v5H2zM9 4h5v5H9zM2 11h5v3H2zM9 11h5v3H9z"/></svg>
+        Grammaticavraag
+      </div>
+      <p class="la-vraag">Determineer <em>servantem</em> volledig (v.459) en verklaar de functie ervan in de zin.</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Servantem</em>: participium praesens actief, acc. enkelvoud m., van <em>servare</em>. Functie: praedicatief attribuut bij <em>hydrum</em> (acc.) — "de waterslang die de oevers bewaakte". Het participium beschrijft wat de slang aan het doen was op het moment van de beet.</div></div>
+      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑦ Scaffolding</span><span class="la-badge lpd">WD2_03.01.01</span></div>
     </div>
   </div>
   <div class="poetry-vers-panel la-panel" id="la-vers-2" style="display:none">
@@ -1352,7 +1406,10 @@ window.addEventListener('scroll', function() {
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>
         Stijlvraag
       </div>
-      <p class="la-vraag">Vergilius plaatst <em>non vidit</em> pas op het einde van vers 459, terwijl de slang al in vers 458 is beschreven. Welk effect heeft dit op de lezer?</p><p class="la-vraag">Zoek het epitheton ornans in deze versregel. Welke functie heeft het?</p>
+      <p class="la-vraag">Vergilius plaatst <em>non vidit</em> pas op het einde van vers 459, terwijl de slang al in vers 458 is beschreven. Welk effect heeft dit op de lezer?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Retardatio: de lezer ziet de slang al (v.458) maar moet twee volle verzen wachten op <em>non vidit</em>. Dat uitstel maakt de spanning bijna ondraaglijk — de lezer wil dat Eurydice kijkt, maar ze kijkt niet. Het "niet zien" komt als een klap.</div></div>
+      <p class="la-vraag">Zoek het epitheton ornans in deze versregel. Welke functie heeft het?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Epitheton ornans: <em>alta</em> bij <em>herba</em> (het hoge gras). Functie: het hoge gras verklaart waarom Eurydice de slang niet zag — het is zowel realistisch detail als tragische ironie: de natuur verbergt het gevaar.</div></div>
       <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.01</span><span class="la-badge lpd">WD2_03.02.02.02</span></div>
     </div>
   </div>
@@ -1371,7 +1428,9 @@ window.addEventListener('scroll', function() {
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2C5.8 2 4 3.8 4 6c0 3.5 4 8 4 8s4-4.5 4-8c0-2.2-1.8-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
         Situeer op de kaart
       </div>
-      <p class="la-vraag">De geografische namen die volgen (Rhodope, Pangaea, Hebrus…) liggen allemaal in Thracië. Situeer ze op de kaart. Welke ligt het verst van Brugge — pardon, van Troje?</p>
+      <img src="../../images/teksten/thema34des/kaarttekst1.jpg" alt="Kaart van Thracië met Rhodope, Pangaea en Hebrus" class="la-kaart-img">
+      <p class="la-vraag">De geografische namen die volgen (Rhodope, Pangaea, Hebrus…) liggen allemaal in Thracië. Situeer ze op de kaart. Welke ligt het verst van Troje?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Rhodope = bergketen in zuidelijk Thracië (modern Bulgarije/Griekenland). Pangaea = bergmassief ten oosten van Makedonie. Hebrus = de grote rivier van Thracië (modern Maritsa). Het verst van Troje: Rhodope, het verst landinwaarts naar het noorden.</div></div>
       <div class="la-badge-rij"><span class="la-badge bs">④ Dual coding</span><span class="la-badge lpd">WD2_03.03.01</span><span class="la-badge lpd">WD2_03.03.02</span></div>
     </div>
   </div>
@@ -1382,7 +1441,10 @@ window.addEventListener('scroll', function() {
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>
         Stijlvraag
       </div>
-      <p class="la-vraag">Zoek alle epitheta ornantia in v.461–462. Noteer: welk adjectief hoort bij welk nomen?</p><p class="la-vraag"><em>Rhesi mavortia tellus</em>: het land van Rhesos is "aan Mars gewijd". Welk contrast creëert Vergilius hiermee ten opzichte van de rouw?</p>
+      <p class="la-vraag">Zoek alle epitheta ornantia in v.461–462. Noteer: welk adjectief hoort bij welk nomen?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Rhodopeiae arces</em> (de Rhodopische toppen) — <em>Rhodopeiae</em> bij <em>arces</em>. <em>Alta … Pangaea</em> (het hoge Pangaea) — <em>alta</em> bij <em>Pangaea</em>. <em>Mavortia tellus</em> (het aan Mars gewijde land) — <em>mavortia</em> bij <em>tellus</em>.</div></div>
+      <p class="la-vraag"><em>Rhesi mavortia tellus</em>: het land van Rhesos is "aan Mars gewijd". Welk contrast creëert Vergilius hiermee ten opzichte van de rouw?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Mars = god van de oorlog, geweld, kracht. Contrast: zelfs dit harde, viriele oorlogsland huilt om de dood van één vrouw. Vergilius toont dat de rouw alle grenzen overschrijdt — ook die van hardheid en mannelijkheid.</div></div>
       <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑥ Check begrip</span><span class="la-badge lpd">WD2_03.02.02.01</span></div>
     </div>
     <div class="la-sectie">
@@ -1391,6 +1453,7 @@ window.addEventListener('scroll', function() {
         Inhoudsvraag
       </div>
       <p class="la-vraag">Vergilius gebruikt enjambement: <em>clamore supremos</em> (v.460) hoort bij <em>implerunt montes</em> (v.461). Wat is het effect van dit enjambement?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Het enjambement laat het gehuil letterlijk "overlopen" van de ene versregel naar de andere — de syntaxis overschrijdt de grens net zoals het gehuil de bergtoppen vult. Vergilius maakt de vorm tot inhoud.</div></div>
       <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge lpd">WD2_03.02.02.02</span></div>
     </div>
   </div>
@@ -1401,7 +1464,10 @@ window.addEventListener('scroll', function() {
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>
         Stijlvraag
       </div>
-      <p class="la-vraag">De hele passage v.460–463 is een grote accumulatie. Tel de leden: hoeveel "getuigen" van de rouw somt Vergilius op? Welk effect heeft die herhaling op de lezer?</p><p class="la-vraag"><em>Actias Orithyia</em> is de mythologische afsluiting. Orithyia was zelf een meisje dat onvrijwillig werd weggevoerd. Hoe verbindt Vergilius haar verhaal met dat van Eurydice?</p>
+      <p class="la-vraag">De hele passage v.460–463 is een grote accumulatio. Tel de leden: hoeveel "getuigen" van de rouw somt Vergilius op? Welk effect heeft die herhaling op de lezer?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">7 leden: Dryaden, bergtoppen, Rhodope-arces, Pangaea, Rhesi tellus, Getae, Hebrus, Orithyia. De accumulatio zwelt aan als een golf — de rouw groeit van lokaal (nimfen) naar kosmisch (landen, rivieren, mythische figuren). De lezer wordt overweldigd net zoals de natuur.</div></div>
+      <p class="la-vraag"><em>Actias Orithyia</em> is de mythologische afsluiting. Orithyia was zelf een meisje dat onvrijwillig werd weggevoerd. Hoe verbindt Vergilius haar verhaal met dat van Eurydice?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Orithyia werd door Boreas (de noordenwind) geroofd — ook zij was een onschuldig meisje dat het slachtoffer werd van een gewelddadige man. Vergilius sluit de passage af met een tweede vrouwelijke tragedie: Eurydice is niet uniek, vrouwelijk leed is universeel.</div></div>
       <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.02</span><span class="la-badge lpd">WD2_03.02.02.03</span></div>
     </div>
     <div class="la-sectie">
@@ -1410,6 +1476,7 @@ window.addEventListener('scroll', function() {
         Verdieping — auteursperspectief
       </div>
       <p class="la-vraag">Het fragment begint met een aanklacht: <em>dum te fugeret</em> — Eurydice vluchtte <em>voor jou</em> (Orpheus). Hoe legt Vergilius via stijl en inhoud de schuld bij Orpheus? Gebruik minstens twee voorbeelden uit de tekst.</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">1. <em>Dum te fugeret</em> (v.457): de vlucht is causaal gekoppeld aan <em>te</em> — Orpheus is de aanleiding. 2. <em>Moritura</em> (v.458): het lot stond al vast, maar door toedoen van de situatie die Orpheus veroorzaakte. 3. De verteller spreekt Orpheus rechtstreeks aan (apostrofe) — geen neutrale beschrijving maar een aanklacht.</div></div>
       <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.03</span><span class="la-badge lpd">WD2_03.02.01</span></div>
     </div>
   </div>
@@ -1631,6 +1698,14 @@ function closePoetryModal(type) {
   }
 }
 var VERS_NRS = [457,458,459,460,461,462,463];
+
+function toggleAntwoord(btn) {
+  var wrap = btn.parentElement;
+  var antw = wrap.querySelector('.la-antwoord');
+  var open = antw.classList.toggle('vis');
+  btn.classList.toggle('open', open);
+  btn.querySelector('svg').style.transform = open ? 'rotate(180deg)' : '';
+}
 
 function openScansieModal() {
   document.getElementById('scansieOverlay').classList.add('open');
