@@ -380,7 +380,14 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 .la-antwoord-btn.open svg{transform:rotate(180deg);}
 .la-antwoord{display:none;margin-top:.55rem;padding:.7rem 1rem;background:#f0fdf4;border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-family:var(--fb);font-size:.84rem;line-height:1.65;color:var(--ink);}
 .la-antwoord.vis{display:block;animation:fadeUp .18s ease both;}
-.la-kaart-img{width:100%;border-radius:8px;margin:.5rem 0;border:1px solid var(--rule);}
+.la-kaart-wrap{position:relative;margin:.5rem 0;border-radius:8px;overflow:hidden;cursor:pointer;}
+.la-kaart-img{width:100%;display:block;border-radius:8px;border:1px solid var(--rule);transition:filter .25s;}
+.la-kaart-wrap:hover .la-kaart-img,.la-kaart-wrap.open .la-kaart-img{filter:brightness(.45);}
+.la-kaart-overlay{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem 1rem;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;pointer-events:none;transition:opacity .2s;}
+.la-kaart-wrap.open .la-kaart-overlay{opacity:0;}
+.la-kaart-overlay svg{width:12px;height:12px;}
+.la-kaart-antwoord{display:none;position:absolute;inset:0;padding:1rem 1.2rem;background:rgba(0,0,0,.72);color:#fff;font-family:var(--fb);font-size:.84rem;line-height:1.7;border-radius:8px;align-items:center;justify-content:center;flex-direction:column;text-align:left;}
+.la-kaart-wrap.open .la-kaart-antwoord{display:flex;}
 .la-sectie{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule);}
 .la-sectie:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .la-sectie-titel{font-family:var(--ft);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
@@ -389,7 +396,7 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 .la-vraag{font-family:var(--fb);font-size:.9rem;line-height:1.6;color:var(--ink);margin-bottom:.5rem;padding-left:.85rem;border-left:3px solid var(--blue);}
 .la-vraag + .la-vraag{margin-top:.6rem;}
 .la-toelichting{font-family:var(--ft);font-size:.78rem;color:var(--ink-light);line-height:1.55;margin-top:.4rem;padding-left:.85rem;}
-.la-badge-rij{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.6rem;padding-left:.85rem;}
+.la-badge-rij{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.6rem;padding-left:.85rem;min-height:0;}
 .la-badge{font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.04em;padding:.12rem .4rem;border-radius:10px;}
 .la-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;}
 .la-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
@@ -1211,6 +1218,14 @@ function toggleNoten() {
       b.addEventListener('blur',       hide);
     });
   });
+  // Badges met data-tip (lectuuranalyse, geen container-id nodig)
+  document.querySelectorAll('.d-badge[data-tip]').forEach(function(b){
+    var text = b.getAttribute('data-tip');
+    b.addEventListener('mouseenter', function(){ show(b, text); });
+    b.addEventListener('mouseleave', hide);
+    b.addEventListener('focus',      function(){ show(b, text); });
+    b.addEventListener('blur',       hide);
+  });
 })();
 
 /* KAART MODAL */
@@ -1337,7 +1352,7 @@ window.addEventListener('scroll', function() {
         Toelichting
       </div>
       <p class="la-toelichting"><em>illa</em> = Eurydice. <em>te</em> = Aristaeus, de imker die haar achtervolgde. De conjunctief <em>fugeret</em> in de <em>dum</em>-bijzin drukt gelijktijdigheid én oorzakelijkheid uit: terwijl ze vluchtte, en precies doordat ze vluchtte. <em>Praeceps</em> (halsoverkop) staat ver achteraan — hyperbaton dat de val al aankondigt.</p>
-      <div class="la-badge-rij"><span class="la-badge bs">① Voorkennis</span><span class="la-badge lpd">WD2_03.03.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="① Voorkennis activeren: de toelichting activeert voorkennis over de mythe en Latijnse constructies vóór de analyse." data-layer="bs">① Voorkennis</span><span class="d-badge lpd" data-tip="WD2_03.03.01 situeren in tijd & ruimte: de geografische en mythologische context van het fragment." data-layer="lpd">WD2_03.03.01</span></div>
     </div>
     <div class="la-sectie">
       <div class="la-sectie-titel">
@@ -1348,7 +1363,7 @@ window.addEventListener('scroll', function() {
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Illa</em> = Eurydice. <em>Te</em> = Aristaeus, de imker die haar achtervolgde. De verteller richt zich tot Orpheus (<em>te causam</em> later) — het perspectief is een aanklacht: door jou vluchtte ze.</div></div>
       <p class="la-vraag">Welke woordvolgorde is ongewoon in deze vers? Waarom plaatst Vergilius <em>praeceps</em> zo laat?</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Praeceps</em> is een praedicatief attribuut bij <em>illa</em> maar staat helemaal achteraan (hyperbaton). Het effect: de val hangt al de hele versregel in de lucht — pas op het laatste woord "valt" Eurydice.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑥ Check begrip</span><span class="la-badge lpd">WD2_03.02.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑥ Check begrip hele klas: de vraag peilt of leerlingen de kerninhoud van dit vers begrepen hebben." data-layer="bs">⑥ Check begrip</span><span class="d-badge lpd" data-tip="WD2_03.02.01 tekst begrijpen: de leerling past lectuurstrategieën toe om de tekst te vertalen en te parafraseren." data-layer="lpd">WD2_03.02.01</span></div>
     </div>
     <div class="la-sectie">
       <div class="la-sectie-titel">
@@ -1357,7 +1372,7 @@ window.addEventListener('scroll', function() {
       </div>
       <p class="la-vraag">Bepaal de functie van <em>fugeret</em>: welk tempus, welke modus en waarom de conjunctief in een <em>dum</em>-bijzin?</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Fugeret</em>: actief conjunctief imperfectum, 3e persoon enkelvoud van <em>fugere</em>. De <em>dum</em>-bijzin drukt gelijktijdigheid met de hoofdzin uit; de conjunctief voegt een kleur van intentionaliteit toe — ze vluchtte <em>terwijl</em> en <em>omdat</em> ze vluchtte. PV van de temporele bijzin, OND = <em>illa</em>.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.01.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet: de vraag dwingt tot redeneren over auteurskeuzes, niet louter reproduceren." data-layer="bs">⑪ Feedback die denken aanzet</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek: morfologische en syntactische analyse van participia, conjunctief en bijzinnen." data-layer="lpd">WD2_03.01.01</span></div>
     </div>
   </div>
   <div class="poetry-vers-panel la-panel" id="la-vers-1" style="display:none">
@@ -1368,7 +1383,7 @@ window.addEventListener('scroll', function() {
         Toelichting
       </div>
       <p class="la-toelichting"><em>moritura</em> is het participium futuri van het deponens <em>mori</em>: "die zou sterven / gedoemd te sterven". Het lot staat al in de naam van het meisje gegrift, nog vóór de slang toeslaat. <em>Immanem … hydrum</em> omhult de versregel — de slang is overal tegelijk.</p>
-      <div class="la-badge-rij"><span class="la-badge bs">① Voorkennis</span><span class="la-badge bs">③ Modelling</span><span class="la-badge lpd">WD2_03.01.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="① Voorkennis activeren: de toelichting activeert voorkennis over de mythe en Latijnse constructies vóór de analyse." data-layer="bs">① Voorkennis</span><span class="d-badge bs" data-tip="③ Voorbeelden & modelling: de leerkracht modelleert hoe je moritura herkent als part. fut. en interpreteert." data-layer="bs">③ Modelling</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek: morfologische en syntactische analyse van participia, conjunctief en bijzinnen." data-layer="lpd">WD2_03.01.01</span></div>
     </div>
     <div class="la-sectie">
       <div class="la-sectie-titel">
@@ -1379,7 +1394,7 @@ window.addEventListener('scroll', function() {
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Moritura</em> is een participium futuri actief van het deponens <em>mori</em> (sterven): "gedoemd te sterven / die zou sterven". Het staat als praedicatief attribuut bij <em>puella</em>. Effect: de lezer weet het lot van Eurydice al vóór de slang toeslaat — tragische ironie.</div></div>
       <p class="la-vraag">Teken de zinsbouw van v.458: welke woorden horen bij elkaar maar staan ver uit elkaar?</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Hyperbaton: <em>immanem</em> (acc.) hoort bij <em>hydrum</em> maar omhult de hele versregel. Schema: [<em>immanem</em> — ante pedes — hydrum] // [<em>moritura</em> — puella]. De slang omringt het meisje ook in de woordschikking.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge lpd">WD2_03.02.01</span><span class="la-badge lpd">WD2_03.01.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge lpd" data-tip="WD2_03.02.01 tekst begrijpen: de leerling past lectuurstrategieën toe om de tekst te vertalen en te parafraseren." data-layer="lpd">WD2_03.02.01</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek: morfologische en syntactische analyse van participia, conjunctief en bijzinnen." data-layer="lpd">WD2_03.01.01</span></div>
     </div>
     <div class="la-sectie">
       <div class="la-sectie-titel">
@@ -1388,7 +1403,7 @@ window.addEventListener('scroll', function() {
       </div>
       <p class="la-vraag">Determineer <em>servantem</em> volledig (v.459) en verklaar de functie ervan in de zin.</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Servantem</em>: participium praesens actief, acc. enkelvoud m., van <em>servare</em>. Functie: praedicatief attribuut bij <em>hydrum</em> (acc.) — "de waterslang die de oevers bewaakte". Het participium beschrijft wat de slang aan het doen was op het moment van de beet.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑦ Scaffolding</span><span class="la-badge lpd">WD2_03.01.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑦ Scaffolding: de noot of toelichting biedt gestructureerde steun om complexe constructies te begrijpen." data-layer="bs">⑦ Scaffolding</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek: morfologische en syntactische analyse van participia, conjunctief en bijzinnen." data-layer="lpd">WD2_03.01.01</span></div>
     </div>
   </div>
   <div class="poetry-vers-panel la-panel" id="la-vers-2" style="display:none">
@@ -1399,7 +1414,7 @@ window.addEventListener('scroll', function() {
         Toelichting
       </div>
       <p class="la-toelichting">Het werkwoord <em>vidit</em> en de ontkenning <em>non</em> verschijnen pas in vers 459 — twee verzen nadat de slang werd geïntroduceerd (v.457). Dit is bewust retardatio: Vergilius houdt de afloop zo lang mogelijk op, zodat de lezer de angst mee beleeft.</p>
-      <div class="la-badge-rij"><span class="la-badge bs">② Structuur + uitdaging</span><span class="la-badge lpd">WD2_03.02.02</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="② Structuur + uitdaging: de retardatio toont hoe Vergilius spanning opbouwt via bewuste vertragingstechniek." data-layer="bs">② Structuur + uitdaging</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: stijlfiguren en metriek analyseren in functie van de intentie van de auteur." data-layer="lpd">WD2_03.02.02</span></div>
     </div>
     <div class="la-sectie">
       <div class="la-sectie-titel">
@@ -1410,7 +1425,7 @@ window.addEventListener('scroll', function() {
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Retardatio: de lezer ziet de slang al (v.458) maar moet twee volle verzen wachten op <em>non vidit</em>. Dat uitstel maakt de spanning bijna ondraaglijk — de lezer wil dat Eurydice kijkt, maar ze kijkt niet. Het "niet zien" komt als een klap.</div></div>
       <p class="la-vraag">Zoek het epitheton ornans in deze versregel. Welke functie heeft het?</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Epitheton ornans: <em>alta</em> bij <em>herba</em> (het hoge gras). Functie: het hoge gras verklaart waarom Eurydice de slang niet zag — het is zowel realistisch detail als tragische ironie: de natuur verbergt het gevaar.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.01</span><span class="la-badge lpd">WD2_03.02.02.02</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet: de vraag dwingt tot redeneren over auteurskeuzes, niet louter reproduceren." data-layer="bs">⑪ Feedback die denken aanzet</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: stijlfiguren en metriek analyseren in functie van de intentie van de auteur." data-layer="lpd">WD2_03.02.02.01</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: stijlfiguren en metriek analyseren in functie van de intentie van de auteur." data-layer="lpd">WD2_03.02.02.02</span></div>
     </div>
   </div>
   <div class="poetry-vers-panel la-panel" id="la-vers-3" style="display:none">
@@ -1421,17 +1436,28 @@ window.addEventListener('scroll', function() {
         Toelichting
       </div>
       <p class="la-toelichting"><em>At</em> markeert de overgang van het persoonlijke drama naar de kosmische rouw. De Dryaden zijn bosnimfen — leeftijdsgenoten van Eurydice (<em>aequalis</em>). Hun gehuil vult de bergtoppen: van intiem naar universum.</p>
-      <div class="la-badge-rij"><span class="la-badge bs">① Voorkennis</span><span class="la-badge bs">④ Dual coding</span><span class="la-badge lpd">WD2_03.03.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="① Voorkennis activeren: de toelichting activeert voorkennis over de mythe en Latijnse constructies vóór de analyse." data-layer="bs">① Voorkennis</span><span class="d-badge bs" data-tip="④ Dual coding: de kaart verbindt geografische namen in de tekst aan een visuele voorstelling van Thracië." data-layer="bs">④ Dual coding</span><span class="d-badge lpd" data-tip="WD2_03.03.01 situeren in tijd & ruimte: de geografische en mythologische context van het fragment." data-layer="lpd">WD2_03.03.01</span></div>
     </div>
     <div class="la-sectie">
       <div class="la-sectie-titel">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2C5.8 2 4 3.8 4 6c0 3.5 4 8 4 8s4-4.5 4-8c0-2.2-1.8-4-4-4zm0 5.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
         Situeer op de kaart
       </div>
-      <img src="../../images/teksten/thema34des/kaarttekst1.jpg" alt="Kaart van Thracië met Rhodope, Pangaea en Hebrus" class="la-kaart-img">
+      <div class="la-kaart-wrap">
+        <img src="../../images/teksten/thema34des/kaarttekst1.jpg" alt="Kaart van Thracië met Rhodope, Pangaea en Hebrus" class="la-kaart-img" onclick="toggleKaartAntwoord(this)">
+        <div class="la-kaart-overlay" onclick="toggleKaartAntwoord(this.previousElementSibling)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+          Toon antwoord op kaart
+        </div>
+        <div class="la-kaart-antwoord">
+          <strong>Rhodope</strong> — bergketen in zuidelijk Thracië (modern Bulgarije/Griekenland)<br>
+          <strong>Pangaea</strong> — bergmassief ten oosten van Makedonie<br>
+          <strong>Hebrus</strong> — grote rivier van Thracië (modern Maritsa)<br>
+          <em>Verst van Troje: Rhodope, het verst landinwaarts naar het noorden.</em>
+        </div>
+      </div>
       <p class="la-vraag">De geografische namen die volgen (Rhodope, Pangaea, Hebrus…) liggen allemaal in Thracië. Situeer ze op de kaart. Welke ligt het verst van Troje?</p>
-      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Rhodope = bergketen in zuidelijk Thracië (modern Bulgarije/Griekenland). Pangaea = bergmassief ten oosten van Makedonie. Hebrus = de grote rivier van Thracië (modern Maritsa). Het verst van Troje: Rhodope, het verst landinwaarts naar het noorden.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">④ Dual coding</span><span class="la-badge lpd">WD2_03.03.01</span><span class="la-badge lpd">WD2_03.03.02</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="④ Dual coding: de kaart verbindt geografische namen in de tekst aan een visuele voorstelling van Thracië." data-layer="bs">④ Dual coding</span><span class="d-badge lpd" data-tip="WD2_03.03.01 situeren in tijd & ruimte: de geografische en mythologische context van het fragment." data-layer="lpd">WD2_03.03.01</span><span class="d-badge lpd" data-tip="WD2_03.03.02 maatschappij & cultuur: de Thracische namen situeren de mythe in een reële culturele wereld." data-layer="lpd">WD2_03.03.02</span></div>
     </div>
   </div>
   <div class="poetry-vers-panel la-panel" id="la-vers-4" style="display:none">
@@ -1445,7 +1471,7 @@ window.addEventListener('scroll', function() {
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Rhodopeiae arces</em> (de Rhodopische toppen) — <em>Rhodopeiae</em> bij <em>arces</em>. <em>Alta … Pangaea</em> (het hoge Pangaea) — <em>alta</em> bij <em>Pangaea</em>. <em>Mavortia tellus</em> (het aan Mars gewijde land) — <em>mavortia</em> bij <em>tellus</em>.</div></div>
       <p class="la-vraag"><em>Rhesi mavortia tellus</em>: het land van Rhesos is "aan Mars gewijd". Welk contrast creëert Vergilius hiermee ten opzichte van de rouw?</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Mars = god van de oorlog, geweld, kracht. Contrast: zelfs dit harde, viriele oorlogsland huilt om de dood van één vrouw. Vergilius toont dat de rouw alle grenzen overschrijdt — ook die van hardheid en mannelijkheid.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑥ Check begrip</span><span class="la-badge lpd">WD2_03.02.02.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑥ Check begrip hele klas: de vraag peilt of leerlingen de kerninhoud van dit vers begrepen hebben." data-layer="bs">⑥ Check begrip</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: stijlfiguren en metriek analyseren in functie van de intentie van de auteur." data-layer="lpd">WD2_03.02.02.01</span></div>
     </div>
     <div class="la-sectie">
       <div class="la-sectie-titel">
@@ -1454,7 +1480,7 @@ window.addEventListener('scroll', function() {
       </div>
       <p class="la-vraag">Vergilius gebruikt enjambement: <em>clamore supremos</em> (v.460) hoort bij <em>implerunt montes</em> (v.461). Wat is het effect van dit enjambement?</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Het enjambement laat het gehuil letterlijk "overlopen" van de ene versregel naar de andere — de syntaxis overschrijdt de grens net zoals het gehuil de bergtoppen vult. Vergilius maakt de vorm tot inhoud.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge lpd">WD2_03.02.02.02</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: stijlfiguren en metriek analyseren in functie van de intentie van de auteur." data-layer="lpd">WD2_03.02.02.02</span></div>
     </div>
   </div>
   <div class="poetry-vers-panel la-panel" id="la-vers-5" style="display:none">
@@ -1468,7 +1494,7 @@ window.addEventListener('scroll', function() {
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">7 leden: Dryaden, bergtoppen, Rhodope-arces, Pangaea, Rhesi tellus, Getae, Hebrus, Orithyia. De accumulatio zwelt aan als een golf — de rouw groeit van lokaal (nimfen) naar kosmisch (landen, rivieren, mythische figuren). De lezer wordt overweldigd net zoals de natuur.</div></div>
       <p class="la-vraag"><em>Actias Orithyia</em> is de mythologische afsluiting. Orithyia was zelf een meisje dat onvrijwillig werd weggevoerd. Hoe verbindt Vergilius haar verhaal met dat van Eurydice?</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Orithyia werd door Boreas (de noordenwind) geroofd — ook zij was een onschuldig meisje dat het slachtoffer werd van een gewelddadige man. Vergilius sluit de passage af met een tweede vrouwelijke tragedie: Eurydice is niet uniek, vrouwelijk leed is universeel.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.02</span><span class="la-badge lpd">WD2_03.02.02.03</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet: de vraag dwingt tot redeneren over auteurskeuzes, niet louter reproduceren." data-layer="bs">⑪ Feedback die denken aanzet</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: stijlfiguren en metriek analyseren in functie van de intentie van de auteur." data-layer="lpd">WD2_03.02.02.02</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: stijlfiguren en metriek analyseren in functie van de intentie van de auteur." data-layer="lpd">WD2_03.02.02.03</span></div>
     </div>
     <div class="la-sectie">
       <div class="la-sectie-titel">
@@ -1477,7 +1503,7 @@ window.addEventListener('scroll', function() {
       </div>
       <p class="la-vraag">Het fragment begint met een aanklacht: <em>dum te fugeret</em> — Eurydice vluchtte <em>voor jou</em> (Orpheus). Hoe legt Vergilius via stijl en inhoud de schuld bij Orpheus? Gebruik minstens twee voorbeelden uit de tekst.</p>
       <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">1. <em>Dum te fugeret</em> (v.457): de vlucht is causaal gekoppeld aan <em>te</em> — Orpheus is de aanleiding. 2. <em>Moritura</em> (v.458): het lot stond al vast, maar door toedoen van de situatie die Orpheus veroorzaakte. 3. De verteller spreekt Orpheus rechtstreeks aan (apostrofe) — geen neutrale beschrijving maar een aanklacht.</div></div>
-      <div class="la-badge-rij"><span class="la-badge bs">⑤ Actief verwerken</span><span class="la-badge bs">⑪ Feedback die denken aanzet</span><span class="la-badge lpd">WD2_03.02.02.03</span><span class="la-badge lpd">WD2_03.02.01</span></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen analyseren zelf de syntaxis, stijlfiguren of betekenis vóór het antwoord wordt gegeven." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet: de vraag dwingt tot redeneren over auteurskeuzes, niet louter reproduceren." data-layer="bs">⑪ Feedback die denken aanzet</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: stijlfiguren en metriek analyseren in functie van de intentie van de auteur." data-layer="lpd">WD2_03.02.02.03</span><span class="d-badge lpd" data-tip="WD2_03.02.01 tekst begrijpen: de leerling past lectuurstrategieën toe om de tekst te vertalen en te parafraseren." data-layer="lpd">WD2_03.02.01</span></div>
     </div>
   </div>
 
@@ -1698,6 +1724,11 @@ function closePoetryModal(type) {
   }
 }
 var VERS_NRS = [457,458,459,460,461,462,463];
+
+function toggleKaartAntwoord(img) {
+  var wrap = img.closest('.la-kaart-wrap');
+  wrap.classList.toggle('open');
+}
 
 function toggleAntwoord(btn) {
   var wrap = btn.parentElement;
