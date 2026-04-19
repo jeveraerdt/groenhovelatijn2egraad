@@ -251,6 +251,9 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
 .scan-div-cel .lett{display:block;line-height:1.9;color:transparent;user-select:none;}
 .scan-foot-nr{display:table-cell;text-align:center;vertical-align:bottom;font-family:var(--ft);font-size:.58rem;font-weight:700;color:var(--ink-light);padding-bottom:.2rem;}
 .scan-nr-empty{display:table-cell;padding:0 .05rem;}
+.scan-syl.eli{opacity:.38;font-style:italic;}
+.scan-syl.eli .mark{color:var(--ink-light);}
+.scan-div-cel.wide .mark{font-size:1.25em;color:rgba(0,0,0,.15);}
 
 .sf-vers-tekst{font-family:var(--fb);font-size:1.15rem;line-height:2.2;color:var(--ink);}
 .sf-legenda{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.4rem;font-family:var(--ft);font-size:.7rem;padding:.6rem 1rem;background:var(--achtergrond);border:1px solid var(--rule);border-radius:8px;}
@@ -336,10 +339,6 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
         <svg class="weergave-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:9px;height:9px;margin-left:1px"><path d="M4 6l4 4 4-4"/></svg>
       </button>
       <div class="weergave-menu" id="weergaveMenu">
-        <button class="weergave-item" id="btnLines" onclick="toggleLines()">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h12M2 12h8"/></svg>
-          Regelnummers
-        </button>
         <button class="weergave-item" id="btnInterlin" onclick="toggleInterlin()">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5h12M2 10h12"/></svg>
           Interlineair
@@ -1170,23 +1169,26 @@ window.addEventListener('scroll', function() {
         <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ces-color);">‖</span> cesuur</span>
       </div>
 
-      <!-- v.457: DAC(Il-la) | trithemimeres‖ DAC(qui-dem-dum) | DAC(te-fu-ge) | DAC(ret-per-flu) | DAC(mi-na-prae) | SPON(ceps-×) -->
-      <!-- v.457: DAC(Il-la-qui) ‖ | SPON(dem-dum) | DAC(te-fu-ge) ‖ | DAC(ret-per-flu) | SPON(mi-na) | – × -->
+      <!-- v.457: DAC(Il-la-qui) ‖ | SPON(dem-dum) | DAC(te-fu-ge) ‖ | SPON(ret-per) | DAC(flu-mi-na) | SPON(prae-×) -->
       <div class="poetry-vers-panel" id="scan-vers-0" style="display:block">
       <div class="scan-vers-tekst">Illa quidem, dum te fugeret per flumina praeceps,</div>
       <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
         <td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
-        <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
-        <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td>
       </tr><tr>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Il-</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">la</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">qui-</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dem,</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dum</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
@@ -1194,97 +1196,107 @@ window.addEventListener('scroll', function() {
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">fu-</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ge-</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ret</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">per</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">flu-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">per</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">mi-</span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">na</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">flu-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">mi-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">na</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">prae-</span></td>
         <td class="scan-syl anc"><span class="mark">×</span><span class="lett">ceps</span></td>
       </tr></tbody></table>
       </div>
 
-      <!-- v.458: SPON(im-mā) | DAC(nem-an-te) ‖ | DAC(pe-des-hyd) | DAC(rum-mo-ri) | SPON(tu-ra) | – × -->
+      <!-- v.458: SPON(im-mā) | DAC(nem[eli]-an-te) ‖ [cesuur na des] SPON(des-hyd) | DAC(rum-mo-ri) | DAC(tu-ra-pu) | SPON(el-×) -->
       <div class="poetry-vers-panel" id="scan-vers-1" style="display:none">
       <div class="scan-vers-tekst">immanem ante pedes hydrum moritura puella</div>
       <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
         <td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
-        <td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
-        <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td>
       </tr><tr>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">im-</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">mā-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">nem</span></td>
+        <td class="scan-syl eli lon"><span class="mark">–</span><span class="lett">nem</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">an-</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">te</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">des</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">pe-</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">des</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">hyd-</span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">rum</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">hyd-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">rum</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">mo-</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ri-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tu-</span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ra</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">tu-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ra</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">pu-</span></td>
         <td class="scan-syl anc"><span class="mark">×</span><span class="lett">el-la</span></td>
       </tr></tbody></table>
       </div>
 
-      <!-- v.459: SPON(ser-van) ‖ | SPON(tem-ri) ‖ | SPON(pas-al) | DAC(ta-non-vi) | SPON(dit-in) | – × -->
+      <!-- v.459: SPON(ser-van) ‖ | SPON(tem-ri) ‖ | SPON(pas-al) | SPON(ta-non) | DAC(vi-dit-in) | SPON(her-×) -->
       <div class="poetry-vers-panel" id="scan-vers-2" style="display:none">
       <div class="scan-vers-tekst">servantem ripas alta non vidit in herba.</div>
       <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
         <td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td>
-        <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
-        <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td>
       </tr><tr>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ser-</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">van-</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tem</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">pas</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ta</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">non</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">vi-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">non</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dit</span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">in</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">vi-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">dit</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">in</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">her-</span></td>
         <td class="scan-syl anc"><span class="mark">×</span><span class="lett">ba</span></td>
       </tr></tbody></table>
       </div>
 
-      <!-- v.460: DAC(at-cho-rus) | SPON(ae-qua) ‖ | DAC(lis-Dry-a) | SPON(dum-cla) | DAC(mo-re-su) | – × -->
+      <!-- v.460: DAC(at-cho-rus) | SPON(ae-qua) ‖ | DAC(lis-dry-a) | SPON(dum-clam) | DAC(mo-re-sup) | SPON(re-mos×) -->
       <div class="poetry-vers-panel" id="scan-vers-3" style="display:none">
       <div class="scan-vers-tekst">At chorus aequalis Dryadum clamore supremos</div>
       <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
         <td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td>
       </tr><tr>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">at</span></td>
@@ -1294,42 +1306,44 @@ window.addEventListener('scroll', function() {
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ae-</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">qua-</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">lis</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">Dry-</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">a-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dum</span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">cla-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">clam-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">mo-</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">re</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">su-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">sup-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">pre-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">re-</span></td>
         <td class="scan-syl anc"><span class="mark">×</span><span class="lett">mos</span></td>
       </tr></tbody></table>
       </div>
 
-      <!-- v.461: SPON(im-ple) ‖ | SPON(runt-mon) ‖ | SPON(tes-fle) | SPON(runt-Rho) | DAC(do-pe-i) | – × -->
+      <!-- v.461: SPON(im-ple) ‖ | SPON(runt-mon) ‖ | SPON(tes-fle) | SPON(runt-Rho) | DAC(do-pe-i) | SPON(ae[eli]-ar-ces×) -->
       <div class="poetry-vers-panel" id="scan-vers-4" style="display:none">
       <div class="scan-vers-tekst">implerunt montes; flerunt Rhodopeiae arces</div>
       <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
         <td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
-        <td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
       </tr><tr>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">im-</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ple-</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">runt</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">mon-</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tes;</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">fle-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
@@ -1340,20 +1354,26 @@ window.addEventListener('scroll', function() {
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">pe-</span></td>
         <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">i-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ae</span></td>
-        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">ar-ces</span></td>
+        <td class="scan-syl eli lon"><span class="mark">–</span><span class="lett">ae</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ar-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">ces</span></td>
       </tr></tbody></table>
       </div>
 
-      <!-- v.462: DAC(al-ta-que) | SPON(Pan-ga) ‖ | SPON(e-a-et) | SPON(Rhe-si) | DAC(ma-vor-ti) | SPON(a-tel-lus) -->
+      <!-- v.462: DAC(al-ta-que) | SPON(Pan-ga) | SPON(a⌣et[eli=lang] ‖ Rhe) | SPON(si-ma) | DAC(vor-ti-a) | SPON(tel-lus×) -->
       <div class="poetry-vers-panel" id="scan-vers-5" style="display:none">
       <div class="scan-vers-tekst">altaque Pangaea et Rhesi mavortia tellus</div>
       <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
         <td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td>
       </tr><tr>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td>
@@ -1362,32 +1382,37 @@ window.addEventListener('scroll', function() {
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Pan-</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ga-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl eli lon"><span class="mark">–</span><span class="lett">a et</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">e-a</span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Rhe-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">si</span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ma-</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">vor-</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">a</span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tel-lus</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">vor-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">a</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tel-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">lus</span></td>
       </tr></tbody></table>
       </div>
 
-      <!-- v.463: DAC(at-que-Ge) | SPON(tae-at) ‖ | SPON(que-Heb) | SPON(rus-et) | DAC(Ac-ti-as) | – × -->
+      <!-- v.463: DAC(at-que-Ge) | SPON(tae-at) ‖ | SPON(que[eli]-He-brus) | SPON(ac-ti) | DAC(as-O-ri) | SPON(thyi-×) -->
       <div class="poetry-vers-panel" id="scan-vers-6" style="display:none">
       <div class="scan-vers-tekst">atque Getae atque Hebrus et Actias Orithyia.</div>
       <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
         <td class="scan-foot-nr">1</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">5</td><td class="scan-nr-empty"></td><td class="scan-nr-empty"></td>
+        <td class="scan-nr-empty"></td>
         <td class="scan-foot-nr">6</td><td class="scan-nr-empty"></td>
       </tr><tr>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">at-</span></td>
@@ -1397,20 +1422,21 @@ window.addEventListener('scroll', function() {
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tae</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">at-</span></td>
         <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl eli lon"><span class="mark">–</span><span class="lett">que</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">He-</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">que</span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Heb-</span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">rus</span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td>
-        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">brus</span></td>
         <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Ac-</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti-</span></td>
-        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">as</span></td>
         <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
-        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">O-</span></td>
-        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">ri-thy-ia</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ti-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">as</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">O-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">thyi-a</span></td>
       </tr></tbody></table>
+      </div>
+
       </div>
 
     </div>
