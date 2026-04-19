@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>It's Over Too Soon – Thema 3 T3 · 4de jaar · athena</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Groenhove theme vars — inline omdat theme.css extern is */
+:root {
+  --blue:#65b32e; --blue-mid:#4a8a22; --magenta:#65b32e;
+  --paper:#f3f1ef; --rule:rgba(101,179,46,.2);
+  --ink:#010100; --ink-mid:#3a4a2a; --ink-light:#5a6b4a;
+  --jaar-kleur:#65b32e; --accent:#FF3B1D;
+  --achtergrond:#e0efd5; --wit:#f3f1ef;
+  --rand:#c8d4c0; --radius:12px;
+  --ft:'Flanders Art Sans',Arial,sans-serif;
+  --fb:'Noto Sans',Arial,sans-serif;
+}
+@font-face {
+  font-family:'Flanders Art Sans';
+  src:url('../../fonts/FlandersArtSans-Bold.otf') format('opentype');
+  font-weight:700; font-style:normal; font-display:swap;
+}
+.site-header{background:var(--jaar-kleur);color:var(--wit);display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);width:100%;box-sizing:border-box;}
+.site-header .logo{height:38px;width:auto;display:block;flex-shrink:0;}
+.site-header h1{font-family:var(--ft);font-weight:700;font-size:1.25rem;margin:0;letter-spacing:.02em;white-space:nowrap;}
+.site-header .sub{font-family:var(--ft);font-size:.78rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-left:auto;white-space:nowrap;padding-left:.5rem;}
+.site-toolbar{background:var(--wit);border-bottom:1px solid var(--rand);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;height:56px;}
+.toolbar-left{display:flex;align-items:center;gap:.5rem;}
+.toolbar-right{display:flex;align-items:center;gap:.5rem;}
+.topbar-label{font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);opacity:.6;}
+.topbar-divider{width:1px;height:22px;background:var(--rand);margin:0 .4rem;}
+.back-btn,.ctrl-btn{font-family:var(--fb);font-size:.85rem;color:var(--ink);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.35rem .85rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:background .15s,border-color .15s,color .15s;}
+.back-btn:hover,.ctrl-btn:hover{background:#ffea3d;color:#006633;border-color:#ffea3d;}
+.back-btn.active,.ctrl-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.back-btn svg{width:14px;height:14px;}
+</style>
+<style>
+:root {
+  --green:#2d7a3a; --green-bg:#e8f5eb;
+  --orange:#c05a00; --orange-bg:#fff0e0;
+  --purple:#6a1a8a; --purple-bg:#f3e8fb;
+  --hl:#fff3c4; --hl-b:#e8c840;
+  --lh:2.3; --fs:1.18rem;
+  --dact:#1d4ed8; --spon:#be185d; --ces-color:#d97706;
+  --sf-allit:#7c3aed; --sf-hyp:#0891b2; --sf-epith:#db2777;
+  --sf-simul:#c2410c; --sf-metaf:#b45309;
+}
+body{font-family:var(--fb);overflow-x:hidden;background:var(--achtergrond);margin:0;padding:0;}
+
+.weergave-wrap{position:relative;}
+.weergave-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1.5px solid rgba(19,66,127,.18);border-radius:12px;box-shadow:0 6px 24px rgba(19,66,127,.13);z-index:400;min-width:160px;padding:.35rem 0;overflow:hidden;}
+.weergave-menu.open{display:block;animation:fadeUp .12s ease both;}
+.weergave-item{display:flex;align-items:center;gap:.45rem;width:100%;background:none;border:none;padding:.45rem .9rem;font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);cursor:pointer;transition:background .12s,color .12s;white-space:nowrap;}
+.weergave-item:hover{background:#eef3fa;}
+.weergave-item.active{color:var(--magenta);}
+.weergave-item svg{width:12px;height:12px;flex-shrink:0;}
+.weergave-menu .d-badges{display:none!important;}
+.weergave-chevron{transition:transform .18s;}
+#btnWeergave.open .weergave-chevron{transform:rotate(180deg);}
+
+.outer{max-width:1200px;margin:0 auto;padding:0 1.5rem;}
+.main-col{max-width:760px;margin:0 auto;padding:3rem 0 6rem;}
+body.twocol .outer{display:grid;grid-template-columns:var(--col-split,60%) 12px 1fr;gap:0;align-items:start;}
+body.twocol .main-col{max-width:none;padding:3rem 2rem 6rem 0;}
+body.twocol .side-panel{display:flex!important;flex-direction:column;gap:1rem;padding:3rem 0 6rem 1.5rem;border-left:1px solid var(--rule);position:sticky;top:108px;max-height:calc(100vh - 108px);overflow-y:auto;}
+.side-panel{display:none;}
+
+.text-header{margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid var(--rule);animation:fadeUp .5s ease both;}
+.text-meta{font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;}
+.text-title{font-family:var(--ft);font-size:2rem;font-weight:600;line-height:1.2;color:var(--blue);margin-bottom:.5rem;letter-spacing:-.01em;}
+.text-sub{font-family:var(--fb);font-style:italic;font-size:.875rem;color:var(--ink-light);line-height:1.5;}
+
+.hero-wrapper{position:relative;border-radius:12px;overflow:hidden;margin-bottom:2rem;height:360px;animation:fadeUp .5s ease both;}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:62% 18%;display:block;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 55%, rgba(0,0,0,0) 100%);pointer-events:none;}
+.hero-tekst{position:absolute;bottom:0;left:0;padding:1.4rem 1.6rem;pointer-events:none;}
+.hero-meta{font-family:var(--ft);font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+.hero-title{font-family:var(--ft);font-size:2.1rem;font-weight:700;line-height:1.1;color:#65b32e;margin-bottom:.35rem;letter-spacing:-.01em;text-shadow:0 2px 8px rgba(0,0,0,.7);}
+.hero-sub{font-family:var(--fb);font-style:italic;font-size:.875rem;color:rgba(255,255,255,.88);line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+
+.context-block{background:linear-gradient(135deg,#eef3fa,#f5f0fb);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:1rem 1.3rem;margin-bottom:2rem;font-family:var(--ft);font-size:.86rem;line-height:1.65;color:#2a3a5e;animation:fadeUp .5s .07s ease both;}
+.context-block strong{display:block;font-family:var(--ft);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--magenta);margin-bottom:.25rem;font-weight:600;}
+.context-subtitel{display:block;font-family:var(--fb);font-style:italic;font-size:.76rem;color:#888;margin-bottom:.5rem;}
+
+.link-strip{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;animation:fadeUp .5s .12s ease both;}
+.link-pill{font-family:var(--ft);font-size:.7rem;font-weight:500;letter-spacing:.04em;padding:.38rem .85rem;border-radius:20px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink-light);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.35rem;text-decoration:none;}
+.link-pill:hover{border-color:var(--blue);color:var(--blue);background:#eef3fa;}
+.link-pill svg{width:11px;height:11px;}
+button.link-pill{font-size:.7rem;font-weight:500;font-family:var(--ft);letter-spacing:.04em;cursor:pointer;}
+
+.extras-strip{margin-bottom:2rem;animation:fadeUp .5s .12s ease both;}
+.extras-row{display:flex;align-items:center;gap:.9rem;}
+.extras-label{font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);}
+.extras-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:none;background:none;color:var(--accent);cursor:pointer;padding:0;opacity:.75;transition:opacity .15s,background .15s,color .15s;text-decoration:none;}
+.extras-icon:hover{opacity:1;background:#fbe6f1;}
+.extras-icon svg{width:18px;height:18px;}
+.extras-icon.active{opacity:1;background:#fbe6f1;color:var(--accent);}
+
+.noten-block{display:none;}
+.noten-block.vis{display:block;}
+
+.kaart-modal-overlay{display:none;position:fixed;inset:0;background:rgba(19,66,127,.18);backdrop-filter:blur(2px);z-index:800;align-items:center;justify-content:center;}
+.kaart-modal-overlay.open{display:flex;animation:fadeUp .18s ease both;}
+.kaart-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;box-shadow:0 16px 48px rgba(19,66,127,.22);width:min(680px,92vw);max-height:80vh;display:flex;flex-direction:column;overflow:hidden;}
+.kaart-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);}
+.kaart-modal-title{font-family:var(--ft);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+.kaart-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.2rem;border-radius:6px;display:flex;transition:color .12s;}
+.kaart-modal-close:hover{color:var(--blue);}
+.kaart-modal-close svg{width:15px;height:15px;}
+.kaart-modal-body{padding:1.5rem;overflow-y:auto;}
+.kaart-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;border:2px dashed rgba(19,66,127,.15);border-radius:10px;color:var(--ink-light);font-family:var(--ft);font-size:.82rem;}
+
+.vers-blok{position:relative;}
+.vers-nr-label{display:inline-block;font-family:var(--ft);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:.7;margin-bottom:.15rem;margin-right:.5rem;vertical-align:middle;}
+
+.latin-text{font-size:var(--fs);line-height:var(--lh);animation:fadeUp .5s .18s ease both;}
+body.font-lg .latin-text{--fs:1.35rem;--lh:2.45;}
+.latin-para{margin-bottom:2rem;}
+
+.wg{display:inline;border-radius:4px;cursor:pointer;transition:background .15s, outline .1s;padding:1px 0;}
+.wg:hover{background:rgba(19,66,127,.07);}
+
+.reveal-mode .wg{opacity:.12;transition:opacity .3s;}
+.reveal-mode .wg.revealed{opacity:1;}
+.reveal-mode .wg.current{opacity:1;background:var(--hl);outline:1px solid var(--hl-b);border-radius:4px;}
+
+.lat-word{display:inline;border-radius:3px;cursor:pointer;transition:background .12s;padding:0 1px;}
+.lat-word:hover{background:rgba(19,66,127,.09);}
+.lat-word.st1{background:var(--green-bg);color:var(--green);border-bottom:1.5px solid var(--green);}
+.lat-word.st2{background:var(--orange-bg);color:var(--orange);border-bottom:1.5px solid var(--orange);}
+
+body.interlin .lat-word{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;margin:0 1px;}
+body.interlin .lat-word .iln{display:block;font-family:var(--ft);font-size:.52em;color:var(--accent);line-height:1.1;text-align:center;pointer-events:none;white-space:nowrap;}
+
+.latin-para.tekst-scheiding{border-top:1px solid #ddd;margin-top:1.5em;padding-top:1.5em;}
+
+.numbered-view{display:none;}
+.numbered-view.on{display:block;}
+.plain-view.off{display:none;}
+.latin-line{display:flex;gap:1.4rem;line-height:var(--lh);}
+.ln{font-family:var(--ft);font-size:.62rem;color:#ccc;min-width:1.7rem;text-align:right;padding-top:.44em;user-select:none;flex-shrink:0;}
+.lc{flex:1;}
+
+.word-popup{position:absolute;z-index:500;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;box-shadow:0 8px 32px rgba(19,66,127,.18);padding:.85rem 1.1rem;max-width:300px;min-width:200px;font-family:var(--ft);font-size:.78rem;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .18s,transform .18s;}
+.word-popup.vis{opacity:1;transform:translateY(0);}
+.wp-word{font-family:var(--fb);font-size:1.1rem;font-weight:600;color:var(--blue);margin-bottom:.1rem;}
+.wp-lemma{font-size:.68rem;color:var(--ink-light);margin-bottom:.35rem;}
+.wp-row{display:flex;gap:.4rem;margin-bottom:.2rem;align-items:flex-start;}
+.wp-tag{font-size:.6rem;font-weight:700;padding:.08rem .35rem;border-radius:10px;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0;margin-top:.12rem;}
+.tg{background:var(--green-bg);color:var(--green);}
+.to{background:var(--orange-bg);color:var(--orange);}
+.tp{background:var(--purple-bg);color:var(--purple);}
+.tw{background:#eef3fa;color:var(--blue);}
+.wp-val{color:var(--ink-mid);line-height:1.45;}
+.wp-sep{border:none;border-top:1px solid var(--rule);margin:.4rem 0;}
+.wp-hint{font-size:.7rem;color:var(--ink-light);}
+
+.reveal-bar{display:none;align-items:center;gap:.6rem;margin-bottom:1.5rem;padding:.65rem 1rem;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;font-family:var(--ft);font-size:.78rem;color:var(--ink-mid);flex-wrap:wrap;}
+.reveal-bar.vis{display:flex;}
+.reveal-bar button{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:.3rem .8rem;font-family:var(--ft);font-size:.72rem;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.reveal-bar button:hover{background:var(--blue-mid);}
+.reveal-bar button.sec{background:var(--paper);color:var(--blue);border:1.5px solid var(--blue);}
+.reveal-bar button.sec:hover{background:#eef3fa;}
+.rev-count{margin-left:auto;color:var(--ink-light);font-size:.68rem;white-space:nowrap;}
+
+.footnotes{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.fn-title{font-family:var(--ft);font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.9rem;}
+.fn{display:flex;gap:.65rem;font-size:.8rem;line-height:1.58;color:var(--ink-light);margin-bottom:.45rem;font-family:var(--ft);}
+.fn-n{color:var(--magenta);font-size:.68rem;font-weight:600;min-width:1.1rem;padding-top:.1rem;flex-shrink:0;}
+
+.side-panel .panel-card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.1rem;}
+.panel-card h3{font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.7rem;}
+.panel-word{display:flex;justify-content:space-between;align-items:baseline;padding:.32rem 0;border-bottom:1px solid var(--rule);font-size:.85rem;gap:.5rem;}
+.panel-word:last-child{border-bottom:none;}
+.pw-lat{font-family:var(--fb);font-weight:600;color:var(--blue);}
+.pw-aanv{font-family:var(--ft);font-size:.65rem;color:var(--ink-light);}
+.pw-nl{font-family:var(--ft);font-size:.72rem;color:var(--ink-mid);text-align:right;max-width:55%;}
+.pw-basis{display:inline-block;font-size:.55rem;font-weight:700;padding:.04rem .28rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;margin-left:.3rem;vertical-align:middle;}
+.panel-note{padding:.3rem 0;font-family:var(--ft);font-size:.78rem;color:var(--ink-mid);line-height:1.5;border-bottom:1px solid var(--rule);}
+.panel-note:last-child{border-bottom:none;}
+.pn-tag{display:inline-block;font-size:.6rem;font-weight:600;padding:.05rem .35rem;border-radius:10px;text-transform:uppercase;margin-right:.35rem;background:#eef3fa;color:var(--blue);}
+.analysis-card{background:linear-gradient(135deg,#eef3fa,#f0f5ff);border:1.5px solid #c8d6ed;border-radius:10px;padding:1rem 1.1rem;font-family:var(--ft);font-size:.8rem;line-height:1.6;}
+.ac-word{font-family:var(--fb);font-size:1.4rem;font-weight:600;color:var(--blue);}
+.ac-lemma{font-size:.68rem;color:var(--ink-light);margin-bottom:.5rem;}
+.ac-row{display:flex;gap:.5rem;margin-bottom:.2rem;align-items:flex-start;}
+.ac-tag{font-size:.6rem;font-weight:700;padding:.08rem .38rem;border-radius:10px;text-transform:uppercase;flex-shrink:0;margin-top:.15rem;}
+.ac-empty{color:var(--ink-light);font-size:.78rem;font-style:italic;}
+
+.vertaling-tekst{font-family:var(--ft);font-size:.82rem;line-height:1.7;color:var(--zwart);}
+.vertaling-tekst p{margin-bottom:.7rem;}
+.vertaling-tekst p:last-child{margin-bottom:0;}
+
+.col-resizer{display:none;width:12px;cursor:col-resize;align-self:stretch;position:relative;z-index:10;flex-shrink:0;}
+body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;}
+.col-resizer-handle{width:4px;height:48px;border-radius:4px;background:var(--rule);transition:background .15s, height .15s;position:sticky;top:calc(50vh - 24px);}
+.col-resizer:hover .col-resizer-handle,.col-resizer.dragging .col-resizer-handle{background:var(--blue);height:64px;}
+
+.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all .2s;box-shadow:0 4px 14px rgba(19,66,127,.28);z-index:100;}
+.scroll-top.on{opacity:1;transform:translateY(0);}
+.scroll-top svg{width:15px;height:15px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
+
+.d-badge{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .5rem;border-radius:20px;vertical-align:middle;margin:0 .2rem .1rem;white-space:nowrap;transition:opacity .2s,transform .2s;opacity:0;transform:scale(.85);}
+.d-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;}
+.d-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
+.d-badge.vis{opacity:1;transform:scale(1);}
+.d-tooltip{position:fixed;z-index:9000;background:var(--ink);color:#fff;font-family:var(--ft);font-size:.72rem;line-height:1.45;padding:.5rem .75rem;border-radius:8px;max-width:300px;pointer-events:none;opacity:0;transition:opacity .15s;}
+.d-tooltip.vis{opacity:1;}
+
+.menu-divider{height:1px;background:var(--rand);margin:.3rem 0;}
+.menu-section{font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);padding:.3rem .9rem .1rem;}
+
+/* la-reminder */
+.la-reminder{display:none;align-items:center;gap:.5rem;margin-bottom:1rem;padding:.5rem .9rem;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;cursor:pointer;font-family:var(--ft);font-size:.78rem;color:#92400e;transition:background .15s;}
+.la-reminder.vis{display:flex;}
+.la-reminder:hover{background:#fef3c7;}
+.la-reminder-icon{font-size:1rem;flex-shrink:0;}
+.la-reminder-text{flex:1;}
+.la-reminder-link{font-weight:700;text-decoration:underline;}
+
+/* poetry modals */
+.poetry-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(3px);z-index:900;align-items:center;justify-content:center;}
+.poetry-overlay.open{display:flex;animation:fadeUp .18s ease both;}
+.poetry-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);width:min(740px,95vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;}
+.la-modal{width:min(780px,95vw);}
+.poetry-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);gap:.5rem;flex-wrap:wrap;}
+.poetry-modal-title{font-family:var(--ft);font-size:.82rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);flex:1;}
+.poetry-modal-nav{display:flex;align-items:center;gap:.4rem;}
+.poetry-nav-btn{background:none;border:1px solid var(--rand);border-radius:6px;padding:.2rem .55rem;cursor:pointer;font-size:.9rem;color:var(--ink-mid);transition:background .12s;}
+.poetry-nav-btn:hover{background:var(--achtergrond);}
+.poetry-nav-btn:disabled{opacity:.3;cursor:default;}
+.poetry-vers-label{font-family:var(--ft);font-size:.7rem;font-weight:600;color:var(--ink-light);white-space:nowrap;padding:0 .3rem;}
+.poetry-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.2rem;border-radius:6px;display:flex;transition:color .12s;}
+.poetry-modal-close:hover{color:var(--blue);}
+.poetry-modal-close svg{width:15px;height:15px;}
+.poetry-modal-body{padding:1.5rem;overflow-y:auto;flex:1;}
+
+/* scansie */
+.scan-legenda{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center;}
+.scan-leg-item{display:flex;align-items:center;gap:.3rem;font-family:var(--ft);font-size:.7rem;color:var(--ink-mid);}
+.scan-leg-mark{font-weight:700;font-size:.9rem;}
+.scan-vers-tekst{font-family:var(--fb);font-size:.95rem;font-style:italic;color:var(--ink-light);margin-bottom:.9rem;}
+.scan-syl{text-align:center;padding:0 1px;min-width:18px;}
+.scan-syl .mark{display:block;font-size:.8rem;font-weight:700;line-height:1.3;}
+.scan-syl .lett{display:block;font-family:var(--fb);font-size:.82rem;color:var(--ink);line-height:1.4;white-space:nowrap;}
+.scan-syl.lon .mark{color:var(--dact);}
+.scan-syl.sho .mark{color:var(--spon);}
+.scan-syl.anc .mark{color:var(--ink-light);}
+.scan-div-cel{text-align:center;padding:0 1px;min-width:10px;}
+.scan-div-cel .mark{display:block;font-size:.8rem;color:var(--ink-light);line-height:1.3;}
+.scan-div-cel .lett{display:block;font-size:.82rem;line-height:1.4;}
+.scan-ces-cel{text-align:center;padding:0 2px;min-width:12px;}
+.scan-ces-cel .mark{display:block;font-size:.8rem;color:var(--ces-color);font-weight:700;line-height:1.3;}
+.scan-ces-cel .lett{display:block;font-size:.82rem;line-height:1.4;}
+.scan-foot-nr{font-family:var(--ft);font-size:.6rem;color:var(--ink-light);padding-bottom:.1rem;}
+.scan-nr-empty{min-width:10px;}
+.scan-eli{text-decoration:line-through;opacity:.45;}
+
+/* stijlfiguren */
+.sf-tooltip{position:fixed;z-index:9500;background:var(--ink);color:#fff;font-family:var(--ft);font-size:.72rem;line-height:1.45;padding:.5rem .75rem;border-radius:8px;max-width:280px;pointer-events:none;opacity:0;transition:opacity .15s;}
+.sf-tooltip.vis{opacity:1;}
+.sf-legenda{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center;}
+.sf-leg-item{display:flex;align-items:center;gap:.3rem;font-family:var(--ft);font-size:.7rem;color:var(--ink-mid);}
+.sf-vers-tekst{font-family:var(--fb);font-size:1.05rem;line-height:1.9;color:var(--ink);}
+.sf-allit{background:rgba(124,58,237,.12);border-bottom:2.5px solid var(--sf-allit);border-radius:2px;cursor:help;}
+.sf-hyp{border-bottom:2px dotted var(--sf-hyp);cursor:help;}
+.sf-epith{border-bottom:2px dashed var(--sf-epith);cursor:help;}
+.sf-trikolon{background:rgba(194,65,12,.08);border-bottom:2.5px solid var(--sf-simul);border-radius:2px;cursor:help;}
+.sf-enjamb{border-left:3px solid var(--sf-metaf);padding-left:.2rem;cursor:help;}
+
+/* lectuur */
+.la-sectie{margin-bottom:1.25rem;}
+.la-sectie-titel{display:flex;align-items:center;gap:.4rem;font-family:var(--ft);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem;}
+.la-sectie-titel svg{width:11px;height:11px;flex-shrink:0;}
+.la-vers-tekst{font-family:var(--fb);font-size:1rem;font-style:italic;color:var(--ink-light);margin-bottom:.9rem;padding:.5rem .75rem;background:var(--achtergrond);border-radius:6px;line-height:1.6;}
+.la-vraag{font-family:var(--fb);font-size:.9rem;line-height:1.6;color:var(--ink);margin-bottom:.5rem;padding-left:.85rem;border-left:3px solid var(--blue);}
+.la-vraag + .la-vraag{margin-top:.6rem;}
+.la-toelichting{font-family:var(--ft);font-size:.78rem;color:var(--ink-light);line-height:1.55;margin-top:.4rem;padding-left:.85rem;}
+.la-badge-rij{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.6rem;padding-left:.85rem;min-height:0;}
+.la-badge{font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.04em;padding:.12rem .4rem;border-radius:10px;}
+.la-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;}
+.la-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
+
+/* antwoord toggle */
+.la-antwoord-wrap{margin:.35rem 0 .5rem .85rem;}
+.la-antwoord-btn{display:flex;align-items:center;gap:.3rem;background:none;border:1px solid var(--rand);border-radius:6px;padding:.25rem .65rem;font-family:var(--ft);font-size:.7rem;color:var(--ink-mid);cursor:pointer;transition:background .12s;}
+.la-antwoord-btn:hover{background:var(--achtergrond);}
+.la-antwoord-btn svg{width:12px;height:12px;transition:transform .2s;}
+.la-antwoord{display:none;margin-top:.4rem;font-family:var(--ft);font-size:.8rem;line-height:1.6;color:var(--ink-mid);padding:.5rem .75rem;background:var(--achtergrond);border-radius:6px;}
+.la-antwoord.vis{display:block;}
+.la-kaart-container{display:flex;flex-direction:column;gap:.5rem;}
+.la-kaart-img-inline{max-width:100%;border-radius:8px;}
+.la-kaart-legenda{font-family:var(--ft);font-size:.75rem;color:var(--ink-light);display:flex;flex-direction:column;gap:.2rem;}
+
+@media(max-width:900px){body.twocol .outer{display:block;}body.twocol .main-col{padding:2rem 0 5rem;}body.twocol .side-panel{display:none!important;}}
+@media(max-width:600px){.main-col{padding:2rem 0 5rem;}.outer{padding:0 1rem;}.text-title{font-size:1.7rem;}.site-header{padding:0 14px;}.site-toolbar{padding:8px 14px;height:auto;flex-wrap:wrap;}.topbar-label,.topbar-divider{display:none;}}
+</style>
+
+</head>
+<body>
+
+<div class="word-popup" id="popup">
+  <div class="wp-word" id="ppWord"></div>
+  <div class="wp-lemma" id="ppLemma"></div>
+  <div id="ppContent"></div>
+  <hr class="wp-sep" id="ppSep" style="display:none">
+  <div class="wp-hint" id="ppHint"></div>
+</div>
+
+<header class="site-header">
+  <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="Groenhove">
+  <h1>Teksten</h1>
+  <span class="sub">S.O. Groenhove Waregem</span>
+</header>
+
+<div class="site-toolbar">
+  <div class="toolbar-left">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+      Teksten
+    </button>
+  </div>
+  <div class="toolbar-right">
+    <button class="ctrl-btn" id="btnReveal" onclick="toggleReveal()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8s2.5-5 6-5 6 5 6 5-2.5 5-6 5-6-5-6-5z"/><circle cx="8" cy="8" r="2"/></svg>
+      Onthul
+    </button>
+    <div class="weergave-wrap" id="weergaveWrap">
+      <button class="ctrl-btn" id="btnWeergave" onclick="toggleWeergaveMenu(event)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v1.2M8 13.3v1.2M1.5 8h1.2M13.3 8h1.2M3.4 3.4l.85.85M11.75 11.75l.85.85M12.6 3.4l-.85.85M4.25 11.75l-.85.85"/></svg>
+        Weergave
+        <svg class="weergave-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:9px;height:9px;margin-left:1px"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="weergave-menu" id="weergaveMenu">
+        <button class="weergave-item" id="btnInterlin" onclick="toggleInterlin()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5h12M2 10h12"/></svg>
+          Interlineair
+        </button>
+        <button class="weergave-item" id="btnTwocol" onclick="toggleTwocol()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/></svg>
+          Tweekolom
+        </button>
+        <div class="menu-divider"></div>
+        <div class="menu-section">Poëzie-analyse</div>
+        <div class="d-badges" id="badges-scansie" style="padding:0 .25rem .2rem;">
+          <span class="d-badge bs" data-layer="bs">⑨ Interleaving</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven</span>
+        </div>
+        <button class="weergave-item" id="btnScansie" onclick="openScansieModal();event.stopPropagation()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12L4 4L6 12L8 4L10 12L12 4L14 12"/><line x1="2" y1="14" x2="14" y2="14" stroke-dasharray="2,2"/></svg>
+          Scansie
+        </button>
+        <div class="d-badges" id="badges-stijl" style="padding:0 .25rem .2rem;">
+          <span class="d-badge bs" data-layer="bs">⑤ Actief verwerken</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02.01 – stijlfiguren herkennen</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02.02 – hoe auteur lezer beïnvloedt</span>
+        </div>
+        <button class="weergave-item" id="btnStijl" onclick="openStijlModal();event.stopPropagation()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="8" r="2"/><circle cx="11" cy="5" r="2"/><circle cx="11" cy="11" r="2"/><line x1="7" y1="8" x2="9" y2="5.8"/><line x1="7" y1="8" x2="9" y2="10.2"/></svg>
+          Stijlfiguren
+        </button>
+        <div class="menu-divider"></div>
+        <div class="menu-section">Didactiek</div>
+        <button class="weergave-item" id="btnBs" onclick="toggleLayer('bs');event.stopPropagation()">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;"></span>
+          Bouwstenen
+        </button>
+        <button class="weergave-item" id="btnLpd" onclick="toggleLayer('lpd');event.stopPropagation()">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;"></span>
+          LPD
+        </button>
+      </div>
+    </div>
+    <button class="ctrl-btn" id="btnFont" onclick="toggleFont()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12L8 4l5 8M5.5 9h5"/></svg>
+      Groter
+    </button>
+  </div>
+</div>
+
+<div class="outer">
+<div class="main-col">
+
+  <div class="d-badges" id="badges-hero" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+  </div>
+  <div class="hero-wrapper">
+    <img src="../../images/teksten/thema34des/eurydice3.jpg" alt="Eurydice keert terug naar de onderwereld" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-tekst">
+      <div class="hero-meta">Thema 3 · Tekst 3 · 4de jaar</div>
+      <div class="hero-title">It's Over Too Soon</div>
+      <div class="hero-sub">naar Vergilius, <em>Georgica</em> IV, 494–503 · het laatste woord van Eurydice</div>
+    </div>
+  </div>
+
+  <div class="context-block" data-subtitel="Mythologische achtergrond" data-bs="1" data-lpd="WD2_03.03.01">
+    <div class="d-badges" id="badges-context">
+      <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <strong>Context</strong>
+    <span class="context-subtitel">Mythologische achtergrond</span>
+    <p>Nadat Eurydice door een slangenbeet stierf, daalde haar man Orpheus af naar de onderwereld. Met zijn muziek bewoog hij Hades en Persephone zo diep dat ze Eurydice vrijlieten — op één voorwaarde: hij mocht niet omkijken voor ze het daglicht bereikten. Net voor de uitgang draaide Orpheus zich om. Eurydice wordt voor de tweede keer weggesleurd. Dit fragment uit Vergilius' <em>Georgica</em> (ca. 29 v.Chr.) geeft haar het laatste woord: een afscheid vol verwijt, pijn en berusting.</p>
+  </div>
+
+  <div class="extras-strip">
+    <div class="d-badges" id="badges-kaart">
+      <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <div class="d-badges" id="badges-lectuur" style="margin-bottom:.3rem;">
+      <span class="d-badge bs" data-layer="bs">⑥ Check begrip hele klas</span>
+      <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – tekst begrijpen</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven</span>
+    </div>
+    <div class="d-badges" id="badges-tweekolom" style="margin-bottom:.3rem;">
+      <span class="d-badge bs" data-layer="bs">⑦ Scaffolding → zelfstandig</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.02 – talige hulpmiddelen</span>
+    </div>
+    <div class="extras-row">
+      <span class="extras-label">Extra's</span>
+      <a class="extras-icon" href="#woordenlijst-sectie" title="Woordenlijst van deze tekst" aria-label="Woordenlijst">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h8a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M3 2v12"/><path d="M6 6h4M6 9h3"/></svg>
+      </a>
+      <button type="button" class="extras-icon" id="btnNoten" onclick="toggleNoten()" title="Grammaticale noten tonen / verbergen" aria-label="Grammaticale noten">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 3.5h11M2.5 7h11M2.5 10.5h7"/><circle cx="12" cy="11" r="1.6" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button type="button" class="extras-icon" id="btnVertaling" onclick="toggleTwocol()" title="Vertaling tonen (tweekolom)" aria-label="Vertaling">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4h6M4 2v2M2 4c0 2.5 2 4 4 4M6 4c0 1.5-.5 3-2 4"/><path d="M8 12l1.5-4 1.5 4M9 10.5h2"/><rect x="8" y="6" width="6" height="8" rx="1" stroke="none" fill="none"/><path d="M8.5 14h5"/></svg>
+      </button>
+      <button type="button" class="extras-icon d-badge-trigger" id="btnLectuur" onclick="openLectuurModal()" title="Lectuuranalyse openen" aria-label="Lectuuranalyse">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v9a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M2 3l6 4 6-4"/><path d="M6 9h4M6 11h2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="kaart-modal-overlay" id="kaartModalOverlay" onclick="closeKaartModal()">
+    <div class="kaart-modal" onclick="event.stopPropagation()">
+      <div class="kaart-modal-header">
+        <span class="kaart-modal-title">Mythologische kaart — de onderwereld</span>
+        <button class="kaart-modal-close" onclick="closeKaartModal()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+        </button>
+      </div>
+      <div class="kaart-modal-body">
+        <div class="kaart-placeholder">
+          <svg viewBox="0 0 48 48" fill="none" stroke="rgba(19,66,127,.2)" stroke-width="1.5" style="width:48px;height:48px;margin-bottom:1rem"><rect x="4" y="8" width="40" height="32" rx="3"/><path d="M4 20l10-6 8 8 8-5 14 9"/><circle cx="34" cy="15" r="3"/></svg>
+          <p>Kaart — de weg van Orpheus door de onderwereld</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-badges" id="badges-reveal" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.01 – lectuurmethode toepassen</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – tekst begrijpen</span>
+  </div>
+  <div class="reveal-bar" id="revealBar">
+    <span style="font-size:.72rem;color:var(--ink-light);">Onthulling per woordgroep</span>
+    <button onclick="revealPrev()">&#8592; Vorige</button>
+    <button onclick="revealNext()">Volgende &#8594;</button>
+    <button class="sec" onclick="revealAll()">Alles tonen</button>
+    <span class="rev-count" id="revCount">0 / 0</span>
+  </div>
+  <div class="la-reminder" id="laReminder" onclick="openLectuurFromReminder()">
+    <span class="la-reminder-icon">💡</span>
+    <span class="la-reminder-text">Lectuuranalyse — <span class="la-reminder-link" id="laReminderTekst">vraag bij dit vers</span></span>
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;flex-shrink:0;opacity:.6"><path d="M6 4l4 4-4 4"/></svg>
+  </div>
+
+  <div class="d-badges" id="badges-tekst" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">③ Voorbeelden &amp; modelling</span>
+    <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.01 – lectuurmethode toepassen</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsystematiek</span>
+  </div>
+  <div class="latin-text" id="latinText">
+  <div class="plain-view" id="plainView">
+
+<div class="latin-para vers-blok">
+<span class="vers-nr-label">v. 494</span>
+<span class="wg" data-wg="1"><span class="lat-word" data-w="Illa" data-l="ille, illa, illud" data-d="nom. enk. f." data-s="OND van dixit" data-n="zij">Illa</span>:</span>
+<span class="wg" data-wg="2">"<span class="lat-word" data-w="Quis" data-l="quis, quid" data-d="nom. enk. m." data-s="OND van perdidit" data-n="wie">Quis</span></span>
+<span class="wg" data-wg="3"><span class="lat-word" data-w="et me" data-l="et / ego" data-d="vgw. + acc. 1 enk." data-s="LV van perdidit (eerste)" data-n="ook mij">et me</span></span>
+<span class="wg" data-wg="4"><span class="lat-word" data-w="miseram" data-l="miser, -a, -um" data-d="acc. enk. f." data-s="praed. attr. bij me" data-n="ongelukkige">miseram</span></span>
+<span class="wg" data-wg="5"><span class="lat-word" data-w="et te" data-l="et / tu" data-d="vgw. + acc. 2 enk." data-s="LV van perdidit (tweede)" data-n="en jou">et te</span></span>
+<span class="wg" data-wg="6"><span class="lat-word" data-w="perdidit" data-l="perdere" data-d="A. ind. perf. 3 enk." data-s="PV hoofdzin" data-n="heeft ten gronde gericht">perdidit</span>,</span>
+<span class="wg" data-wg="7"><span class="lat-word" data-w="Orpheu" data-l="Orpheus, -i" data-d="voc. enk. m." data-s="aangesproken persoon" data-n="Orpheus">Orpheu</span>,</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 495</span>
+<span class="wg" data-wg="8"><span class="lat-word" data-w="quis tantus furor" data-l="quis / tantus, -a, -um / furor, furoris" data-d="nom. enk. m. + adj. nom. enk. m. + nom. enk. m." data-s="OND + praedicatief in uitroepzin" data-n="zo grote razernij — wat">quis tantus furor</span>?</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 495–496</span>
+<span class="wg" data-wg="9"><span class="lat-word" data-w="En" data-l="en" data-d="uitroep" data-s="nadruk-partikel" data-n="zie">En</span></span>
+<span class="wg" data-wg="10"><span class="lat-word" data-w="iterum" data-l="iterum" data-d="bijw." data-s="BWB van tijd" data-n="opnieuw">iterum</span></span>
+<span class="wg" data-wg="11"><span class="lat-word" data-w="crudelia" data-l="crudelis, -e" data-d="nom. mv. n." data-s="attribuut bij Fata" data-n="wrede">crudelia</span></span>
+<span class="wg" data-wg="12"><span class="lat-word" data-w="retro" data-l="retro" data-d="bijw." data-s="BWB van richting" data-n="terug">retro</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 496</span>
+<span class="wg" data-wg="13"><span class="lat-word" data-w="Fata vocant" data-l="fatum, -i / vocare" data-d="nom. mv. n. + A. ind. praes. 3 mv." data-s="OND + PV van bijzin" data-n="het lot roept">Fata vocant</span>,</span>
+<span class="wg" data-wg="14"><span class="lat-word" data-w="conditque" data-l="condere" data-d="A. ind. praes. 3 enk." data-s="PV gecoördineerd" data-n="en bedekt">conditque</span></span>
+<span class="wg" data-wg="15"><span class="lat-word" data-w="natantia lumina" data-l="natare / lumen, luminis" data-d="part. praes. act. acc. mv. n. + acc. mv. n." data-s="LV bij condit" data-n="de brekende ogen">natantia lumina</span></span>
+<span class="wg" data-wg="16"><span class="lat-word" data-w="somnus" data-l="somnus, -i" data-d="nom. enk. m." data-s="OND van condit" data-n="een slaap">somnus</span>.</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 497</span>
+<span class="wg" data-wg="17"><span class="lat-word" data-w="Iamque vale" data-l="iam / valere" data-d="bijw. + imper. praes. 2 enk." data-s="afscheidsgroet" data-n="en nu vaarwel">Iamque vale</span>:</span>
+<span class="wg" data-wg="18"><span class="lat-word" data-w="feror" data-l="ferre" data-d="P. ind. praes. 1 enk." data-s="PV hoofdzin (Eurydice)" data-n="word ik (mee)gedragen">feror</span></span>
+<span class="wg" data-wg="19"><span class="lat-word" data-w="ingenti circumdata nocte" data-l="ingens, ingentis / circumdare / nox, noctis" data-d="abl. enk. f. + PPP nom. enk. f. + abl. enk. f." data-s="abl. absol. + praed. bij feror" data-n="omgeven door een reusachtige nacht">ingenti circumdata nocte</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 498</span>
+<span class="wg" data-wg="20"><span class="lat-word" data-w="invalidasque tibi tendens" data-l="invalidus, -a, -um / tu / tendere" data-d="acc. mv. f. + dat. 2 enk. + part. praes. act. nom. enk. f." data-s="participiumgroep bij Eurydice" data-n="terwijl ik mijn krachteloze (handen) naar jou uitstrekte">invalidasque tibi tendens</span>,</span>
+<span class="wg" data-wg="21"><span class="lat-word" data-w="heu" data-l="heu" data-d="uitroep" data-s="emotionele tussenworp" data-n="ach">heu</span> !</span>
+<span class="wg" data-wg="22"><span class="lat-word" data-w="non tua" data-l="non / tuus, -a, -um" data-d="bijw. + nom. enk. f." data-s="praedicatief bij OND (Eurydice)" data-n="niet de jouwe (meer)">non tua</span>,</span>
+<span class="wg" data-wg="23"><span class="lat-word" data-w="palmas" data-l="palma, -ae" data-d="acc. mv. f." data-s="LV bij tendens" data-n="mijn handen">palmas</span>."</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 499</span>
+<span class="wg" data-wg="24"><span class="lat-word" data-w="Dixit" data-l="dicere" data-d="A. ind. perf. 3 enk." data-s="PV narratief" data-n="ze sprak">Dixit</span></span>
+<span class="wg" data-wg="25"><span class="lat-word" data-w="et ex oculis" data-l="et / ex / oculus, -i" data-d="vgw. + prep. + abl. mv. m." data-s="BWB van scheiding" data-n="en uit (zijn) ogen">et ex oculis</span></span>
+<span class="wg" data-wg="26"><span class="lat-word" data-w="subito" data-l="subito" data-d="bijw." data-s="BWB van tijd" data-n="plots">subito</span>,</span>
+<span class="wg" data-wg="27"><span class="lat-word" data-w="ceu fumus in auras" data-l="ceu / fumus, -i / in / aura, -ae" data-d="vgw. + nom. enk. m. + prep. + acc. mv. f." data-s="vergelijking" data-n="zoals rook in de lucht">ceu fumus in auras</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 500</span>
+<span class="wg" data-wg="28"><span class="lat-word" data-w="commixtus tenues" data-l="commiscere / tenuis, -e" data-d="PPP nom. enk. m. + acc. mv. f." data-s="praed. attr. bij fumus + attribuut bij auras" data-n="vermengd — ijle">commixtus tenues</span>,</span>
+<span class="wg" data-wg="29"><span class="lat-word" data-w="fugit diversa" data-l="fugere / diversus, -a, -um" data-d="A. ind. perf. 3 enk. + acc. mv. n. adv." data-s="PV + BWB van richting" data-n="vluchtte in tegengestelde richting">fugit diversa</span>:</span>
+<span class="wg" data-wg="30"><span class="lat-word" data-w="neque illum" data-l="neque / ille, illa, illud" data-d="vgw. + acc. enk. m." data-s="LV bij vidit" data-n="hem niet">neque illum</span>,</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 501</span>
+<span class="wg" data-wg="31"><span class="lat-word" data-w="prensantem nequiquam umbras" data-l="prensare / nequiquam / umbra, -ae" data-d="part. praes. act. acc. enk. m. + bijw. + acc. mv. f." data-s="praed. attr. bij illum" data-n="die tevergeefs naar haar schim greep">prensantem nequiquam umbras</span></span>
+<span class="wg" data-wg="32"><span class="lat-word" data-w="et multa volentem dicere" data-l="et / multus, -a, -um / velle / dicere" data-d="vgw. + acc. mv. n. + part. praes. acc. enk. m. + inf. praes." data-s="gecoördineerde participiumgroep bij illum" data-n="en (nog) veel wilde zeggen">et multa volentem dicere</span>,</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 502</span>
+<span class="wg" data-wg="33"><span class="lat-word" data-w="praeterea vidit" data-l="praeterea / videre" data-d="bijw. + A. ind. perf. 3 enk." data-s="PV van de zin — ontkenning via neque" data-n="daarna zag (zij) niet meer">praeterea vidit</span>,</span>
+<span class="wg" data-wg="34"><span class="lat-word" data-w="nec portitor Orci" data-l="nec / portitor, -oris / Orcus, -i" data-d="vgw. + nom. enk. m. + gen. enk. m." data-s="OND van passus (est)" data-n="de veerman van de onderwereld niet">nec portitor Orci</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 503</span>
+<span class="wg" data-wg="35"><span class="lat-word" data-w="amplius obiectam passus transire paludem" data-l="amplius / obicere / pati / transire / palus, paludis" data-d="bijw. + PPP acc. enk. f. + dep. part. perf. nom. enk. m. + inf. + acc. enk. f." data-s="PV (passus est) + ACI-constructie + LV" data-n="liet niet meer toe het versperde moeras over te steken">amplius obiectam passus transire paludem</span>.</span>
+</div>
+
+</div><!-- /plain-view -->
+
+  <div class="numbered-view" id="numberedView">
+    <div class="latin-line"><span class="ln">494</span><span class="lc">Illa: "Quis et me miseram et te perdidit, Orpheu,</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">495</span><span class="lc">quis tantus furor? En iterum crudelia retro</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">496</span><span class="lc">Fata vocant, conditque natantia lumina somnus.</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">497</span><span class="lc">Iamque vale: feror ingenti circumdata nocte</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln"><strong>498</strong></span><span class="lc">invalidasque tibi tendens, heu ! non tua, palmas."</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">499</span><span class="lc">Dixit et ex oculis subito, ceu fumus in auras</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln"><strong>500</strong></span><span class="lc">commixtus tenues, fugit diversa: neque illum,</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">501</span><span class="lc">prensantem nequiquam umbras et multa volentem</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">502</span><span class="lc">dicere, praeterea vidit, nec portitor Orci</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">503</span><span class="lc">amplius obiectam passus transire paludem.</span></div>
+  </div>
+  </div><!-- /latin-text -->
+
+  <div class="noten-block" id="notenBlock">
+  <div class="d-badges" id="badges-noten" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge bs" data-layer="bs">⑪ Feedback die denken aanzet</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsystematiek</span>
+  </div>
+  <div class="footnotes">
+    <div class="fn-title">Grammaticale noten</div>
+    <div class="fn"><span class="fn-n">1</span><span><em>Quis et me miseram et te perdidit</em> — dubbele <em>et … et</em>-constructie: Eurydice heft zichzelf en Orpheus op gelijk niveau. <em>Miseram</em> als praedicatief attribuut bij <em>me</em>: het bijvoeglijk naamwoord staat ver van zijn nomen (hyperbaton).</span></div>
+    <div class="fn"><span class="fn-n">2</span><span><em>quis tantus furor</em> — retorische vraagzin zonder PV: <em>furor</em> staat gepersonifieerd als subject. Krachtig kort na de aanroeping — het verwijt is emotioneel ingehouden.</span></div>
+    <div class="fn"><span class="fn-n">3</span><span><em>crudelia retro / Fata vocant</em> — enjambement over versgrens 495–496: het lot "roept" op het begin van vers 496, als een echo van een bevel. <em>Retro</em> als bwb van richting: terug naar de dood.</span></div>
+    <div class="fn"><span class="fn-n">4</span><span><em>natantia lumina</em> — participium praesens van <em>natare</em> (drijven, zwemmen) als attribuut bij <em>lumina</em> (ogen). Poëtisch beeld voor ogen die wegzakken in de dood.</span></div>
+    <div class="fn"><span class="fn-n">5</span><span><em>feror ingenti circumdata nocte</em> — passief van <em>ferre</em>: Eurydice wordt gedragen, ze is al geen subject meer. <em>Circumdata</em> (PPP van <em>circumdare</em>) als praedicatief attribuut: ze is omgeven, ingesloten door de nacht.</span></div>
+    <div class="fn"><span class="fn-n">6</span><span><em>invalidasque tibi tendens … palmas</em> — hyperbaton: <em>invalidas … palmas</em> omsluit het gevoelsvolle <em>tibi tendens, heu! non tua</em>. De handen strekken zich nog uit maar zijn al niet meer van Orpheus.</span></div>
+    <div class="fn"><span class="fn-n">7</span><span><em>ceu fumus in auras commixtus tenues, fugit diversa</em> — similis (vergelijking): Eurydice verdwijnt als rook die oplost. <em>Diversa</em> als bijwoord: in tegengestelde richting — ze keert terug naar de dood.</span></div>
+    <div class="fn"><span class="fn-n">8</span><span><em>nec portitor Orci / amplius obiectam passus transire paludem</em> — <em>pati</em> is een deponens; <em>passus (est)</em> = hij liet toe. <em>Transire paludem</em> als ACI afhankelijk van <em>passus</em>. <em>Obiectam</em> (PPP van <em>obicere</em>): de slagboom is letterlijk opgeworpen.</span></div>
+  </div>
+  </div><!-- /noten-block -->
+
+  <div class="d-badges" id="badges-wl" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+    <span class="d-badge bs" data-layer="bs">⑧ Gespreide oefening</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – basisvocabularium</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven aan teksten</span>
+  </div>
+  <div id="woordenlijst-sectie" style="margin-top:3.5rem;padding-top:2rem;border-top:2px solid var(--rule);">
+    <div id="wlSectieLabel" style="font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;opacity:.85;">Tekst 3 · Thema 3 · 4de jaar</div>
+    <h2 style="font-family:var(--ft);font-size:1.3rem;font-weight:600;color:var(--blue);margin-bottom:.3rem;" id="wlSectieTitle">Woordenlijst</h2>
+    <p id="wlSectieInfo" style="font-family:var(--ft);font-size:.78rem;color:var(--ink-light);margin-bottom:1.5rem;">Woordenlijst op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.</p>
+    <div id="wlTable"></div>
+  </div>
+
+</div><!-- /main-col -->
+
+<div class="col-resizer" id="colResizer"><div class="col-resizer-handle"></div></div>
+
+<div class="side-panel" id="sidePanel">
+  <div class="analysis-card" id="analysisCard">
+    <div class="ac-empty">Klik op een woord voor grammaticahulp.</div>
+  </div>
+  <div class="panel-card" id="sidePanelVertaling">
+    <h3 style="color:var(--accent);">Vertaling</h3>
+    <div class="vertaling-tekst" id="vertaalTekst"></div>
+  </div>
+  <div class="panel-card">
+    <h3>Let op</h3>
+    <div class="panel-note"><span class="pn-tag">PPP</span><em>circumdata</em>: PPP van <em>circumdare</em> als praedicatief — Eurydice is al omsloten door de nacht.</div>
+    <div class="panel-note"><span class="pn-tag">Dep.</span><em>passus (est)</em> van <em>pati</em>: deponens, niet verward met het zelfstandige woord <em>passus</em> (stap).</div>
+    <div class="panel-note"><span class="pn-tag">Hyperbaton</span><em>invalidas … palmas</em> omsluit <em>tibi tendens, heu! non tua</em> — emotionele kern tussen twee woorddelen.</div>
+    <div class="panel-note"><span class="pn-tag">Similis</span><em>ceu fumus</em> — de vergelijking drukt de ongrijpbaarheid van Eurydice' verdwijnen uit.</div>
+    <div class="panel-note"><span class="pn-tag">ACI</span><em>transire paludem</em> afhankelijk van <em>passus</em>: deponentisch PV + infinitief als lijdend voorwerp.</div>
+  </div>
+</div>
+
+</div><!-- /outer -->
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4-4 4 4"/></svg>
+</button>
+
+<script>
+var WL = [
+  {g:"perdere",a:"perdo, -ere, perdidi, perditum",v:"ten gronde richten, vernielen, verliezen",b:true,t:["th3/3"],volgorde:{"th3/3":1}},
+  {g:"furor",a:"furoris (m.)",v:"razernij, woede, waanzin",b:false,t:["th3/3"],volgorde:{"th3/3":2}},
+  {g:"fatum",a:"fati (n.)",v:"lot, noodlot",b:true,t:["th3/3"],volgorde:{"th3/3":3}},
+  {g:"vocare",a:"voco, -are, -avi, -atum",v:"roepen, aanroepen, noemen",b:true,t:["th3/3"],volgorde:{"th3/3":4}},
+  {g:"condere",a:"condo, -ere, condidi, conditum",v:"bedekken, verbergen; stichten",b:false,t:["th3/3"],volgorde:{"th3/3":5}},
+  {g:"lumen",a:"luminis (n.)",v:"licht; oog",b:true,t:["th3/3"],volgorde:{"th3/3":6}},
+  {g:"somnus",a:"somni (m.)",v:"slaap",b:true,t:["th3/3"],volgorde:{"th3/3":7}},
+  {g:"valere",a:"valeo, -ere, -ui",v:"sterk zijn; vaarwel zeggen (vale)",b:true,t:["th3/3"],volgorde:{"th3/3":8}},
+  {g:"ferre",a:"fero, ferre, tuli, latum (onreg.)",v:"dragen, brengen",b:true,t:["th3/3"],volgorde:{"th3/3":9}},
+  {g:"nox",a:"noctis (f.)",v:"nacht",b:true,t:["th3/3"],volgorde:{"th3/3":10}},
+  {g:"palma",a:"palmae (f.)",v:"vlakke hand, handpalm",b:false,t:["th3/3"],volgorde:{"th3/3":11}},
+  {g:"dicere",a:"dico, -ere, dixi, dictum",v:"zeggen, spreken",b:true,t:["th3/3"],volgorde:{"th3/3":12}},
+  {g:"oculus",a:"oculi (m.)",v:"oog",b:true,t:["th3/3"],volgorde:{"th3/3":13}},
+  {g:"fumus",a:"fumi (m.)",v:"rook",b:false,t:["th3/3"],volgorde:{"th3/3":14}},
+  {g:"fugere",a:"fugio, -ere, fugi",v:"vluchten, ontvluchten",b:true,t:["th3/3"],volgorde:{"th3/3":15}},
+  {g:"umbra",a:"umbrae (f.)",v:"schaduw, schim (van overledene)",b:true,t:["th3/3"],volgorde:{"th3/3":16}},
+  {g:"videre",a:"video, -ere, vidi, visum",v:"zien",b:true,t:["th3/3"],volgorde:{"th3/3":17}},
+  {g:"palus",a:"paludis (f.)",v:"moeras, poel",b:false,t:["th3/3"],volgorde:{"th3/3":18}}
+];
+
+function lookupWL(lemma) {
+  if (!lemma) return null;
+  var parts = lemma.toLowerCase().split(/[\/,\s]+/);
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (g === parts[j] || g.startsWith(parts[j])) return WL[i];
+    }
+  }
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (parts[j].length > 3 && g.includes(parts[j])) return WL[i];
+    }
+  }
+  return null;
+}
+
+var currentTekst = 'th3/3';
+var tekstLabels = {'th3/3':'Thema 3 · Tekst 3'};
+
+function filterWL(tekst) {
+  currentTekst = tekst;
+  var label = tekstLabels[tekst] || tekst;
+  var filtered = WL.filter(function(w){ return w.t && w.t.indexOf(tekst) !== -1; })
+                   .sort(function(a,b){ return (a.volgorde && a.volgorde[tekst]||999) - (b.volgorde && b.volgorde[tekst]||999); });
+  var sectLabel = document.getElementById('wlSectieLabel');
+  var sectTitle = document.getElementById('wlSectieTitle');
+  var sectInfo  = document.getElementById('wlSectieInfo');
+  if (sectLabel) sectLabel.textContent = label;
+  if (sectTitle) sectTitle.textContent = 'Woordenlijst';
+  if (sectInfo)  sectInfo.innerHTML = filtered.length + ' woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.';
+  renderWLData(filtered);
+  renderWLSide(filtered);
+}
+
+function renderWLData(list) {
+  var el = document.getElementById('wlTable');
+  if (!el) return;
+  var html = '<div style="background:#fff;border:0.5px solid var(--rule);border-radius:12px;overflow:hidden;">';
+  list.forEach(function(w, i) {
+    var isLast = (i === list.length - 1);
+    var borderB = isLast ? '' : 'border-bottom:0.5px solid var(--rule);';
+    var latColor = w.b ? 'var(--magenta)' : 'var(--ink)';
+    html += '<div style="display:flex;align-items:center;gap:14px;padding:11px 16px;' + borderB + '">'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);width:28px;flex-shrink:0;text-align:right;">' + (i+1) + '</span>'
+      + '<span style="width:18px;height:18px;border-radius:50%;border:1.5px solid var(--rule);flex-shrink:0;display:inline-block;"></span>'
+      + '<span style="flex:1;min-width:0;">'
+        + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:14px;font-weight:500;color:' + latColor + ';">' + w.g + '</span>'
+        + (w.a ? '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);margin-left:.5rem;">' + w.a + '</span>' : '')
+      + '</span>'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:13px;color:var(--ink);flex:1.2;text-align:left;">' + w.v + '</span>'
+      + '<span style="font-size:16px;color:#d1d5db;flex-shrink:0;padding:2px 4px;line-height:1;">&#9734;</span>'
+      + '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderWLSide(list) {
+  var el = document.getElementById('wlSide');
+  if (!el) return;
+  var html = '';
+  var max = Math.min(20, list.length);
+  for (var i = 0; i < max; i++) {
+    var w = list[i];
+    html += '<div class="panel-word">'
+      + '<span class="pw-lat">' + w.g + (w.b ? '<span class="pw-basis">basis</span>' : '') + '</span>'
+      + '<span class="pw-nl">' + w.v.split(';')[0] + '</span>'
+      + '</div>';
+  }
+  el.innerHTML = html;
+}
+
+filterWL('th3/3');
+
+var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, revIdx:-1};
+var wgroups = Array.from(document.querySelectorAll('.wg'));
+var lastWord = null, clickN = 0;
+
+document.querySelectorAll('.lat-word').forEach(function(w) {
+  w.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (lastWord === w) { clickN++; } else {
+      if (lastWord) lastWord.classList.remove('st1','st2');
+      lastWord = w; clickN = 1;
+    }
+    w.classList.remove('st1','st2');
+    if (clickN === 1) {
+      w.classList.add('st1');
+      showPopup(w, 1);
+      updatePanel(w);
+    } else if (clickN === 2) {
+      w.classList.add('st2');
+      showPopup(w, 2);
+    } else {
+      clickN = 0; lastWord = null; hidePopup();
+    }
+  });
+});
+document.addEventListener('click', function() {
+  if (lastWord) { lastWord.classList.remove('st1','st2'); lastWord = null; clickN = 0; }
+  hidePopup();
+});
+
+var popup = document.getElementById('popup');
+function showPopup(el, click) {
+  var wl = lookupWL(el.dataset.l);
+  document.getElementById('ppWord').textContent = el.dataset.w;
+  document.getElementById('ppLemma').textContent = el.dataset.l || '';
+  var info = click === 1 ? el.dataset.d : el.dataset.s;
+  var tagClass = click === 1 ? 'tg' : 'to';
+  var tagLabel = click === 1 ? 'Det.' : 'Funct.';
+  var html = '<div class="wp-row"><span class="wp-tag ' + tagClass + '">' + tagLabel + '</span><span class="wp-val">' + info + '</span></div>';
+  html += '<div class="wp-row" style="margin-top:.25rem"><span class="wp-tag tp">NL</span><span class="wp-val">' + el.dataset.n + '</span></div>';
+  if (wl) {
+    html += '<hr class="wp-sep">';
+    var isBasis = wl.b;
+    var grondvorm = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--magenta)' : 'var(--blue)') + ';">' + wl.g + '</span>';
+    if (isBasis) grondvorm += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fce4f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    html += '<div class="wp-row"><span class="wp-tag tw">&#128218;</span><div>' + grondvorm;
+    if (wl.a) html += '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>';
+    html += '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>';
+    html += '</div></div>';
+  }
+  document.getElementById('ppContent').innerHTML = html;
+  document.getElementById('ppSep').style.display = 'none';
+  document.getElementById('ppHint').innerHTML = '';
+  var rect = el.getBoundingClientRect();
+  var top = rect.bottom + window.scrollY + 6;
+  var left = rect.left;
+  if (rect.bottom + 160 > window.innerHeight) top = rect.top + window.scrollY - 170;
+  if (left + 310 > window.innerWidth) left = window.innerWidth - 315;
+  if (left < 8) left = 8;
+  popup.style.top = top + 'px';
+  popup.style.left = left + 'px';
+  popup.classList.add('vis');
+}
+function hidePopup() { popup.classList.remove('vis'); }
+
+function updatePanel(w) {
+  var wl = lookupWL(w.dataset.l);
+  var wlHtml = '';
+  if (wl) {
+    var isBasis = wl.b;
+    var grondvorm = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--magenta)' : 'var(--blue)') + ';">' + wl.g + '</span>';
+    if (isBasis) grondvorm += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fce4f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    wlHtml = '<div class="ac-row" style="margin-top:.4rem"><span class="ac-tag tw">&#128218;</span><div>' + grondvorm
+      + (wl.a ? '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>' : '')
+      + '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>'
+      + '</div></div>';
+  }
+  document.getElementById('analysisCard').innerHTML =
+    '<div class="ac-word">' + w.dataset.w + '</div>' +
+    '<div class="ac-lemma">' + (w.dataset.l||'') + '</div>' +
+    '<div class="ac-row"><span class="ac-tag tg">Det.</span><span class="ac-val">' + w.dataset.d + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag to">Funct.</span><span class="ac-val">' + w.dataset.s + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag tp">NL</span><span class="ac-val">' + w.dataset.n + '</span></div>' +
+    wlHtml;
+}
+
+function toggleReveal() {
+  S.reveal = !S.reveal;
+  document.getElementById('btnReveal').classList.toggle('active', S.reveal);
+  document.getElementById('revealBar').classList.toggle('vis', S.reveal);
+  document.getElementById('latinText').classList.toggle('reveal-mode', S.reveal);
+  if (S.reveal) {
+    S.revIdx = -1; wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); updCount();
+  } else {
+    wgroups.forEach(function(g){ g.classList.remove('revealed','current'); });
+    var rem = document.getElementById('laReminder');
+    if (rem) rem.classList.remove('vis');
+    laReminderActiveIdx = -1;
+  }
+}
+function revealNext() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0 && S.revIdx < wgroups.length) wgroups[S.revIdx].classList.remove('current');
+  S.revIdx = Math.min(S.revIdx + 1, wgroups.length - 1);
+  wgroups[S.revIdx].classList.add('revealed','current');
+  wgroups[S.revIdx].scrollIntoView({behavior:'smooth', block:'nearest'});
+  updCount();
+  checkLaReminder(parseInt(wgroups[S.revIdx].dataset.wg));
+}
+function revealPrev() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0) {
+    wgroups[S.revIdx].classList.remove('current','revealed');
+    S.revIdx = Math.max(S.revIdx - 1, -1);
+    if (S.revIdx >= 0) wgroups[S.revIdx].classList.add('current');
+  }
+  updCount();
+}
+function revealAll() {
+  wgroups.forEach(function(g){ g.classList.add('revealed'); g.classList.remove('current'); });
+  S.revIdx = wgroups.length - 1;
+  updCount();
+}
+function updCount() {
+  var done = document.querySelectorAll('.wg.revealed').length;
+  document.getElementById('revCount').textContent = done + ' / ' + wgroups.length;
+}
+
+function toggleLines() {
+  S.lines = !S.lines;
+  document.getElementById('plainView').classList.toggle('off', S.lines);
+  document.getElementById('numberedView').classList.toggle('on', S.lines);
+  if (S.lines && S.reveal) toggleReveal();
+}
+function toggleInterlin() {
+  S.interlin = !S.interlin;
+  document.getElementById('btnInterlin').classList.toggle('active', S.interlin);
+  document.body.classList.toggle('interlin', S.interlin);
+  if (S.interlin) {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      if (!w.querySelector('.iln')) {
+        var sp = document.createElement('span');
+        sp.className = 'iln';
+        sp.textContent = w.dataset.n;
+        w.appendChild(sp);
+      }
+    });
+    if (S.lines) toggleLines();
+  } else {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      var iln = w.querySelector('.iln');
+      if (iln) iln.remove();
+      w.style.display = '';
+    });
+  }
+}
+function toggleTwocol() {
+  S.twocol = !S.twocol;
+  var btn = document.getElementById('btnTwocol');
+  if (btn) btn.classList.toggle('active', S.twocol);
+  document.body.classList.toggle('twocol', S.twocol);
+  if (S.twocol) renderVertaling();
+}
+function renderVertaling() {
+  var el = document.getElementById('vertaalTekst');
+  if (!el) return;
+  el.innerHTML = '<p>Zij sprak: "Orpheus, wie heeft er zowel mij, ongelukkige, als jou ten gronde gericht? Wie is zo razend? Zie, opnieuw roept het wrede lot (mij) terug en een slaap bedekt (mijn) brekende ogen.</p><p>En nu vaarwel: omgeven door een reusachtige nacht, word ik (mee)gedragen, terwijl ik, ach, de jouwe niet (meer), mijn krachteloze handen naar jou uitgestrekt."</p><p>Ze sprak en plots vluchtte ze in tegengestelde richting uit (zijn) ogen, zoals rook (die) vermengd (werd) met de ijle lucht; ze zag hem, die tevergeefs (naar) haar schim greep en (nog) veel wilde zeggen, niet meer; de veerman van de onderwereld liet niet meer toe het versperde moeras over te steken.</p>';
+}
+function toggleFont() {
+  S.font = !S.font;
+  document.getElementById('btnFont').classList.toggle('active', S.font);
+  document.body.classList.toggle('font-lg', S.font);
+}
+
+var D = { bs: false, lpd: false };
+function toggleLayer(layer) {
+  D[layer] = !D[layer];
+  var btnId = layer === 'bs' ? 'btnBs' : 'btnLpd';
+  var btn = document.getElementById(btnId);
+  if (btn) btn.classList.toggle('active', D[layer]);
+  document.querySelectorAll('.d-badge[data-layer="' + layer + '"]').forEach(function(b) {
+    b.classList.toggle('vis', D[layer]);
+  });
+}
+
+function toggleNoten() {
+  var blk = document.getElementById('notenBlock');
+  var btn = document.getElementById('btnNoten');
+  if (!blk) return;
+  var open = blk.classList.toggle('vis');
+  if (btn) btn.classList.toggle('active', open);
+  if (open) blk.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+(function annotateBadges(){
+  var TIPS = {
+    'badges-hero|④ Dual coding': '④ Dual coding: de afbeelding bij Eurydices afscheid verankert de mythologische sfeer visueel vóór leerlingen de tekst lezen.',
+    'badges-hero|WD2_03.03.01 – situeren in tijd & ruimte': 'WD2_03.03.01 situeren in tijd & ruimte: het beeld plaatst de scène op de grens tussen leven en dood — het moment van het laatste afscheid.',
+    'badges-context|① Voorkennis activeren': '① Voorkennis activeren: de context herhaalt de mythe van Orpheus en Eurydice en activeert kennis uit de vorige teksten van dit thema.',
+    'badges-context|WD2_03.03.01 – situeren in tijd & ruimte': 'WD2_03.03.01 situeren in tijd & ruimte: de tekst speelt op de grens tussen onderwereld en daglicht — het fatale moment van omkijken.',
+    'badges-kaart|④ Dual coding': '④ Dual coding: een kaart van de mythologische onderwereld maakt de geografische metafoor van de palus concreet voor leerlingen.',
+    'badges-kaart|WD2_03.03.01 – situeren in tijd & ruimte': 'WD2_03.03.01 situeren in tijd & ruimte: de onderwereld als locatie krijgt ruimtelijke concreetheid via de kaart.',
+    'badges-reveal|⑤ Actieve verwerking': '⑤ Actieve verwerking: woordgroep per woordgroep onthullen dwingt leerlingen de lange participiumgroepen en het hyperbaton zelf te ontwarren.',
+    'badges-reveal|⑦ Scaffolding': '⑦ Scaffolding: de stapsgewijze onthulling helpt leerlingen bij de complexe zinsbouw van v.499–503 met zijn meervoudige participia.',
+    'badges-reveal|WD2_03.02.01.01 – lectuurmethode toepassen': 'WD2_03.02.01.01 lectuurmethode toepassen: lineair lezen per kolon maakt de retardatiotechniek van Vergilius tastbaar.',
+    'badges-reveal|WD2_03.02.01 – tekst begrijpen': 'WD2_03.02.01 tekst begrijpen: de passage vereist dat leerlingen onderwerp, PV en participiumgroepen over meerdere verzen lokaliseren.',
+    'badges-noten|⑦ Scaffolding': '⑦ Scaffolding: de noten lichten de dubbele et…et-constructie, het PPP circumdata en de deponentische passus toe.',
+    'badges-noten|⑪ Feedback die denken aanzet': '⑪ Feedback die denken aanzet: de noten over natantia lumina en non tua nodigen leerlingen uit na te denken over Vergilius\' beeldende poëzie.',
+    'badges-noten|WD2_03.01.01 – taalsystematiek': 'WD2_03.01.01 taalsystematiek: participia (PPP, part. praes.), deponens pati, en het passief feror zijn kernpunten van de morfologische analyse.',
+    'badges-wl|① Voorkennis activeren': '① Voorkennis activeren: basiswoorden als videre, fugere en nox activeren de opgebouwde woordenschat van het Eurydice-thema.',
+    'badges-wl|⑧ Gespreide oefening': '⑧ Gespreide oefening: woorden als dicere, vocare en ferre keren terug uit eerdere teksten en worden herhaald in een nieuwe context.',
+    'badges-wl|WD2_03.01.01 – basisvocabularium': 'WD2_03.01.01 basisvocabularium: 11 van de 18 woorden behoren tot de basiswoordenschat tweede graad.',
+    'badges-wl|WD2_03.02.02 – betekenis geven aan teksten': 'WD2_03.02.02 betekenis geven aan teksten: umbra als schim van een overledene en lumen als oog vragen etymologische redenering.',
+    'badges-tekst|③ Voorbeelden & modelling': '③ Voorbeelden & modelling: de leerkracht demonstreert de ontleding van v.494 (et … et-constructie) als model voor de rest van de tekst.',
+    'badges-tekst|⑤ Actieve verwerking': '⑤ Actieve verwerking: leerlingen ontleden actief de participiumgroepen en reconstrueren de zinsbouw van Eurydices monoloog.',
+    'badges-tekst|WD2_03.02.01.01 – lectuurmethode toepassen': 'WD2_03.02.01.01 lectuurmethode toepassen: lineair lezen per kolon met aandacht voor de overgang van direct rede naar narratief in v.499.',
+    'badges-tekst|WD2_03.01.01 – taalsystematiek': 'WD2_03.01.01 taalsystematiek: de tekst bevat PPP, part. praes., deponens, passief, ACI en enjambement als te analyseren vormen.'
+  };
+  var tip = document.createElement('div');
+  tip.className = 'd-tooltip';
+  document.body.appendChild(tip);
+  function show(badge, text) {
+    tip.textContent = text;
+    tip.classList.add('vis');
+    var r = badge.getBoundingClientRect();
+    var tw = tip.offsetWidth;
+    var th = tip.offsetHeight;
+    var left = r.left + r.width/2 - tw/2;
+    left = Math.max(8, Math.min(window.innerWidth - tw - 8, left));
+    var top = r.top - th - 10;
+    if (top < 8) top = r.bottom + 10;
+    tip.style.left = left + 'px';
+    tip.style.top  = top  + 'px';
+  }
+  function hide() { tip.classList.remove('vis'); }
+  document.querySelectorAll('.d-badges').forEach(function(container){
+    var pid = container.id;
+    if (!pid) return;
+    container.querySelectorAll('.d-badge').forEach(function(b){
+      var key = pid + '|' + b.textContent.trim();
+      var text = TIPS[key];
+      if (!text) return;
+      b.addEventListener('mouseenter', function(){ show(b, text); });
+      b.addEventListener('mouseleave', hide);
+    });
+  });
+  document.querySelectorAll('.d-badge[data-tip]').forEach(function(b){
+    var text = b.getAttribute('data-tip');
+    b.addEventListener('mouseenter', function(){ if(b.classList.contains('vis')) show(b, text); });
+    b.addEventListener('mouseleave', hide);
+  });
+})();
+
+function openKaartModal()  { document.getElementById('kaartModalOverlay').classList.add('open'); }
+function closeKaartModal() { document.getElementById('kaartModalOverlay').classList.remove('open'); }
+
+function toggleWeergaveMenu(e) {
+  e.stopPropagation();
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  var open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+  }
+});
+
+window.addEventListener('scroll', function() {
+  var d = document.documentElement;
+  document.getElementById('scrollTop').classList.toggle('on', d.scrollTop > 280);
+});
+
+(function(){
+  var resizer = document.getElementById('colResizer');
+  if (!resizer) return;
+  var outer = resizer.closest('.outer');
+  var dragging = false;
+  var startX, startPct;
+  function getPct() {
+    var val = getComputedStyle(document.documentElement).getPropertyValue('--col-split') || '60%';
+    return parseFloat(val);
+  }
+  resizer.addEventListener('mousedown', function(e) {
+    dragging = true; startX = e.clientX; startPct = getPct();
+    resizer.classList.add('dragging'); document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none'; e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var outerW = outer.getBoundingClientRect().width;
+    var delta = e.clientX - startX;
+    var newPct = Math.min(80, Math.max(30, startPct + (delta / outerW) * 100));
+    document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
+  });
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false; resizer.classList.remove('dragging');
+    document.body.style.cursor = ''; document.body.style.userSelect = '';
+  });
+})();
+</script>
+
+<!-- ══ LECTUURANALYSE MODAL ══ -->
+<div class="poetry-overlay" id="lectuurOverlay" onclick="closePoetryModal('lectuur')">
+  <div class="poetry-modal la-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Lectuuranalyse — It's Over Too Soon</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="laPrev" onclick="navVers('la',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="laLabel">v. 494 · 1/5</span>
+        <button class="poetry-nav-btn" id="laNext" onclick="navVers('la',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('lectuur')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+
+  <div class="poetry-vers-panel la-panel" id="la-vers-0" style="display:block">
+    <div class="la-vers-tekst">Illa: "Quis et me miseram et te perdidit, Orpheu, / quis tantus furor?"</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>Toelichting</div>
+      <p class="la-toelichting"><em>Illa</em> = Eurydice. Het eerste woord van de narratie kondigt haar stem aan. De dubbele <em>et … et</em>-constructie stelt haar en Orpheus op hetzelfde niveau. <em>Miseram</em> als praedicatief attribuut: Vergilius kleurt haar zelfaanduiding meteen emotioneel.</p>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="① Voorkennis activeren: kennis van de mythe en van directe rede-constructies." data-layer="bs">① Voorkennis</span><span class="d-badge lpd" data-tip="WD2_03.03.01 situeren in tijd & ruimte: Eurydice spreekt op de grens tussen leven en dood." data-layer="lpd">WD2_03.03.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M3 8h7M3 11h5"/></svg>Inhoudsvraag</div>
+      <p class="la-vraag">Wie wordt aangesproken en door wie? Wat verraadt de dubbele <em>et … et</em>-constructie over Eurydices houding?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Eurydice spreekt Orpheus aan (<em>Orpheu</em>, voc.). De dubbele <em>et … et</em> zet haar naast hem: niet enkel hij is verloren — zij ook. Het is geen zuiver verwijt maar een gedeeld lot.</div></div>
+      <p class="la-vraag">Welke functie heeft <em>miseram</em> in de zin? Waarom plaatst Vergilius het tussen <em>me</em> en <em>et te</em>?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Miseram</em> is praedicatief attribuut bij <em>me</em> (acc. enk. f.). Vergilius plaatst het hyperbatonisch tussen de twee LV's: het mededogen is ingeklemd — zoals Eurydice zelf.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge lpd" data-tip="WD2_03.02.01 tekst begrijpen." data-layer="lpd">WD2_03.02.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h5v5H2zM9 4h5v5H9zM2 11h5v3H2zM9 11h5v3H9z"/></svg>Grammaticavraag</div>
+      <p class="la-vraag">Bepaal <em>perdidit</em> volledig en identificeer de twee LV's. Welk effect heeft de plaatsing van <em>Orpheu</em> na de PV?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Perdidit</em>: A. ind. perf. 3 enk. van <em>perdere</em>. LV's: <em>me (miseram)</em> en <em>te</em>. <em>Orpheu</em> (voc.) staat achteraan: de naam valt na het verwijt — een bewuste retardatie.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet." data-layer="bs">⑪ Feedback die denken aanzet</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek." data-layer="lpd">WD2_03.01.01</span></div>
+    </div>
+  </div>
+
+  <div class="poetry-vers-panel la-panel" id="la-vers-1" style="display:none">
+    <div class="la-vers-tekst">En iterum crudelia retro / Fata vocant, conditque natantia lumina somnus.</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>Toelichting</div>
+      <p class="la-toelichting"><em>Retro</em> klinkt als het definitieve antwoord van het lot: terug. <em>Natantia lumina</em> (drijvende ogen) is een krachtig poëtisch beeld voor ogen die wegsmelten in de dood. <em>Somnus</em> staat alleen — personificatie van de slaap als dood.</p>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="② Structuur + uitdaging." data-layer="bs">② Structuur + uitdaging</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven." data-layer="lpd">WD2_03.02.02</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>Stijlvraag</div>
+      <p class="la-vraag">Wat is het effect van het enjambement <em>crudelia retro / Fata vocant</em>?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Retro</em> hangt achter in vers 495 als een afgebroken gedachte — dan valt het subject <em>Fata</em> aan het begin van vers 496 als een definitief oordeel. Het lot klinkt onvermijdelijk.</div></div>
+      <p class="la-vraag">Welk beeld schuilt in <em>natantia lumina</em>? Waarom is dit zo treffend?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Natantia</em> (van <em>natare</em>, zwemmen/drijven) suggereert ogen die wegzakken, niet meer scherp zien — een precies beeld van het moment vlak voor de dood.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge lpd" data-tip="WD2_03.02.02.01 stijlfiguren herkennen." data-layer="lpd">WD2_03.02.02.01</span></div>
+    </div>
+  </div>
+
+  <div class="poetry-vers-panel la-panel" id="la-vers-2" style="display:none">
+    <div class="la-vers-tekst">Iamque vale: feror ingenti circumdata nocte / invalidasque tibi tendens, heu! non tua, palmas.</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>Toelichting</div>
+      <p class="la-toelichting">Het afscheid is koel en gecomprimeerd: <em>Iamque vale</em> — twee woorden. Daarna trekt Vergilius de tijd uit voor het beeld van de handen. <em>Heu!</em> als bittere tussenworp breekt de grammaticale structuur open. <em>Non tua</em> is de kern van het verdriet.</p>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="③ Modelling: de leraar demonstreert hoe invalidas en palmas samenhoren ondanks de afstand." data-layer="bs">③ Modelling</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven." data-layer="lpd">WD2_03.02.02</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>Stijlvraag</div>
+      <p class="la-vraag">Zoek het hyperbaton in v.497–498. Welk effect heeft de plaatsing van <em>heu! non tua</em> tussen <em>invalidas</em> en <em>palmas</em>?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Hyperbaton: <em>invalidas … palmas</em> wordt uit elkaar getrokken door <em>tibi tendens, heu! non tua</em>. De emotionele uitroep staat letterlijk binnenin de handbeweging — de pijn is ingesloten in het gebaar.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet." data-layer="bs">⑪ Feedback</span><span class="d-badge lpd" data-tip="WD2_03.02.02.01." data-layer="lpd">WD2_03.02.02.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h5v5H2zM9 4h5v5H9zM2 11h5v3H2zM9 11h5v3H9z"/></svg>Grammaticavraag</div>
+      <p class="la-vraag">Determineer <em>circumdata</em> en <em>feror</em>. Welk aspect van Eurydice's situatie drukken ze samen uit?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Circumdata</em>: PPP van <em>circumdare</em>, nom. enk. f., praedicatief bij het OND (Eurydice). <em>Feror</em>: passief ind. praes. 1 enk. van <em>ferre</em>. Samen: ze wordt gedragen én omgeven — volledig passief, ze heeft geen controle meer.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek." data-layer="lpd">WD2_03.01.01</span></div>
+    </div>
+  </div>
+
+  <div class="poetry-vers-panel la-panel" id="la-vers-3" style="display:none">
+    <div class="la-vers-tekst">Dixit et ex oculis subito, ceu fumus in auras / commixtus tenues, fugit diversa:</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>Toelichting</div>
+      <p class="la-toelichting"><em>Dixit</em> sluit de directe rede bruusk af. De vergelijking met rook (<em>ceu fumus</em>) is een van Vergilius' meest geciteerde passages: het verdwijnen is subtiel, ongrijpbaar, onomkeerbaar. <em>Diversa</em> als bijwoord: in tegengestelde richting — terug naar de dood.</p>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="② Structuur + uitdaging." data-layer="bs">② Structuur + uitdaging</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven." data-layer="lpd">WD2_03.02.02</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>Stijlvraag</div>
+      <p class="la-vraag">Welke stijlfiguur staat in <em>ceu fumus in auras commixtus tenues</em>? Beschrijf het effect in één zin.</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Similis (vergelijking): Eurydice verdwijnt zoals rook die in de lucht opgaat — ongrijpbaar, geluidloos, onomkeerbaar. De vergelijking maakt haar verdwijnen tastbaar én pijnlijk.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge lpd" data-tip="WD2_03.02.02.01 stijlfiguren herkennen." data-layer="lpd">WD2_03.02.02.01</span></div>
+    </div>
+  </div>
+
+  <div class="poetry-vers-panel la-panel" id="la-vers-4" style="display:none">
+    <div class="la-vers-tekst">neque illum, / prensantem nequiquam umbras et multa volentem / dicere, praeterea vidit, nec portitor Orci / amplius obiectam passus transire paludem.</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>Toelichting</div>
+      <p class="la-toelichting">De zin is lang en vertraagd: drie verzen voor een dubbele ontkenning. <em>Prensantem nequiquam</em> — Orpheus grijpt tevergeefs. <em>Multa volentem dicere</em> — hij wil nog zoveel zeggen maar zwijgt. De veerman sluit het moeras: definitief einde.</p>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑦ Scaffolding: de noten helpen bij de lange zin met twee participiumgroepen." data-layer="bs">⑦ Scaffolding</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek." data-layer="lpd">WD2_03.01.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h5v5H2zM9 4h5v5H9zM2 11h5v3H2zM9 11h5v3H9z"/></svg>Grammaticavraag</div>
+      <p class="la-vraag">Verklaar <em>passus (est) transire paludem</em> volledig: welk werkwoord, welke constructie?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Pati</em> is een deponens: <em>passus est</em> = hij liet toe (actieve betekenis!). <em>Transire paludem</em> is een ACI-achtige infinitief als LV van <em>pati</em>: hij liet het overtrekken van het moeras niet toe.</div></div>
+      <p class="la-vraag">Welk effect heeft de lange participiumgroep <em>prensantem … dicere</em> vóór het hoofdwerkwoord <em>vidit</em>?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Retardatio: het hoofdwerkwoord <em>vidit</em> wordt uitgesteld — de lezer ziet Orpheus wanhopig grijpen en zwij gen vóór het definitieve <em>praeterea vidit</em> ("daarna zag ze hem niet meer") valt.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet." data-layer="bs">⑪ Feedback</span><span class="d-badge lpd" data-tip="WD2_03.01.01." data-layer="lpd">WD2_03.01.01</span><span class="d-badge lpd" data-tip="WD2_03.02.02.02." data-layer="lpd">WD2_03.02.02.02</span></div>
+    </div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCANSIE MODAL ══ -->
+<div class="poetry-overlay" id="scansieOverlay" onclick="closePoetryModal('scansie')">
+  <div class="poetry-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Scansie · dactylische hexameter</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="scanPrev" onclick="navVers('scan',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="scanLabel">vers 494 · 1/10</span>
+        <button class="poetry-nav-btn" id="scanNext" onclick="navVers('scan',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('scansie')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+      <div class="scan-legenda">
+        <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Legende</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--dact);">–</span> lang</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--spon);">∪</span> kort</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ink-light);">×</span> anceps</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ink-light);">|</span> voetgrens</span>
+        <span class="scan-leg-item"><span class="scan-leg-mark" style="color:var(--ces-color);">‖</span> cesuur</span>
+      </div>
+
+      <!-- v.494 -->
+      <div class="poetry-vers-panel" id="scan-vers-0" style="display:block">
+      <div class="scan-vers-tekst">Illa: "Quis et me miseram et te perdidit, Orpheu,</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Il-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">la</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">quis</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">et</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">me</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">mi-</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">se-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ram</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">per-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">di-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dit</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">Or-</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.495 -->
+      <div class="poetry-vers-panel" id="scan-vers-1" style="display:none">
+      <div class="scan-vers-tekst">quis tantus furor? En iterum crudelia retro</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">quis</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tan-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tus</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">fu-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ror</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">En</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">i-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">te-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">rum</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">cru-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">de-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">li-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">a</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">re-</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.496 -->
+      <div class="poetry-vers-panel" id="scan-vers-2" style="display:none">
+      <div class="scan-vers-tekst">Fata vocant, conditque natantia lumina somnus.</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Fa-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">vo-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">cant</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">con-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dit-</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">que</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">na-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">tan-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">a</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">lu-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">mi-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">na</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.497 -->
+      <div class="poetry-vers-panel" id="scan-vers-3" style="display:none">
+      <div class="scan-vers-tekst">Iamque vale: feror ingenti circumdata nocte</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Iam-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">que</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">va-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">le</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">fe-</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ror</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">in-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">gen-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">cir-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">cum-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">da-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ta</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">noc-</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.498 -->
+      <div class="poetry-vers-panel" id="scan-vers-4" style="display:none">
+      <div class="scan-vers-tekst">invalidasque tibi tendens, heu! non tua, palmas.</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">in-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">va-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">li-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">das-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">que</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ti-</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">bi</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ten-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dens</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">non</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tu-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">a</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">pal-</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.499 -->
+      <div class="poetry-vers-panel" id="scan-vers-5" style="display:none">
+      <div class="scan-vers-tekst">Dixit et ex oculis subito, ceu fumus in auras</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Di-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">xit</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ex</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">o-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">cu-</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">lis</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">su-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">bi-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">to</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ceu</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">fu-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">mus</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">in</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">au-</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.500 -->
+      <div class="poetry-vers-panel" id="scan-vers-6" style="display:none">
+      <div class="scan-vers-tekst">commixtus tenues, fugit diversa: neque illum,</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">com-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">mix-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tus</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">te-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">nu-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">es</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">fu-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">git</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">di-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ver-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">sa</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ne-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">que</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.501 -->
+      <div class="poetry-vers-panel" id="scan-vers-7" style="display:none">
+      <div class="scan-vers-tekst">prensantem nequiquam umbras et multa volentem</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">pren-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">san-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tem</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ne-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">qui-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">quam</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">um-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">bras</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">mul-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">vo-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">len-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">tem</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.502 -->
+      <div class="poetry-vers-panel" id="scan-vers-8" style="display:none">
+      <div class="scan-vers-tekst">dicere, praeterea vidit, nec portitor Orci</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">di-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ce-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">re</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">prae-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ter-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">e-</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">a</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">vi-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dit</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">nec</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">por-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ti-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tor</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">Or-</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.503 -->
+      <div class="poetry-vers-panel" id="scan-vers-9" style="display:none">
+      <div class="scan-vers-tekst">amplius obiectam passus transire paludem.</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">1</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">2</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">3</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">4</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td>
+        <td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">am-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">pli-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">us</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">o-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">biec-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tam</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">pas-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">sus</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tran-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">si-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">re</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">pa-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">lu-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">dem</span></td>
+      </tr></tbody></table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ STIJLFIGUREN MODAL ══ -->
+<div class="sf-tooltip" id="sfTooltip"></div>
+<div class="poetry-overlay" id="stijlOverlay" onclick="closePoetryModal('stijl')">
+  <div class="poetry-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Stijlfiguren</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="sfPrev" onclick="navVers('sf',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="sfLabel">vers 494 · 1/10</span>
+        <button class="poetry-nav-btn" id="sfNext" onclick="navVers('sf',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('stijl')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+      <div class="sf-legenda">
+        <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Stijlfiguren</span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:0;border-bottom:2px dotted var(--sf-hyp);"></span><span style="color:var(--sf-hyp);font-family:var(--ft);">Hyperbaton</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:0;border-bottom:2px dashed var(--sf-epith);"></span><span style="color:var(--sf-epith);font-family:var(--ft);">Epitheton ornans</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:3px;background:var(--sf-allit);border-radius:1px;"></span><span style="color:var(--sf-allit);font-family:var(--ft);">Similis / vergelijking</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:3px;height:14px;background:var(--sf-metaf);border-radius:1px;"></span><span style="color:var(--sf-metaf);font-family:var(--ft);">Enjambement</span></span>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-0" style="display:block">
+      <div class="sf-vers-tekst"><span class="sf-hyp" data-tip="Hyperbaton: 'Quis … perdidit' omsluit 'et me miseram et te'.">Quis</span> et me <span class="sf-hyp" data-tip="Hyperbaton: 'miseram' staat praedicatief bij 'me' maar ingeklemd tussen de twee LV's.">miseram</span> et te perdidit, <span class="sf-epith" data-tip="Vocatief: 'Orpheu' valt ná het verwijt — bewust retardatio.">Orpheu</span>,</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-1" style="display:none">
+      <div class="sf-vers-tekst">quis <span class="sf-epith" data-tip="Epitheton ornans: 'tantus furor' — de razernij wordt meteen grootgemaakt.">tantus furor</span>? En iterum <span class="sf-epith" data-tip="Epitheton ornans: 'crudelia … Fata' — het lot is meedogenloos.">crudelia</span> retro</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-2" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-enjamb" data-tip="Enjambement: 'Fata vocant' valt aan het begin van vers 496 — het lot klinkt als een definitief oordeel.">Fata vocant</span>, conditque <span class="sf-epith" data-tip="Epitheton ornans: 'natantia lumina' — ogen die drijven, poëtisch beeld van de stervende blik.">natantia lumina</span> somnus.</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-3" style="display:none">
+      <div class="sf-vers-tekst">Iamque vale: feror <span class="sf-epith" data-tip="Epitheton ornans: 'ingenti … nocte' — de nacht is reusachtig, omsluitend.">ingenti circumdata nocte</span></div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-4" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-hyp" data-tip="Hyperbaton: 'invalidas … palmas' omsluit 'tibi tendens, heu! non tua'.">invalidasque</span> tibi tendens, heu! non tua, <span class="sf-hyp" data-tip="Hyperbaton: 'palmas' sluit het hyperbaton.">palmas</span>.</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-5" style="display:none">
+      <div class="sf-vers-tekst">Dixit et ex oculis subito, <span class="sf-allit" data-tip="Similis (vergelijking): 'ceu fumus in auras commixtus tenues' — Eurydice lost op als rook.">ceu fumus in auras</span></div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-6" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-enjamb" data-tip="Enjambement: de vergelijking loopt door van vers 499 naar 500.">commixtus tenues</span>, fugit diversa: neque illum,</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-7" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-hyp" data-tip="Hyperbaton + retardatio: 'prensantem … dicere' beschrijft Orpheus — het hoofdwerkwoord 'vidit' volgt pas in vers 502.">prensantem nequiquam umbras et multa volentem</span></div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-8" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-enjamb" data-tip="Enjambement: de participiumgroep loopt door van vers 501 naar 502.">dicere</span>, praeterea vidit, nec <span class="sf-epith" data-tip="Epitheton ornans: 'portitor Orci' — de veerman van de onderwereld, een beeldende omschrijving van Charon.">portitor Orci</span></div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-9" style="display:none">
+      <div class="sf-vers-tekst">amplius <span class="sf-epith" data-tip="Epitheton ornans: 'obiectam … paludem' — het moeras is versperd, de barrière is concreet en definitief.">obiectam passus transire paludem</span>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var laIdx = 0;
+var laReminderActiveIdx = -1;
+var LA_VERS_LABELS = ['v. 494–495','v. 495–496','v. 497–498','v. 499–500','v. 500–503'];
+var LA_TRIGGER_MAP = {
+  7:  {idx:0, tekst:"Vraag bij v.494 — wie spreekt en tot wie?"},
+  13: {idx:1, tekst:"Vraag bij v.495-496 — wat betekent 'natantia lumina'?"},
+  19: {idx:2, tekst:"Vraag bij v.497-498 — hyperbaton rond de handen"},
+  26: {idx:3, tekst:"Vraag bij v.499-500 — de vergelijking met rook"},
+  33: {idx:4, tekst:"Vraag bij v.500-503 — deponens pati + retardatio"}
+};
+
+function openLectuurModal() {
+  document.getElementById('lectuurOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateLaLabel();
+}
+function openLectuurFromReminder() {
+  if (laReminderActiveIdx >= 0) {
+    var panels = document.querySelectorAll('.la-panel');
+    panels[laIdx].style.display = 'none';
+    laIdx = laReminderActiveIdx;
+    panels[laIdx].style.display = 'block';
+    updateLaLabel();
+  }
+  openLectuurModal();
+}
+function updateLaLabel() {
+  var n = LA_VERS_LABELS.length;
+  document.getElementById('laLabel').textContent = LA_VERS_LABELS[laIdx] + ' · ' + (laIdx+1) + '/' + n;
+  document.getElementById('laPrev').disabled = laIdx === 0;
+  document.getElementById('laNext').disabled = laIdx === n-1;
+}
+function checkLaReminder(wgNr) {
+  var trigger = LA_TRIGGER_MAP[wgNr];
+  if (trigger) {
+    laReminderActiveIdx = trigger.idx;
+    document.getElementById('laReminderTekst').textContent = trigger.tekst;
+    document.getElementById('laReminder').classList.add('vis');
+  }
+}
+
+var scanIdx = 0, sfIdx = 0;
+var VERS_NRS = [494,495,496,497,498,499,500,501,502,503];
+
+function navVers(type, dir) {
+  if (type === 'la') {
+    var panels = document.querySelectorAll('.la-panel');
+    panels[laIdx].style.display = 'none';
+    laIdx = Math.max(0, Math.min(panels.length-1, laIdx + dir));
+    panels[laIdx].style.display = 'block';
+    updateLaLabel();
+  } else if (type === 'scan') {
+    var panels = document.querySelectorAll('#scansieOverlay .poetry-vers-panel');
+    panels[scanIdx].style.display = 'none';
+    scanIdx = Math.max(0, Math.min(panels.length-1, scanIdx + dir));
+    panels[scanIdx].style.display = 'block';
+    updateScanLabel();
+  } else if (type === 'sf') {
+    var panels = document.querySelectorAll('#stijlOverlay .poetry-vers-panel');
+    panels[sfIdx].style.display = 'none';
+    sfIdx = Math.max(0, Math.min(panels.length-1, sfIdx + dir));
+    panels[sfIdx].style.display = 'block';
+    updateSfLabel();
+    bindSfTooltips();
+  }
+}
+
+function closePoetryModal(type) {
+  var map = { scansie:'scansieOverlay', stijl:'stijlOverlay', lectuur:'lectuurOverlay' };
+  var el = document.getElementById(map[type]);
+  if (el) el.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closePoetryModal('lectuur');
+    closePoetryModal('scansie');
+    closePoetryModal('stijl');
+  }
+});
+
+function toggleAntwoord(btn) {
+  var wrap = btn.parentElement;
+  var antw = wrap.querySelector('.la-antwoord');
+  var open = antw.classList.toggle('vis');
+  btn.classList.toggle('open', open);
+  btn.querySelector('svg').style.transform = open ? 'rotate(180deg)' : '';
+}
+
+function openScansieModal() {
+  document.getElementById('scansieOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateScanLabel();
+}
+function openStijlModal() {
+  document.getElementById('stijlOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateSfLabel();
+  bindSfTooltips();
+}
+
+function updateScanLabel() {
+  var n = VERS_NRS.length;
+  document.getElementById('scanLabel').textContent = 'vers ' + VERS_NRS[scanIdx] + ' · ' + (scanIdx+1) + '/' + n;
+  document.getElementById('scanPrev').disabled = scanIdx === 0;
+  document.getElementById('scanNext').disabled = scanIdx === n-1;
+}
+function updateSfLabel() {
+  var n = VERS_NRS.length;
+  document.getElementById('sfLabel').textContent = 'vers ' + VERS_NRS[sfIdx] + ' · ' + (sfIdx+1) + '/' + n;
+  document.getElementById('sfPrev').disabled = sfIdx === 0;
+  document.getElementById('sfNext').disabled = sfIdx === n-1;
+}
+function bindSfTooltips() {
+  var tip = document.getElementById('sfTooltip');
+  document.querySelectorAll('#sf-vers-' + sfIdx + ' [data-tip]').forEach(function(el) {
+    el.onmouseenter = function(e) { tip.textContent = el.dataset.tip; tip.classList.add('vis'); moveTip(e); };
+    el.onmousemove  = moveTip;
+    el.onmouseleave = function() { tip.classList.remove('vis'); };
+  });
+  function moveTip(e) {
+    var tw = tip.offsetWidth||280, th = tip.offsetHeight||60;
+    var x = e.clientX+12, y = e.clientY-th-8;
+    if (x+tw > window.innerWidth-8) x = e.clientX-tw-12;
+    if (y<8) y = e.clientY+16;
+    tip.style.left = x+'px'; tip.style.top = y+'px';
+  }
+}
+</script>
+
+</body>
+</html>
