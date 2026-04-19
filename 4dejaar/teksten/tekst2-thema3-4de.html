@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ad Inferos – Thema 3 T2 · 4de jaar · athena</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Groenhove theme vars — inline omdat theme.css extern is */
+:root {
+  --blue:#65b32e; --blue-mid:#4a8a22; --magenta:#65b32e;
+  --paper:#f3f1ef; --rule:rgba(101,179,46,.2);
+  --ink:#010100; --ink-mid:#3a4a2a; --ink-light:#5a6b4a;
+  --jaar-kleur:#65b32e; --accent:#FF3B1D;
+  --achtergrond:#e0efd5; --wit:#f3f1ef;
+  --rand:#c8d4c0; --radius:12px;
+  --ft:'Flanders Art Sans',Arial,sans-serif;
+  --fb:'Noto Sans',Arial,sans-serif;
+}
+@font-face {
+  font-family:'Flanders Art Sans';
+  src:url('../../fonts/FlandersArtSans-Bold.otf') format('opentype');
+  font-weight:700; font-style:normal; font-display:swap;
+}
+.site-header{background:var(--jaar-kleur);color:var(--wit);display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);width:100%;box-sizing:border-box;}
+.site-header .logo{height:38px;width:auto;display:block;flex-shrink:0;}
+.site-header h1{font-family:var(--ft);font-weight:700;font-size:1.25rem;margin:0;letter-spacing:.02em;white-space:nowrap;}
+.site-header .sub{font-family:var(--ft);font-size:.78rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-left:auto;white-space:nowrap;padding-left:.5rem;}
+.site-toolbar{background:var(--wit);border-bottom:1px solid var(--rand);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;height:56px;}
+.toolbar-left{display:flex;align-items:center;gap:.5rem;}
+.toolbar-right{display:flex;align-items:center;gap:.5rem;}
+.topbar-label{font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);opacity:.6;}
+.topbar-divider{width:1px;height:22px;background:var(--rand);margin:0 .4rem;}
+.back-btn,.ctrl-btn{font-family:var(--fb);font-size:.85rem;color:var(--ink);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.35rem .85rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:background .15s,border-color .15s,color .15s;}
+.back-btn:hover,.ctrl-btn:hover{background:#ffea3d;color:#006633;border-color:#ffea3d;}
+.back-btn.active,.ctrl-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.back-btn svg{width:14px;height:14px;}
+</style>
+<style>
+:root {
+  --green:#2d7a3a; --green-bg:#e8f5eb;
+  --orange:#c05a00; --orange-bg:#fff0e0;
+  --purple:#6a1a8a; --purple-bg:#f3e8fb;
+  --hl:#fff3c4; --hl-b:#e8c840;
+  --lh:2.3; --fs:1.18rem;
+  --dact:#1d4ed8; --spon:#be185d; --ces-color:#d97706;
+  --sf-allit:#7c3aed; --sf-hyp:#0891b2; --sf-epith:#db2777;
+  --sf-simul:#c2410c; --sf-metaf:#b45309;
+}
+body{font-family:var(--fb);overflow-x:hidden;background:var(--achtergrond);margin:0;padding:0;}
+
+.weergave-wrap{position:relative;}
+.weergave-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1.5px solid rgba(19,66,127,.18);border-radius:12px;box-shadow:0 6px 24px rgba(19,66,127,.13);z-index:400;min-width:160px;padding:.35rem 0;overflow:hidden;}
+.weergave-menu.open{display:block;animation:fadeUp .12s ease both;}
+.weergave-item{display:flex;align-items:center;gap:.45rem;width:100%;background:none;border:none;padding:.45rem .9rem;font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);cursor:pointer;transition:background .12s,color .12s;white-space:nowrap;}
+.weergave-item:hover{background:#eef3fa;}
+.weergave-item.active{color:var(--magenta);}
+.weergave-item svg{width:12px;height:12px;flex-shrink:0;}
+.weergave-menu .d-badges{display:none!important;}
+.weergave-chevron{transition:transform .18s;}
+#btnWeergave.open .weergave-chevron{transform:rotate(180deg);}
+
+.outer{max-width:1200px;margin:0 auto;padding:0 1.5rem;}
+.main-col{max-width:760px;margin:0 auto;padding:3rem 0 6rem;}
+body.twocol .outer{display:grid;grid-template-columns:var(--col-split,60%) 12px 1fr;gap:0;align-items:start;}
+body.twocol .main-col{max-width:none;padding:3rem 2rem 6rem 0;}
+body.twocol .side-panel{display:flex!important;flex-direction:column;gap:1rem;padding:3rem 0 6rem 1.5rem;border-left:1px solid var(--rule);position:sticky;top:108px;max-height:calc(100vh - 108px);overflow-y:auto;}
+.side-panel{display:none;}
+
+.text-header{margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid var(--rule);animation:fadeUp .5s ease both;}
+.text-meta{font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;}
+.text-title{font-family:var(--ft);font-size:2rem;font-weight:600;line-height:1.2;color:var(--blue);margin-bottom:.5rem;letter-spacing:-.01em;}
+.text-sub{font-family:var(--fb);font-style:italic;font-size:.875rem;color:var(--ink-light);line-height:1.5;}
+
+.hero-wrapper{position:relative;border-radius:12px;overflow:hidden;margin-bottom:2rem;height:360px;animation:fadeUp .5s ease both;}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 55%, rgba(0,0,0,0) 100%);pointer-events:none;}
+.hero-tekst{position:absolute;bottom:0;left:0;padding:1.4rem 1.6rem;pointer-events:none;}
+.hero-meta{font-family:var(--ft);font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+.hero-title{font-family:var(--ft);font-size:2.1rem;font-weight:700;line-height:1.1;color:#65b32e;margin-bottom:.35rem;letter-spacing:-.01em;text-shadow:0 2px 8px rgba(0,0,0,.7);}
+.hero-sub{font-family:var(--fb);font-style:italic;font-size:.875rem;color:rgba(255,255,255,.88);line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+
+.context-block{background:linear-gradient(135deg,#eef3fa,#f5f0fb);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:1rem 1.3rem;margin-bottom:2rem;font-family:var(--ft);font-size:.86rem;line-height:1.65;color:#2a3a5e;animation:fadeUp .5s .07s ease both;}
+.context-block strong{display:block;font-family:var(--ft);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--magenta);margin-bottom:.25rem;font-weight:600;}
+.context-subtitel{display:block;font-family:var(--fb);font-style:italic;font-size:.76rem;color:#888;margin-bottom:.5rem;}
+
+.link-strip{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;animation:fadeUp .5s .12s ease both;}
+.link-pill{font-family:var(--ft);font-size:.7rem;font-weight:500;letter-spacing:.04em;padding:.38rem .85rem;border-radius:20px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink-light);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.35rem;text-decoration:none;}
+.link-pill:hover{border-color:var(--blue);color:var(--blue);background:#eef3fa;}
+.link-pill svg{width:11px;height:11px;}
+button.link-pill{font-size:.7rem;font-weight:500;font-family:var(--ft);letter-spacing:.04em;cursor:pointer;}
+
+.extras-strip{margin-bottom:2rem;animation:fadeUp .5s .12s ease both;}
+.extras-row{display:flex;align-items:center;gap:.9rem;}
+.extras-label{font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);}
+.extras-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:none;background:none;color:var(--accent);cursor:pointer;padding:0;opacity:.75;transition:opacity .15s,background .15s,color .15s;text-decoration:none;}
+.extras-icon:hover{opacity:1;background:#fbe6f1;}
+.extras-icon svg{width:18px;height:18px;}
+.extras-icon.active{opacity:1;background:#fbe6f1;color:var(--accent);}
+
+.noten-block{display:none;}
+.noten-block.vis{display:block;}
+
+.kaart-modal-overlay{display:none;position:fixed;inset:0;background:rgba(19,66,127,.18);backdrop-filter:blur(2px);z-index:800;align-items:center;justify-content:center;}
+.kaart-modal-overlay.open{display:flex;animation:fadeUp .18s ease both;}
+.kaart-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;box-shadow:0 16px 48px rgba(19,66,127,.22);width:min(680px,92vw);max-height:80vh;display:flex;flex-direction:column;overflow:hidden;}
+.kaart-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);}
+.kaart-modal-title{font-family:var(--ft);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+.kaart-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.2rem;border-radius:6px;display:flex;transition:color .12s;}
+.kaart-modal-close:hover{color:var(--blue);}
+.kaart-modal-close svg{width:15px;height:15px;}
+.kaart-modal-body{padding:1.5rem;overflow-y:auto;}
+.kaart-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;border:2px dashed rgba(19,66,127,.15);border-radius:10px;color:var(--ink-light);font-family:var(--ft);font-size:.82rem;}
+
+.vers-blok{position:relative;}
+.vers-nr-label{display:inline-block;font-family:var(--ft);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:.7;margin-bottom:.15rem;margin-right:.5rem;vertical-align:middle;}
+
+.latin-text{font-size:var(--fs);line-height:var(--lh);animation:fadeUp .5s .18s ease both;}
+body.font-lg .latin-text{--fs:1.35rem;--lh:2.45;}
+.latin-para{margin-bottom:2rem;}
+
+.wg{display:inline;border-radius:4px;cursor:pointer;transition:background .15s, outline .1s;padding:1px 0;}
+.wg:hover{background:rgba(19,66,127,.07);}
+
+.reveal-mode .wg{opacity:.12;transition:opacity .3s;}
+.reveal-mode .wg.revealed{opacity:1;}
+.reveal-mode .wg.current{opacity:1;background:var(--hl);outline:1px solid var(--hl-b);border-radius:4px;}
+
+.lat-word{display:inline;border-radius:3px;cursor:pointer;transition:background .12s;padding:0 1px;}
+.lat-word:hover{background:rgba(19,66,127,.09);}
+.lat-word.st1{background:var(--green-bg);color:var(--green);border-bottom:1.5px solid var(--green);}
+.lat-word.st2{background:var(--orange-bg);color:var(--orange);border-bottom:1.5px solid var(--orange);}
+
+body.interlin .lat-word{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;margin:0 1px;}
+body.interlin .lat-word .iln{display:block;font-family:var(--ft);font-size:.52em;color:var(--accent);line-height:1.1;text-align:center;pointer-events:none;white-space:nowrap;}
+
+.latin-para.tekst-scheiding{border-top:none;margin-top:.2em;padding-top:0;}
+
+.numbered-view{display:none;}
+.numbered-view.on{display:block;}
+.plain-view.off{display:none;}
+.latin-line{display:flex;gap:1.4rem;line-height:var(--lh);}
+.ln{font-family:var(--ft);font-size:.62rem;color:#ccc;min-width:1.7rem;text-align:right;padding-top:.44em;user-select:none;flex-shrink:0;}
+.lc{flex:1;}
+
+.word-popup{position:absolute;z-index:500;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;box-shadow:0 8px 32px rgba(19,66,127,.18);padding:.85rem 1.1rem;max-width:300px;min-width:200px;font-family:var(--ft);font-size:.78rem;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .18s,transform .18s;}
+.word-popup.vis{opacity:1;transform:translateY(0);}
+.wp-word{font-family:var(--fb);font-size:1.1rem;font-weight:600;color:var(--blue);margin-bottom:.1rem;}
+.wp-lemma{font-size:.68rem;color:var(--ink-light);margin-bottom:.35rem;}
+.wp-row{display:flex;gap:.4rem;margin-bottom:.2rem;align-items:flex-start;}
+.wp-tag{font-size:.6rem;font-weight:700;padding:.08rem .35rem;border-radius:10px;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0;margin-top:.12rem;}
+.tg{background:var(--green-bg);color:var(--green);}
+.to{background:var(--orange-bg);color:var(--orange);}
+.tp{background:var(--purple-bg);color:var(--purple);}
+.tw{background:#eef3fa;color:var(--blue);}
+.wp-val{color:var(--ink-mid);line-height:1.45;}
+.wp-sep{border:none;border-top:1px solid var(--rule);margin:.4rem 0;}
+.wp-hint{font-size:.7rem;color:var(--ink-light);}
+
+.reveal-bar{display:none;align-items:center;gap:.6rem;margin-bottom:1.5rem;padding:.65rem 1rem;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;font-family:var(--ft);font-size:.78rem;color:var(--ink-mid);flex-wrap:wrap;}
+.reveal-bar.vis{display:flex;}
+.reveal-bar button{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:.3rem .8rem;font-family:var(--ft);font-size:.72rem;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.reveal-bar button:hover{background:var(--blue-mid);}
+.reveal-bar button.sec{background:var(--paper);color:var(--blue);border:1.5px solid var(--blue);}
+.reveal-bar button.sec:hover{background:#eef3fa;}
+.rev-count{margin-left:auto;color:var(--ink-light);font-size:.68rem;white-space:nowrap;}
+
+.footnotes{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.fn-title{font-family:var(--ft);font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.9rem;}
+.fn{display:flex;gap:.65rem;font-size:.8rem;line-height:1.58;color:var(--ink-light);margin-bottom:.45rem;font-family:var(--ft);}
+.fn-n{color:var(--magenta);font-size:.68rem;font-weight:600;min-width:1.1rem;padding-top:.1rem;flex-shrink:0;}
+
+.side-panel .panel-card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.1rem;}
+.panel-card h3{font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.7rem;}
+.panel-word{display:flex;justify-content:space-between;align-items:baseline;padding:.32rem 0;border-bottom:1px solid var(--rule);font-size:.85rem;gap:.5rem;}
+.panel-word:last-child{border-bottom:none;}
+.pw-lat{font-family:var(--fb);font-weight:600;color:var(--blue);}
+.pw-aanv{font-family:var(--ft);font-size:.65rem;color:var(--ink-light);}
+.pw-nl{font-family:var(--ft);font-size:.72rem;color:var(--ink-mid);text-align:right;max-width:55%;}
+.pw-basis{display:inline-block;font-size:.55rem;font-weight:700;padding:.04rem .28rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;margin-left:.3rem;vertical-align:middle;}
+.panel-note{padding:.3rem 0;font-family:var(--ft);font-size:.78rem;color:var(--ink-mid);line-height:1.5;border-bottom:1px solid var(--rule);}
+.panel-note:last-child{border-bottom:none;}
+.pn-tag{display:inline-block;font-size:.6rem;font-weight:600;padding:.05rem .35rem;border-radius:10px;text-transform:uppercase;margin-right:.35rem;background:#eef3fa;color:var(--blue);}
+.analysis-card{background:linear-gradient(135deg,#eef3fa,#f0f5ff);border:1.5px solid #c8d6ed;border-radius:10px;padding:1rem 1.1rem;font-family:var(--ft);font-size:.8rem;line-height:1.6;}
+.ac-word{font-family:var(--fb);font-size:1.4rem;font-weight:600;color:var(--blue);}
+.ac-lemma{font-size:.68rem;color:var(--ink-light);margin-bottom:.5rem;}
+.ac-row{display:flex;gap:.5rem;margin-bottom:.2rem;align-items:flex-start;}
+.ac-tag{font-size:.6rem;font-weight:700;padding:.08rem .38rem;border-radius:10px;text-transform:uppercase;flex-shrink:0;margin-top:.15rem;}
+.ac-empty{color:var(--ink-light);font-size:.78rem;font-style:italic;}
+
+.vertaling-tekst{font-family:var(--ft);font-size:.82rem;line-height:1.7;color:var(--zwart);}
+.vertaling-tekst p{margin-bottom:.7rem;}
+.vertaling-tekst p:last-child{margin-bottom:0;}
+
+.col-resizer{display:none;width:12px;cursor:col-resize;align-self:stretch;position:relative;z-index:10;flex-shrink:0;}
+body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;}
+.col-resizer-handle{width:4px;height:48px;border-radius:4px;background:var(--rule);transition:background .15s, height .15s;position:sticky;top:calc(50vh - 24px);}
+.col-resizer:hover .col-resizer-handle,.col-resizer.dragging .col-resizer-handle{background:var(--blue);height:64px;}
+
+.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all .2s;box-shadow:0 4px 14px rgba(19,66,127,.28);z-index:100;}
+.scroll-top.on{opacity:1;transform:translateY(0);}
+.scroll-top svg{width:15px;height:15px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
+
+.d-badge{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .5rem;border-radius:20px;vertical-align:middle;margin:0 .2rem .1rem;white-space:nowrap;transition:opacity .2s,transform .2s;opacity:0;transform:scale(.85);}
+.d-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;}
+.d-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
+.d-badge.vis{opacity:1;transform:scale(1);}
+
+.d-tooltip{position:fixed;z-index:1000;background:var(--ink);color:#fff;font-family:var(--ft);font-size:.72rem;line-height:1.45;padding:.45rem .7rem;border-radius:7px;max-width:280px;pointer-events:none;opacity:0;transition:opacity .12s;}
+.d-tooltip.vis{opacity:1;}
+
+/* menu section/divider */
+.menu-divider{height:1px;background:rgba(19,66,127,.08);margin:.25rem 0;}
+.menu-section{font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);padding:.35rem .9rem .1rem;}
+
+/* la-reminder */
+.la-reminder{display:none;align-items:center;gap:.5rem;margin-bottom:1rem;padding:.5rem .8rem;background:var(--paper);border:1.5px solid var(--rand);border-radius:8px;cursor:pointer;font-family:var(--ft);font-size:.75rem;color:var(--ink-mid);transition:background .12s;}
+.la-reminder.vis{display:flex;}
+.la-reminder:hover{background:#fff8e6;}
+.la-reminder-icon{font-size:1rem;}
+.la-reminder-text{flex:1;}
+.la-reminder-link{color:var(--accent);font-weight:700;}
+
+/* poetry modals */
+.poetry-overlay{display:none;position:fixed;inset:0;background:rgba(19,66,127,.18);backdrop-filter:blur(2px);z-index:800;align-items:center;justify-content:center;}
+.poetry-overlay.open{display:flex;animation:fadeUp .18s ease both;}
+.poetry-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;box-shadow:0 16px 48px rgba(19,66,127,.22);width:min(720px,95vw);max-height:85vh;display:flex;flex-direction:column;overflow:hidden;}
+.la-modal{width:min(760px,95vw);}
+.poetry-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);gap:.5rem;flex-wrap:wrap;}
+.poetry-modal-title{font-family:var(--ft);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+.poetry-modal-nav{display:flex;align-items:center;gap:.4rem;}
+.poetry-nav-btn{background:none;border:1px solid var(--rand);border-radius:6px;padding:.2rem .55rem;font-size:.9rem;cursor:pointer;color:var(--ink-mid);transition:background .12s;}
+.poetry-nav-btn:hover{background:#eef3fa;}
+.poetry-nav-btn:disabled{opacity:.3;cursor:default;}
+.poetry-vers-label{font-family:var(--ft);font-size:.7rem;font-weight:600;color:var(--ink-light);white-space:nowrap;}
+.poetry-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.2rem;border-radius:6px;display:flex;transition:color .12s;}
+.poetry-modal-close:hover{color:var(--blue);}
+.poetry-modal-close svg{width:15px;height:15px;}
+.poetry-modal-body{padding:1.5rem;overflow-y:auto;}
+
+/* lectuur */
+.la-vers-tekst{font-family:var(--fb);font-size:1.05rem;font-style:italic;line-height:1.65;color:var(--blue);margin-bottom:1.2rem;padding:.7rem 1rem;background:#f0f5f0;border-radius:8px;}
+.la-sectie{margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+.la-sectie:last-child{border-bottom:none;margin-bottom:0;}
+.la-sectie-titel{display:flex;align-items:center;gap:.4rem;font-family:var(--ft);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.5rem;}
+.la-sectie-titel svg{width:13px;height:13px;}
+.la-toelichting{font-family:var(--ft);font-size:.84rem;line-height:1.65;color:var(--ink-mid);margin-bottom:.5rem;}
+.la-vraag{font-family:var(--ft);font-size:.84rem;line-height:1.6;color:var(--ink);margin-bottom:.35rem;font-weight:600;}
+.la-badge-rij{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.5rem;}
+.la-badge-rij .d-badge{opacity:1;transform:scale(1);}
+.la-antwoord-wrap{margin-bottom:.5rem;}
+.la-antwoord-btn{display:flex;align-items:center;gap:.3rem;background:none;border:1px solid var(--rand);border-radius:6px;padding:.25rem .65rem;font-family:var(--ft);font-size:.7rem;color:var(--ink-mid);cursor:pointer;transition:background .12s;}
+.la-antwoord-btn:hover{background:var(--achtergrond);}
+.la-antwoord-btn svg{width:12px;height:12px;transition:transform .2s;}
+.la-antwoord{display:none;margin-top:.4rem;font-family:var(--ft);font-size:.8rem;line-height:1.6;color:var(--ink-mid);padding:.5rem .75rem;background:var(--achtergrond);border-radius:6px;}
+.la-antwoord.vis{display:block;}
+.la-kaart-container{display:flex;flex-direction:column;gap:.5rem;}
+.la-kaart-img-inline{max-width:100%;border-radius:8px;}
+.la-kaart-legenda{font-family:var(--ft);font-size:.75rem;color:var(--ink-light);display:flex;flex-direction:column;gap:.2rem;}
+
+/* scansie */
+.scan-vers-tekst{font-family:var(--fb);font-size:1rem;font-style:italic;color:var(--blue);margin-bottom:1rem;padding:.6rem .9rem;background:#f0f5f0;border-radius:8px;}
+.scan-syl{font-family:var(--ft);text-align:center;padding:0 1px;}
+.scan-syl .mark{display:block;font-size:.75rem;color:var(--accent);line-height:1.2;}
+.scan-syl .lett{display:block;font-size:.85rem;color:var(--ink);line-height:1.4;}
+.scan-syl.lon .mark{color:var(--spon);}
+.scan-syl.sho .mark{color:var(--dact);}
+.scan-syl.anc .mark{color:#888;}
+.scan-div-cel{padding:0 2px;text-align:center;}
+.scan-div-cel .mark{display:block;font-size:.8rem;color:#aaa;line-height:1.2;}
+.scan-div-cel .lett{display:block;font-size:.85rem;line-height:1.4;}
+.scan-ces-cel{padding:0 2px;text-align:center;}
+.scan-ces-cel .mark{display:block;font-size:.8rem;color:var(--ces-color);line-height:1.2;}
+.scan-ces-cel .lett{display:block;font-size:.85rem;line-height:1.4;}
+.scan-foot-nr{font-family:var(--ft);font-size:.55rem;color:#bbb;padding-bottom:2px;text-align:center;}
+.scan-nr-empty{width:4px;}
+.scan-legenda{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem;font-family:var(--ft);font-size:.68rem;color:var(--ink-light);}
+.scan-leg-item{display:flex;align-items:center;gap:.3rem;}
+
+/* stijlfiguren */
+.sf-tooltip{position:fixed;z-index:1100;background:var(--ink);color:#fff;font-family:var(--ft);font-size:.72rem;line-height:1.45;padding:.45rem .7rem;border-radius:7px;max-width:300px;pointer-events:none;opacity:0;transition:opacity .12s;}
+.sf-tooltip.vis{opacity:1;}
+.sf-vers-tekst{font-family:var(--fb);font-size:1.05rem;font-style:italic;line-height:1.7;color:var(--ink);margin-bottom:1rem;padding:.7rem 1rem;background:#f8f8f0;border-radius:8px;}
+.sf-hyp{border-bottom:2px dotted var(--sf-hyp);color:var(--sf-hyp);cursor:help;}
+.sf-epith{border-bottom:2px dashed var(--sf-epith);color:var(--sf-epith);cursor:help;}
+.sf-allit{background:rgba(124,58,237,.1);border-radius:3px;color:var(--sf-allit);cursor:help;}
+.sf-simul{border-bottom:2px solid var(--sf-simul);color:var(--sf-simul);cursor:help;}
+.sf-metaf{border-left:3px solid var(--sf-metaf);padding-left:4px;color:var(--sf-metaf);cursor:help;}
+.sf-legenda{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem;font-family:var(--ft);font-size:.68rem;color:var(--ink-light);}
+.sf-leg-item{display:flex;align-items:center;gap:.3rem;}
+
+@media(max-width:900px){body.twocol .outer{display:block;}body.twocol .main-col{padding:2rem 0 5rem;}body.twocol .side-panel{display:none!important;}}
+@media(max-width:600px){.main-col{padding:2rem 0 5rem;}.outer{padding:0 1rem;}.text-title{font-size:1.7rem;}.site-header{padding:0 14px;}.site-toolbar{padding:8px 14px;height:auto;flex-wrap:wrap;}.topbar-label,.topbar-divider{display:none;}}
+</style>
+
+</head>
+<body>
+
+<div class="word-popup" id="popup">
+  <div class="wp-word" id="ppWord"></div>
+  <div class="wp-lemma" id="ppLemma"></div>
+  <div id="ppContent"></div>
+  <hr class="wp-sep" id="ppSep" style="display:none">
+  <div class="wp-hint" id="ppHint"></div>
+</div>
+
+<header class="site-header">
+  <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="Groenhove">
+  <h1>Teksten</h1>
+  <span class="sub">S.O. Groenhove Waregem</span>
+</header>
+
+<div class="site-toolbar">
+  <div class="toolbar-left">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+      Teksten
+    </button>
+  </div>
+  <div class="toolbar-right">
+    <button class="ctrl-btn" id="btnReveal" onclick="toggleReveal()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8s2.5-5 6-5 6 5 6 5-2.5 5-6 5-6-5-6-5z"/><circle cx="8" cy="8" r="2"/></svg>
+      Onthul
+    </button>
+    <div class="weergave-wrap" id="weergaveWrap">
+      <button class="ctrl-btn" id="btnWeergave" onclick="toggleWeergaveMenu(event)">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v1.2M8 13.3v1.2M1.5 8h1.2M13.3 8h1.2M3.4 3.4l.85.85M11.75 11.75l.85.85M12.6 3.4l-.85.85M4.25 11.75l-.85.85"/></svg>
+        Weergave
+        <svg class="weergave-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:9px;height:9px;margin-left:1px"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="weergave-menu" id="weergaveMenu">
+        <button class="weergave-item" id="btnInterlin" onclick="toggleInterlin()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 5h12M2 10h12"/></svg>
+          Interlineair
+        </button>
+        <button class="weergave-item" id="btnTwocol" onclick="toggleTwocol()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/></svg>
+          Tweekolom
+        </button>
+        <div class="menu-divider"></div>
+        <div class="menu-section">Poëzie-analyse</div>
+        <div class="d-badges" id="badges-scansie" style="padding:0 .25rem .2rem;">
+          <span class="d-badge bs" data-layer="bs">⑨ Interleaving</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven</span>
+        </div>
+        <button class="weergave-item" id="btnScansie" onclick="openScansieModal();event.stopPropagation()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12L4 4L6 12L8 4L10 12L12 4L14 12"/><line x1="2" y1="14" x2="14" y2="14" stroke-dasharray="2,2"/></svg>
+          Scansie
+        </button>
+        <div class="d-badges" id="badges-stijl" style="padding:0 .25rem .2rem;">
+          <span class="d-badge bs" data-layer="bs">⑤ Actief verwerken</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02.01 – stijlfiguren herkennen</span>
+          <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02.02 – hoe auteur lezer beïnvloedt</span>
+        </div>
+        <button class="weergave-item" id="btnStijl" onclick="openStijlModal();event.stopPropagation()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="8" r="2"/><circle cx="11" cy="5" r="2"/><circle cx="11" cy="11" r="2"/><line x1="7" y1="8" x2="9" y2="5.8"/><line x1="7" y1="8" x2="9" y2="10.2"/></svg>
+          Stijlfiguren
+        </button>
+        <div class="menu-divider"></div>
+        <div class="menu-section">Didactiek</div>
+        <button class="weergave-item" id="btnBs" onclick="toggleLayer('bs');event.stopPropagation()">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;"></span>
+          Bouwstenen
+        </button>
+        <button class="weergave-item" id="btnLpd" onclick="toggleLayer('lpd');event.stopPropagation()">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;"></span>
+          LPD
+        </button>
+      </div>
+    </div>
+    <button class="ctrl-btn" id="btnFont" onclick="toggleFont()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12L8 4l5 8M5.5 9h5"/></svg>
+      Groter
+    </button>
+  </div>
+</div>
+
+<div class="outer">
+<div class="main-col">
+
+  <div class="d-badges" id="badges-hero" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+  </div>
+  <div class="hero-wrapper">
+    <img src="../../images/teksten/thema34des/orpheus2.jpg" alt="Orpheus betreedt de onderwereld" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-tekst">
+      <div class="hero-meta">Thema 3 · Tekst 2 · 4de jaar</div>
+      <div class="hero-title">Ad Inferos</div>
+      <div class="hero-sub">naar Vergilius, <em>Georgica</em> IV, 464–470 · de afdaling van Orpheus</div>
+    </div>
+  </div>
+
+  <div class="context-block" data-subtitel="Mythologische achtergrond" data-bs="1" data-lpd="WD2_03.03.01">
+    <div class="d-badges" id="badges-context">
+      <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <strong>Context</strong>
+    <span class="context-subtitel">Mythologische achtergrond</span>
+    <p>Eurydice is gestorven aan een slangenbeet. Orpheus, de grootste muzikant van de mythologie, kan haar verlies niet dragen. Vergilius toont in dit fragment uit de <em>Georgica</em> (ca. 29 v.Chr.) hoe Orpheus zijn verdriet eerst probeert te verdoven met zijn lier — maar dan de ongekende stap zet: hij daalt af naar de onderwereld om zijn vrouw terug te halen. Met zijn zang betreedt hij Tainaron, de poort van de Hades, en staat hij oog in oog met Dis, de heerser van de doden, en de schimmen die geen gebed van mensen ooit kan vermurwen.</p>
+  </div>
+
+  <div class="extras-strip">
+    <div class="d-badges" id="badges-kaart">
+      <span class="d-badge bs" data-layer="bs">④ Dual coding</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span>
+    </div>
+    <div class="d-badges" id="badges-lectuur" style="margin-bottom:.3rem;">
+      <span class="d-badge bs" data-layer="bs">⑥ Check begrip hele klas</span>
+      <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – tekst begrijpen</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven</span>
+    </div>
+    <div class="d-badges" id="badges-tweekolom" style="margin-bottom:.3rem;">
+      <span class="d-badge bs" data-layer="bs">⑦ Scaffolding → zelfstandig</span>
+      <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.02 – talige hulpmiddelen</span>
+    </div>
+    <div class="extras-row">
+      <span class="extras-label">Extra's</span>
+      <a class="extras-icon" href="#woordenlijst-sectie" title="Woordenlijst van deze tekst" aria-label="Woordenlijst">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h8a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M3 2v12"/><path d="M6 6h4M6 9h3"/></svg>
+      </a>
+      <button type="button" class="extras-icon" id="btnNoten" onclick="toggleNoten()" title="Grammaticale noten tonen / verbergen" aria-label="Grammaticale noten">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 3.5h11M2.5 7h11M2.5 10.5h7"/><circle cx="12" cy="11" r="1.6" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button type="button" class="extras-icon" id="btnVertaling" onclick="toggleTwocol()" title="Vertaling tonen (tweekolom)" aria-label="Vertaling">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4h6M4 2v2M2 4c0 2.5 2 4 4 4M6 4c0 1.5-.5 3-2 4"/><path d="M8 12l1.5-4 1.5 4M9 10.5h2"/><rect x="8" y="6" width="6" height="8" rx="1" stroke="none" fill="none"/><path d="M8.5 14h5"/></svg>
+      </button>
+      <button type="button" class="extras-icon d-badge-trigger" id="btnLectuur" onclick="openLectuurModal()" title="Lectuuranalyse openen" aria-label="Lectuuranalyse">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v9a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M2 3l6 4 6-4"/><path d="M6 9h4M6 11h2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="kaart-modal-overlay" id="kaartModalOverlay" onclick="closeKaartModal()">
+    <div class="kaart-modal" onclick="event.stopPropagation()">
+      <div class="kaart-modal-header">
+        <span class="kaart-modal-title">Mythologische kaart — Tainaron en de onderwereld</span>
+        <button class="kaart-modal-close" onclick="closeKaartModal()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+        </button>
+      </div>
+      <div class="kaart-modal-body">
+        <div class="kaart-placeholder">
+          <svg viewBox="0 0 48 48" fill="none" stroke="rgba(19,66,127,.2)" stroke-width="1.5" style="width:48px;height:48px;margin-bottom:1rem"><rect x="4" y="8" width="40" height="32" rx="3"/><path d="M4 20l10-6 8 8 8-5 14 9"/><circle cx="34" cy="15" r="3"/></svg>
+          <p>Kaart — Tainaron · Griekenland · ingang onderwereld</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-badges" id="badges-reveal" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.01 – lectuurmethode toepassen</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – tekst begrijpen</span>
+  </div>
+  <div class="reveal-bar" id="revealBar">
+    <span style="font-size:.72rem;color:var(--ink-light);">Onthulling per woordgroep</span>
+    <button onclick="revealPrev()">&#8592; Vorige</button>
+    <button onclick="revealNext()">Volgende &#8594;</button>
+    <button class="sec" onclick="revealAll()">Alles tonen</button>
+    <span class="rev-count" id="revCount">0 / 0</span>
+  </div>
+  <div class="la-reminder" id="laReminder" onclick="openLectuurFromReminder()">
+    <span class="la-reminder-icon">💡</span>
+    <span class="la-reminder-text">Lectuuranalyse — <span class="la-reminder-link" id="laReminderTekst">vraag bij dit vers</span></span>
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;flex-shrink:0;opacity:.6"><path d="M6 4l4 4-4 4"/></svg>
+  </div>
+
+  <div class="d-badges" id="badges-tekst" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">③ Voorbeelden &amp; modelling</span>
+    <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.01 – lectuurmethode toepassen</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsystematiek</span>
+  </div>
+  <div class="latin-text" id="latinText">
+  <div class="plain-view" id="plainView">
+
+<div class="latin-para vers-blok">
+<span class="vers-nr-label">v. 464</span>
+<span class="wg" data-wg="1"><span class="lat-word" data-w="Ipse" data-l="ipse, ipsa, ipsum" data-d="nom. enk. m." data-s="nadruk-subj. bij canebat" data-n="hij zelf">Ipse</span></span>
+<span class="wg" data-wg="2"><span class="lat-word" data-w="cava" data-l="cavus, -a, -um" data-d="abl. enk. f." data-s="attribuut bij testudine" data-n="hol, gewelfd">cava</span></span>
+<span class="wg" data-wg="3"><span class="lat-word" data-w="solans aegrum testudine amorem" data-l="solari / aeger, aegra, aegrum / testudo, -inis / amor, -oris" data-d="part. praes. nom. enk. m. + acc. enk. m. + abl. enk. f. + acc. enk. m." data-s="participiumgroep bij Ipse: wijze waarop hij zong" data-n="zijn zieke liefde troostend met zijn holle lier">solans aegrum testudine amorem</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 465</span>
+<span class="wg" data-wg="4"><span class="lat-word" data-w="te" data-l="tu" data-d="acc. enk." data-s="LV van canebat (eerste herhaling)" data-n="over jou">te</span>,</span>
+<span class="wg" data-wg="5"><span class="lat-word" data-w="dulcis coniunx" data-l="dulcis, -e / coniunx, coniugis" data-d="voc. enk. f. + voc. enk. f." data-s="vocatief: rechtstreekse aanroep van Eurydice" data-n="lieve echtgenote">dulcis coniunx</span>,</span>
+<span class="wg" data-wg="6"><span class="lat-word" data-w="te solo in litore secum" data-l="tu / solus, -a, -um / litus, -oris / secum" data-d="acc. enk. + abl. enk. n. + prep. + abl. enk. n. + bijw." data-s="LV (herhaling) + BWB van omstandigheid" data-n="over jou, alleen met zichzelf op de verlaten oever">te solo in litore secum</span>,</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 466</span>
+<span class="wg" data-wg="7"><span class="lat-word" data-w="te veniente die" data-l="tu / venire / dies, -ei" data-d="acc. enk. + part. praes. abl. enk. m. + abl. enk. m." data-s="LV (herhaling) + abl. abs. van tijd" data-n="over jou bij het aanbreken van de dag">te veniente die</span>,</span>
+<span class="wg" data-wg="8"><span class="lat-word" data-w="te decedente canebat" data-l="tu / decedere / canere" data-d="acc. enk. + part. praes. abl. enk. m. + A. ind. imperf. 3 enk." data-s="LV (herhaling) + abl. abs. + PV hoofdzin" data-n="over jou bij het vallen van de avond zong hij">te decedente canebat</span>.</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 467</span>
+<span class="wg" data-wg="9"><span class="lat-word" data-w="Taenarias etiam fauces" data-l="Taenarius, -a, -um / etiam / faux, faucis" data-d="acc. mv. f. + bijw. + acc. mv. f." data-s="LV bij ingressus (adiit)" data-n="zelfs de grot van Tainaron">Taenarias etiam fauces</span>,</span>
+<span class="wg" data-wg="10"><span class="lat-word" data-w="alta ostia Ditis" data-l="altus, -a, -um / ostium, -ii / Dis, Ditis" data-d="acc. mv. n. + acc. mv. n. + gen. enk. m." data-s="LV bij ingressus (gecoördineerd)" data-n="de diepe ingang van Dis (de onderwereld)">alta ostia Ditis</span>,</span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 468</span>
+<span class="wg" data-wg="11"><span class="lat-word" data-w="et caligantem nigra formidine lucum" data-l="et / caligare / niger, -gra, -grum / formido, -inis / lucus, -i" data-d="vgw. + part. praes. acc. enk. m. + abl. enk. f. + abl. enk. f. + acc. enk. m." data-s="gecoördineerd LV bij ingressus" data-n="en het woud dat donker was van zwarte angst">et caligantem nigra formidine lucum</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 469</span>
+<span class="wg" data-wg="12"><span class="lat-word" data-w="ingressus" data-l="ingredi" data-d="PPP (depon.) nom. enk. m." data-s="deponens PPP: OND Orpheus betreedt de onderwereld" data-n="binnengegaan zijnde">ingressus</span></span>
+<span class="wg" data-wg="13"><span class="lat-word" data-w="Manesque adiit" data-l="Manes, -ium / adire" data-d="acc. mv. m. + A. ind. perf. 3 enk." data-s="LV + PV (asyndetisch met wat volgt)" data-n="en richtte zich tot de schimmen">Manesque adiit</span></span>
+<span class="wg" data-wg="14"><span class="lat-word" data-w="regemque tremendum" data-l="rex, regis / tremendus, -a, -um" data-d="acc. enk. m. + acc. enk. m." data-s="gecoördineerd LV bij adiit: de verschrikkelijke koning" data-n="en tot de verschrikkelijke koning">regemque tremendum</span></span>
+</div>
+
+<div class="latin-para tekst-scheiding vers-blok">
+<span class="vers-nr-label">v. 470</span>
+<span class="wg" data-wg="15"><span class="lat-word" data-w="nesciaque humanis precibus mansuescere corda" data-l="nescire / humanus, -a, -um / prex, precis / mansuescere / cor, cordis" data-d="acc. mv. n. + abl. mv. n. + abl. mv. f. + inf. praes. + acc. mv. n." data-s="gecoördineerd LV bij adiit: rel. bijzin met inf." data-n="en de harten die niet weten toe te geven aan de smeekbeden van mensen">nesciaque humanis precibus mansuescere corda</span>.</span>
+</div>
+
+</div><!-- /plain-view -->
+
+  <div class="numbered-view" id="numberedView">
+    <div class="latin-line"><span class="ln">464</span><span class="lc">Ipse cava solans aegrum testudine amorem</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">465</span><span class="lc">te, dulcis coniunx, te solo in litore secum,</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">466</span><span class="lc">te veniente die, te decedente canebat.</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">467</span><span class="lc">Taenarias etiam fauces, alta ostia Ditis,</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">468</span><span class="lc">et caligantem nigra formidine lucum</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln">469</span><span class="lc">ingressus Manesque adiit regemque tremendum</span></div>
+    <div class="latin-line"><span class="ln">&nbsp;</span><span class="lc">&nbsp;</span></div>
+    <div class="latin-line"><span class="ln"><strong>470</strong></span><span class="lc">nesciaque humanis precibus mansuescere corda.</span></div>
+  </div>
+  </div><!-- /latin-text -->
+
+  <div class="noten-block" id="notenBlock">
+  <div class="d-badges" id="badges-noten" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span>
+    <span class="d-badge bs" data-layer="bs">⑪ Feedback die denken aanzet</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsystematiek</span>
+  </div>
+  <div class="footnotes">
+    <div class="fn-title">Grammaticale noten</div>
+    <div class="fn"><span class="fn-n">1</span><span><em>solans aegrum testudine amorem</em> — participium praesens actief bij <em>Ipse</em>. <em>Testudine</em> is ablativus instrumenti: de lier als instrument van zelfvertroosting. <em>Aegrum amorem</em>: epitheton ornans — de liefde is letterlijk 'ziek', een lichamelijke kwaal bij Vergilius.</span></div>
+    <div class="fn"><span class="fn-n">2</span><span><em>te … te … te … te</em> — viervoudige anafora van het accusatief-pronomen. Orpheus zingt steeds over hetzelfde object: Eurydice. De herhaling verbeeldt de obsessieve, allesoverweldigende rouw. De vier <em>te</em>'s kaderen in de structuur van een dag: oever, ochtend, avond.</span></div>
+    <div class="fn"><span class="fn-n">3</span><span><em>veniente die … decedente</em> — twee ablativi absoluti met participium praesens en ablativus van <em>dies</em>. Ze geven de tijdskaders aan: het aanbreken en het vallen van de dag. De dag gaat voorbij, maar Orpheus zingt onafgebroken.</span></div>
+    <div class="fn"><span class="fn-n">4</span><span><em>Taenarias fauces … alta ostia Ditis … lucum</em> — drie accusativi als voorwerpen bij het deponens <em>ingressus</em>: de nauwe ingang van Tainaron, de poort van de onderwereld, en het donkere woud. De drieledige structuur bouwt op naar het diepst van de Hades.</span></div>
+    <div class="fn"><span class="fn-n">5</span><span><em>ingressus</em> — PPP (deponens) van <em>ingredi</em>. Let op: deponens-werkwoorden hebben een passieve vorm maar actieve betekenis. <em>Ingressus</em> is nom. enk. m. bij het impliciete subject Orpheus: 'binnengegaan zijnde' = 'nadat hij was binnengegaan'.</span></div>
+    <div class="fn"><span class="fn-n">6</span><span><em>Manesque … regemque … corda</em> — drie accusativi verbonden met <em>-que</em>: de schimmen, de koning (Dis) en de harten. Het is een klimax: van de anonieme massa schimmen, via de machtige heerser, naar het abstrakte probleem: harten die niet zacht worden.</span></div>
+    <div class="fn"><span class="fn-n">7</span><span><em>nesciaque humanis precibus mansuescere corda</em> — <em>nescia</em> (adj. van <em>nescire</em>) met infinitief: 'de harten die niet weten te vermurwen'. <em>Humanis precibus</em> ablativus van middel: menselijke gebeden zijn machteloos in de Hades. Dit is het kernprobleem — en toch probeert Orpheus het.</span></div>
+    <div class="fn"><span class="fn-n">8</span><span><em>caligantem nigra formidine</em> — participium praesens van <em>caligare</em> (donker zijn, wazig worden) + ablativus causae <em>nigra formidine</em>: 'donker van zwarte angst'. Vergilius stapelt de duisternis: het woud is donker (part.) door zwarte (adj.) angst (subst.).</span></div>
+  </div>
+  </div><!-- /noten-block -->
+
+  <div class="d-badges" id="badges-wl" style="margin-bottom:.5rem;">
+    <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
+    <span class="d-badge bs" data-layer="bs">⑧ Gespreide oefening</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – basisvocabularium</span>
+    <span class="d-badge lpd" data-layer="lpd">WD2_03.02.02 – betekenis geven aan teksten</span>
+  </div>
+  <div id="woordenlijst-sectie" style="margin-top:3.5rem;padding-top:2rem;border-top:2px solid var(--rule);">
+    <div id="wlSectieLabel" style="font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;opacity:.85;">Tekst 2 · Thema 3 · 4de jaar</div>
+    <h2 style="font-family:var(--ft);font-size:1.3rem;font-weight:600;color:var(--blue);margin-bottom:.3rem;" id="wlSectieTitle">Woordenlijst</h2>
+    <p id="wlSectieInfo" style="font-family:var(--ft);font-size:.78rem;color:var(--ink-light);margin-bottom:1.5rem;">Woordenlijst op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.</p>
+    <div id="wlTable"></div>
+  </div>
+
+</div><!-- /main-col -->
+
+<div class="col-resizer" id="colResizer"><div class="col-resizer-handle"></div></div>
+
+<div class="side-panel" id="sidePanel">
+  <div class="analysis-card" id="analysisCard">
+    <div class="ac-empty">Klik op een woord voor grammaticahulp.</div>
+  </div>
+  <div class="panel-card" id="sidePanelVertaling">
+    <h3 style="color:var(--accent);">Vertaling</h3>
+    <div class="vertaling-tekst" id="vertaalTekst"></div>
+  </div>
+  <div class="panel-card">
+    <h3>Let op</h3>
+    <div class="panel-note"><span class="pn-tag">Anafora</span><em>te … te … te … te</em>: viervoudige herhaling — Orpheus zingt dag en nacht over Eurydice.</div>
+    <div class="panel-note"><span class="pn-tag">Abl. abs.</span><em>veniente die … decedente</em>: twee abl. abs. — tijdskaders van ochtend en avond.</div>
+    <div class="panel-note"><span class="pn-tag">Depon.</span><em>ingressus</em> van <em>ingredi</em>: passieve vorm, actieve betekenis — 'binnengegaan'.</div>
+    <div class="panel-note"><span class="pn-tag">Klimax</span><em>Manes … regem … corda</em>: van schimmen via koning naar harten — opbouw naar het onmogelijke.</div>
+    <div class="panel-note"><span class="pn-tag">Adj. + inf.</span><em>nescia mansuescere</em>: adjectief <em>nescius</em> met infinitief — harten die 'niet weten' toe te geven.</div>
+  </div>
+</div>
+
+</div><!-- /outer -->
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4-4 4 4"/></svg>
+</button>
+
+<script>
+var WL = [
+  {g:"ipse",a:"ipsa, ipsum",v:"hij zelf, zij zelf, het zelf",b:true,t:["th3/2"],volgorde:{"th3/2":1}},
+  {g:"solari",a:"solor, -ari, -atus sum (dep.)",v:"troosten, verlichten",b:false,t:["th3/2"],volgorde:{"th3/2":2}},
+  {g:"aeger",a:"aegra, aegrum",v:"ziek, pijnlijk, kwijnend",b:false,t:["th3/2"],volgorde:{"th3/2":3}},
+  {g:"testudo",a:"testudinis (f.)",v:"schildpad; lier",b:false,t:["th3/2"],volgorde:{"th3/2":4}},
+  {g:"amor",a:"amoris (m.)",v:"liefde",b:true,t:["th3/2"],volgorde:{"th3/2":5}},
+  {g:"coniunx",a:"coniugis (m./f.)",v:"echtgenoot, echtgenote",b:false,t:["th3/2"],volgorde:{"th3/2":6}},
+  {g:"litus",a:"litoris (n.)",v:"oever, strand",b:false,t:["th3/2"],volgorde:{"th3/2":7}},
+  {g:"canere",a:"cano, -ere, cecini, cantum",v:"zingen, bezingen",b:false,t:["th3/2"],volgorde:{"th3/2":8}},
+  {g:"fauces",a:"faucium (f.mv.)",v:"keel; nauwe doorgang, grot",b:false,t:["th3/2"],volgorde:{"th3/2":9}},
+  {g:"ostium",a:"ostii (n.)",v:"deur, ingang, monding",b:false,t:["th3/2"],volgorde:{"th3/2":10}},
+  {g:"caligare",a:"caligo, -are",v:"donker zijn, wazig worden",b:false,t:["th3/2"],volgorde:{"th3/2":11}},
+  {g:"formido",a:"formidinis (f.)",v:"angst, schrik, ontzag",b:false,t:["th3/2"],volgorde:{"th3/2":12}},
+  {g:"lucus",a:"luci (m.)",v:"heilig woud, bos",b:false,t:["th3/2"],volgorde:{"th3/2":13}},
+  {g:"ingredi",a:"ingredior, -i, ingressus sum (dep.)",v:"binnengaan, betreden",b:false,t:["th3/2"],volgorde:{"th3/2":14}},
+  {g:"Manes",a:"Manium (m.mv.)",v:"schimmen van de doden, onderwereldse geesten",b:false,t:["th3/2"],volgorde:{"th3/2":15}},
+  {g:"adire",a:"adeo, -ire, adii, aditum",v:"naderen, zich wenden tot",b:true,t:["th3/2"],volgorde:{"th3/2":16}},
+  {g:"tremendus",a:"tremenda, tremendum",v:"verschrikkelijk, vrees inboezemend",b:false,t:["th3/2"],volgorde:{"th3/2":17}},
+  {g:"prex",a:"precis (f.)",v:"smeekbede, gebed",b:false,t:["th3/2"],volgorde:{"th3/2":18}},
+  {g:"mansuescere",a:"mansuesco, -ere, mansuevi",v:"tam worden, vermurwen, zachter worden",b:false,t:["th3/2"],volgorde:{"th3/2":19}},
+  {g:"cor",a:"cordis (n.)",v:"hart",b:true,t:["th3/2"],volgorde:{"th3/2":20}}
+];
+
+function lookupWL(lemma) {
+  if (!lemma) return null;
+  var parts = lemma.toLowerCase().split(/[\/,\s]+/);
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (g === parts[j] || g.startsWith(parts[j])) return WL[i];
+    }
+  }
+  for (var i = 0; i < WL.length; i++) {
+    var g = WL[i].g.toLowerCase();
+    for (var j = 0; j < parts.length; j++) {
+      if (parts[j].length > 3 && g.includes(parts[j])) return WL[i];
+    }
+  }
+  return null;
+}
+
+var currentTekst = 'th3/2';
+var tekstLabels = {'th3/2':'Thema 3 · Tekst 2'};
+
+function filterWL(tekst) {
+  currentTekst = tekst;
+  var label = tekstLabels[tekst] || tekst;
+  var filtered = WL.filter(function(w){ return w.t && w.t.indexOf(tekst) !== -1; })
+                   .sort(function(a,b){ return (a.volgorde && a.volgorde[tekst]||999) - (b.volgorde && b.volgorde[tekst]||999); });
+  var sectLabel = document.getElementById('wlSectieLabel');
+  var sectTitle = document.getElementById('wlSectieTitle');
+  var sectInfo  = document.getElementById('wlSectieInfo');
+  if (sectLabel) sectLabel.textContent = label;
+  if (sectTitle) sectTitle.textContent = 'Woordenlijst';
+  if (sectInfo)  sectInfo.innerHTML = filtered.length + ' woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.';
+  renderWLData(filtered);
+  renderWLSide(filtered);
+}
+
+function renderWLData(list) {
+  var el = document.getElementById('wlTable');
+  if (!el) return;
+  var html = '<div style="background:#fff;border:0.5px solid var(--rule);border-radius:12px;overflow:hidden;">';
+  list.forEach(function(w, i) {
+    var isLast = (i === list.length - 1);
+    var borderB = isLast ? '' : 'border-bottom:0.5px solid var(--rule);';
+    var latColor = w.b ? 'var(--magenta)' : 'var(--ink)';
+    html += '<div style="display:flex;align-items:center;gap:14px;padding:11px 16px;' + borderB + '">'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);width:28px;flex-shrink:0;text-align:right;">' + (i+1) + '</span>'
+      + '<span style="width:18px;height:18px;border-radius:50%;border:1.5px solid var(--rule);flex-shrink:0;display:inline-block;"></span>'
+      + '<span style="flex:1;min-width:0;">'
+        + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:14px;font-weight:500;color:' + latColor + ';">' + w.g + '</span>'
+        + (w.a ? '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:12px;color:var(--ink-light);margin-left:.5rem;">' + w.a + '</span>' : '')
+      + '</span>'
+      + '<span style="font-family:\'Flanders Art Sans\',Arial,sans-serif;font-size:13px;color:var(--ink);flex:1.2;text-align:left;">' + w.v + '</span>'
+      + '<span style="font-size:16px;color:#d1d5db;flex-shrink:0;padding:2px 4px;line-height:1;">&#9734;</span>'
+      + '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderWLSide(list) {
+  var el = document.getElementById('wlSide');
+  if (!el) return;
+  var html = '';
+  var max = Math.min(20, list.length);
+  for (var i = 0; i < max; i++) {
+    var w = list[i];
+    html += '<div class="panel-word">'
+      + '<span class="pw-lat">' + w.g + (w.b ? '<span class="pw-basis">basis</span>' : '') + '</span>'
+      + '<span class="pw-nl">' + w.v.split(';')[0] + '</span>'
+      + '</div>';
+  }
+  el.innerHTML = html;
+}
+
+filterWL('th3/2');
+
+var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, revIdx:-1};
+var wgroups = Array.from(document.querySelectorAll('.wg'));
+var lastWord = null, clickN = 0;
+
+document.querySelectorAll('.lat-word').forEach(function(w) {
+  w.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (lastWord === w) { clickN++; } else {
+      if (lastWord) lastWord.classList.remove('st1','st2');
+      lastWord = w; clickN = 1;
+    }
+    w.classList.remove('st1','st2');
+    if (clickN === 1) {
+      w.classList.add('st1');
+      showPopup(w, 1);
+      updatePanel(w);
+    } else if (clickN === 2) {
+      w.classList.add('st2');
+      showPopup(w, 2);
+    } else {
+      clickN = 0; lastWord = null; hidePopup();
+    }
+  });
+});
+document.addEventListener('click', function() {
+  if (lastWord) { lastWord.classList.remove('st1','st2'); lastWord = null; clickN = 0; }
+  hidePopup();
+});
+
+var popup = document.getElementById('popup');
+function showPopup(el, click) {
+  var wl = lookupWL(el.dataset.l);
+  document.getElementById('ppWord').textContent = el.dataset.w;
+  document.getElementById('ppLemma').textContent = el.dataset.l || '';
+  var info = click === 1 ? el.dataset.d : el.dataset.s;
+  var tagClass = click === 1 ? 'tg' : 'to';
+  var tagLabel = click === 1 ? 'Det.' : 'Funct.';
+  var html = '<div class="wp-row"><span class="wp-tag ' + tagClass + '">' + tagLabel + '</span><span class="wp-val">' + info + '</span></div>';
+  html += '<div class="wp-row" style="margin-top:.25rem"><span class="wp-tag tp">NL</span><span class="wp-val">' + el.dataset.n + '</span></div>';
+  if (wl) {
+    html += '<hr class="wp-sep">';
+    var isBasis = wl.b;
+    var grondvorm = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--magenta)' : 'var(--blue)') + ';">' + wl.g + '</span>';
+    if (isBasis) grondvorm += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fce4f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    html += '<div class="wp-row"><span class="wp-tag tw">&#128218;</span><div>' + grondvorm;
+    if (wl.a) html += '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>';
+    html += '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>';
+    html += '</div></div>';
+  }
+  document.getElementById('ppContent').innerHTML = html;
+  document.getElementById('ppSep').style.display = 'none';
+  document.getElementById('ppHint').innerHTML = '';
+  var rect = el.getBoundingClientRect();
+  var top = rect.bottom + window.scrollY + 6;
+  var left = rect.left;
+  if (rect.bottom + 160 > window.innerHeight) top = rect.top + window.scrollY - 170;
+  if (left + 310 > window.innerWidth) left = window.innerWidth - 315;
+  if (left < 8) left = 8;
+  popup.style.top = top + 'px';
+  popup.style.left = left + 'px';
+  popup.classList.add('vis');
+}
+function hidePopup() { popup.classList.remove('vis'); }
+
+function updatePanel(w) {
+  var wl = lookupWL(w.dataset.l);
+  var wlHtml = '';
+  if (wl) {
+    var isBasis = wl.b;
+    var grondvorm = '<span style="font-family:\'Noto Sans\',Arial,sans-serif;font-size:1rem;font-weight:600;color:' + (isBasis ? 'var(--magenta)' : 'var(--blue)') + ';">' + wl.g + '</span>';
+    if (isBasis) grondvorm += ' <span style="display:inline-block;font-size:.55rem;font-weight:700;padding:.03rem .28rem;border-radius:8px;background:#fce4f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span>';
+    wlHtml = '<div class="ac-row" style="margin-top:.4rem"><span class="ac-tag tw">&#128218;</span><div>' + grondvorm
+      + (wl.a ? '<div style="font-size:.66rem;color:var(--ink-light);margin-top:.1rem;">' + wl.a + '</div>' : '')
+      + '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>'
+      + '</div></div>';
+  }
+  document.getElementById('analysisCard').innerHTML =
+    '<div class="ac-word">' + w.dataset.w + '</div>' +
+    '<div class="ac-lemma">' + (w.dataset.l||'') + '</div>' +
+    '<div class="ac-row"><span class="ac-tag tg">Det.</span><span class="ac-val">' + w.dataset.d + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag to">Funct.</span><span class="ac-val">' + w.dataset.s + '</span></div>' +
+    '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag tp">NL</span><span class="ac-val">' + w.dataset.n + '</span></div>' +
+    wlHtml;
+}
+
+function toggleReveal() {
+  S.reveal = !S.reveal;
+  document.getElementById('btnReveal').classList.toggle('active', S.reveal);
+  document.getElementById('revealBar').classList.toggle('vis', S.reveal);
+  document.getElementById('latinText').classList.toggle('reveal-mode', S.reveal);
+  if (S.reveal) {
+    S.revIdx = -1; wgroups.forEach(function(g){ g.classList.remove('revealed','current'); }); updCount();
+  } else {
+    wgroups.forEach(function(g){ g.classList.remove('revealed','current'); });
+    var rem = document.getElementById('laReminder');
+    if (rem) rem.classList.remove('vis');
+    laReminderActiveIdx = -1;
+  }
+}
+function revealNext() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0 && S.revIdx < wgroups.length) wgroups[S.revIdx].classList.remove('current');
+  S.revIdx = Math.min(S.revIdx + 1, wgroups.length - 1);
+  wgroups[S.revIdx].classList.add('revealed','current');
+  wgroups[S.revIdx].scrollIntoView({behavior:'smooth', block:'nearest'});
+  updCount();
+  checkLaReminder(parseInt(wgroups[S.revIdx].dataset.wg));
+}
+function revealPrev() {
+  if (!S.reveal) return;
+  if (S.revIdx >= 0) {
+    wgroups[S.revIdx].classList.remove('current','revealed');
+    S.revIdx = Math.max(S.revIdx - 1, -1);
+    if (S.revIdx >= 0) wgroups[S.revIdx].classList.add('current');
+  }
+  updCount();
+}
+function revealAll() {
+  wgroups.forEach(function(g){ g.classList.add('revealed'); g.classList.remove('current'); });
+  S.revIdx = wgroups.length - 1;
+  updCount();
+}
+function updCount() {
+  var done = document.querySelectorAll('.wg.revealed').length;
+  document.getElementById('revCount').textContent = done + ' / ' + wgroups.length;
+}
+
+function toggleLines() {
+  S.lines = !S.lines;
+  document.getElementById('plainView').classList.toggle('off', S.lines);
+  document.getElementById('numberedView').classList.toggle('on', S.lines);
+  if (S.lines && S.reveal) toggleReveal();
+}
+function toggleInterlin() {
+  S.interlin = !S.interlin;
+  document.getElementById('btnInterlin').classList.toggle('active', S.interlin);
+  document.body.classList.toggle('interlin', S.interlin);
+  if (S.interlin) {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      if (!w.querySelector('.iln')) {
+        var sp = document.createElement('span');
+        sp.className = 'iln';
+        sp.textContent = w.dataset.n;
+        w.appendChild(sp);
+      }
+    });
+    if (S.lines) toggleLines();
+  } else {
+    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
+      var iln = w.querySelector('.iln');
+      if (iln) iln.remove();
+      w.style.display = '';
+    });
+  }
+}
+function toggleTwocol() {
+  S.twocol = !S.twocol;
+  var btn = document.getElementById('btnTwocol');
+  if (btn) btn.classList.toggle('active', S.twocol);
+  document.body.classList.toggle('twocol', S.twocol);
+  if (S.twocol) renderVertaling();
+}
+function renderVertaling() {
+  var el = document.getElementById('vertaalTekst');
+  if (!el) return;
+  el.innerHTML = '<p>Orpheus zelf, die zijn liefdesverdriet probeerde te verzachten met zijn holle lier, zong alsmaar over jou, lieve echtgenote, over jou, alleen met zichzelf op de verlaten oever, over jou bij het eerste ochtendgloren, over jou bij het vallen van de avond.</p><p>Hij drong zelfs door tot in de grot van Tainaron, de diepe ingang van de onderwereld, en tot in het woud met zijn angstaanjagende zwarte nevel. Hij richtte zich tot de onderaardse wezens, tot hun verschrikkelijke koning, tot de harten die niet door de smeekbeden van mensen geraakt worden.</p>';
+}
+function toggleFont() {
+  S.font = !S.font;
+  document.getElementById('btnFont').classList.toggle('active', S.font);
+  document.body.classList.toggle('font-lg', S.font);
+}
+
+var D = { bs: false, lpd: false };
+function toggleLayer(layer) {
+  D[layer] = !D[layer];
+  var btnId = layer === 'bs' ? 'btnBs' : 'btnLpd';
+  var btn = document.getElementById(btnId);
+  if (btn) btn.classList.toggle('active', D[layer]);
+  document.querySelectorAll('.d-badge[data-layer="' + layer + '"]').forEach(function(b) {
+    b.classList.toggle('vis', D[layer]);
+  });
+}
+
+function toggleNoten() {
+  var blk = document.getElementById('notenBlock');
+  var btn = document.getElementById('btnNoten');
+  if (!blk) return;
+  var open = blk.classList.toggle('vis');
+  if (btn) btn.classList.toggle('active', open);
+  if (open) blk.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+(function annotateBadges(){
+  var TIPS = {
+    'badges-hero|④ Dual coding': '④ Dual coding: het beeld van Orpheus die de onderwereld betreedt verankert de mythologische sfeer van de katabasis visueel vóór leerlingen de tekst lezen.',
+    'badges-hero|WD2_03.03.01 – situeren in tijd & ruimte': 'WD2_03.03.01 situeren in tijd & ruimte: het beeld situeert Orpheus aan de ingang van de Hades — Tainaron als concrete geografie van de mythe.',
+    'badges-context|① Voorkennis activeren': '① Voorkennis activeren: de context activeert kennis over de dood van Eurydice en de lier van Orpheus als voorbereiding op zijn afdaling naar de onderwereld.',
+    'badges-context|WD2_03.03.01 – situeren in tijd & ruimte': 'WD2_03.03.01 situeren in tijd & ruimte: de tekst situeert de actie op de verlaten oever en bij de ingang van de Hades — twee werelden die botsen.',
+    'badges-kaart|④ Dual coding': '④ Dual coding: de kaart van Tainaron maakt de mythologische geografie van de ingang van de onderwereld concreet voor leerlingen.',
+    'badges-kaart|WD2_03.03.01 – situeren in tijd & ruimte': 'WD2_03.03.01 situeren in tijd & ruimte: Tainaron in Lakonië als historische locatie geeft de mythe een aardse verankering.',
+    'badges-reveal|⑤ Actieve verwerking': '⑤ Actieve verwerking: woordgroep per woordgroep onthullen dwingt leerlingen de viervoudige anafora en de drieledige accusatifreeks (v.467–469) zelf te ontrafelen.',
+    'badges-reveal|⑦ Scaffolding': '⑦ Scaffolding: de stapsgewijze onthulling helpt bij de hyperbatische structuur van v.468 en de lange klimax over v.469–470.',
+    'badges-reveal|WD2_03.02.01.01 – lectuurmethode toepassen': 'WD2_03.02.01.01 lectuurmethode toepassen: lineair lezen per kolon maakt de overgang van privé rouw (v.464–466) naar de publieke daad van de katabasis (v.467–470) tastbaar.',
+    'badges-reveal|WD2_03.02.01 – tekst begrijpen': 'WD2_03.02.01 tekst begrijpen: de passage vereist dat leerlingen de viervoudige te-anafora, het deponens ingressus en de klimax van de drie accusativi lokaliseren.',
+    'badges-noten|⑦ Scaffolding': '⑦ Scaffolding: de noten lichten de anafora, de ablativi absoluti, het deponens ingredi en de bijzondere constructie nescia + infinitief toe.',
+    'badges-noten|⑪ Feedback die denken aanzet': '⑪ Feedback die denken aanzet: de noot over nesciaque … mansuescere corda nodigt leerlingen uit na te denken over waarom Orpheus het toch probeert.',
+    'badges-noten|WD2_03.01.01 – taalsystematiek': 'WD2_03.01.01 taalsystematiek: deponens PPP, ablativus absolutus, anafora en adjektief + infinitief zijn kernpunten van de morfologische analyse.',
+    'badges-wl|① Voorkennis activeren': '① Voorkennis activeren: basiswoorden als amor, adire en cor activeren woordenschat uit eerdere teksten van het Orpheus-thema.',
+    'badges-wl|⑧ Gespreide oefening': '⑧ Gespreide oefening: woorden als coniunx en Manes keren terug in de verdere Orpheus-passage en worden in een nieuwe context herhaald.',
+    'badges-wl|WD2_03.01.01 – basisvocabularium': 'WD2_03.01.01 basisvocabularium: 5 van de 20 woorden behoren tot de basiswoordenschat tweede graad.',
+    'badges-wl|WD2_03.02.02 – betekenis geven aan teksten': 'WD2_03.02.02 betekenis geven aan teksten: testudo (lier) en formido (angst/nevel) vragen contextuele interpretatie en etymologische redenering.'
+  };
+  var tip = document.createElement('div');
+  tip.className = 'd-tooltip';
+  document.body.appendChild(tip);
+  function show(badge, text) {
+    tip.textContent = text;
+    tip.classList.add('vis');
+    var r = badge.getBoundingClientRect();
+    var tw = tip.offsetWidth;
+    var th = tip.offsetHeight;
+    var left = r.left + r.width/2 - tw/2;
+    left = Math.max(8, Math.min(window.innerWidth - tw - 8, left));
+    var top = r.top - th - 10;
+    if (top < 8) top = r.bottom + 10;
+    tip.style.left = left + 'px';
+    tip.style.top  = top  + 'px';
+  }
+  function hide() { tip.classList.remove('vis'); }
+  document.querySelectorAll('.d-badges').forEach(function(container){
+    var pid = container.id;
+    if (!pid) return;
+    container.querySelectorAll('.d-badge').forEach(function(b){
+      var key = pid + '|' + b.textContent.trim();
+      var text = TIPS[key];
+      if (!text) return;
+      b.addEventListener('mouseenter', function(){ show(b, text); });
+      b.addEventListener('mouseleave', hide);
+    });
+  });
+  document.querySelectorAll('.d-badge[data-tip]').forEach(function(b){
+    var text = b.getAttribute('data-tip');
+    b.addEventListener('mouseenter', function(){ if(b.classList.contains('vis')) show(b, text); });
+    b.addEventListener('mouseleave', hide);
+  });
+})();
+
+function openKaartModal()  { document.getElementById('kaartModalOverlay').classList.add('open'); }
+function closeKaartModal() { document.getElementById('kaartModalOverlay').classList.remove('open'); }
+
+function toggleWeergaveMenu(e) {
+  e.stopPropagation();
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  var open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('weergaveMenu');
+  var btn  = document.getElementById('btnWeergave');
+  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+  }
+});
+
+window.addEventListener('scroll', function() {
+  var d = document.documentElement;
+  document.getElementById('scrollTop').classList.toggle('on', d.scrollTop > 280);
+});
+
+(function(){
+  var resizer = document.getElementById('colResizer');
+  if (!resizer) return;
+  var outer = resizer.closest('.outer');
+  var dragging = false;
+  var startX, startPct;
+  function getPct() {
+    var val = getComputedStyle(document.documentElement).getPropertyValue('--col-split') || '60%';
+    return parseFloat(val);
+  }
+  resizer.addEventListener('mousedown', function(e) {
+    dragging = true; startX = e.clientX; startPct = getPct();
+    resizer.classList.add('dragging'); document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none'; e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var outerW = outer.getBoundingClientRect().width;
+    var delta = e.clientX - startX;
+    var newPct = Math.min(80, Math.max(30, startPct + (delta / outerW) * 100));
+    document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
+  });
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false; resizer.classList.remove('dragging');
+    document.body.style.cursor = ''; document.body.style.userSelect = '';
+  });
+})();
+</script>
+
+<!-- ══ LECTUURANALYSE MODAL ══ -->
+<div class="poetry-overlay" id="lectuurOverlay" onclick="closePoetryModal('lectuur')">
+  <div class="poetry-modal la-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Lectuuranalyse — Ad Inferos</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="laPrev" onclick="navVers('la',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="laLabel">v. 464–466 · 1/3</span>
+        <button class="poetry-nav-btn" id="laNext" onclick="navVers('la',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('lectuur')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+
+  <div class="poetry-vers-panel la-panel" id="la-vers-0" style="display:block">
+    <div class="la-vers-tekst">Ipse cava solans aegrum testudine amorem / te, dulcis coniunx, te solo in litore secum, / te veniente die, te decedente canebat.</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>Toelichting</div>
+      <p class="la-toelichting">Vier keer <em>te</em> in drie verzen: Orpheus zingt alleen over Eurydice. Vergilius gebruikt een viervoudige anafora om de obsessieve, allesoverweldigende rouw te verbeelden. <em>Solans aegrum amorem</em>: de lier is geen instrument van vreugde maar van zelfvertroosting. De dag wordt geschetst via twee ablativi absoluti — ochtend en avond — maar het onderwerp verandert nooit.</p>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="① Voorkennis activeren: kennis van participia en ablativi absoluti." data-layer="bs">① Voorkennis</span><span class="d-badge lpd" data-tip="WD2_03.02.02 betekenis geven: de anafora als stijlmiddel voor obsessieve rouw." data-layer="lpd">WD2_03.02.02</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h10M3 8h7M3 11h5"/></svg>Inhoudsvraag</div>
+      <p class="la-vraag">Wat vertelt de viervoudige herhaling van <em>te</em> over de toestand van Orpheus?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Orpheus kan alleen maar aan Eurydice denken — zijn lied cirkelt steeds terug naar haar. De herhaling verbeeldt een geobsedeerde rouwende die de werkelijkheid niet kan loslaten. Het is ook muzikaal: het klinkt als een litanie of een klaaglied.</div></div>
+      <p class="la-vraag">Welke twee tijdskaders geeft Vergilius? Wat zegt dat over de duur van de rouw?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Veniente die</em> (ochtend) en <em>decedente</em> (avond): de hele dag, van begin tot eind. Orpheus zingt onafgebroken. De dag gaat voorbij maar zijn rouw niet — een cirkel zonder einde.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken: leerlingen herkennen anafora en ablativi absoluti." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek." data-layer="lpd">WD2_03.01.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h5v5H2zM9 4h5v5H9zM2 11h5v3H2zM9 11h5v3H9z"/></svg>Grammaticavraag</div>
+      <p class="la-vraag">Analyseer <em>veniente die</em> als constructie. Welke naamval en welk werkwoord?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Ablativus absolutus: <em>die</em> (abl. enk. m. van <em>dies</em>) + <em>veniente</em> (part. praes. abl. enk. m. van <em>venire</em>). Letterlijk: 'terwijl de dag kwam' = bij het aanbreken van de dag.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet." data-layer="bs">⑪ Feedback</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek." data-layer="lpd">WD2_03.01.01</span></div>
+    </div>
+  </div>
+
+  <div class="poetry-vers-panel la-panel" id="la-vers-1" style="display:none">
+    <div class="la-vers-tekst">Taenarias etiam fauces, alta ostia Ditis, / et caligantem nigra formidine lucum</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>Toelichting</div>
+      <p class="la-toelichting">Van privé rouw naar publieke daad: Orpheus betreedt de onderwereld. De drie accusativi (<em>fauces</em>, <em>ostia</em>, <em>lucum</em>) zijn objecten van <em>ingressus</em> en bouwen een ruimtelijke klimax op: van de smalle opening van Tainaron, via de diepe poort, naar het angstaanjagende woud. <em>Caligantem nigra formidine</em>: het woud is niet alleen donker maar wordt donker door angst zelf.</p>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="④ Dual coding: de kaart van Tainaron verbindt de geografie aan de mythe." data-layer="bs">④ Dual coding</span><span class="d-badge lpd" data-tip="WD2_03.03.01 situeren in tijd & ruimte." data-layer="lpd">WD2_03.03.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11l3-7 3 4 2-3 3 6"/></svg>Stijlvraag</div>
+      <p class="la-vraag">Welke drieledige structuur bouwt Vergilius op in v.467–468? Hoe werkt dit als klimax?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Drie accusativi: (1) <em>Taenarias fauces</em> — de smalle grot van Tainaron; (2) <em>alta ostia Ditis</em> — de diepe poort van de onderwereld; (3) <em>caligantem lucum</em> — het angstaanjagende woud. Elke stap gaat dieper en donkerder — een ruimtelijke en emotionele klimax.</div></div>
+      <p class="la-vraag">Wat voegt <em>nigra formidine</em> toe aan het beeld van het woud?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Ablativus causae: het woud is donker <em>door</em> zwarte angst. De duisternis heeft een oorzaak — angst zelf maakt het zichtbaar donker. Het is een synesthesie: een gevoel (<em>formido</em>) wordt een kleur (<em>niger</em>) en een zichtbaar fenomeen (<em>caligare</em>).</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑤ Actief verwerken." data-layer="bs">⑤ Actief verwerken</span><span class="d-badge lpd" data-tip="WD2_03.02.02.01 stijlfiguren herkennen." data-layer="lpd">WD2_03.02.02.01</span></div>
+    </div>
+  </div>
+
+  <div class="poetry-vers-panel la-panel" id="la-vers-2" style="display:none">
+    <div class="la-vers-tekst">ingressus Manesque adiit regemque tremendum / nesciaque humanis precibus mansuescere corda.</div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 5v4M8 5v.5"/></svg>Toelichting</div>
+      <p class="la-toelichting"><em>Ingressus</em> als deponens PPP: de actie is voltooid, Orpheus staat binnenin. Dan een nieuwe klimax van drie accusativi bij <em>adiit</em>: van de anonieme massa schimmen, via de machtige koning, naar het abstracte maar essentiële probleem — harten die geen gebed kunnen vermurwen. Dit is precies wat Orpheus moet overwinnen.</p>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑦ Scaffolding: de noten over deponens en nescia + inf. helpen leerlingen de constructie te begrijpen." data-layer="bs">⑦ Scaffolding</span><span class="d-badge lpd" data-tip="WD2_03.01.01 taalsystematiek." data-layer="lpd">WD2_03.01.01</span></div>
+    </div>
+    <div class="la-sectie">
+      <div class="la-sectie-titel"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h5v5H2zM9 4h5v5H9zM2 11h5v3H2zM9 11h5v3H9z"/></svg>Grammaticavraag</div>
+      <p class="la-vraag">Analyseer <em>ingressus</em>. Waarom is dit een deponens? Wat is de precieze betekenis?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord">Deponens: <em>ingredior</em> heeft passieve vormen maar actieve betekenis. PPP (nom. enk. m.) bij het impliciete subject Orpheus: 'binnengegaan zijnde' — een verkorte bijzin. De handeling is voltooid: hij ís al binnen.</div></div>
+      <p class="la-vraag">Wat betekent <em>nescia … mansuescere corda</em> precies? Welke constructie is dit?</p>
+      <div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>Toon antwoord</button><div class="la-antwoord"><em>Nescia</em> (adj. van <em>nescire</em>, acc. mv. n. bij <em>corda</em>) + infinitief: 'harten die niet weten te vermurwen'. <em>Humanis precibus</em>: ablativus middel — menselijke gebeden zijn machteloos. Het is een nomen + infinitief-constructie.</div></div>
+      <div class="la-badge-rij"><span class="d-badge bs" data-tip="⑪ Feedback die denken aanzet: waarom betreedt Orpheus toch een plek die onvermurwbaar is?" data-layer="bs">⑪ Feedback</span><span class="d-badge lpd" data-tip="WD2_03.02.01 tekst begrijpen." data-layer="lpd">WD2_03.02.01</span></div>
+    </div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCANSIE MODAL ══ -->
+<div class="poetry-overlay" id="scansieOverlay" onclick="closePoetryModal('scansie')">
+  <div class="poetry-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Scansie</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="scanPrev" onclick="navVers('scan',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="scanLabel">vers 464 · 1/7</span>
+        <button class="poetry-nav-btn" id="scanNext" onclick="navVers('scan',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('scansie')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+      <div class="scan-legenda">
+        <span class="scan-leg-item"><span style="font-family:var(--ft);color:var(--spon);font-size:.85rem;">–</span><span style="color:var(--spon);">Lang</span></span>
+        <span class="scan-leg-item"><span style="font-family:var(--ft);color:var(--dact);font-size:.85rem;">∪</span><span style="color:var(--dact);">Kort</span></span>
+        <span class="scan-leg-item"><span style="font-family:var(--ft);color:#888;font-size:.85rem;">×</span><span>Ancipitia</span></span>
+        <span class="scan-leg-item"><span style="font-family:var(--ft);color:var(--ces-color);">‖</span><span style="color:var(--ces-color);">Cesuur</span></span>
+      </div>
+
+      <!-- v.464 -->
+      <div class="poetry-vers-panel" id="scan-vers-0" style="display:block">
+      <div class="scan-vers-tekst">Ipse cava solans aegrum testudine amorem</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Ip-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">se</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ca-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">va</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">so-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">lans</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ae-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">grum</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">tes-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tu-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">di-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ne</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">a-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">mo-rem</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.465 -->
+      <div class="poetry-vers-panel" id="scan-vers-1" style="display:none">
+      <div class="scan-vers-tekst">te, dulcis coniunx, te solo in litore secum,</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">dul-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">cis</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">co-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">niunx</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">so-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">lo</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">in</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">li-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">to-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">re</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">se-cum</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.466 -->
+      <div class="poetry-vers-panel" id="scan-vers-2" style="display:none">
+      <div class="scan-vers-tekst">te veniente die, te decedente canebat.</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ve-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ni-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">en-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">te</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">di-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">e</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">te</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">de-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ce-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">den-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">te</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ca-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ne-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">bat</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.467 -->
+      <div class="poetry-vers-panel" id="scan-vers-3" style="display:none">
+      <div class="scan-vers-tekst">Taenarias etiam fauces, alta ostia Ditis,</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">Tae-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">na-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ri-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">as</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">e-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ti-</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">am</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">fau-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ces</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">al-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ta</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">os-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ti-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">a Di-tis</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.468 -->
+      <div class="poetry-vers-panel" id="scan-vers-4" style="display:none">
+      <div class="scan-vers-tekst">et caligantem nigra formidine lucum</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">et</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ca-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">li-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">gan-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">tem</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ni-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">gra</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">for-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">mi-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">di-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ne</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">lu-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">cum</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">lu-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">cum</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.469 -->
+      <div class="poetry-vers-panel" id="scan-vers-5" style="display:none">
+      <div class="scan-vers-tekst">ingressus Manesque adiit regemque tremendum</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">in-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">gres-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">sus</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">Ma-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">nes-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">que</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">a-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">diit</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">re-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">gem-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">que</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">tre-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">men-dum</span></td>
+      </tr></tbody></table>
+      </div>
+
+      <!-- v.470 -->
+      <div class="poetry-vers-panel" id="scan-vers-6" style="display:none">
+      <div class="scan-vers-tekst">nesciaque humanis precibus mansuescere corda.</div>
+      <table style="border-collapse:separate;border-spacing:0;"><tbody><tr>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">1</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">2</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">3</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">4</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="3" style="text-align:center;">5</td><td class="scan-nr-empty"></td>
+        <td class="scan-foot-nr" colspan="2" style="text-align:center;">6</td>
+      </tr><tr>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">nes-</span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ci-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">a-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">que</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">hu-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">ma-</span></td>
+        <td class="scan-ces-cel"><span class="mark">‖</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">nis</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">pre-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">ci-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">bus</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">man-</span></td>
+        <td class="scan-syl sho"><span class="mark">∪</span><span class="lett">su-</span></td>
+        <td class="scan-div-cel"><span class="mark">|</span><span class="lett"> </span></td>
+        <td class="scan-syl lon"><span class="mark">–</span><span class="lett">es-</span></td>
+        <td class="scan-syl anc"><span class="mark">×</span><span class="lett">ce-re cor-da</span></td>
+      </tr></tbody></table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ STIJLFIGUREN MODAL ══ -->
+<div class="sf-tooltip" id="sfTooltip"></div>
+<div class="poetry-overlay" id="stijlOverlay" onclick="closePoetryModal('stijl')">
+  <div class="poetry-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Stijlfiguren</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="sfPrev" onclick="navVers('sf',-1)">&#8592;</button>
+        <span class="poetry-vers-label" id="sfLabel">vers 464 · 1/7</span>
+        <button class="poetry-nav-btn" id="sfNext" onclick="navVers('sf',1)">&#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closePoetryModal('stijl')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body">
+      <div class="sf-legenda">
+        <span style="font-family:var(--ft);font-size:.7rem;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;">Stijlfiguren</span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:0;border-bottom:2px dotted var(--sf-hyp);"></span><span style="color:var(--sf-hyp);font-family:var(--ft);">Anafora / Hyperbaton</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:0;border-bottom:2px dashed var(--sf-epith);"></span><span style="color:var(--sf-epith);font-family:var(--ft);">Epitheton ornans</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:14px;height:3px;background:var(--sf-allit);border-radius:1px;"></span><span style="color:var(--sf-allit);font-family:var(--ft);">Klimax</span></span>
+        <span class="sf-leg-item"><span style="display:inline-block;width:3px;height:14px;background:var(--sf-metaf);border-radius:1px;"></span><span style="color:var(--sf-metaf);font-family:var(--ft);">Enjambement</span></span>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-0" style="display:block">
+      <div class="sf-vers-tekst">Ipse <span class="sf-epith" data-tip="Epitheton ornans: 'aegrum amorem' — de liefde als lichamelijke ziekte, een typisch Vergiliaans motief.">cava solans aegrum testudine amorem</span></div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-1" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-hyp" data-tip="Anafora (1/4): het eerste 'te' — Orpheus richt zijn lied tot Eurydice; de herhaling verbeeldt obsessieve rouw.">te</span>, <span class="sf-epith" data-tip="Epitheton ornans + vocatief: 'dulcis coniunx' — de tedere vocatief maakt de afwezige Eurydice aanwezig in het lied.">dulcis coniunx</span>, <span class="sf-hyp" data-tip="Anafora (2/4): 'te solo in litore secum' — eenzaamheid en rouw op de verlaten oever.">te solo in litore secum</span>,</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-2" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-hyp" data-tip="Anafora (3/4) + ablativus absolutus: 'te veniente die' — de dag begint, maar Orpheus zingt over hetzelfde.">te veniente die</span>, <span class="sf-hyp" data-tip="Anafora (4/4) + ablativus absolutus: 'te decedente' — de dag eindigt, maar het lied eindigt niet. Dag noch nacht brengt verlossing.">te decedente</span> canebat.</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-3" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-allit" data-tip="Klimax (1/3): 'Taenarias fauces' — de smalle ingang van Tainaron als mythologische poort; 'etiam' markeert de daad als buitengewoon.">Taenarias etiam fauces</span>, <span class="sf-allit" data-tip="Klimax (2/3): 'alta ostia Ditis' — de diepe poort van Dis, dieper en dreigender dan de ingang van Tainaron.">alta ostia Ditis</span>,</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-4" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-allit" data-tip="Klimax (3/3): 'caligantem … lucum' — het woud dat donker is door angst zelf. Elke stap gaat dieper: van grot naar poort naar woud.">et caligantem</span> <span class="sf-epith" data-tip="Epitheton ornans: 'nigra formidine' — zwarte angst kleurt het woud; formido is bijna gepersonifieerd als een wezen dat duisternis uitstraalt.">nigra formidine</span> lucum</div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-5" style="display:none">
+      <div class="sf-vers-tekst">ingressus <span class="sf-allit" data-tip="Klimax: 'Manes … regem … corda' — van anonieme schimmen via de machtige koning naar het abstracte maar onoverkomelijke probleem: harten die niet toegeven.">Manesque adiit regemque tremendum</span></div>
+      </div>
+      <div class="poetry-vers-panel" id="sf-vers-6" style="display:none">
+      <div class="sf-vers-tekst"><span class="sf-epith" data-tip="Epitheton ornans + bijzondere constructie: 'nescia … mansuescere corda' — de harten worden gepersonifieerd als wezens die iets 'niet weten'. De beschrijving benadrukt de kracht van het onmogelijke dat Orpheus toch aangaat.">nesciaque humanis precibus mansuescere corda</span>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var laIdx = 0;
+var laReminderActiveIdx = -1;
+var LA_VERS_LABELS = ['v. 464–466','v. 467–468','v. 469–470'];
+var LA_TRIGGER_MAP = {
+  3:  {idx:0, tekst:"Vraag bij v.464–466 — te-anafora en ablativi absoluti"},
+  8:  {idx:0, tekst:"Vraag bij v.464–466 — canebat: imperfectum van duur"},
+  11: {idx:1, tekst:"Vraag bij v.467–468 — klimax van drie accusativi"},
+  14: {idx:2, tekst:"Vraag bij v.469–470 — ingressus: deponens PPP"},
+  15: {idx:2, tekst:"Vraag bij v.470 — nescia mansuescere: adj. + inf."}
+};
+
+function openLectuurModal() {
+  document.getElementById('lectuurOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateLaLabel();
+}
+function openLectuurFromReminder() {
+  if (laReminderActiveIdx >= 0) {
+    var panels = document.querySelectorAll('.la-panel');
+    panels[laIdx].style.display = 'none';
+    laIdx = laReminderActiveIdx;
+    panels[laIdx].style.display = 'block';
+    updateLaLabel();
+  }
+  openLectuurModal();
+}
+function updateLaLabel() {
+  var n = LA_VERS_LABELS.length;
+  document.getElementById('laLabel').textContent = LA_VERS_LABELS[laIdx] + ' · ' + (laIdx+1) + '/' + n;
+  document.getElementById('laPrev').disabled = laIdx === 0;
+  document.getElementById('laNext').disabled = laIdx === n-1;
+}
+function checkLaReminder(wgNr) {
+  var trigger = LA_TRIGGER_MAP[wgNr];
+  if (trigger) {
+    laReminderActiveIdx = trigger.idx;
+    document.getElementById('laReminderTekst').textContent = trigger.tekst;
+    document.getElementById('laReminder').classList.add('vis');
+  }
+}
+
+var scanIdx = 0, sfIdx = 0;
+var VERS_NRS = [464,465,466,467,468,469,470];
+
+function navVers(type, dir) {
+  if (type === 'la') {
+    var panels = document.querySelectorAll('.la-panel');
+    panels[laIdx].style.display = 'none';
+    laIdx = Math.max(0, Math.min(panels.length-1, laIdx + dir));
+    panels[laIdx].style.display = 'block';
+    updateLaLabel();
+  } else if (type === 'scan') {
+    var panels = document.querySelectorAll('#scansieOverlay .poetry-vers-panel');
+    panels[scanIdx].style.display = 'none';
+    scanIdx = Math.max(0, Math.min(panels.length-1, scanIdx + dir));
+    panels[scanIdx].style.display = 'block';
+    updateScanLabel();
+  } else if (type === 'sf') {
+    var panels = document.querySelectorAll('#stijlOverlay .poetry-vers-panel');
+    panels[sfIdx].style.display = 'none';
+    sfIdx = Math.max(0, Math.min(panels.length-1, sfIdx + dir));
+    panels[sfIdx].style.display = 'block';
+    updateSfLabel();
+    bindSfTooltips();
+  }
+}
+
+function closePoetryModal(type) {
+  var map = { scansie:'scansieOverlay', stijl:'stijlOverlay', lectuur:'lectuurOverlay' };
+  var el = document.getElementById(map[type]);
+  if (el) el.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closePoetryModal('lectuur');
+    closePoetryModal('scansie');
+    closePoetryModal('stijl');
+  }
+});
+
+function toggleAntwoord(btn) {
+  var wrap = btn.parentElement;
+  var antw = wrap.querySelector('.la-antwoord');
+  var open = antw.classList.toggle('vis');
+  btn.classList.toggle('open', open);
+  btn.querySelector('svg').style.transform = open ? 'rotate(180deg)' : '';
+}
+
+function openScansieModal() {
+  document.getElementById('scansieOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateScanLabel();
+}
+function openStijlModal() {
+  document.getElementById('stijlOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateSfLabel();
+  bindSfTooltips();
+}
+
+function updateScanLabel() {
+  var n = VERS_NRS.length;
+  document.getElementById('scanLabel').textContent = 'vers ' + VERS_NRS[scanIdx] + ' · ' + (scanIdx+1) + '/' + n;
+  document.getElementById('scanPrev').disabled = scanIdx === 0;
+  document.getElementById('scanNext').disabled = scanIdx === n-1;
+}
+function updateSfLabel() {
+  var n = VERS_NRS.length;
+  document.getElementById('sfLabel').textContent = 'vers ' + VERS_NRS[sfIdx] + ' · ' + (sfIdx+1) + '/' + n;
+  document.getElementById('sfPrev').disabled = sfIdx === 0;
+  document.getElementById('sfNext').disabled = sfIdx === n-1;
+}
+function bindSfTooltips() {
+  var tip = document.getElementById('sfTooltip');
+  document.querySelectorAll('#sf-vers-' + sfIdx + ' [data-tip]').forEach(function(el) {
+    el.onmouseenter = function(e) { tip.textContent = el.dataset.tip; tip.classList.add('vis'); moveTip(e); };
+    el.onmousemove  = moveTip;
+    el.onmouseleave = function() { tip.classList.remove('vis'); };
+  });
+  function moveTip(e) {
+    var tw = tip.offsetWidth||280, th = tip.offsetHeight||60;
+    var x = e.clientX+12, y = e.clientY-th-8;
+    if (x+tw > window.innerWidth-8) x = e.clientX-tw-12;
+    if (y<8) y = e.clientY+16;
+    tip.style.left = x+'px'; tip.style.top = y+'px';
+  }
+}
+</script>
+
+</body>
+</html>
