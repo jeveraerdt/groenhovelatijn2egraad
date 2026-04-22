@@ -824,6 +824,16 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
 <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem · Cultuur Thema 3 · Les 2</p>
 
 <script>
+/* ── AUTH ── */
+let GL_gebruiker = null;
+document.addEventListener("DOMContentLoaded", function () {
+  function initAuth() {
+    if (typeof GroenhoveAuth === "undefined") { setTimeout(initAuth, 50); return; }
+    GroenhoveAuth.init({ onSuccess: function (user) { GL_gebruiker = user; } });
+  }
+  initAuth();
+});
+
 /* ── MODUS TABS ─────────────────────────────────────────────── */
 function toonModus(id, btn) {
   document.querySelectorAll('.mode-panel').forEach(p => p.classList.remove('active'));
