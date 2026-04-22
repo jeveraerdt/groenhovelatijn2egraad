@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Latijn Groenhove</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+:root {
+  --groen:   #006633;
+  --accent:  #FF3B1D;
+  --wit:     #f3f1ef;
+  --zwart:   #010100;
+  --zacht:   #4a6b5a;
+  --rand:    #b8d4c4;
+  --licht:   #e0efd8;
+  --bg:      #cce0d6;
+  --ft: 'Flanders Art Sans', Arial, sans-serif;
+  --fb: 'Noto Sans', Arial, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--zwart);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--groen); color: var(--wit);
+  display: flex; align-items: center; gap: 1rem;
+  padding: .85rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.10);
+}
+.site-header h1 { font-family: var(--ft); font-size: 1.2rem; }
+.site-header .sub {
+  margin-left: auto; font-size: .78rem;
+  letter-spacing: .08em; text-transform: uppercase; opacity: .85;
+}
+
+/* ── TOOLBAR ── */
+.toolbar {
+  background: var(--wit); border-bottom: 1px solid var(--rand);
+  padding: .6rem 1.5rem; display: flex; align-items: center;
+  gap: .75rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 10;
+}
+.toolbar label { font-size: .82rem; color: var(--zacht); font-weight: 700; }
+select, input[type="date"] {
+  font-family: var(--fb); font-size: .82rem;
+  border: 1px solid var(--rand); border-radius: 6px;
+  padding: .3rem .6rem; background: white; color: var(--zwart);
+}
+.btn {
+  font-family: var(--fb); font-size: .82rem; font-weight: 700;
+  border: none; border-radius: 20px; padding: .35rem .85rem;
+  cursor: pointer; transition: all .15s;
+}
+.btn-groen { background: var(--groen); color: white; }
+.btn-groen:hover { background: #004d26; }
+.btn-wit { background: white; color: var(--zwart); border: 1px solid var(--rand); }
+.btn-wit:hover { background: var(--licht); }
+.divider { width: 1px; height: 22px; background: var(--rand); }
+
+/* ── STATS RIJEN ── */
+.stats-wrap {
+  max-width: 1200px; margin: 1.5rem auto 0;
+  padding: 0 1.5rem; display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.stat-card {
+  background: white; border: 1px solid var(--rand);
+  border-radius: 10px; padding: 1rem 1.2rem;
+  box-shadow: 0 1px 4px rgba(0,102,51,.06);
+}
+.stat-label { font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--zacht); margin-bottom: .3rem; }
+.stat-waarde { font-family: var(--ft); font-size: 2rem; color: var(--groen); }
+.stat-sub { font-size: .75rem; color: #888; margin-top: .2rem; }
+
+/* ── MAIN ── */
+.main { max-width: 1200px; margin: 1.5rem auto 3rem; padding: 0 1.5rem; }
+
+/* ── TABS ── */
+.tabs { display: flex; gap: .5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.tab {
+  font-family: var(--fb); font-size: .82rem; font-weight: 700;
+  border: 1px solid var(--rand); border-radius: 20px;
+  padding: .32rem .8rem; cursor: pointer; background: white;
+  color: var(--zwart); transition: all .15s;
+}
+.tab.active { background: var(--groen); color: white; border-color: var(--groen); }
+
+/* ── PANEL ── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── LEERLING KAARTEN ── */
+.leerling-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.leerling-kaart {
+  background: white; border: 1px solid var(--rand);
+  border-radius: 10px; padding: 1rem 1.1rem;
+  box-shadow: 0 1px 4px rgba(0,102,51,.06);
+  cursor: pointer; transition: border-color .15s, transform .15s;
+}
+.leerling-kaart:hover { border-color: var(--groen); transform: translateY(-2px); }
+.lk-naam { font-family: var(--ft); font-size: 1rem; color: var(--groen); margin-bottom: .2rem; }
+.lk-email { font-size: .75rem; color: var(--zacht); margin-bottom: .6rem; }
+.lk-stats { display: flex; gap: .75rem; font-size: .78rem; color: #555; }
+.lk-stat span { font-weight: 700; color: var(--groen); }
+.lk-laatste { font-size: .72rem; color: #999; margin-top: .4rem; }
+.lk-badge {
+  display: inline-block; font-size: .68rem; font-weight: 700;
+  padding: .15rem .5rem; border-radius: 20px; margin-top: .4rem;
+}
+.badge-actief { background: #d4f0e0; color: #006633; }
+.badge-inactief { background: #f0f0f0; color: #888; }
+
+/* ── ANTWOORDEN TABEL ── */
+.tabel-wrap { overflow-x: auto; }
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: .83rem; background: white;
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,102,51,.06);
+}
+thead tr { background: var(--groen); color: white; }
+thead th {
+  padding: .65rem 1rem; text-align: left;
+  font-family: var(--ft); font-size: .75rem;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+tbody tr { border-bottom: 1px solid var(--rand); }
+tbody tr:nth-child(even) { background: var(--licht); }
+tbody tr:hover { background: #c8e8d0; }
+td { padding: .55rem 1rem; vertical-align: top; line-height: 1.45; }
+td.td-tijd { white-space: nowrap; color: var(--zacht); font-size: .78rem; }
+td.td-naam { font-weight: 700; color: var(--groen); white-space: nowrap; }
+td.td-antwoord { max-width: 280px; }
+td.td-feedback { max-width: 280px; color: #555; }
+.td-kort {
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+  cursor: pointer;
+}
+.td-kort.open { -webkit-line-clamp: unset; }
+
+/* ── LEEG / LADEN ── */
+.leeg {
+  text-align: center; padding: 3rem 1rem;
+  color: var(--zacht); font-size: .9rem;
+}
+.laden { text-align: center; padding: 2rem; }
+.spinner {
+  display: inline-block; width: 28px; height: 28px;
+  border: 3px solid var(--rand); border-top-color: var(--groen);
+  border-radius: 50%; animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── DETAIL MODAL ── */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.45); z-index: 200;
+  align-items: center; justify-content: center;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: white; border-radius: 12px;
+  padding: 1.5rem; max-width: 680px; width: 90%;
+  max-height: 85vh; overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,.2);
+}
+.modal-titel {
+  font-family: var(--ft); font-size: 1.1rem;
+  color: var(--groen); margin-bottom: 1rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.modal-sluit {
+  background: none; border: none; font-size: 1.4rem;
+  cursor: pointer; color: #999; line-height: 1;
+}
+.modal-rij { margin-bottom: 1rem; }
+.modal-label {
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--zacht); margin-bottom: .3rem;
+}
+.modal-inhoud {
+  font-size: .87rem; line-height: 1.6; color: var(--zwart);
+  background: var(--licht); border-radius: 6px; padding: .65rem .9rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .stats-wrap { grid-template-columns: 1fr 1fr; }
+  .leerling-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>📊 Latijn Dashboard</h1>
+  <span class="sub">J. Everaerdt · S.O. Groenhove Waregem</span>
+</header>
+
+<div class="toolbar">
+  <label>Les:</label>
+  <select id="filterLes" onchange="laadData()">
+    <option value="">— Alle lessen —</option>
+  </select>
+  <div class="divider"></div>
+  <label>Van:</label>
+  <input type="date" id="filterVan" onchange="laadData()">
+  <label>Tot:</label>
+  <input type="date" id="filterTot" onchange="laadData()">
+  <div class="divider"></div>
+  <button class="btn btn-groen" onclick="laadData()">↻ Vernieuwen</button>
+  <button class="btn btn-wit" onclick="exporteerCSV()">⬇ CSV</button>
+</div>
+
+<div class="stats-wrap" id="statsWrap">
+  <div class="stat-card"><div class="stat-label">Actieve leerlingen</div><div class="stat-waarde" id="sActief">—</div><div class="stat-sub">vandaag ingelogd</div></div>
+  <div class="stat-card"><div class="stat-label">Antwoorden</div><div class="stat-waarde" id="sAntwoorden">—</div><div class="stat-sub">ingediend</div></div>
+  <div class="stat-card"><div class="stat-label">Lessen actief</div><div class="stat-waarde" id="sLessen">—</div><div class="stat-sub">unieke les-tabs</div></div>
+  <div class="stat-card"><div class="stat-label">Laatste activiteit</div><div class="stat-waarde" id="sLaatste" style="font-size:1.1rem;padding-top:.4rem;">—</div><div class="stat-sub">&nbsp;</div></div>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tab active" onclick="toonTab('leerlingen',this)">👤 Per leerling</button>
+    <button class="tab" onclick="toonTab('antwoorden',this)">📝 Alle antwoorden</button>
+  </div>
+
+  <!-- TAB: LEERLINGEN -->
+  <div class="panel active" id="tab-leerlingen">
+    <div class="laden" id="ladenLeerlingen"><div class="spinner"></div></div>
+    <div class="leerling-grid" id="leerlingGrid" style="display:none;"></div>
+    <div class="leeg" id="leegLeerlingen" style="display:none;">Geen data gevonden voor deze filters.</div>
+  </div>
+
+  <!-- TAB: ANTWOORDEN -->
+  <div class="panel" id="tab-antwoorden">
+    <div class="laden" id="ladenAntwoorden"><div class="spinner"></div></div>
+    <div class="tabel-wrap" id="tabelWrap" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Tijdstip</th>
+            <th>Naam</th>
+            <th>Les</th>
+            <th>Vraag</th>
+            <th>Antwoord</th>
+            <th>AI-feedback</th>
+          </tr>
+        </thead>
+        <tbody id="antwoordenBody"></tbody>
+      </table>
+    </div>
+    <div class="leeg" id="leegAntwoorden" style="display:none;">Geen antwoorden gevonden.</div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="overlay" id="overlay" onclick="sluitModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-titel">
+      <span id="modalTitel">Detail</span>
+      <button class="modal-sluit" onclick="sluitModal()">×</button>
+    </div>
+    <div id="modalInhoud"></div>
+  </div>
+</div>
+
+<script>
+const WEBAPP = 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec';
+const SHEET_ID = '1sGM4c0UuyF4Y6djKlf6nyLdGfrtrZaWoZqFH59G4LEY';
+
+// Stel standaard datumfilter in op vandaag
+const vandaag = new Date().toISOString().split('T')[0];
+document.getElementById('filterVan').value = vandaag;
+document.getElementById('filterTot').value = vandaag;
+
+let alleData = [];
+
+// ── DATA LADEN VIA GOOGLE SHEETS API (publieke read via gviz) ──
+async function laadData() {
+  toonLaden(true);
+
+  try {
+    // Haal alle tabs op via de Sheets gviz endpoint
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+    const res  = await fetch(url);
+    const txt  = await res.text();
+    // gviz geeft geen pure JSON terug, strip prefix
+    const json = JSON.parse(txt.match(/google\.visualization\.Query\.setResponse\((.*)\);/s)[1]);
+
+    alleData = parseerGviz(json);
+    verwerkData();
+  } catch(e) {
+    // Fallback: data ophalen via Apps Script
+    await laadViaAppsScript();
+  }
+}
+
+async function laadViaAppsScript() {
+  try {
+    const res  = await fetch(WEBAPP + '?actie=dashboard');
+    const data = await res.json();
+    if (data.ok) {
+      alleData = data.rijen;
+      verwerkData();
+    } else {
+      toonFout('Kon data niet laden: ' + (data.fout || 'onbekende fout'));
+    }
+  } catch(e) {
+    toonFout('Verbindingsfout. Open de Sheet rechtstreeks of ververs de pagina.');
+  }
+}
+
+function parseerGviz(json) {
+  const cols = json.table.cols.map(c => c.label);
+  const rijen = [];
+  (json.table.rows || []).forEach(r => {
+    const rij = {};
+    r.c.forEach((cel, i) => {
+      rij[cols[i]] = cel ? cel.v : '';
+    });
+    rijen.push(rij);
+  });
+  return rijen;
+}
+
+function verwerkData() {
+  const van = document.getElementById('filterVan').value;
+  const tot = document.getElementById('filterTot').value;
+  const les = document.getElementById('filterLes').value;
+
+  // Filter op datum
+  let gefilterd = alleData.filter(r => {
+    const datum = r['Tijdstip'] ? new Date(r['Tijdstip']) : null;
+    if (!datum) return true;
+    const d = datum.toISOString().split('T')[0];
+    if (van && d < van) return false;
+    if (tot && d > tot) return false;
+    return true;
+  });
+
+  // Filter op les
+  if (les) gefilterd = gefilterd.filter(r => r['Les'] === les || (r['les'] === les));
+
+  // Vul les-filter dropdown
+  vulLesFilter(alleData);
+
+  // Stats
+  const emails  = [...new Set(gefilterd.map(r => r['Email'] || r['email']))].filter(Boolean);
+  const lessen  = [...new Set(gefilterd.map(r => r['Les'] || r['les']))].filter(Boolean);
+  const laatste = gefilterd.length
+    ? gefilterd.sort((a,b) => new Date(b['Tijdstip']||0) - new Date(a['Tijdstip']||0))[0]['Tijdstip']
+    : null;
+
+  // Vandaag actief
+  const vandaagStr = new Date().toISOString().split('T')[0];
+  const vandaagActief = [...new Set(alleData
+    .filter(r => {
+      const d = r['Tijdstip'] ? new Date(r['Tijdstip']).toISOString().split('T')[0] : '';
+      return d === vandaagStr;
+    })
+    .map(r => r['Email'] || r['email']))].filter(Boolean).length;
+
+  document.getElementById('sActief').textContent     = vandaagActief;
+  document.getElementById('sAntwoorden').textContent = gefilterd.length;
+  document.getElementById('sLessen').textContent     = lessen.length;
+  document.getElementById('sLaatste').textContent    = laatste
+    ? new Date(laatste).toLocaleTimeString('nl-BE', {hour:'2-digit',minute:'2-digit'})
+    : '—';
+
+  // Leerlingen tab
+  bouwLeerlingGrid(gefilterd, emails);
+
+  // Antwoorden tab
+  bouwAntwoordenTabel(gefilterd);
+
+  toonLaden(false);
+}
+
+function vulLesFilter(data) {
+  const sel    = document.getElementById('filterLes');
+  const huidig = sel.value;
+  const lessen = [...new Set(data.map(r => r['Les'] || r['les']))].filter(Boolean).sort();
+  sel.innerHTML = '<option value="">— Alle lessen —</option>';
+  lessen.forEach(l => {
+    const opt = document.createElement('option');
+    opt.value = l; opt.textContent = l;
+    if (l === huidig) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function bouwLeerlingGrid(data, emails) {
+  const grid = document.getElementById('leerlingGrid');
+  const leeg = document.getElementById('leegLeerlingen');
+
+  if (!emails.length) {
+    grid.style.display = 'none';
+    leeg.style.display = 'block';
+    return;
+  }
+
+  grid.style.display = 'grid';
+  leeg.style.display = 'none';
+  grid.innerHTML = '';
+
+  emails.forEach(email => {
+    const rijen    = data.filter(r => (r['Email']||r['email']) === email);
+    const naam     = rijen[0]?.['Naam'] || rijen[0]?.['naam'] || email.split('@')[0];
+    const laatste  = rijen.sort((a,b) => new Date(b['Tijdstip']||0) - new Date(a['Tijdstip']||0))[0]?.['Tijdstip'];
+    const vandaagStr = new Date().toISOString().split('T')[0];
+    const actief   = laatste && new Date(laatste).toISOString().split('T')[0] === vandaagStr;
+
+    const kaart = document.createElement('div');
+    kaart.className = 'leerling-kaart';
+    kaart.onclick   = () => toonLeerlingDetail(email, naam, data);
+    kaart.innerHTML = `
+      <div class="lk-naam">${naam}</div>
+      <div class="lk-email">${email}</div>
+      <div class="lk-stats">
+        <div><span>${rijen.length}</span> antwoorden</div>
+        <div><span>${[...new Set(rijen.map(r=>r['Les']||r['les']))].filter(Boolean).length}</span> lessen</div>
+      </div>
+      <div class="lk-laatste">Laatste: ${laatste ? new Date(laatste).toLocaleString('nl-BE') : '—'}</div>
+      <span class="lk-badge ${actief ? 'badge-actief' : 'badge-inactief'}">${actief ? '● Actief vandaag' : '○ Niet actief vandaag'}</span>
+    `;
+    grid.appendChild(kaart);
+  });
+}
+
+function bouwAntwoordenTabel(data) {
+  const body = document.getElementById('antwoordenBody');
+  const wrap = document.getElementById('tabelWrap');
+  const leeg = document.getElementById('leegAntwoorden');
+
+  const gesorteerd = [...data].sort((a,b) =>
+    new Date(b['Tijdstip']||0) - new Date(a['Tijdstip']||0));
+
+  if (!gesorteerd.length) {
+    wrap.style.display = 'none';
+    leeg.style.display = 'block';
+    body.innerHTML = '';
+    return;
+  }
+
+  wrap.style.display = 'block';
+  leeg.style.display = 'none';
+
+  body.innerHTML = gesorteerd.map(r => {
+    const tijd    = r['Tijdstip'] ? new Date(r['Tijdstip']).toLocaleString('nl-BE') : '—';
+    const naam    = r['Naam']     || r['naam']     || '?';
+    const les     = r['Les']      || r['les']      || '?';
+    const vraag   = r['Vraag']    || r['vraag']    || '?';
+    const antw    = r['Antwoord'] || r['antwoord'] || '';
+    const feedback = r['AI-feedback'] || r['feedback'] || '';
+    return `
+      <tr>
+        <td class="td-tijd">${tijd}</td>
+        <td class="td-naam">${naam}</td>
+        <td>${les}</td>
+        <td>${vraag}</td>
+        <td class="td-antwoord"><div class="td-kort" onclick="this.classList.toggle('open')">${antw || '<em style="color:#aaa">—</em>'}</div></td>
+        <td class="td-feedback"><div class="td-kort" onclick="this.classList.toggle('open')">${feedback || '<em style="color:#aaa">—</em>'}</div></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function toonLeerlingDetail(email, naam, data) {
+  const rijen = data
+    .filter(r => (r['Email']||r['email']) === email)
+    .sort((a,b) => new Date(b['Tijdstip']||0) - new Date(a['Tijdstip']||0));
+
+  document.getElementById('modalTitel').textContent = naam;
+  document.getElementById('modalInhoud').innerHTML = rijen.map(r => `
+    <div class="modal-rij">
+      <div class="modal-label">${r['Les']||r['les']||'?'} · ${r['Vraag-ID']||r['vraagId']||'?'} · ${r['Tijdstip'] ? new Date(r['Tijdstip']).toLocaleString('nl-BE') : '—'}</div>
+      <div style="font-size:.78rem;font-weight:700;color:var(--zacht);margin-bottom:.3rem;">${r['Vraag']||r['vraag']||''}</div>
+      <div class="modal-inhoud" style="margin-bottom:.4rem;">${r['Antwoord']||r['antwoord']||'<em style="color:#aaa">geen antwoord</em>'}</div>
+      ${(r['AI-feedback']||r['feedback']) ? `<div class="modal-inhoud" style="background:#f0f7ff;font-size:.82rem;color:#333;">${r['AI-feedback']||r['feedback']}</div>` : ''}
+    </div>
+  `).join('<hr style="border:none;border-top:1px solid var(--rand);margin:.5rem 0;">');
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+function sluitModal(e) {
+  if (!e || e.target === document.getElementById('overlay') || e.currentTarget === document.querySelector('.modal-sluit')) {
+    document.getElementById('overlay').classList.remove('open');
+  }
+}
+
+// ── TABS ──
+function toonTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── LADEN ──
+function toonLaden(ja) {
+  document.getElementById('ladenLeerlingen').style.display  = ja ? 'block' : 'none';
+  document.getElementById('ladenAntwoorden').style.display  = ja ? 'block' : 'none';
+  if (ja) {
+    document.getElementById('leerlingGrid').style.display   = 'none';
+    document.getElementById('tabelWrap').style.display      = 'none';
+    document.getElementById('leegLeerlingen').style.display = 'none';
+    document.getElementById('leegAntwoorden').style.display = 'none';
+  }
+}
+
+function toonFout(bericht) {
+  toonLaden(false);
+  document.getElementById('leegLeerlingen').style.display = 'block';
+  document.getElementById('leegLeerlingen').textContent   = '⚠ ' + bericht;
+}
+
+// ── CSV EXPORT ──
+function exporteerCSV() {
+  if (!alleData.length) return;
+  const keys = Object.keys(alleData[0]);
+  const csv  = [
+    keys.join(';'),
+    ...alleData.map(r => keys.map(k => `"${(r[k]||'').toString().replace(/"/g,'""')}"`).join(';'))
+  ].join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `latijn-dashboard-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
+
+// ── START ──
+laadData();
+setInterval(laadData, 60000); // automatisch vernieuwen elke minuut
+</script>
+</body>
+</html>
