@@ -948,6 +948,10 @@ document.addEventListener("DOMContentLoaded", function () {
   initAuth();
 });
 
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec';
+const LES_CODE = 'les1';
+const LES_LABEL = 'Thema 3 Les 1 — Wagenrennen';
+
 /* ── MODUS TABS ─────────────────────────────────────────────── */
 function toonModus(id, btn) {
   document.querySelectorAll('.mode-panel').forEach(p => p.classList.remove('active'));
@@ -988,18 +992,24 @@ function toonAntwoord(btn, antwoordId) {
   const antw = document.getElementById(antwoordId);
   antw.classList.add('zichtbaar');
   btn.style.display = 'none';
-  const nr = antwoordId.replace('ra','');
+  const nr = antwoordId.replace('ra', '');
   const zc = document.getElementById('zc' + nr);
   if (zc) zc.classList.add('zichtbaar');
 }
 
 let score = 0;
-function scoreZelfcheck(btn, punten, antwoordId) {
-  const nr = antwoordId.replace('ra','');
+
+async function scoreZelfcheck(btn, punten, antwoordId) {
+  const nr = antwoordId.replace('ra', '');
   const zc = document.getElementById('zc' + nr);
-  if (zc) { zc.querySelectorAll('.zelfcheck-btn').forEach(b => b.disabled = true); }
+  if (zc) {
+    zc.querySelectorAll('.zelfcheck-btn').forEach(b => b.disabled = true);
+  }
+
   score += punten;
   updateScore();
+
+  await stuurVoortgang('retrieval-' + nr, punten, 1);
 }
 
 function updateScore() {
@@ -1007,6 +1017,7 @@ function updateScore() {
   const maxScore = 5;
   const pct = Math.round((score / maxScore) * 100);
   document.getElementById('progressBar').style.width = pct + '%';
+
   if (score === 0) {
     document.getElementById('scoreStatus').textContent = 'Begin maar!';
     document.getElementById('scoreDetail').textContent = 'Beantwoord vragen om punten te verdienen.';
@@ -1022,41 +1033,77 @@ function updateScore() {
   }
 }
 
+/* ── BACKEND HELPERS ────────────────────────────────────────── */
+async function stuurVoortgang(onderdeel, scoreBehaald, scoreMaximum) {
+  if (!GL_gebruiker || !GL_gebruiker.email) return;
+
+  try {
+    const body = new URLSearchParams({
+      action: 'saveProgress',
+      email: GL_gebruiker.email,
+      naam: GL_gebruiker.naam || '',
+      les: LES_CODE,
+      onderdeel: onderdeel || '',
+      score: String(scoreBehaald ?? ''),
+      maxScore: String(scoreMaximum ?? '')
+    });
+
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body
+    });
+  } catch (e) {
+    console.warn('Voortgang opslaan mislukt:', e);
+  }
+}
+
 /* ── AI FEEDBACK ────────────────────────────────────────────── */
 async function vraagAI(inputId, feedbackId, systeemPrompt, vraagTekst) {
   const input = document.getElementById(inputId);
   const fbBox = document.getElementById(feedbackId);
   const tekst = input ? input.value.trim() : '';
-  if (!tekst) { fbBox.textContent = 'Schrijf eerst iets in het tekstvak.'; fbBox.classList.add('active'); return; }
+
+  if (!tekst) {
+    fbBox.textContent = 'Schrijf eerst iets in het tekstvak.';
+    fbBox.classList.add('active');
+    return;
+  }
+
   fbBox.innerHTML = '<span class="spinner"></span> Verwerken…';
   fbBox.classList.add('active');
+
   try {
-    const logData = (typeof GL_gebruiker !== 'undefined' && GL_gebruiker) ? {
-      les:     'Thema 3 Les 1 — Wagenrennen',
-      naam:    GL_gebruiker.naam,
-      email:   GL_gebruiker.email,
+    const logData = GL_gebruiker ? {
+      les: LES_LABEL,
+      naam: GL_gebruiker.naam || '',
+      email: GL_gebruiker.email || '',
       vraagId: inputId,
-      vraag:   vraagTekst || inputId
+      vraag: vraagTekst || inputId,
+      onderdeel: inputId
     } : null;
 
-    const res = await fetch('https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        actie:  'ai',
-        systeem: systeemPrompt,
-        tekst:   tekst,
-        log:     logData
-      })
+    const body = new URLSearchParams({
+      actie: 'ai',
+      systeem: systeemPrompt,
+      tekst: tekst,
+      log: logData ? JSON.stringify(logData) : ''
     });
+
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body
+    });
+
     const data = await res.json();
+
     if (data.ok) {
-      fbBox.textContent = data.tekst;
+      fbBox.textContent = data.tekst || data.antwoord || 'Geen antwoord ontvangen.';
     } else {
-      fbBox.textContent = 'Fout: ' + (data.fout || 'onbekend');
+      fbBox.textContent = 'Fout: ' + (data.fout || data.error || 'onbekend');
     }
   } catch (e) {
     fbBox.textContent = 'Verbindingsfout — probeer opnieuw.';
+    console.error(e);
   }
 }
 </script>
