@@ -439,7 +439,7 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
 
 <!-- ══ MERKLINT ══════════════════════════════════════════════════ -->
 <header class="site-header">
-  <img class="logo" src="../../../images/nav/logo_mono_wit.png" alt="Groenhove">
+  <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="Groenhove">
   <h1>Cultuur</h1>
   <span class="sub">S.O. Groenhove Waregem</span>
 </header>
@@ -891,7 +891,7 @@ function updateScore() {
 }
 
 /* ── AI FEEDBACK ────────────────────────────────────────────── */
-async function vraagAI(inputId, feedbackId, systeemPrompt) {
+async function vraagAI(inputId, feedbackId, systeemPrompt, vraagTekst) {
   const input = document.getElementById(inputId);
   const fbBox = document.getElementById(feedbackId);
   const tekst = input ? input.value.trim() : '';
@@ -912,10 +912,21 @@ async function vraagAI(inputId, feedbackId, systeemPrompt) {
     const data = await res.json();
     const tekst2 = data.content?.map(b => b.text || '').join('') || '(Geen antwoord ontvangen)';
     fbBox.textContent = tekst2;
+    // Log naar dashboard
+    if (typeof GL_log === 'function') {
+      GL_log({
+        les:      'Thema 3 Les 2 — Nika-oproer',
+        vraagId:  inputId,
+        vraag:    vraagTekst || inputId,
+        antwoord: tekst,
+        feedback: tekst2
+      });
+    }
   } catch (e) {
     fbBox.textContent = 'Verbindingsfout — probeer opnieuw.';
   }
 }
 </script>
+<script src="../../../js/auth.js"></script>
 </body>
 </html>
