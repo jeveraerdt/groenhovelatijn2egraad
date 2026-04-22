@@ -1,558 +1,694 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard — Latijn Groenhove</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-<style>
-@font-face {
-  font-family: 'Flanders Art Sans';
-  src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
-  font-weight: 700; font-style: normal; font-display: swap;
-}
-:root {
-  --groen:   #006633;
-  --accent:  #FF3B1D;
-  --wit:     #f3f1ef;
-  --zwart:   #010100;
-  --zacht:   #4a6b5a;
-  --rand:    #b8d4c4;
-  --licht:   #e0efd8;
-  --bg:      #cce0d6;
-  --ft: 'Flanders Art Sans', Arial, sans-serif;
-  --fb: 'Noto Sans', Arial, sans-serif;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: var(--fb);
-  background: var(--bg);
-  color: var(--zwart);
-  min-height: 100vh;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leraarsdashboard — Groenhove Latijn</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── HEADER ── */
-.site-header {
-  background: var(--groen); color: var(--wit);
-  display: flex; align-items: center; gap: 1rem;
-  padding: .85rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,.10);
-}
-.site-header h1 { font-family: var(--ft); font-size: 1.2rem; }
-.site-header .sub {
-  margin-left: auto; font-size: .78rem;
-  letter-spacing: .08em; text-transform: uppercase; opacity: .85;
-}
+    :root {
+      --groen: #006633;
+      --groen-licht: #e8f5ee;
+      --groen-mid: #65b32e;
+      --accent: #FF3B1D;
+      --wit: #f3f1ef;
+      --zwart: #010100;
+      --grijs: #6b7280;
+      --border: #e5e7eb;
+      --font-titel: 'Flanders Art Sans', 'Noto Sans', sans-serif;
+      --font-body: 'Noto Sans', Arial, sans-serif;
+    }
 
-/* ── TOOLBAR ── */
-.toolbar {
-  background: var(--wit); border-bottom: 1px solid var(--rand);
-  padding: .6rem 1.5rem; display: flex; align-items: center;
-  gap: .75rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 10;
-}
-.toolbar label { font-size: .82rem; color: var(--zacht); font-weight: 700; }
-select, input[type="date"] {
-  font-family: var(--fb); font-size: .82rem;
-  border: 1px solid var(--rand); border-radius: 6px;
-  padding: .3rem .6rem; background: white; color: var(--zwart);
-}
-.btn {
-  font-family: var(--fb); font-size: .82rem; font-weight: 700;
-  border: none; border-radius: 20px; padding: .35rem .85rem;
-  cursor: pointer; transition: all .15s;
-}
-.btn-groen { background: var(--groen); color: white; }
-.btn-groen:hover { background: #004d26; }
-.btn-wit { background: white; color: var(--zwart); border: 1px solid var(--rand); }
-.btn-wit:hover { background: var(--licht); }
-.divider { width: 1px; height: 22px; background: var(--rand); }
+    body {
+      font-family: var(--font-body);
+      background: var(--wit);
+      color: var(--zwart);
+      min-height: 100vh;
+    }
 
-/* ── STATS RIJEN ── */
-.stats-wrap {
-  max-width: 1200px; margin: 1.5rem auto 0;
-  padding: 0 1.5rem; display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-}
-.stat-card {
-  background: white; border: 1px solid var(--rand);
-  border-radius: 10px; padding: 1rem 1.2rem;
-  box-shadow: 0 1px 4px rgba(0,102,51,.06);
-}
-.stat-label { font-size: .75rem; font-weight: 700; letter-spacing: .08em;
-  text-transform: uppercase; color: var(--zacht); margin-bottom: .3rem; }
-.stat-waarde { font-family: var(--ft); font-size: 2rem; color: var(--groen); }
-.stat-sub { font-size: .75rem; color: #888; margin-top: .2rem; }
+    /* Header */
+    header {
+      background: var(--groen);
+      color: white;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
 
-/* ── MAIN ── */
-.main { max-width: 1200px; margin: 1.5rem auto 3rem; padding: 0 1.5rem; }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-/* ── TABS ── */
-.tabs { display: flex; gap: .5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-.tab {
-  font-family: var(--fb); font-size: .82rem; font-weight: 700;
-  border: 1px solid var(--rand); border-radius: 20px;
-  padding: .32rem .8rem; cursor: pointer; background: white;
-  color: var(--zwart); transition: all .15s;
-}
-.tab.active { background: var(--groen); color: white; border-color: var(--groen); }
+    .header-logo {
+      font-size: 22px;
+    }
 
-/* ── PANEL ── */
-.panel { display: none; }
-.panel.active { display: block; }
+    .header-title {
+      font-family: var(--font-titel);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
 
-/* ── LEERLING KAARTEN ── */
-.leerling-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-}
-.leerling-kaart {
-  background: white; border: 1px solid var(--rand);
-  border-radius: 10px; padding: 1rem 1.1rem;
-  box-shadow: 0 1px 4px rgba(0,102,51,.06);
-  cursor: pointer; transition: border-color .15s, transform .15s;
-}
-.leerling-kaart:hover { border-color: var(--groen); transform: translateY(-2px); }
-.lk-naam { font-family: var(--ft); font-size: 1rem; color: var(--groen); margin-bottom: .2rem; }
-.lk-email { font-size: .75rem; color: var(--zacht); margin-bottom: .6rem; }
-.lk-stats { display: flex; gap: .75rem; font-size: .78rem; color: #555; }
-.lk-stat span { font-weight: 700; color: var(--groen); }
-.lk-laatste { font-size: .72rem; color: #999; margin-top: .4rem; }
-.lk-badge {
-  display: inline-block; font-size: .68rem; font-weight: 700;
-  padding: .15rem .5rem; border-radius: 20px; margin-top: .4rem;
-}
-.badge-actief { background: #d4f0e0; color: #006633; }
-.badge-inactief { background: #f0f0f0; color: #888; }
+    .header-sub {
+      font-size: 12px;
+      opacity: 0.75;
+      font-weight: 400;
+    }
 
-/* ── ANTWOORDEN TABEL ── */
-.tabel-wrap { overflow-x: auto; }
-table {
-  width: 100%; border-collapse: collapse;
-  font-size: .83rem; background: white;
-  border-radius: 10px; overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,102,51,.06);
-}
-thead tr { background: var(--groen); color: white; }
-thead th {
-  padding: .65rem 1rem; text-align: left;
-  font-family: var(--ft); font-size: .75rem;
-  letter-spacing: .06em; text-transform: uppercase;
-}
-tbody tr { border-bottom: 1px solid var(--rand); }
-tbody tr:nth-child(even) { background: var(--licht); }
-tbody tr:hover { background: #c8e8d0; }
-td { padding: .55rem 1rem; vertical-align: top; line-height: 1.45; }
-td.td-tijd { white-space: nowrap; color: var(--zacht); font-size: .78rem; }
-td.td-naam { font-weight: 700; color: var(--groen); white-space: nowrap; }
-td.td-antwoord { max-width: 280px; }
-td.td-feedback { max-width: 280px; color: #555; }
-.td-kort {
-  display: -webkit-box; -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; overflow: hidden;
-  cursor: pointer;
-}
-.td-kort.open { -webkit-line-clamp: unset; }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
 
-/* ── LEEG / LADEN ── */
-.leeg {
-  text-align: center; padding: 3rem 1rem;
-  color: var(--zacht); font-size: .9rem;
-}
-.laden { text-align: center; padding: 2rem; }
-.spinner {
-  display: inline-block; width: 28px; height: 28px;
-  border: 3px solid var(--rand); border-top-color: var(--groen);
-  border-radius: 50%; animation: spin .7s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+    #auth-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-/* ── DETAIL MODAL ── */
-.overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,.45); z-index: 200;
-  align-items: center; justify-content: center;
-}
-.overlay.open { display: flex; }
-.modal {
-  background: white; border-radius: 12px;
-  padding: 1.5rem; max-width: 680px; width: 90%;
-  max-height: 85vh; overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0,0,0,.2);
-}
-.modal-titel {
-  font-family: var(--ft); font-size: 1.1rem;
-  color: var(--groen); margin-bottom: 1rem;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.modal-sluit {
-  background: none; border: none; font-size: 1.4rem;
-  cursor: pointer; color: #999; line-height: 1;
-}
-.modal-rij { margin-bottom: 1rem; }
-.modal-label {
-  font-size: .72rem; font-weight: 700; letter-spacing: .08em;
-  text-transform: uppercase; color: var(--zacht); margin-bottom: .3rem;
-}
-.modal-inhoud {
-  font-size: .87rem; line-height: 1.6; color: var(--zwart);
-  background: var(--licht); border-radius: 6px; padding: .65rem .9rem;
-}
+    .btn-uitloggen {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: var(--font-body);
+      transition: background 0.2s;
+    }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 700px) {
-  .stats-wrap { grid-template-columns: 1fr 1fr; }
-  .leerling-grid { grid-template-columns: 1fr; }
-}
-</style>
+    .btn-uitloggen:hover { background: rgba(255,255,255,0.25); }
+
+    /* Login scherm */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 60px);
+      padding: 40px 20px;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.1);
+      padding: 48px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .login-icon { font-size: 48px; margin-bottom: 16px; }
+
+    .login-card h2 {
+      font-family: var(--font-titel);
+      color: var(--groen);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .login-card p {
+      color: var(--grijs);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    #login-btn-container { margin-bottom: 8px; }
+
+    .login-error {
+      color: var(--accent);
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+      line-height: 1.4;
+    }
+
+    /* Dashboard */
+    #dashboard { display: none; padding: 32px; max-width: 1200px; margin: 0 auto; }
+
+    /* Stats balk */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--grijs);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-family: var(--font-titel);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--groen);
+    }
+
+    .stat-sub { font-size: 12px; color: var(--grijs); margin-top: 2px; }
+
+    /* Sectie */
+    .sectie {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .sectie-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--groen-licht);
+    }
+
+    .sectie-titel {
+      font-family: var(--font-titel);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--groen);
+    }
+
+    .badge {
+      background: var(--groen);
+      color: white;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-weight: 600;
+    }
+
+    /* Tabel */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead th {
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--grijs);
+      background: #fafafa;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+
+    tbody tr:hover { background: var(--groen-licht); }
+    tbody tr:last-child { border-bottom: none; }
+
+    td { padding: 10px 16px; }
+
+    .td-email { color: var(--grijs); font-size: 13px; }
+
+    /* Voortgangsbalk */
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: var(--groen-mid);
+      transition: width 0.5s ease;
+    }
+
+    .progress-fill.hoog { background: var(--groen); }
+    .progress-fill.laag { background: var(--accent); }
+
+    /* Chip */
+    .chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .chip-les1 { background: #dbeafe; color: #1d4ed8; }
+    .chip-les2 { background: #fef3c7; color: #92400e; }
+    .chip-geen { background: #f3f4f6; color: var(--grijs); }
+
+    /* Vernieuwen btn */
+    .btn-refresh {
+      background: var(--groen);
+      color: white;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: var(--font-body);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-refresh:hover { background: #00522a; }
+    .btn-refresh:disabled { opacity: 0.5; cursor: default; }
+
+    /* Laadindicator */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--grijs);
+      font-size: 14px;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--groen);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .laatste-update {
+      font-size: 12px;
+      color: var(--grijs);
+      text-align: right;
+      margin-bottom: 16px;
+    }
+
+    /* Lege staat */
+    .leeg {
+      text-align: center;
+      padding: 32px;
+      color: var(--grijs);
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
 
-<header class="site-header">
-  <h1>📊 Latijn Dashboard</h1>
-  <span class="sub">J. Everaerdt · S.O. Groenhove Waregem</span>
+<header>
+  <div class="header-left">
+    <span class="header-logo">🏛️</span>
+    <div>
+      <div class="header-title">Groenhove Latijn</div>
+      <div class="header-sub">Leraarsdashboard</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div id="auth-status"></div>
+  </div>
 </header>
 
-<div class="toolbar">
-  <label>Les:</label>
-  <select id="filterLes" onchange="laadData()">
-    <option value="">— Alle lessen —</option>
-  </select>
-  <div class="divider"></div>
-  <label>Van:</label>
-  <input type="date" id="filterVan" onchange="laadData()">
-  <label>Tot:</label>
-  <input type="date" id="filterTot" onchange="laadData()">
-  <div class="divider"></div>
-  <button class="btn btn-groen" onclick="laadData()">↻ Vernieuwen</button>
-  <button class="btn btn-wit" onclick="exporteerCSV()">⬇ CSV</button>
+<!-- Login -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-icon">🔐</div>
+    <h2>Leraarsdashboard</h2>
+    <p>Log in met je <strong>@groenhoveschool.be</strong> account om de voortgang van je leerlingen te bekijken.</p>
+    <div id="login-btn-container"></div>
+    <p class="login-error" id="login-error"></p>
+  </div>
 </div>
 
-<div class="stats-wrap" id="statsWrap">
-  <div class="stat-card"><div class="stat-label">Actieve leerlingen</div><div class="stat-waarde" id="sActief">—</div><div class="stat-sub">vandaag ingelogd</div></div>
-  <div class="stat-card"><div class="stat-label">Antwoorden</div><div class="stat-waarde" id="sAntwoorden">—</div><div class="stat-sub">ingediend</div></div>
-  <div class="stat-card"><div class="stat-label">Lessen actief</div><div class="stat-waarde" id="sLessen">—</div><div class="stat-sub">unieke les-tabs</div></div>
-  <div class="stat-card"><div class="stat-label">Laatste activiteit</div><div class="stat-waarde" id="sLaatste" style="font-size:1.1rem;padding-top:.4rem;">—</div><div class="stat-sub">&nbsp;</div></div>
-</div>
-
-<div class="main">
-  <div class="tabs">
-    <button class="tab active" onclick="toonTab('leerlingen',this)">👤 Per leerling</button>
-    <button class="tab" onclick="toonTab('antwoorden',this)">📝 Alle antwoorden</button>
-  </div>
-
-  <!-- TAB: LEERLINGEN -->
-  <div class="panel active" id="tab-leerlingen">
-    <div class="laden" id="ladenLeerlingen"><div class="spinner"></div></div>
-    <div class="leerling-grid" id="leerlingGrid" style="display:none;"></div>
-    <div class="leeg" id="leegLeerlingen" style="display:none;">Geen data gevonden voor deze filters.</div>
-  </div>
-
-  <!-- TAB: ANTWOORDEN -->
-  <div class="panel" id="tab-antwoorden">
-    <div class="laden" id="ladenAntwoorden"><div class="spinner"></div></div>
-    <div class="tabel-wrap" id="tabelWrap" style="display:none;">
-      <table>
-        <thead>
-          <tr>
-            <th>Tijdstip</th>
-            <th>Naam</th>
-            <th>Les</th>
-            <th>Vraag</th>
-            <th>Antwoord</th>
-            <th>AI-feedback</th>
-          </tr>
-        </thead>
-        <tbody id="antwoordenBody"></tbody>
-      </table>
+<!-- Dashboard -->
+<div id="dashboard">
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Leerlingen</div>
+      <div class="stat-value" id="stat-leerlingen">—</div>
+      <div class="stat-sub">ingelogd dit schooljaar</div>
     </div>
-    <div class="leeg" id="leegAntwoorden" style="display:none;">Geen antwoorden gevonden.</div>
-  </div>
-</div>
-
-<!-- DETAIL MODAL -->
-<div class="overlay" id="overlay" onclick="sluitModal(event)">
-  <div class="modal" id="modal">
-    <div class="modal-titel">
-      <span id="modalTitel">Detail</span>
-      <button class="modal-sluit" onclick="sluitModal()">×</button>
+    <div class="stat-card">
+      <div class="stat-label">Les 1 voltooid</div>
+      <div class="stat-value" id="stat-les1">—</div>
+      <div class="stat-sub">leerlingen</div>
     </div>
-    <div id="modalInhoud"></div>
+    <div class="stat-card">
+      <div class="stat-label">Les 2 voltooid</div>
+      <div class="stat-value" id="stat-les2">—</div>
+      <div class="stat-sub">leerlingen</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Gem. score</div>
+      <div class="stat-value" id="stat-gem">—</div>
+      <div class="stat-sub">over alle lessen</div>
+    </div>
+  </div>
+
+  <p class="laatste-update" id="laatste-update"></p>
+
+  <!-- Leerlingenoverzicht -->
+  <div class="sectie">
+    <div class="sectie-header">
+      <span class="sectie-titel">Leerlingenoverzicht</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge" id="badge-leerlingen">0</span>
+        <button class="btn-refresh" id="btn-refresh" onclick="laadData()">
+          ↺ Vernieuwen
+        </button>
+      </div>
+    </div>
+    <div id="tabel-leerlingen">
+      <div class="loading"><span class="spinner"></span> Data laden…</div>
+    </div>
+  </div>
+
+  <!-- Voortgang per les -->
+  <div class="sectie">
+    <div class="sectie-header">
+      <span class="sectie-titel">Voortgang per les</span>
+      <span class="badge" id="badge-voortgang">0</span>
+    </div>
+    <div id="tabel-voortgang">
+      <div class="loading"><span class="spinner"></span> Data laden…</div>
+    </div>
   </div>
 </div>
 
 <script>
-const WEBAPP = 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec';
-const SHEET_ID = '1sGM4c0UuyF4Y6djKlf6nyLdGfrtrZaWoZqFH59G4LEY';
+// ── Configuratie ──────────────────────────────────────────────────────────────
 
-// Stel standaard datumfilter in op vandaag
-const vandaag = new Date().toISOString().split('T')[0];
-document.getElementById('filterVan').value = vandaag;
-document.getElementById('filterTot').value = vandaag;
+const CONFIG = {
+  clientId: '247782565692-60him09rermeq8u832vpuc3hsihm48ei.apps.googleusercontent.com',
+  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec',
+  allowedDomain: 'groenhoveschool.be',
+  tokenKey: 'groenhove_dash_token',
+  userKey: 'groenhove_dash_user',
+  expiryKey: 'groenhove_dash_expiry',
+};
 
-let alleData = [];
+let huidigGebruiker = null;
 
-// ── DATA LADEN VIA GOOGLE SHEETS API (publieke read via gviz) ──
-async function laadData() {
-  toonLaden(true);
+// ── Initialisatie ─────────────────────────────────────────────────────────────
 
-  try {
-    // Haal alle tabs op via de Sheets gviz endpoint
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
-    const res  = await fetch(url);
-    const txt  = await res.text();
-    // gviz geeft geen pure JSON terug, strip prefix
-    const json = JSON.parse(txt.match(/google\.visualization\.Query\.setResponse\((.*)\);/s)[1]);
-
-    alleData = parseerGviz(json);
-    verwerkData();
-  } catch(e) {
-    // Fallback: data ophalen via Apps Script
-    await laadViaAppsScript();
+window.addEventListener('DOMContentLoaded', () => {
+  if (isSessionGeldig()) {
+    huidigGebruiker = getStoredUser();
+    toonDashboard();
+  } else {
+    laadGSI();
   }
+});
+
+function isSessionGeldig() {
+  const expiry = localStorage.getItem(CONFIG.expiryKey);
+  const user = localStorage.getItem(CONFIG.userKey);
+  return expiry && user && Date.now() < parseInt(expiry);
 }
 
-async function laadViaAppsScript() {
-  try {
-    const res  = await fetch(WEBAPP + '?actie=dashboard');
-    const data = await res.json();
-    if (data.ok) {
-      alleData = data.rijen;
-      verwerkData();
-    } else {
-      toonFout('Kon data niet laden: ' + (data.fout || 'onbekende fout'));
-    }
-  } catch(e) {
-    toonFout('Verbindingsfout. Open de Sheet rechtstreeks of ververs de pagina.');
-  }
+function getStoredUser() {
+  try { return JSON.parse(localStorage.getItem(CONFIG.userKey)); } catch { return null; }
 }
 
-function parseerGviz(json) {
-  const cols = json.table.cols.map(c => c.label);
-  const rijen = [];
-  (json.table.rows || []).forEach(r => {
-    const rij = {};
-    r.c.forEach((cel, i) => {
-      rij[cols[i]] = cel ? cel.v : '';
+function laadGSI() {
+  const script = document.createElement('script');
+  script.src = 'https://accounts.google.com/gsi/client';
+  script.async = true;
+  script.onload = initGSI;
+  document.head.appendChild(script);
+}
+
+function initGSI() {
+  google.accounts.id.initialize({
+    client_id: CONFIG.clientId,
+    callback: handleCredential,
+    auto_select: false,
+    hosted_domain: CONFIG.allowedDomain,
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById('login-btn-container'),
+    { type: 'standard', theme: 'outline', size: 'large', text: 'signin_with', width: 280 }
+  );
+}
+
+async function handleCredential(response) {
+  const errorEl = document.getElementById('login-error');
+  errorEl.style.display = 'none';
+
+  try {
+    const result = await fetch(CONFIG.appsScriptUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'verifyToken', token: response.credential }),
     });
-    rijen.push(rij);
-  });
-  return rijen;
+    const data = await result.json();
+
+    if (data.ok && data.email && data.email.endsWith('@' + CONFIG.allowedDomain)) {
+      huidigGebruiker = { email: data.email, naam: data.naam || '' };
+      const expiry = Date.now() + 8 * 60 * 60 * 1000;
+      localStorage.setItem(CONFIG.userKey, JSON.stringify(huidigGebruiker));
+      localStorage.setItem(CONFIG.expiryKey, String(expiry));
+      toonDashboard();
+    } else {
+      errorEl.textContent = '⚠️ ' + (data.error || 'Geen toegang.') + ' Gebruik je @groenhoveschool.be account.';
+      errorEl.style.display = 'block';
+    }
+  } catch (err) {
+    errorEl.textContent = '⚠️ Verbindingsfout. Probeer opnieuw.';
+    errorEl.style.display = 'block';
+  }
 }
 
-function verwerkData() {
-  const van = document.getElementById('filterVan').value;
-  const tot = document.getElementById('filterTot').value;
-  const les = document.getElementById('filterLes').value;
+function uitloggen() {
+  localStorage.removeItem(CONFIG.tokenKey);
+  localStorage.removeItem(CONFIG.userKey);
+  localStorage.removeItem(CONFIG.expiryKey);
+  if (window.google) google.accounts.id.disableAutoSelect();
+  location.reload();
+}
 
-  // Filter op datum
-  let gefilterd = alleData.filter(r => {
-    const datum = r['Tijdstip'] ? new Date(r['Tijdstip']) : null;
-    if (!datum) return true;
-    const d = datum.toISOString().split('T')[0];
-    if (van && d < van) return false;
-    if (tot && d > tot) return false;
-    return true;
-  });
+// ── Dashboard tonen ───────────────────────────────────────────────────────────
 
-  // Filter op les
-  if (les) gefilterd = gefilterd.filter(r => r['Les'] === les || (r['les'] === les));
+function toonDashboard() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
 
-  // Vul les-filter dropdown
-  vulLesFilter(alleData);
+  const naam = huidigGebruiker?.naam || huidigGebruiker?.email?.split('@')[0] || '';
+  document.getElementById('auth-status').innerHTML = `
+    <span style="opacity:0.85;">👤 ${naam}</span>
+    <button class="btn-uitloggen" onclick="uitloggen()">Uitloggen</button>
+  `;
+
+  laadData();
+}
+
+async function laadData() {
+  const btn = document.getElementById('btn-refresh');
+  btn.disabled = true;
+  btn.textContent = '↺ Laden…';
+
+  try {
+    const url = CONFIG.appsScriptUrl + '?action=getDashboard&t=' + Date.now();
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.ok) {
+      verwerkData(data);
+      document.getElementById('laatste-update').textContent =
+        'Laatste update: ' + new Date().toLocaleTimeString('nl-BE');
+    } else {
+      toonFout('Kon data niet laden: ' + (data.error || ''));
+    }
+  } catch (err) {
+    toonFout('Verbindingsfout: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '↺ Vernieuwen';
+  }
+}
+
+function verwerkData(data) {
+  const { leerlingen, voortgang } = data;
 
   // Stats
-  const emails  = [...new Set(gefilterd.map(r => r['Email'] || r['email']))].filter(Boolean);
-  const lessen  = [...new Set(gefilterd.map(r => r['Les'] || r['les']))].filter(Boolean);
-  const laatste = gefilterd.length
-    ? gefilterd.sort((a,b) => new Date(b['Tijdstip']||0) - new Date(a['Tijdstip']||0))[0]['Tijdstip']
-    : null;
+  document.getElementById('stat-leerlingen').textContent = leerlingen.length;
+  document.getElementById('badge-leerlingen').textContent = leerlingen.length;
 
-  // Vandaag actief
-  const vandaagStr = new Date().toISOString().split('T')[0];
-  const vandaagActief = [...new Set(alleData
-    .filter(r => {
-      const d = r['Tijdstip'] ? new Date(r['Tijdstip']).toISOString().split('T')[0] : '';
-      return d === vandaagStr;
-    })
-    .map(r => r['Email'] || r['email']))].filter(Boolean).length;
+  const les1Set = new Set(voortgang.filter(v => v.les === 'les1').map(v => v.email));
+  const les2Set = new Set(voortgang.filter(v => v.les === 'les2').map(v => v.email));
+  document.getElementById('stat-les1').textContent = les1Set.size;
+  document.getElementById('stat-les2').textContent = les2Set.size;
 
-  document.getElementById('sActief').textContent     = vandaagActief;
-  document.getElementById('sAntwoorden').textContent = gefilterd.length;
-  document.getElementById('sLessen').textContent     = lessen.length;
-  document.getElementById('sLaatste').textContent    = laatste
-    ? new Date(laatste).toLocaleTimeString('nl-BE', {hour:'2-digit',minute:'2-digit'})
-    : '—';
+  const scores = voortgang.filter(v => v.procent).map(v => parseInt(v.procent));
+  const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
+  document.getElementById('stat-gem').textContent = gem !== null ? gem + '%' : '—';
 
-  // Leerlingen tab
-  bouwLeerlingGrid(gefilterd, emails);
+  // Leerlingentabel
+  renderLeerlingen(leerlingen, voortgang, les1Set, les2Set);
 
-  // Antwoorden tab
-  bouwAntwoordenTabel(gefilterd);
-
-  toonLaden(false);
+  // Voortgangtabel
+  renderVoortgang(voortgang);
+  document.getElementById('badge-voortgang').textContent = voortgang.length;
 }
 
-function vulLesFilter(data) {
-  const sel    = document.getElementById('filterLes');
-  const huidig = sel.value;
-  const lessen = [...new Set(data.map(r => r['Les'] || r['les']))].filter(Boolean).sort();
-  sel.innerHTML = '<option value="">— Alle lessen —</option>';
-  lessen.forEach(l => {
-    const opt = document.createElement('option');
-    opt.value = l; opt.textContent = l;
-    if (l === huidig) opt.selected = true;
-    sel.appendChild(opt);
-  });
-}
+function renderLeerlingen(leerlingen, voortgang, les1Set, les2Set) {
+  const container = document.getElementById('tabel-leerlingen');
 
-function bouwLeerlingGrid(data, emails) {
-  const grid = document.getElementById('leerlingGrid');
-  const leeg = document.getElementById('leegLeerlingen');
-
-  if (!emails.length) {
-    grid.style.display = 'none';
-    leeg.style.display = 'block';
+  if (!leerlingen.length) {
+    container.innerHTML = '<div class="leeg">Nog geen leerlingen ingelogd.</div>';
     return;
   }
 
-  grid.style.display = 'grid';
-  leeg.style.display = 'none';
-  grid.innerHTML = '';
-
-  emails.forEach(email => {
-    const rijen    = data.filter(r => (r['Email']||r['email']) === email);
-    const naam     = rijen[0]?.['Naam'] || rijen[0]?.['naam'] || email.split('@')[0];
-    const laatste  = rijen.sort((a,b) => new Date(b['Tijdstip']||0) - new Date(a['Tijdstip']||0))[0]?.['Tijdstip'];
-    const vandaagStr = new Date().toISOString().split('T')[0];
-    const actief   = laatste && new Date(laatste).toISOString().split('T')[0] === vandaagStr;
-
-    const kaart = document.createElement('div');
-    kaart.className = 'leerling-kaart';
-    kaart.onclick   = () => toonLeerlingDetail(email, naam, data);
-    kaart.innerHTML = `
-      <div class="lk-naam">${naam}</div>
-      <div class="lk-email">${email}</div>
-      <div class="lk-stats">
-        <div><span>${rijen.length}</span> antwoorden</div>
-        <div><span>${[...new Set(rijen.map(r=>r['Les']||r['les']))].filter(Boolean).length}</span> lessen</div>
-      </div>
-      <div class="lk-laatste">Laatste: ${laatste ? new Date(laatste).toLocaleString('nl-BE') : '—'}</div>
-      <span class="lk-badge ${actief ? 'badge-actief' : 'badge-inactief'}">${actief ? '● Actief vandaag' : '○ Niet actief vandaag'}</span>
-    `;
-    grid.appendChild(kaart);
+  const voortgangPerEmail = {};
+  voortgang.forEach(v => {
+    if (!voortgangPerEmail[v.email]) voortgangPerEmail[v.email] = [];
+    voortgangPerEmail[v.email].push(v);
   });
-}
 
-function bouwAntwoordenTabel(data) {
-  const body = document.getElementById('antwoordenBody');
-  const wrap = document.getElementById('tabelWrap');
-  const leeg = document.getElementById('leegAntwoorden');
+  const rows = leerlingen.map(l => {
+    const vp = voortgangPerEmail[l.email] || [];
+    const heeftLes1 = les1Set.has(l.email);
+    const heeftLes2 = les2Set.has(l.email);
+    const scores = vp.filter(v => v.procent).map(v => parseInt(v.procent));
+    const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
+    const datum = l.laatsteLogin ? new Date(l.laatsteLogin).toLocaleDateString('nl-BE') : '—';
 
-  const gesorteerd = [...data].sort((a,b) =>
-    new Date(b['Tijdstip']||0) - new Date(a['Tijdstip']||0));
-
-  if (!gesorteerd.length) {
-    wrap.style.display = 'none';
-    leeg.style.display = 'block';
-    body.innerHTML = '';
-    return;
-  }
-
-  wrap.style.display = 'block';
-  leeg.style.display = 'none';
-
-  body.innerHTML = gesorteerd.map(r => {
-    const tijd    = r['Tijdstip'] ? new Date(r['Tijdstip']).toLocaleString('nl-BE') : '—';
-    const naam    = r['Naam']     || r['naam']     || '?';
-    const les     = r['Les']      || r['les']      || '?';
-    const vraag   = r['Vraag']    || r['vraag']    || '?';
-    const antw    = r['Antwoord'] || r['antwoord'] || '';
-    const feedback = r['AI-feedback'] || r['feedback'] || '';
     return `
       <tr>
-        <td class="td-tijd">${tijd}</td>
-        <td class="td-naam">${naam}</td>
-        <td>${les}</td>
-        <td>${vraag}</td>
-        <td class="td-antwoord"><div class="td-kort" onclick="this.classList.toggle('open')">${antw || '<em style="color:#aaa">—</em>'}</div></td>
-        <td class="td-feedback"><div class="td-kort" onclick="this.classList.toggle('open')">${feedback || '<em style="color:#aaa">—</em>'}</div></td>
+        <td><strong>${l.naam || '—'}</strong></td>
+        <td class="td-email">${l.email}</td>
+        <td>
+          ${heeftLes1 ? '<span class="chip chip-les1">Les 1 ✓</span>' : '<span class="chip chip-geen">Les 1</span>'}
+          ${heeftLes2 ? ' <span class="chip chip-les2">Les 2 ✓</span>' : ' <span class="chip chip-geen">Les 2</span>'}
+        </td>
+        <td>
+          ${gem !== null ? `
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="progress-bar" style="width:80px;">
+                <div class="progress-fill ${gem >= 70 ? 'hoog' : gem < 50 ? 'laag' : ''}"
+                     style="width:${gem}%"></div>
+              </div>
+              <span style="font-size:13px;">${gem}%</span>
+            </div>
+          ` : '<span style="color:#9ca3af;font-size:13px;">geen data</span>'}
+        </td>
+        <td style="color:var(--grijs);font-size:13px;">${datum}</td>
       </tr>
     `;
   }).join('');
+
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Naam</th>
+          <th>E-mail</th>
+          <th>Lessen</th>
+          <th>Gem. score</th>
+          <th>Laatste login</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
 }
 
-function toonLeerlingDetail(email, naam, data) {
-  const rijen = data
-    .filter(r => (r['Email']||r['email']) === email)
-    .sort((a,b) => new Date(b['Tijdstip']||0) - new Date(a['Tijdstip']||0));
+function renderVoortgang(voortgang) {
+  const container = document.getElementById('tabel-voortgang');
 
-  document.getElementById('modalTitel').textContent = naam;
-  document.getElementById('modalInhoud').innerHTML = rijen.map(r => `
-    <div class="modal-rij">
-      <div class="modal-label">${r['Les']||r['les']||'?'} · ${r['Vraag-ID']||r['vraagId']||'?'} · ${r['Tijdstip'] ? new Date(r['Tijdstip']).toLocaleString('nl-BE') : '—'}</div>
-      <div style="font-size:.78rem;font-weight:700;color:var(--zacht);margin-bottom:.3rem;">${r['Vraag']||r['vraag']||''}</div>
-      <div class="modal-inhoud" style="margin-bottom:.4rem;">${r['Antwoord']||r['antwoord']||'<em style="color:#aaa">geen antwoord</em>'}</div>
-      ${(r['AI-feedback']||r['feedback']) ? `<div class="modal-inhoud" style="background:#f0f7ff;font-size:.82rem;color:#333;">${r['AI-feedback']||r['feedback']}</div>` : ''}
-    </div>
-  `).join('<hr style="border:none;border-top:1px solid var(--rand);margin:.5rem 0;">');
-
-  document.getElementById('overlay').classList.add('open');
-}
-
-function sluitModal(e) {
-  if (!e || e.target === document.getElementById('overlay') || e.currentTarget === document.querySelector('.modal-sluit')) {
-    document.getElementById('overlay').classList.remove('open');
+  if (!voortgang.length) {
+    container.innerHTML = '<div class="leeg">Nog geen voortgang geregistreerd.</div>';
+    return;
   }
-}
 
-// ── TABS ──
-function toonTab(id, btn) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-}
+  // Sorteer op datum aflopend
+  const gesorteerd = [...voortgang].sort((a, b) => new Date(b.datum) - new Date(a.datum));
 
-// ── LADEN ──
-function toonLaden(ja) {
-  document.getElementById('ladenLeerlingen').style.display  = ja ? 'block' : 'none';
-  document.getElementById('ladenAntwoorden').style.display  = ja ? 'block' : 'none';
-  if (ja) {
-    document.getElementById('leerlingGrid').style.display   = 'none';
-    document.getElementById('tabelWrap').style.display      = 'none';
-    document.getElementById('leegLeerlingen').style.display = 'none';
-    document.getElementById('leegAntwoorden').style.display = 'none';
-  }
+  const rows = gesorteerd.slice(0, 50).map(v => {
+    const procent = v.procent ? parseInt(v.procent) : null;
+    const datum = v.datum ? new Date(v.datum).toLocaleString('nl-BE', {
+      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+    }) : '—';
+
+    return `
+      <tr>
+        <td class="td-email">${v.email}</td>
+        <td><span class="chip ${v.les === 'les1' ? 'chip-les1' : 'chip-les2'}">${v.les || '—'}</span></td>
+        <td style="font-size:13px;color:var(--grijs);">${v.onderdeel || '—'}</td>
+        <td>
+          ${procent !== null ? `
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="progress-bar" style="width:60px;">
+                <div class="progress-fill ${procent >= 70 ? 'hoog' : procent < 50 ? 'laag' : ''}"
+                     style="width:${procent}%"></div>
+              </div>
+              <span style="font-size:13px;">${v.score}/${v.maxScore} (${procent}%)</span>
+            </div>
+          ` : '—'}
+        </td>
+        <td style="color:var(--grijs);font-size:12px;">${datum}</td>
+      </tr>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Leerling</th>
+          <th>Les</th>
+          <th>Onderdeel</th>
+          <th>Score</th>
+          <th>Datum</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${gesorteerd.length > 50 ? `<p style="padding:12px 16px;font-size:12px;color:var(--grijs);">Toont laatste 50 van ${gesorteerd.length} registraties.</p>` : ''}
+  `;
 }
 
 function toonFout(bericht) {
-  toonLaden(false);
-  document.getElementById('leegLeerlingen').style.display = 'block';
-  document.getElementById('leegLeerlingen').textContent   = '⚠ ' + bericht;
+  document.getElementById('tabel-leerlingen').innerHTML =
+    `<div class="leeg" style="color:var(--accent);">⚠️ ${bericht}</div>`;
+  document.getElementById('tabel-voortgang').innerHTML = '';
 }
-
-// ── CSV EXPORT ──
-function exporteerCSV() {
-  if (!alleData.length) return;
-  const keys = Object.keys(alleData[0]);
-  const csv  = [
-    keys.join(';'),
-    ...alleData.map(r => keys.map(k => `"${(r[k]||'').toString().replace(/"/g,'""')}"`).join(';'))
-  ].join('\n');
-  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = `latijn-dashboard-${new Date().toISOString().split('T')[0]}.csv`;
-  a.click();
-}
-
-// ── START ──
-laadData();
-setInterval(laadData, 60000); // automatisch vernieuwen elke minuut
 </script>
+
 </body>
 </html>
