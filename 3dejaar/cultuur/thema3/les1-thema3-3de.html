@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wagenrennen — Cultuur Thema 3 Les 1 · 3de jaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── FONTS ──────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --jaar-kleur:   #006633;    /* Deep Forest — 3de jaar */
+  --accent:       #FF3B1D;    /* Waregem Pulse Red */
+  --achtergrond:  #cce0d6;    /* Deep Forest @ 20% op #f3f1ef */
+  --wit:          #f3f1ef;
+  --zwart:        #010100;
+  --tekst-zacht:  #4a6b5a;
+  --rand:         #b8d4c4;
+  --groen-licht:  #e0efd8;    /* jaar-kleur @ 15% op wit */
+  --geel:         #fff9d6;
+  --geel-rand:    #e8d96a;
+  --roze:         #fce8e8;
+  --roze-rand:    #e8b8b8;
+  --radius:       10px;
+  --ft: 'Flanders Art Sans', Arial, sans-serif;
+  --fb: 'Noto Sans', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--fb);
+  background: var(--achtergrond);
+  color: var(--zwart);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+/* ── MERKLINT ────────────────────────────────────────────────── */
+.site-header {
+  background: var(--jaar-kleur);
+  color: var(--wit);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .85rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.10);
+}
+.site-header .logo { height: 38px; width: auto; display: block; }
+.site-header h1 {
+  font-family: var(--ft);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: .02em;
+}
+.site-header .sub {
+  font-family: var(--fb);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .85;
+  margin-left: auto;
+}
+
+/* ── TOOLBAR ─────────────────────────────────────────────────── */
+.site-toolbar {
+  background: var(--wit);
+  border-bottom: 1px solid var(--rand);
+  padding: .6rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+}
+.toolbar-left { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.toolbar-right { display: flex; align-items: center; gap: .5rem; }
+.back-btn, .ctrl-btn {
+  font-family: var(--fb);
+  font-size: .82rem;
+  color: var(--zwart);
+  background: transparent;
+  border: 1px solid var(--rand);
+  border-radius: 20px;
+  padding: .32rem .8rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  transition: background .15s, border-color .15s, color .15s;
+  white-space: nowrap;
+}
+.back-btn:hover, .ctrl-btn:hover {
+  background: var(--jaar-kleur);
+  color: var(--wit);
+  border-color: var(--jaar-kleur);
+}
+.ctrl-btn.tab-btn.active {
+  background: var(--jaar-kleur);
+  color: var(--wit);
+  border-color: var(--jaar-kleur);
+}
+.topbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .3rem; }
+.topbar-label { font-family: var(--fb); font-size: .8rem; color: var(--tekst-zacht); }
+
+/* Didactiek dropdown */
+.didactiek-wrap { position: relative; }
+.didactiek-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: white;
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.10);
+  min-width: 170px;
+  z-index: 200;
+  overflow: hidden;
+}
+.didactiek-dropdown.open { display: block; }
+.dd-item {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: .55rem 1rem;
+  font-family: var(--fb);
+  font-size: .82rem;
+  color: var(--zwart);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  text-align: left;
+  transition: background .12s;
+}
+.dd-item:hover { background: var(--groen-licht); }
+.dd-check {
+  width: 14px; height: 14px;
+  border: 1.5px solid var(--rand);
+  border-radius: 3px;
+  display: inline-block;
+  flex-shrink: 0;
+  background: white;
+  transition: background .12s, border-color .12s;
+}
+.dd-item.active .dd-check {
+  background: var(--jaar-kleur);
+  border-color: var(--jaar-kleur);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l3 3 5-6' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 8px;
+}
+.dd-divider { height: 1px; background: var(--rand); margin: 2px 0; }
+
+/* ── PAGE TITLE ──────────────────────────────────────────────── */
+.page-title-wrap {
+  background: var(--wit);
+  border-bottom: 1px solid var(--rand);
+  padding: 1.1rem 1.5rem .9rem;
+}
+.page-title-inner { max-width: 860px; margin: 0 auto; }
+.page-meta {
+  font-family: var(--fb);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .3rem;
+}
+.page-title {
+  font-family: var(--ft);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: var(--jaar-kleur);
+  line-height: 1.15;
+  margin-bottom: .3rem;
+}
+.page-sub {
+  font-family: var(--fb);
+  font-size: .87rem;
+  color: var(--tekst-zacht);
+  line-height: 1.5;
+}
+
+/* ── LEERDOELEN ──────────────────────────────────────────────── */
+.leerdoelen-banner {
+  background: var(--jaar-kleur);
+  color: var(--wit);
+  padding: .65rem 1.5rem;
+}
+.leerdoelen-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+.leerdoelen-label {
+  font-family: var(--fb);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: .85;
+  white-space: nowrap;
+}
+.doel-pill {
+  font-family: var(--fb);
+  font-size: .76rem;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.32);
+  border-radius: 20px;
+  padding: .2rem .65rem;
+  white-space: nowrap;
+}
+
+/* ── MAIN ────────────────────────────────────────────────────── */
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 22px 20px 60px;
+  flex: 1;
+}
+
+/* ── MODUS PANELS ────────────────────────────────────────────── */
+.mode-panel { display: none; }
+.mode-panel.active { display: block; animation: fadeIn .22s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ── CARDS ───────────────────────────────────────────────────── */
+.card {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--rand);
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(0,102,51,.06);
+}
+.card-title {
+  font-family: var(--ft);
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--jaar-kleur);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 13px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.card-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rand);
+  margin-left: 6px;
+  min-width: 20px;
+}
+
+/* ── VRAGEN ──────────────────────────────────────────────────── */
+.vraag-blok { margin-bottom: 4px; }
+.vraag-blok + .vraag-blok { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--rand); }
+.vraag-label {
+  font-size: .87rem;
+  font-weight: 700;
+  color: var(--zwart);
+  margin-bottom: 8px;
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vraag-nr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: .72rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+textarea, input[type="text"] {
+  width: 100%;
+  border: 1.5px solid var(--rand);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-family: var(--fb);
+  font-size: .87rem;
+  color: var(--zwart);
+  background: white;
+  transition: border-color .2s;
+  resize: vertical;
+}
+textarea { min-height: 78px; }
+textarea:focus, input[type="text"]:focus {
+  outline: none;
+  border-color: var(--jaar-kleur);
+  box-shadow: 0 0 0 3px rgba(0,102,51,.10);
+}
+.vraag-actie { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* ── BUTTONS ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: .82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: var(--fb);
+}
+.btn-primary { background: var(--jaar-kleur); color: white; }
+.btn-primary:hover { background: #004d26; }
+.btn-outline {
+  background: white;
+  color: var(--jaar-kleur);
+  border: 1.5px solid var(--jaar-kleur);
+}
+.btn-outline:hover { background: var(--groen-licht); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ── HULPBOXEN ───────────────────────────────────────────────── */
+.denkhulp {
+  background: var(--geel);
+  border: 1px solid var(--geel-rand);
+  border-radius: 7px;
+  padding: 9px 13px;
+  font-size: .82rem;
+  color: #4a3e00;
+  margin: 8px 0 2px;
+  line-height: 1.5;
+  display: none;
+}
+.denkhulp.zichtbaar { display: block; animation: fadeIn .2s ease; }
+.denkhulp strong { color: #2e2600; }
+
+.feedback-box {
+  display: none;
+  margin-top: 10px;
+  padding: 11px 15px;
+  border-radius: 7px;
+  font-size: .84rem;
+  line-height: 1.55;
+  border-left: 4px solid var(--jaar-kleur);
+  background: var(--groen-licht);
+  color: #003a1c;
+}
+.feedback-box.active { display: block; animation: fadeIn .25s ease; }
+
+/* ── PROMPT / CONTEXTKADER ───────────────────────────────────── */
+.prompt-blok {
+  background: var(--groen-licht);
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: .84rem;
+  color: var(--tekst-zacht);
+  margin-top: 10px;
+  line-height: 1.55;
+}
+.prompt-blok strong { color: var(--jaar-kleur); }
+
+/* ── TABEL ───────────────────────────────────────────────────── */
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: .9rem;
+}
+.mini-table th, .mini-table td {
+  border: 1px solid var(--rand);
+  padding: 9px 12px;
+  vertical-align: top;
+  font-family: var(--fb);
+}
+.mini-table th {
+  background: var(--groen-licht);
+  color: var(--jaar-kleur);
+  font-family: var(--ft);
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: .05em;
+  text-align: left;
+}
+
+/* ── BEGRIPPENKADER ──────────────────────────────────────────── */
+.begrippen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+.begrip-pill {
+  background: var(--groen-licht);
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: .83rem;
+}
+.begrip-pill .bp-term {
+  font-family: var(--ft);
+  font-weight: 700;
+  color: var(--jaar-kleur);
+  font-style: italic;
+  display: block;
+  margin-bottom: 3px;
+}
+.begrip-pill .bp-def { color: var(--tekst-zacht); line-height: 1.4; font-size: .8rem; }
+
+/* ── TWO-COL ─────────────────────────────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 16px;
+}
+
+/* ── RETRIEVAL ───────────────────────────────────────────────── */
+.retrieval-blok {
+  background: #f6f8f7;
+  border: 1.5px dashed var(--rand);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 9px;
+}
+.retrieval-vraag { font-size: .87rem; font-weight: 700; margin-bottom: 9px; color: var(--zwart); }
+.retrieval-antwoord {
+  display: none;
+  background: white;
+  border: 1px solid var(--rand);
+  border-radius: 6px;
+  padding: 9px 13px;
+  font-size: .83rem;
+  line-height: 1.55;
+  margin-top: 9px;
+  color: #333;
+}
+.retrieval-antwoord.zichtbaar { display: block; animation: fadeIn .2s ease; }
+.zelfcheck { margin-top: 9px; display: none; gap: 8px; }
+.zelfcheck.zichtbaar { display: flex; }
+.zelfcheck-btn {
+  flex: 1; padding: 7px;
+  border: none; border-radius: 6px;
+  font-size: .79rem; font-weight: 700;
+  cursor: pointer; font-family: var(--fb);
+  transition: all .15s;
+}
+.zelfcheck-btn.ja { background: var(--groen-licht); color: var(--jaar-kleur); border: 1px solid var(--jaar-kleur); }
+.zelfcheck-btn.nee { background: var(--roze); color: #800; border: 1px solid var(--roze-rand); }
+.zelfcheck-btn:hover { filter: brightness(.93); }
+
+/* ── EXIT TICKET ─────────────────────────────────────────────── */
+.exit-ticket {
+  background: var(--groen-licht);
+  border: 2px solid var(--jaar-kleur);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.exit-ticket h3 {
+  font-family: var(--ft);
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--jaar-kleur);
+  margin-bottom: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ul, ol { margin: 8px 0 0 20px; }
+li + li { margin-top: 6px; }
+p { margin-bottom: 10px; }
+p:last-child { margin-bottom: 0; }
+
+/* ── S/L CHIPS ───────────────────────────────────────────────── */
+.s-chip, .l-chip {
+  display: none;
+  font-size: .66rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: help;
+  position: relative;
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.s-chip { background: #e4edf8; color: #13427f; border: 1px solid #b8cce8; }
+body.surma-mode .s-chip { display: inline-flex; }
+.l-chip { background: var(--groen-licht); color: var(--jaar-kleur); border: 1px solid var(--rand); }
+body.lpd-mode .l-chip { display: inline-flex; }
+
+.s-chip::after, .l-chip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  color: white;
+  font-size: .7rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: normal;
+  width: max-content;
+  max-width: 240px;
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s;
+  z-index: 300;
+  text-transform: none;
+  letter-spacing: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+.s-chip:hover::after, .l-chip:hover::after { opacity: 1; }
+
+body.surma-mode .s-highlight { outline: 2px solid rgba(19,66,127,.22); outline-offset: 3px; border-radius: 6px; }
+body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offset: 3px; border-radius: 6px; }
+
+/* ── SCORE BAR ───────────────────────────────────────────────── */
+.score-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.score-circle {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.score-number { font-size: 1.1rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.score-label { font-size: .55rem; color: #999; text-transform: uppercase; letter-spacing: .06em; }
+.score-info { flex: 1; }
+.score-info strong { display: block; font-size: .87rem; color: var(--jaar-kleur); margin-bottom: 2px; }
+.score-info small { font-size: .75rem; color: #666; }
+.progress-bar-outer { height: 5px; background: var(--rand); border-radius: 3px; margin-top: 7px; overflow: hidden; }
+.progress-bar-inner { height: 100%; background: linear-gradient(90deg, var(--jaar-kleur), var(--accent)); border-radius: 3px; transition: width .5s ease; }
+
+/* ── VOET ────────────────────────────────────────────────────── */
+.voet {
+  text-align: center;
+  padding: 1rem;
+  font-family: var(--fb);
+  font-size: 12px;
+  color: var(--tekst-zacht);
+}
+.spinner {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border: 2px solid rgba(255,255,255,.35);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin-right: 4px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 600px) {
+  .two-col { grid-template-columns: 1fr; }
+  .begrippen-grid { grid-template-columns: 1fr; }
+  .main { padding: 14px 12px 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MERKLINT ══════════════════════════════════════════════════ -->
+<header class="site-header">
+  <img class="logo" src="images/nav/logo_mono_wit.png" alt="Groenhove">
+  <h1>Cultuur</h1>
+  <span class="sub">S.O. Groenhove Waregem</span>
+</header>
+
+<!-- ══ TOOLBAR ═══════════════════════════════════════════════════ -->
+<div class="site-toolbar">
+  <div class="toolbar-left">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M10 12L6 8l4-4"/></svg>
+      Terug
+    </button>
+    <div class="topbar-divider"></div>
+    <span class="topbar-label">Thema 3</span>
+    <div class="topbar-divider"></div>
+    <button class="ctrl-btn tab-btn active" onclick="toonModus('ontdek',this)">👁 Ontdek</button>
+    <button class="ctrl-btn tab-btn" onclick="toonModus('leer',this)">📜 Leer</button>
+    <button class="ctrl-btn tab-btn" onclick="toonModus('oefen',this)">💪 Oefen</button>
+  </div>
+  <div class="toolbar-right">
+    <div class="didactiek-wrap">
+      <button class="ctrl-btn" onclick="toggleDropdown(this)">
+        Didactiek <span style="font-size:.6rem;opacity:.7;margin-left:.1rem;">▾</span>
+      </button>
+      <div class="didactiek-dropdown" id="didactiekDropdown">
+        <button class="dd-item" id="dd-surma" onclick="toggleLaag('surma')">
+          <span class="dd-check"></span> Bouwstenen
+        </button>
+        <div class="dd-divider"></div>
+        <button class="dd-item" id="dd-lpd" onclick="toggleLaag('lpd')">
+          <span class="dd-check"></span> LPD
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE TITLE ════════════════════════════════════════════════ -->
+<div class="page-title-wrap">
+  <div class="page-title-inner">
+    <div class="page-meta">Cultuur · Thema 3 · Panem et circenses · Les 1</div>
+    <h2 class="page-title">Wagenrennen</h2>
+    <p class="page-sub">Doorloop de drie modi in volgorde: Ontdek → Leer → Oefen. Elke fase bouwt voort op de vorige.</p>
+  </div>
+</div>
+
+<!-- ══ LEERDOELEN ════════════════════════════════════════════════ -->
+<div class="leerdoelen-banner">
+  <div class="leerdoelen-inner">
+    <span class="leerdoelen-label">Na deze les kun je:</span>
+    <span class="doel-pill">het Circus Maximus beschrijven</span>
+    <span class="doel-pill">facties en hun rol uitleggen</span>
+    <span class="doel-pill">het verloop van een race reconstrueren</span>
+    <span class="doel-pill">wagenrennen als machtsvertoon duiden</span>
+  </div>
+</div>
+
+<!-- ══ MAIN ══════════════════════════════════════════════════════ -->
+<main class="main">
+
+  <div class="score-bar" id="scoreBar">
+    <div class="score-circle">
+      <span class="score-number" id="scoreNr">0</span>
+      <span class="score-label">punten</span>
+    </div>
+    <div class="score-info">
+      <strong id="scoreStatus">Begin maar!</strong>
+      <small id="scoreDetail">Beantwoord vragen om punten te verdienen.</small>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- ══ ONTDEK ══════════════════════════════════════════════════ -->
+  <section class="mode-panel active" id="modus-ontdek">
+
+    <div class="card">
+      <div class="card-title">
+        👁 Wat weet jij al?
+        <span class="s-chip" data-tip="① Voorkennis activeren: leerlingen halen op wat er al leeft in hun hoofd — ook onzekere kennis telt.">⬡ ①</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren in tijd & ruimte: voorkennis over de Romeinse samenleving activeren.">WD2_03.03.01</span>
+      </div>
+      <p style="font-size:.85rem;color:#555;margin-bottom:15px;line-height:1.55;">Beantwoord deze vragen <strong>zonder</strong> de rest te lezen. Het gaat om wat er al in jouw hoofd zit — ook als je twijfelt.</p>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">1</span>Wat stel jij je concreet voor bij een Romeins circus? Denk aan plaats, geluid, publiek en sfeer.</div>
+        <textarea id="o-v1" placeholder="Schrijf alles op wat je weet of denkt te weten…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-outline s-highlight l-highlight" onclick="toggleDenkhulp('dh-v1',this)">💡 Denkhulp</button>
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v1','o-fb1','De leerling beschrijft een Romans circus vanuit voorkennis. Bevestig wat klopt, stuur vriendelijk bij waar nodig. Sluit af met een prikkelende vraag over macht en spektakel.')">✦ Feedback</button>
+          <span class="s-chip" data-tip="⑦ Scaffolding: denkhulp op verzoek — leerling kiest zelf of hij ondersteuning nodig heeft.">⬡ ⑦</span>
+          <span class="s-chip" data-tip="⑪ Feedback die denken aanzet: AI reageert inhoudelijk en eindigt met een vervolgvraag.">⬡ ⑪</span>
+          <span class="l-chip" data-tip="WD2_03.03.01 – situeren in tijd & ruimte: de leerling situeert het Circus Maximus in het antieke Rome.">WD2_03.03.01</span>
+        </div>
+        <div class="denkhulp" id="dh-v1"><strong>Denk aan:</strong> films, games of verhalen die je kent. Hoe groot was zo'n arena? Wie zat er op welke plek?</div>
+        <div class="feedback-box" id="o-fb1"></div>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">2</span>Waarom zouden Romeinen massaal naar wagenrennen zijn gekomen? Ging het alleen om ontspanning?</div>
+        <textarea id="o-v2" placeholder="Jouw redenering…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v2','o-fb2','De leerling redeneert over de sociale en politieke functie van wagenrennen. Stimuleer ze om verder te denken dan pure sport — richting prestige, machtsvertoon, gemeenschap.')">✦ Feedback</button>
+          <span class="s-chip" data-tip="⑪ Feedback die denken aanzet: leerling denkt verder dan de oppervlakte.">⬡ ⑪</span>
+          <span class="l-chip" data-tip="WD2_03.03.02 – cultuur vergelijken oud↔heden: aanzet tot vergelijking van Romeinse volksvermaak met hedendaags massaspektakel.">WD2_03.03.02</span>
+        </div>
+        <div class="feedback-box" id="o-fb2"></div>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">3</span>Met welke moderne sport of evenement vergelijk jij wagenrennen? Waarom juist die?</div>
+        <textarea id="o-v3" placeholder="Vergelijking en redenering…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-outline s-highlight l-highlight" onclick="toggleDenkhulp('dh-v3',this)">💡 Denkhulp</button>
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v3','o-fb3','De leerling vergelijkt Roman wagenrennen met een modern evenement. Bevestig de vergelijking, verdiep ze met kenmerken van Panem et circenses — spektakel, macht, massa.')">✦ Feedback</button>
+          <span class="s-chip" data-tip="④ Dual coding: vergelijking activeert zowel beeld als conceptueel denken.">⬡ ④</span>
+          <span class="l-chip" data-tip="WD2_03.03.02 – cultuur vergelijken: leerling legt bewust een brug tussen antieke en hedendaagse cultuur.">WD2_03.03.02</span>
+        </div>
+        <div class="denkhulp" id="dh-v3"><strong>Denk aan:</strong> Formule 1, voetbalstadions, topsporters, grote festivals, fanbases en supporterscultuur.</div>
+        <div class="feedback-box" id="o-fb3"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        📽 Moderne brug: <em>Ben-Hur</em> (2016)
+        <span class="s-chip" data-tip="① Narratieve kapstok: film als emotionele ingang vóór de historische stof.">⬡ ①</span>
+        <span class="s-chip" data-tip="④ Dual coding: bewegend beeld activeert een auditief-visueel schema naast de tekst.">⬡ ④</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: historisch aannemelijke vs. filmische details leren onderscheiden.">WD2_03.03.01</span>
+      </div>
+      <p style="font-size:.85rem;color:#555;margin-bottom:12px;">De race in de herwerking van <em>Ben-Hur</em> uit 2016 brengt spektakel, snelheid en gevaar meteen samen. Bekijk een kort fragment en noteer:</p>
+      <ul style="font-size:.85rem;color:#444;">
+        <li>Hoe wordt spanning opgebouwd voor het publiek?</li>
+        <li>Hoe reageert de massa op de race?</li>
+        <li>Wat lijkt historisch aannemelijk?</li>
+        <li>Wat is waarschijnlijk filmisch uitvergroot?</li>
+      </ul>
+      <div class="vraag-actie" style="margin-top:12px;">
+        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v4','o-fb4','De leerling onderscheidt historische en filmische elementen in een moderne verfilming van een Romeinse race. Reageer specifiek op wat ze noemen. Sluit af met: wat zou een echte toeschouwer in 100 n.Chr. het meest verbazen aan die film?')">✦ Feedback</button>
+        <span class="s-chip" data-tip="⑦ Scaffolding: gestructureerde kijkopdracht met vier aandachtspunten.">⬡ ⑦</span>
+      </div>
+      <textarea id="o-v4" placeholder="Jouw observaties na het kijken…" style="margin-top:10px;"></textarea>
+      <div class="feedback-box" id="o-fb4"></div>
+    </div>
+
+  </section>
+
+  <!-- ══ LEER ════════════════════════════════════════════════════ -->
+  <section class="mode-panel" id="modus-leer">
+
+    <div class="card">
+      <div class="card-title">
+        📖 Het Circus Maximus als massaspektakel
+        <span class="s-chip" data-tip="② Gestructureerde instructie: heldere opbouw van grote naar kleine schaal.">⬡ ②</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren in tijd & ruimte: de leerling plaatst het Circus Maximus in de Romeinse samenleving en begrijpt de symbolische functie ervan.">WD2_03.03.01</span>
+      </div>
+      <p>In de eerste eeuwen van onze jaartelling waren wagenrennen een van de grote passies van de Romeinen. Op hoogtijdagen zat het Circus Maximus volledig vol en kreeg het publiek een dagvullend programma van races. De bezoeker werd overdonderd door de grootte van de tribunes, de decoratie, de massa en het lawaai. Alles ademde spektakel.</p>
+      <p>Belangrijk is ook de plaats van het <strong>pulvinar</strong>, de keizerlijke loge. Van daaruit keek de keizer neer op de baan. Dat was geen neutraal detail: zijn zichtbare aanwezigheid bevestigde zijn verheven status en toonde aan wie de macht in handen had.</p>
+      <div class="prompt-blok">
+        <strong>Denkstop:</strong> waarom is de zichtbare aanwezigheid van de keizer zo belangrijk? Denk aan propaganda, aanwezigheid en symbolische macht.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        🐎 Facties en supporters
+        <span class="s-chip" data-tip="③ Concrete voorbeelden: de vier facties als herkenbaar anker voor abstractere begrippen.">⬡ ③</span>
+        <span class="s-chip" data-tip="⑤ Actieve verwerking: tabel vraagt leerling zelf verbanden te leggen.">⬡ ⑤</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: sociale structuur van de Romeinse samenleving zichtbaar in de supporterscultuur.">WD2_03.03.01</span>
+        <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken: de moderne supporterscultuur als analogie voor de Romeinse factiones.">WD2_03.03.02</span>
+      </div>
+      <p>De menners reden niet voor zichzelf, maar voor een renstal of <strong>factio</strong>. De bekendste waren de Groenen, Blauwen, Roden en Witten. De gebruikelijke scheidslijnen van de Romeinse maatschappij vervaagden hier tijdelijk: zowel elites als gewone mensen konden dezelfde factie aanhangen.</p>
+      <p>Supporters juichten, hoopten, raakten ontmoedigd, riepen leuzen en konden agressief worden. De supporterscultuur is verrassend modern.</p>
+      <table class="mini-table">
+        <tr><th>Begrip</th><th>Wat is het?</th><th>Waarom belangrijk?</th></tr>
+        <tr><td><em>factio</em></td><td>een renstal of kleurengroep</td><td>maakt van sport ook groepsidentiteit</td></tr>
+        <tr><td>supporters</td><td>aanhang van een factie</td><td>zorgt voor emotie, rivaliteit en massa-effect</td></tr>
+        <tr><td>kleuren</td><td>Groenen, Blauwen, Roden, Witten</td><td>geven herkenbaarheid en partijgevoel</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        ⚡ Paarden, menners en gevaar
+        <span class="s-chip" data-tip="③ Modeling: leraar denkt hardop voor over techniek, gevaar en publieksbeleving.">⬡ ③</span>
+        <span class="s-chip" data-tip="② Kleine stappen: van materiaal → techniek → gevaar → publieksbeleving.">⬡ ②</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: materiële cultuur (uitrusting, techniek) als onderdeel van de Romeinse samenleving begrijpen.">WD2_03.03.01</span>
+      </div>
+      <p>De paarden werden intensief getraind en de menners moesten sterk, lenig en behendig zijn. De menner bestuurde zijn wagen niet zoals een moderne jockey: de zware teugels werden rond het middel gebonden. Dat gaf kracht en controle, maar maakte ongelukken levensgevaarlijk. Wie crashte, kon meegesleurd worden en moest zich met een mes los kunnen snijden.</p>
+      <div class="prompt-blok">
+        <strong>Verwerkingsvraag:</strong> waarom maakte precies de combinatie van vaardigheid en gevaar het spektakel zo aantrekkelijk voor het publiek?
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        🏁 Hoe verliep een race?
+        <span class="s-chip" data-tip="④ Dual coding: begrippenkader naast tekst — woord en beeld gelijktijdig.">⬡ ④</span>
+        <span class="s-chip" data-tip="⑦ Scaffolding: begrippenkader als steunstructuur bij het lezen.">⬡ ⑦</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de leerling reconstrueert het verloop van een race vanuit concrete details.">WD2_03.03.01</span>
+      </div>
+      <div class="two-col">
+        <div>
+          <p>Een race bestond uit zeven ronden. De wagens reden rond de <strong>spina</strong>, de scheidingsmuur midden op de baan. Vooral aan de <strong>metae</strong>, de keerpunten, werd het gevaarlijk: daar moesten menners scherp sturen, snelheid controleren en tegelijk hun positie behouden. Op die momenten ontstonden de zwaarste botsingen.</p>
+          <p>De wedstrijden waren niet alleen snel, maar ook tactisch. Wie te ver naar buiten gedwongen werd, verloor meters. Wie te scherp sneed, riskeerde een crash of een kettingbotsing.</p>
+        </div>
+        <div class="begrippen-grid" style="grid-template-columns:1fr;">
+          <div class="begrip-pill"><span class="bp-term">spina</span><span class="bp-def">scheidingsmuur in het midden van de baan</span></div>
+          <div class="begrip-pill"><span class="bp-term">metae</span><span class="bp-def">keerpunten aan beide uiteinden</span></div>
+          <div class="begrip-pill"><span class="bp-term">pulvinar</span><span class="bp-def">keizerlijke loge met zicht op de baan</span></div>
+          <div class="begrip-pill"><span class="bp-term">naufragium</span><span class="bp-def">crash — letterlijk "schipbreuk" van de wagen</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ OEFEN ═══════════════════════════════════════════════════ -->
+  <section class="mode-panel" id="modus-oefen">
+
+    <div class="card">
+      <div class="card-title">
+        🔄 Retrieval — zonder boek
+        <span class="s-chip" data-tip="⑩ Retrieval practice: actief ophalen uit het geheugen versterkt het leereffect.">⬡ ⑩</span>
+        <span class="s-chip" data-tip="⑧ Gespreid herhalen: retrieval meteen na de leerfase.">⬡ ⑧</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de leerling benoemt kernbegrippen en kenmerken van de Romeinse circusbeleving.">WD2_03.03.01</span>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">1. Welke vier facties kende het Circus Maximus?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra1')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra1">De Groenen, Blauwen, Roden en Witten. Elke factie was een renstal met eigen kleuren en supporters.</div>
+        <div class="zelfcheck" id="zc1">
+          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra1')">✓ Wist ik</button>
+          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra1')">✗ Nog niet</button>
+        </div>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">2. Wat was het <em>pulvinar</em> en waarom was het symbolisch belangrijk?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra2')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra2">Het pulvinar was de keizerlijke loge. De zichtbare aanwezigheid van de keizer bevestigde zijn status en symbolische macht over het volk.</div>
+        <div class="zelfcheck" id="zc2">
+          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra2')">✓ Wist ik</button>
+          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra2')">✗ Nog niet</button>
+        </div>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">3. Waarom waren crashes zo gevaarlijk voor menners?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra3')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra3">De teugels waren rond het middel gebonden. Bij een crash kon de menner meegesleurd worden en moest hij zich met een mes los kunnen snijden.</div>
+        <div class="zelfcheck" id="zc3">
+          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra3')">✓ Wist ik</button>
+          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra3')">✗ Nog niet</button>
+        </div>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">4. Wat was de <em>spina</em> en waar lagen de <em>metae</em>?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra4')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra4">De spina was de scheidingsmuur in het midden van de baan. De metae waren de keerpunten aan beide uiteinden — het gevaarlijkste moment van elke ronde.</div>
+        <div class="zelfcheck" id="zc4">
+          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra4')">✓ Wist ik</button>
+          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra4')">✗ Nog niet</button>
+        </div>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">5. Waarom waren wagenrennen meer dan alleen sport?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra5')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra5">Ze waren een instrument van macht en propaganda. De keizer toonde zich aan het volk, de facties organiseerden de samenleving en de massa werd gestuurd via spektakel en gratis eten (<em>panem et circenses</em>).</div>
+        <div class="zelfcheck" id="zc5">
+          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra5')">✓ Wist ik</button>
+          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra5')">✗ Nog niet</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        🔗 Toepassen
+        <span class="s-chip" data-tip="⑨ Afwisseling in oefentypen: van reproductie naar toepassing en vergelijking.">⬡ ⑨</span>
+        <span class="s-chip" data-tip="⑪ Feedback die denken aanzet: feedbackrichting stuurt naar meerlaagsige antwoorden.">⬡ ⑪</span>
+        <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken oud↔heden: leerling legt bewust verbanden tussen de antieke en de moderne sportcultuur.">WD2_03.03.02</span>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">1</span>Vergelijk een Romeinse wagenrace met een moderne topwedstrijd naar keuze. Noem minstens één gelijkenis én één verschil.</div>
+        <textarea id="a-v1" placeholder="Jouw vergelijking…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v1','a-fb1','De leerling vergelijkt Römische wagenrennen met een moderne sport. Reageer specifiek op de genoemde gelijkenis en het verschil. Sluit af met: welk aspect van Panem et circenses herken je in jouw moderne voorbeeld?')">✦ Feedback</button>
+          <span class="l-chip" data-tip="WD2_03.03.02 – cultuur vergelijken: bewuste analyse van gelijkenissen en verschillen.">WD2_03.03.02</span>
+        </div>
+        <div class="feedback-box" id="a-fb1"></div>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">2</span>Leg uit waarom wagenrennen tegelijk vermaak, prestige en macht waren.</div>
+        <textarea id="a-v2" placeholder="Jouw redenering…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v2','a-fb2','De leerling legt de driedubbele functie van wagenrennen uit: vermaak, prestige en macht. Sterke antwoorden noemen concrete details — het pulvinar, de facties, de massa. Geef gerichte feedback en vraag: hoe zou je dit illustreren met een concreet voorbeeld uit de les?')">✦ Feedback</button>
+          <span class="l-chip" data-tip="WD2_03.02.02 – betekenis geven: de leerling interpreteert culturele verschijnselen in hun maatschappelijke context.">WD2_03.02.02</span>
+        </div>
+        <div class="feedback-box" id="a-fb2"></div>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>🏁 Exit ticket</h3>
+      <ul style="font-size:.85rem;color:#333;">
+        <li>Wat wist je vóór deze les nog niet over wagenrennen?</li>
+        <li>Welk begrip (<em>factio, pulvinar, spina, metae, naufragium</em>) is voor jou nog niet helemaal duidelijk?</li>
+        <li>Wat zou jij thuis actief proberen op te halen uit je hoofd?</li>
+      </ul>
+      <div class="vraag-actie" style="margin-top:12px;">
+        <textarea id="exit-v" placeholder="Jouw reflectie…" style="min-height:60px;font-size:.84rem;"></textarea>
+        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('exit-v','exit-fb','De leerling reflecteert op zijn leerproces. Reageer warmhartig. Bevestig de eerlijkheid van de reflectie en geef een concrete tip voor thuisstudie rond het genoemde begrip.')">✦ Feedback</button>
+        <span class="s-chip" data-tip="⑥ Check begrip van de hele klas: exit ticket maakt leerwinst zichtbaar.">⬡ ⑥</span>
+        <span class="s-chip" data-tip="⑫ Leer leren: leerling identificeert zelf wat nog onduidelijk is.">⬡ ⑫</span>
+        <span class="l-chip" data-tip="WD2_03.02.02 – reflecteren: de leerling evalueert het eigen leerproces.">WD2_03.02.02</span>
+      </div>
+      <div class="feedback-box" id="exit-fb"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem · Cultuur Thema 3 · Les 1</p>
+
+<script>
+/* ── MODUS TABS ─────────────────────────────────────────────── */
+function toonModus(id, btn) {
+  document.querySelectorAll('.mode-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('modus-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── DIDACTIEK DROPDOWN ─────────────────────────────────────── */
+function toggleDropdown(btn) {
+  const dd = document.getElementById('didactiekDropdown');
+  dd.classList.toggle('open');
+  document.addEventListener('click', function closeDd(e) {
+    if (!btn.closest('.didactiek-wrap').contains(e.target)) {
+      dd.classList.remove('open');
+      document.removeEventListener('click', closeDd);
+    }
+  });
+}
+
+function toggleLaag(laag) {
+  const body = document.body;
+  const cls = laag + '-mode';
+  body.classList.toggle(cls);
+  const btn = document.getElementById('dd-' + laag);
+  btn.classList.toggle('active', body.classList.contains(cls));
+}
+
+/* ── DENKHULP ───────────────────────────────────────────────── */
+function toggleDenkhulp(id, btn) {
+  const el = document.getElementById(id);
+  const zichtbaar = el.classList.toggle('zichtbaar');
+  btn.textContent = zichtbaar ? '🙈 Verberg hulp' : '💡 Denkhulp';
+}
+
+/* ── RETRIEVAL ──────────────────────────────────────────────── */
+function toonAntwoord(btn, antwoordId) {
+  const antw = document.getElementById(antwoordId);
+  antw.classList.add('zichtbaar');
+  btn.style.display = 'none';
+  const nr = antwoordId.replace('ra','');
+  const zc = document.getElementById('zc' + nr);
+  if (zc) zc.classList.add('zichtbaar');
+}
+
+let score = 0;
+function scoreZelfcheck(btn, punten, antwoordId) {
+  const nr = antwoordId.replace('ra','');
+  const zc = document.getElementById('zc' + nr);
+  if (zc) { zc.querySelectorAll('.zelfcheck-btn').forEach(b => b.disabled = true); }
+  score += punten;
+  updateScore();
+}
+
+function updateScore() {
+  document.getElementById('scoreNr').textContent = score;
+  const maxScore = 5;
+  const pct = Math.round((score / maxScore) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  if (score === 0) {
+    document.getElementById('scoreStatus').textContent = 'Begin maar!';
+    document.getElementById('scoreDetail').textContent = 'Beantwoord vragen om punten te verdienen.';
+  } else if (score < 3) {
+    document.getElementById('scoreStatus').textContent = 'Goed bezig!';
+    document.getElementById('scoreDetail').textContent = 'Blijf doorgaan — je bent er bijna.';
+  } else if (score < 5) {
+    document.getElementById('scoreStatus').textContent = 'Heel goed!';
+    document.getElementById('scoreDetail').textContent = 'Nog even doorzetten!';
+  } else {
+    document.getElementById('scoreStatus').textContent = 'Uitstekend!';
+    document.getElementById('scoreDetail').textContent = 'Je beheerst de kernbegrippen van les 1.';
+  }
+}
+
+/* ── AI FEEDBACK ────────────────────────────────────────────── */
+async function vraagAI(inputId, feedbackId, systeemPrompt) {
+  const input = document.getElementById(inputId);
+  const fbBox = document.getElementById(feedbackId);
+  const tekst = input ? input.value.trim() : '';
+  if (!tekst) { fbBox.textContent = 'Schrijf eerst iets in het tekstvak.'; fbBox.classList.add('active'); return; }
+  fbBox.innerHTML = '<span class="spinner"></span> Verwerken…';
+  fbBox.classList.add('active');
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systeemPrompt + ' Antwoord in het Nederlands. Wees warm, concreet en didactisch. Maximaal 120 woorden.',
+        messages: [{ role: 'user', content: tekst }]
+      })
+    });
+    const data = await res.json();
+    const tekst2 = data.content?.map(b => b.text || '').join('') || '(Geen antwoord ontvangen)';
+    fbBox.textContent = tekst2;
+  } catch (e) {
+    fbBox.textContent = 'Verbindingsfout — probeer opnieuw.';
+  }
+}
+</script>
+</body>
+</html>

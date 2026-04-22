@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Het Nika-oproer — Cultuur Thema 3 Les 2 · 3de jaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── FONTS ──────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --jaar-kleur:   #006633;
+  --accent:       #FF3B1D;
+  --achtergrond:  #cce0d6;
+  --wit:          #f3f1ef;
+  --zwart:        #010100;
+  --tekst-zacht:  #4a6b5a;
+  --rand:         #b8d4c4;
+  --groen-licht:  #e0efd8;
+  --geel:         #fff9d6;
+  --geel-rand:    #e8d96a;
+  --roze:         #fce8e8;
+  --roze-rand:    #e8b8b8;
+  --radius:       10px;
+  --ft: 'Flanders Art Sans', Arial, sans-serif;
+  --fb: 'Noto Sans', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--fb);
+  background: var(--achtergrond);
+  color: var(--zwart);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+/* ── MERKLINT ────────────────────────────────────────────────── */
+.site-header {
+  background: var(--jaar-kleur);
+  color: var(--wit);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .85rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.10);
+}
+.site-header .logo { height: 38px; width: auto; display: block; }
+.site-header h1 {
+  font-family: var(--ft);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: .02em;
+}
+.site-header .sub {
+  font-family: var(--fb);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .85;
+  margin-left: auto;
+}
+
+/* ── TOOLBAR ─────────────────────────────────────────────────── */
+.site-toolbar {
+  background: var(--wit);
+  border-bottom: 1px solid var(--rand);
+  padding: .6rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+}
+.toolbar-left { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.toolbar-right { display: flex; align-items: center; gap: .5rem; }
+.back-btn, .ctrl-btn {
+  font-family: var(--fb);
+  font-size: .82rem;
+  color: var(--zwart);
+  background: transparent;
+  border: 1px solid var(--rand);
+  border-radius: 20px;
+  padding: .32rem .8rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  transition: background .15s, border-color .15s, color .15s;
+  white-space: nowrap;
+}
+.back-btn:hover, .ctrl-btn:hover {
+  background: var(--jaar-kleur);
+  color: var(--wit);
+  border-color: var(--jaar-kleur);
+}
+.ctrl-btn.tab-btn.active {
+  background: var(--jaar-kleur);
+  color: var(--wit);
+  border-color: var(--jaar-kleur);
+}
+.topbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .3rem; }
+.topbar-label { font-family: var(--fb); font-size: .8rem; color: var(--tekst-zacht); }
+
+/* Didactiek dropdown */
+.didactiek-wrap { position: relative; }
+.didactiek-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: white;
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.10);
+  min-width: 170px;
+  z-index: 200;
+  overflow: hidden;
+}
+.didactiek-dropdown.open { display: block; }
+.dd-item {
+  width: 100%; background: none; border: none;
+  padding: .55rem 1rem; font-family: var(--fb); font-size: .82rem;
+  color: var(--zwart); cursor: pointer; display: flex;
+  align-items: center; gap: .5rem; text-align: left;
+  transition: background .12s;
+}
+.dd-item:hover { background: var(--groen-licht); }
+.dd-check {
+  width: 14px; height: 14px;
+  border: 1.5px solid var(--rand); border-radius: 3px;
+  display: inline-block; flex-shrink: 0;
+  background: white; transition: background .12s, border-color .12s;
+}
+.dd-item.active .dd-check {
+  background: var(--jaar-kleur);
+  border-color: var(--jaar-kleur);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l3 3 5-6' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center; background-size: 10px 8px;
+}
+.dd-divider { height: 1px; background: var(--rand); margin: 2px 0; }
+
+/* ── PAGE TITLE ──────────────────────────────────────────────── */
+.page-title-wrap {
+  background: var(--wit);
+  border-bottom: 1px solid var(--rand);
+  padding: 1.1rem 1.5rem .9rem;
+}
+.page-title-inner { max-width: 860px; margin: 0 auto; }
+.page-meta {
+  font-family: var(--fb);
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .3rem;
+}
+.page-title {
+  font-family: var(--ft);
+  font-weight: 700; font-size: 1.7rem;
+  color: var(--jaar-kleur); line-height: 1.15; margin-bottom: .3rem;
+}
+.page-sub { font-family: var(--fb); font-size: .87rem; color: var(--tekst-zacht); line-height: 1.5; }
+
+/* ── LEERDOELEN ──────────────────────────────────────────────── */
+.leerdoelen-banner { background: var(--jaar-kleur); color: var(--wit); padding: .65rem 1.5rem; }
+.leerdoelen-inner {
+  max-width: 860px; margin: 0 auto;
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+}
+.leerdoelen-label {
+  font-family: var(--fb); font-size: .78rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; opacity: .85; white-space: nowrap;
+}
+.doel-pill {
+  font-family: var(--fb); font-size: .76rem;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.32);
+  border-radius: 20px; padding: .2rem .65rem; white-space: nowrap;
+}
+
+/* ── BRUG BANNER ─────────────────────────────────────────────── */
+.brug-banner {
+  background: var(--groen-licht);
+  border-bottom: 1px solid var(--rand);
+  padding: .65rem 1.5rem;
+  font-family: var(--fb);
+  font-size: .83rem;
+  color: var(--jaar-kleur);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.brug-banner strong { font-family: var(--ft); }
+
+/* ── MAIN ────────────────────────────────────────────────────── */
+.main { max-width: 860px; margin: 0 auto; padding: 22px 20px 60px; flex: 1; }
+
+/* ── MODUS PANELS ────────────────────────────────────────────── */
+.mode-panel { display: none; }
+.mode-panel.active { display: block; animation: fadeIn .22s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ── CARDS ───────────────────────────────────────────────────── */
+.card {
+  background: white; border-radius: var(--radius);
+  border: 1px solid var(--rand); padding: 20px 22px;
+  margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,102,51,.06);
+}
+.card-title {
+  font-family: var(--ft); font-size: .78rem; font-weight: 700;
+  color: var(--jaar-kleur); text-transform: uppercase; letter-spacing: .07em;
+  margin-bottom: 13px; display: flex; align-items: center;
+  gap: 7px; flex-wrap: wrap;
+}
+.card-title::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--rand); margin-left: 6px; min-width: 20px;
+}
+
+/* ── VRAGEN ──────────────────────────────────────────────────── */
+.vraag-blok { margin-bottom: 4px; }
+.vraag-blok + .vraag-blok { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--rand); }
+.vraag-label {
+  font-size: .87rem; font-weight: 700; color: var(--zwart);
+  margin-bottom: 8px; line-height: 1.5;
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+}
+.vraag-nr {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent); color: white; border-radius: 50%;
+  width: 20px; height: 20px; font-size: .72rem; flex-shrink: 0; line-height: 1;
+}
+textarea, input[type="text"] {
+  width: 100%; border: 1.5px solid var(--rand); border-radius: 6px;
+  padding: 9px 12px; font-family: var(--fb); font-size: .87rem;
+  color: var(--zwart); background: white; transition: border-color .2s; resize: vertical;
+}
+textarea { min-height: 78px; }
+textarea:focus, input[type="text"]:focus {
+  outline: none; border-color: var(--jaar-kleur);
+  box-shadow: 0 0 0 3px rgba(0,102,51,.10);
+}
+.vraag-actie { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* ── BUTTONS ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border: none; border-radius: 6px;
+  font-size: .82rem; font-weight: 700; cursor: pointer;
+  transition: all .2s; font-family: var(--fb);
+}
+.btn-primary { background: var(--jaar-kleur); color: white; }
+.btn-primary:hover { background: #004d26; }
+.btn-outline { background: white; color: var(--jaar-kleur); border: 1.5px solid var(--jaar-kleur); }
+.btn-outline:hover { background: var(--groen-licht); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ── HULPBOXEN ───────────────────────────────────────────────── */
+.denkhulp {
+  background: var(--geel); border: 1px solid var(--geel-rand);
+  border-radius: 7px; padding: 9px 13px;
+  font-size: .82rem; color: #4a3e00; margin: 8px 0 2px; line-height: 1.5; display: none;
+}
+.denkhulp.zichtbaar { display: block; animation: fadeIn .2s ease; }
+.denkhulp strong { color: #2e2600; }
+.feedback-box {
+  display: none; margin-top: 10px; padding: 11px 15px; border-radius: 7px;
+  font-size: .84rem; line-height: 1.55;
+  border-left: 4px solid var(--jaar-kleur); background: var(--groen-licht); color: #003a1c;
+}
+.feedback-box.active { display: block; animation: fadeIn .25s ease; }
+
+/* ── PROMPT / CONTEXTKADER ───────────────────────────────────── */
+.prompt-blok {
+  background: var(--groen-licht); border: 1px solid var(--rand);
+  border-radius: 8px; padding: 11px 14px; font-size: .84rem;
+  color: var(--tekst-zacht); margin-top: 10px; line-height: 1.55;
+}
+.prompt-blok strong { color: var(--jaar-kleur); }
+
+/* ── TIJDLIJN ────────────────────────────────────────────────── */
+.tijdlijn {
+  display: flex; flex-direction: column;
+  position: relative; gap: 0;
+  margin-top: 10px;
+}
+.tijdlijn::before {
+  content: '';
+  position: absolute;
+  left: 16px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--jaar-kleur), var(--accent));
+}
+.tl-item {
+  display: flex; gap: 14px;
+  padding: 0 0 14px 40px;
+  position: relative;
+}
+.tl-dot {
+  position: absolute; left: 8px; top: 4px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--accent); border: 3px solid white;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.tl-content { flex: 1; }
+.tl-content strong { display: block; font-size: .84rem; color: var(--jaar-kleur); margin-bottom: 3px; }
+.tl-content p { font-size: .81rem; color: #555; line-height: 1.5; margin: 0; }
+
+/* ── BEGRIPPENKADER ──────────────────────────────────────────── */
+.begrippen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px; margin-top: 10px;
+}
+.begrip-pill {
+  background: var(--groen-licht); border: 1px solid var(--rand);
+  border-radius: 8px; padding: 9px 12px; font-size: .83rem;
+}
+.begrip-pill .bp-term {
+  font-family: var(--ft); font-weight: 700;
+  color: var(--jaar-kleur); display: block; margin-bottom: 3px;
+}
+.begrip-pill .bp-def { color: var(--tekst-zacht); line-height: 1.4; font-size: .8rem; }
+
+/* ── RETRIEVAL ───────────────────────────────────────────────── */
+.retrieval-blok {
+  background: #f6f8f7; border: 1.5px dashed var(--rand);
+  border-radius: 8px; padding: 14px; margin-bottom: 9px;
+}
+.retrieval-vraag { font-size: .87rem; font-weight: 700; margin-bottom: 9px; color: var(--zwart); }
+.retrieval-antwoord {
+  display: none; background: white; border: 1px solid var(--rand);
+  border-radius: 6px; padding: 9px 13px;
+  font-size: .83rem; line-height: 1.55; margin-top: 9px; color: #333;
+}
+.retrieval-antwoord.zichtbaar { display: block; animation: fadeIn .2s ease; }
+.zelfcheck { margin-top: 9px; display: none; gap: 8px; }
+.zelfcheck.zichtbaar { display: flex; }
+.zelfcheck-btn {
+  flex: 1; padding: 7px; border: none; border-radius: 6px;
+  font-size: .79rem; font-weight: 700; cursor: pointer; font-family: var(--fb); transition: all .15s;
+}
+.zelfcheck-btn.ja { background: var(--groen-licht); color: var(--jaar-kleur); border: 1px solid var(--jaar-kleur); }
+.zelfcheck-btn.nee { background: var(--roze); color: #800; border: 1px solid var(--roze-rand); }
+.zelfcheck-btn:hover { filter: brightness(.93); }
+
+/* ── EXIT TICKET ─────────────────────────────────────────────── */
+.exit-ticket {
+  background: var(--groen-licht); border: 2px solid var(--jaar-kleur);
+  border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px;
+}
+.exit-ticket h3 {
+  font-family: var(--ft); font-size: .88rem; font-weight: 700;
+  color: var(--jaar-kleur); margin-bottom: 13px;
+  display: flex; align-items: center; gap: 8px;
+}
+ul, ol { margin: 8px 0 0 20px; }
+li + li { margin-top: 6px; }
+p { margin-bottom: 10px; }
+p:last-child { margin-bottom: 0; }
+
+/* ── S/L CHIPS ───────────────────────────────────────────────── */
+.s-chip, .l-chip {
+  display: none; font-size: .66rem; font-weight: 700;
+  padding: 2px 7px; border-radius: 20px; white-space: nowrap;
+  cursor: help; position: relative; flex-shrink: 0;
+  vertical-align: middle; margin-left: 4px;
+}
+.s-chip { background: #e4edf8; color: #13427f; border: 1px solid #b8cce8; }
+body.surma-mode .s-chip { display: inline-flex; }
+.l-chip { background: var(--groen-licht); color: var(--jaar-kleur); border: 1px solid var(--rand); }
+body.lpd-mode .l-chip { display: inline-flex; }
+.s-chip::after, .l-chip::after {
+  content: attr(data-tip);
+  position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  background: #1a1a2e; color: white; font-size: .7rem; font-weight: 500;
+  padding: 6px 10px; border-radius: 6px; white-space: normal;
+  width: max-content; max-width: 240px; line-height: 1.4;
+  pointer-events: none; opacity: 0; transition: opacity .15s;
+  z-index: 300; text-transform: none; letter-spacing: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+.s-chip:hover::after, .l-chip:hover::after { opacity: 1; }
+body.surma-mode .s-highlight { outline: 2px solid rgba(19,66,127,.22); outline-offset: 3px; border-radius: 6px; }
+body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offset: 3px; border-radius: 6px; }
+
+/* ── SCORE BAR ───────────────────────────────────────────────── */
+.score-bar {
+  display: flex; align-items: center; gap: 16px;
+  background: white; border: 1px solid var(--rand);
+  border-radius: var(--radius); padding: 12px 18px;
+  margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.score-circle {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 3px solid var(--accent);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.score-number { font-size: 1.1rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.score-label { font-size: .55rem; color: #999; text-transform: uppercase; letter-spacing: .06em; }
+.score-info { flex: 1; }
+.score-info strong { display: block; font-size: .87rem; color: var(--jaar-kleur); margin-bottom: 2px; }
+.score-info small { font-size: .75rem; color: #666; }
+.progress-bar-outer { height: 5px; background: var(--rand); border-radius: 3px; margin-top: 7px; overflow: hidden; }
+.progress-bar-inner { height: 100%; background: linear-gradient(90deg, var(--jaar-kleur), var(--accent)); border-radius: 3px; transition: width .5s ease; }
+
+/* ── VOET ────────────────────────────────────────────────────── */
+.voet { text-align: center; padding: 1rem; font-family: var(--fb); font-size: 12px; color: var(--tekst-zacht); }
+.spinner {
+  display: inline-block; width: 12px; height: 12px;
+  border: 2px solid rgba(255,255,255,.35); border-top-color: white;
+  border-radius: 50%; animation: spin .7s linear infinite; margin-right: 4px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 600px) {
+  .begrippen-grid { grid-template-columns: 1fr; }
+  .main { padding: 14px 12px 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MERKLINT ══════════════════════════════════════════════════ -->
+<header class="site-header">
+  <img class="logo" src="images/nav/logo_mono_wit.png" alt="Groenhove">
+  <h1>Cultuur</h1>
+  <span class="sub">S.O. Groenhove Waregem</span>
+</header>
+
+<!-- ══ TOOLBAR ═══════════════════════════════════════════════════ -->
+<div class="site-toolbar">
+  <div class="toolbar-left">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M10 12L6 8l4-4"/></svg>
+      Terug
+    </button>
+    <div class="topbar-divider"></div>
+    <span class="topbar-label">Thema 3</span>
+    <div class="topbar-divider"></div>
+    <button class="ctrl-btn tab-btn active" onclick="toonModus('ontdek',this)">👁 Ontdek</button>
+    <button class="ctrl-btn tab-btn" onclick="toonModus('leer',this)">📜 Leer</button>
+    <button class="ctrl-btn tab-btn" onclick="toonModus('oefen',this)">💪 Oefen</button>
+  </div>
+  <div class="toolbar-right">
+    <div class="didactiek-wrap">
+      <button class="ctrl-btn" onclick="toggleDropdown(this)">
+        Didactiek <span style="font-size:.6rem;opacity:.7;margin-left:.1rem;">▾</span>
+      </button>
+      <div class="didactiek-dropdown" id="didactiekDropdown">
+        <button class="dd-item" id="dd-surma" onclick="toggleLaag('surma')">
+          <span class="dd-check"></span> Bouwstenen
+        </button>
+        <div class="dd-divider"></div>
+        <button class="dd-item" id="dd-lpd" onclick="toggleLaag('lpd')">
+          <span class="dd-check"></span> LPD
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE TITLE ════════════════════════════════════════════════ -->
+<div class="page-title-wrap">
+  <div class="page-title-inner">
+    <div class="page-meta">Cultuur · Thema 3 · Panem et circenses · Les 2</div>
+    <h2 class="page-title">Het Nika-oproer</h2>
+    <p class="page-sub">Deze les bouwt voort op les 1. Wat daar nog "sport en spektakel" leek, groeit hier uit tot een politieke explosie.</p>
+  </div>
+</div>
+
+<!-- ══ LEERDOELEN ════════════════════════════════════════════════ -->
+<div class="leerdoelen-banner">
+  <div class="leerdoelen-inner">
+    <span class="leerdoelen-label">Na deze les kun je:</span>
+    <span class="doel-pill">Constantinopel en Justinianus situeren</span>
+    <span class="doel-pill">het Nika-oproer in zes stappen reconstrueren</span>
+    <span class="doel-pill">spektakel als politiek instrument duiden</span>
+    <span class="doel-pill">wagenrennen vergelijken met actuele conflicten</span>
+  </div>
+</div>
+
+<!-- ══ BRUG NAAR LES 1 ══════════════════════════════════════════ -->
+<div class="brug-banner">
+  🔗 <strong>Brug vanuit les 1:</strong> de facties en het massaspektakel waren al aanwezig in Rome. Hier zie je wat er kan gebeuren als die massa een politieke vijand vindt.
+</div>
+
+<!-- ══ MAIN ══════════════════════════════════════════════════════ -->
+<main class="main">
+
+  <div class="score-bar" id="scoreBar">
+    <div class="score-circle">
+      <span class="score-number" id="scoreNr">0</span>
+      <span class="score-label">punten</span>
+    </div>
+    <div class="score-info">
+      <strong id="scoreStatus">Begin maar!</strong>
+      <small id="scoreDetail">Beantwoord vragen om punten te verdienen.</small>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- ══ ONTDEK ══════════════════════════════════════════════════ -->
+  <section class="mode-panel active" id="modus-ontdek">
+
+    <div class="card">
+      <div class="card-title">
+        🔄 Terugblik op les 1
+        <span class="s-chip" data-tip="① Voorkennis activeren: gespreid herhalen — retrieval vóór nieuwe stof.">⬡ ①</span>
+        <span class="s-chip" data-tip="⑧ Gespreid herhalen: retrieval-vragen vanuit les 1 activeren de basis voor les 2.">⬡ ⑧</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: kernbegrippen uit les 1 worden herhaald als basis voor het Nika-oproer.">WD2_03.03.01</span>
+      </div>
+      <p style="font-size:.85rem;color:#555;margin-bottom:12px;">Beantwoord zonder je notities te raadplegen:</p>
+      <ul style="font-size:.85rem;color:#444;">
+        <li>Wat was een <em>factio</em>?</li>
+        <li>Waarom was het publiek in het circus méér dan zomaar publiek?</li>
+        <li>Wat kon een massaspektakel tonen over macht?</li>
+      </ul>
+      <div class="vraag-actie" style="margin-top:12px;">
+        <textarea id="o-v0" placeholder="Jouw antwoorden op de drie vragen…" style="min-height:70px;"></textarea>
+        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v0','o-fb0','De leerling beantwoordt drie retrieval-vragen vanuit les 1 (factio, publiek als meer dan publiek, macht en spektakel). Reageer per vraag: bevestig wat klopt, stuur bij waar nodig. Maak de brug naar het Nika-oproer: "En nu gaan we zien wat er kan gebeuren als die massa een gemeenschappelijke vijand vindt."')">✦ Feedback + brug</button>
+      </div>
+      <div class="feedback-box" id="o-fb0"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        🤔 Denk vooruit
+        <span class="s-chip" data-tip="① Voorkennis activeren: anticipatievragen — leerling stelt verwachtingen op voor de nieuwe stof.">⬡ ①</span>
+        <span class="s-chip" data-tip="⑥ Check begrip van de hele klas: klassikale discussie op basis van de anticipatievragen.">⬡ ⑥</span>
+        <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken: aanzet tot nadenken over macht, massa en politiek — oud en heden.">WD2_03.03.02</span>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">1</span>Kan een sportmassa gevaarlijk politiek worden? Waarom wel of niet?</div>
+        <textarea id="o-v1" placeholder="Jouw redenering…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v1','o-fb1','De leerling redeneert of een sportmassa politiek gevaarlijk kan worden. Reageer inhoudelijk — bevestig, nuanceer of stuur bij. Sluit af met: denk aan een modern voorbeeld waarbij supporters en politiek verstrengeld raakten.')">✦ Feedback</button>
+          <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken: moderne parallellen voor de politisering van sportmassa's.">WD2_03.03.02</span>
+        </div>
+        <div class="feedback-box" id="o-fb1"></div>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">2</span>Wat gebeurt er als rivaliserende supportersgroepen plots een gezamenlijke vijand vinden?</div>
+        <textarea id="o-v2" placeholder="Jouw redenering…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-outline s-highlight l-highlight" onclick="toggleDenkhulp('dh-v2',this)">💡 Denkhulp</button>
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v2','o-fb2','De leerling redeneert over wat er gebeurt als rivaliserende groepen een gemeenschappelijke vijand vinden. Bevestig de logica, verdiep met groepsdynamica. Maak de link naar Blauwen én Groenen die samen optrekten tegen Justinianus.')">✦ Feedback</button>
+          <span class="s-chip" data-tip="⑦ Scaffolding: denkhulp op verzoek.">⬡ ⑦</span>
+          <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de politieke dynamiek van de facties in Constantinopel begrijpen.">WD2_03.03.01</span>
+        </div>
+        <div class="denkhulp" id="dh-v2"><strong>Denk aan:</strong> rivaliserende supportersgroepen die verenigd worden door een gemeenschappelijke ergernis — wat versterkt het groepsgevoel? Wat maakt de massa gevaarlijker?</div>
+        <div class="feedback-box" id="o-fb2"></div>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">3</span>Waarom zou een keizer een hippodroom of stadion willen controleren?</div>
+        <textarea id="o-v3" placeholder="Jouw redenering…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-outline s-highlight l-highlight" onclick="toggleDenkhulp('dh-v3',this)">💡 Denkhulp</button>
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v3','o-fb3','De leerling redeneert over de reden waarom een keizer de hippodroom wil controleren. Bevestig zichtbaarheid, propaganda en macht. Verdiep: wie de hippodroom controleert, controleert de publieke opinie.')">✦ Feedback</button>
+          <span class="s-chip" data-tip="⑦ Scaffolding: begrippenkader als denkhulp.">⬡ ⑦</span>
+          <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de hippodroom als politieke ruimte begrijpen.">WD2_03.03.01</span>
+        </div>
+        <div class="denkhulp" id="dh-v3"><strong>Denk aan:</strong> zichtbaarheid, prestige, propaganda, publieke stem, dreiging van de massa.</div>
+        <div class="feedback-box" id="o-fb3"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ LEER ════════════════════════════════════════════════════ -->
+  <section class="mode-panel" id="modus-leer">
+
+    <div class="card">
+      <div class="card-title">
+        🏛 Constantinopel en Justinianus
+        <span class="s-chip" data-tip="② Gestructureerde instructie: compact contextkader vóór het verhaal.">⬡ ②</span>
+        <span class="s-chip" data-tip="④ Kapstok: vier kernbegrippen als haak voor de nieuwe stof.">⬡ ④</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren in tijd & ruimte: de leerling situeert Constantinopel en Justinianus in de late Oudheid.">WD2_03.03.01</span>
+      </div>
+      <p>Na de klassieke bloeitijd van Rome verschoof het zwaartepunt naar het oosten. <strong>Constantinopel</strong> werd de hoofdstad van het Oost-Romeinse of Byzantijnse Rijk. De stad lag strategisch tussen Europa en Azië, was rijk en politiek buitengewoon belangrijk.</p>
+      <p>Onder keizer <strong>Justinianus</strong> werd geprobeerd het rijk te versterken via bestuur, wetgeving, oorlog en grootse bouwprojecten. Dat maakte hem ambitieus en machtig, maar tegelijk groeide ook de onvrede over belastingen en bestuur.</p>
+      <div class="begrippen-grid">
+        <div class="begrip-pill"><span class="bp-term">Constantinopel</span><span class="bp-def">politieke en economische hoofdstad van het Oost-Romeinse Rijk</span></div>
+        <div class="begrip-pill"><span class="bp-term">Hippodroom</span><span class="bp-def">het centrum van spektakel én publieke aanwezigheid in de stad</span></div>
+        <div class="begrip-pill"><span class="bp-term">Justinianus</span><span class="bp-def">ambitieuze keizer met grootse militaire en bestuurlijke plannen</span></div>
+        <div class="begrip-pill"><span class="bp-term">Theodora</span><span class="bp-def">invloedrijke keizerin — speelt een cruciale rol tijdens de crisis</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        🟦🟩 De Blauwen en de Groenen
+        <span class="s-chip" data-tip="③ Concrete casus: de facties als herkenbaar ankerpunt voor de politieke spanning.">⬡ ③</span>
+        <span class="s-chip" data-tip="⑤ Actieve verwerking: denkvraag over het opvallende van een coalitie tussen rivalen.">⬡ ⑤</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de rol van de facties als politieke netwerken in Constantinopel.">WD2_03.03.01</span>
+      </div>
+      <p>Ook in Constantinopel bleven de facties belangrijk. Vooral de <strong>Blauwen</strong> en de <strong>Groenen</strong> speelden een grote rol. Ze waren meer dan supportersgroepen: ze functioneerden ook als sociale netwerken binnen het stadsleven. Daardoor konden spanningen in de hippodroom sneller politieke betekenis krijgen.</p>
+      <div class="prompt-blok">
+        <strong>Denkvraag:</strong> waarom is het opvallend dat net rivaliserende groepen uiteindelijk samen optrekken? Wat zegt dat over de kracht van gedeelde onvrede?
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        ⏱ Het verloop van het Nika-oproer
+        <span class="s-chip" data-tip="② Heldere fasering: zes stappen maken het verhaal overzichtelijk en reproduceerbaar.">⬡ ②</span>
+        <span class="s-chip" data-tip="⑦ Scaffolding: tijdlijnstructuur als steun bij het reconstrueren van oorzaak-gevolgketens.">⬡ ⑦</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de leerling reconstrueert het verloop van het Nika-oproer chronologisch.">WD2_03.03.01</span>
+        <span class="l-chip" data-tip="WD2_03.02.02 – betekenis geven: de leerling interpreteert het oproer als symptoom van politieke en sociale spanning.">WD2_03.02.02</span>
+      </div>
+      <div class="tijdlijn">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <strong>Stap 1 — Onvrede</strong>
+            <p>Er groeide ontevredenheid over belastingen, beleid en figuren uit de keizerlijke omgeving.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <strong>Stap 2 — Explosie in de hippodroom</strong>
+            <p>Spanningen rond de facties sloegen om in openlijk verzet. De kreet <em>Nika!</em> ("Overwin!") klonk door de massa.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <strong>Stap 3 — De stad brandt</strong>
+            <p>De opstand breidde zich uit. Grote delen van Constantinopel werden beschadigd of vernield.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <strong>Stap 4 — Twijfel aan het hof</strong>
+            <p>Justinianus overwoog te vluchten. Theodora hield hem tegen — haar rol hier is historisch iconisch geworden.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <strong>Stap 5 — Bloedige onderdrukking</strong>
+            <p>De opstand eindigde in een harde repressie in de hippodroom zelf: duizenden doden.</p>
+          </div>
+        </div>
+        <div class="tl-item" style="padding-bottom:0;">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <strong>Stap 6 — Nasleep</strong>
+            <p>Justinianus bleef aan de macht. De heropbouw, waaronder de Hagia Sophia, werd een zichtbaar teken van hersteld gezag.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        💡 Waarom is dit historisch zo belangrijk?
+        <span class="s-chip" data-tip="⑤ Actief verwerken: duiding vraagt dat leerling actief verbanden legt.">⬡ ⑤</span>
+        <span class="s-chip" data-tip="⑪ Denken stimuleren: denkvraag verbindt het oproer met het overkoepelende thema.">⬡ ⑪</span>
+        <span class="l-chip" data-tip="WD2_03.02.02 – betekenis geven: de leerling interpreteert het Nika-oproer als cultureel en politiek fenomeen.">WD2_03.02.02</span>
+        <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken: de hippodroom als plek van macht — oud en heden.">WD2_03.03.02</span>
+      </div>
+      <p>Het Nika-oproer is méér dan een verhaal over woedende supporters. Het toont hoe entertainment, stedelijke identiteit, groepsvorming en politiek in elkaar kunnen grijpen. De hippodroom was niet alleen een sportlocatie, maar ook een plaats waar macht zichtbaar werd — en uitgedaagd kon worden.</p>
+      <div class="prompt-blok">
+        <strong>Denkvraag:</strong> waarom past het Nika-oproer perfect in een thema als <em>Panem et circenses</em>? Welke laag voegt het toe?
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ OEFEN ═══════════════════════════════════════════════════ -->
+  <section class="mode-panel" id="modus-oefen">
+
+    <div class="card">
+      <div class="card-title">
+        🏗 Tijdlijn bouwen
+        <span class="s-chip" data-tip="④ Dual coding: leerling herschept de tijdlijn als eigen mentale kaart — woord en volgorde.">⬡ ④</span>
+        <span class="s-chip" data-tip="⑤ Mapping: het reconstrueren van een oorzaak-gevolg-keten.">⬡ ⑤</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de leerling reconstrueert het verloop van het Nika-oproer in chronologische volgorde.">WD2_03.03.01</span>
+      </div>
+      <p style="font-size:.85rem;color:#555;">Zet deze elementen in de juiste volgorde en verbind ze met pijlen of signaalwoorden:</p>
+      <ul style="font-size:.85rem;color:#444;">
+        <li>onvrede over bestuur en belastingen</li>
+        <li>spanningen rond de facties in de hippodroom</li>
+        <li>de kreet "<em>Nika!</em>"</li>
+        <li>brand en vernieling in de stad</li>
+        <li>twijfel van Justinianus — tussenkomst van Theodora</li>
+        <li>harde repressie in de hippodroom</li>
+        <li>heropbouw en herstel van gezag (Hagia Sophia)</li>
+      </ul>
+      <div class="vraag-actie" style="margin-top:12px;">
+        <textarea id="a-v0" placeholder="Schrijf de volgorde op met signaalwoorden: eerst… daarna… vervolgens… uiteindelijk…"></textarea>
+        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v0','a-fb0','De leerling bouwt een tijdlijn van het Nika-oproer. Controleer de volgorde en het gebruik van signaalwoorden. Bevestig wat klopt, stuur logische fouten bij. Sluit af met: welke stap vind jij het meest verrassend?')">✦ Feedback</button>
+      </div>
+      <div class="feedback-box" id="a-fb0"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        🔄 Retrieval — zonder boek
+        <span class="s-chip" data-tip="⑩ Retrieval practice: actief ophalen versterkt het langetermijngeheugen.">⬡ ⑩</span>
+        <span class="s-chip" data-tip="⑧ Gespreid herhalen: retrieval meteen na de leerfase.">⬡ ⑧</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: kernelementen van het Nika-oproer reproduceren.">WD2_03.03.01</span>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">1. In welke stad vond het Nika-oproer plaats?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra1')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra1">Constantinopel — de hoofdstad van het Oost-Romeinse (Byzantijnse) Rijk.</div>
+        <div class="zelfcheck" id="zc1"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra1')">✓ Wist ik</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra1')">✗ Nog niet</button></div>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">2. Welke twee groepen speelden de hoofdrol — en wat is verrassend aan hun samenwerking?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra2')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra2">De Blauwen en de Groenen — rivalen die samenkozen. Verrassend: gedeelde onvrede bleek sterker dan hun onderlinge rivaliteit.</div>
+        <div class="zelfcheck" id="zc2"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra2')">✓ Wist ik</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra2')">✗ Nog niet</button></div>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">3. Wat betekent de kreet "Nika!"?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra3')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra3">"Overwin!" — een aanmoedigingskreet uit de hippodroom die een slagzin van de opstand werd.</div>
+        <div class="zelfcheck" id="zc3"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra3')">✓ Wist ik</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra3')">✗ Nog niet</button></div>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">4. Waarom was dit geen gewone rel?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra4')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra4">Het was geen spontane misdaad maar een georganiseerde politieke opstand die de macht van de keizer zelf bedreigde — met brand, vernieling en duizenden slachtoffers tot gevolg.</div>
+        <div class="zelfcheck" id="zc4"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra4')">✓ Wist ik</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra4')">✗ Nog niet</button></div>
+      </div>
+
+      <div class="retrieval-blok">
+        <div class="retrieval-vraag">5. Waarom is de heropbouw van de Hagia Sophia hier symbolisch zo belangrijk?</div>
+        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra5')">Toon antwoord</button>
+        <div class="retrieval-antwoord" id="ra5">De Hagia Sophia was een zichtbaar teken van hersteld keizerlijk gezag: Justinianus toonde dat hij de stad herbouwde — en daarmee ook de orde herstelde.</div>
+        <div class="zelfcheck" id="zc5"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra5')">✓ Wist ik</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra5')">✗ Nog niet</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        🔗 Vergelijken en redeneren
+        <span class="s-chip" data-tip="⑨ Afwisseling in oefentypen: van reproductie naar hogere cognitieve niveaus.">⬡ ⑨</span>
+        <span class="s-chip" data-tip="⑪ Feedback die denken aanzet: feedbackrichting stuurt naar meerlaagse antwoorden.">⬡ ⑪</span>
+        <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken: facties Rome vs. Constantinopel — gelijkenissen en verschillen.">WD2_03.03.02</span>
+        <span class="l-chip" data-tip="WD2_03.02.02 – betekenis geven: de leerling interpreteert wagenrennen als politiek instrument.">WD2_03.02.02</span>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">1</span>Vergelijk de facties van Rome (les 1) met die van Constantinopel. Wat blijft hetzelfde, wat verandert?</div>
+        <textarea id="a-v1" placeholder="Gelijkenissen én verschillen…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v1','a-fb1','De leerling vergelijkt de facties in Rome en Constantinopel. Reageer op de genoemde gelijkenissen en verschillen. Sterke antwoorden noemen: meer dan sport, sociale netwerken, en de overgang van sportfanatisme naar politieke macht.')">✦ Feedback</button>
+          <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken oud↔oud: diachronische vergelijking binnen de Oudheid.">WD2_03.03.02</span>
+        </div>
+        <div class="feedback-box" id="a-fb1"></div>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">2</span>Leg uit hoe wagenrennen konden uitgroeien van entertainment tot politiek gevaar.</div>
+        <textarea id="a-v2" placeholder="Jouw redenering…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v2','a-fb2','De leerling legt uit hoe entertainment politiek gevaar werd. Sterke antwoorden verbinden: groepsidentiteit van de facties, publieke aanwezigheid van de keizer, gedeelde onvrede als katalysator.')">✦ Feedback</button>
+          <span class="l-chip" data-tip="WD2_03.02.02 – betekenis geven: de leerling analyseert het politieke potentieel van massa-entertainment.">WD2_03.02.02</span>
+        </div>
+        <div class="feedback-box" id="a-fb2"></div>
+      </div>
+
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">3</span>Waarom past het Nika-oproer perfect binnen het thema <em>Panem et circenses</em>?</div>
+        <textarea id="a-v3" placeholder="Jouw redenering…"></textarea>
+        <div class="vraag-actie">
+          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v3','a-fb3','De leerling plaatst het Nika-oproer in het thema Panem et circenses. Sterke antwoorden verbinden minstens twee lagen: spektakel dat uit de hand loopt, groepsidentiteit als politieke kracht, de hippodroom als machtssymbool.')">✦ Feedback</button>
+          <span class="l-chip" data-tip="WD2_03.02.02.02 – reflecteren: de leerling reflecteert op het overkoepelende thema vanuit concrete voorbeelden.">WD2_03.02.02.02</span>
+        </div>
+        <div class="feedback-box" id="a-fb3"></div>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>🏁 Exit ticket</h3>
+      <ul style="font-size:.85rem;color:#333;">
+        <li>Wat is voor jou het belangrijkste verschil tussen het circus in Rome (les 1) en de hippodroom in Constantinopel (les 2)?</li>
+        <li>Wat maakt het Nika-oproer historisch zo fascinerend?</li>
+        <li>Welke vraag zou jij nog aan Justinianus of Theodora willen stellen?</li>
+      </ul>
+      <div class="vraag-actie" style="margin-top:12px;">
+        <textarea id="exit-v" placeholder="Jouw reflectie op de drie vragen…" style="min-height:70px;font-size:.84rem;"></textarea>
+        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('exit-v','exit-fb','De leerling reflecteert op het verschil Rome-Constantinopel, de fascination van het Nika-oproer, en stelt een vraag aan Justinianus of Theodora. Reageer warmhartig op elk onderdeel. Bevestig de kwaliteit van de vraag en verleid de leerling die vraag zelf te beantwoorden.')">✦ Feedback</button>
+        <span class="s-chip" data-tip="⑥ Check begrip: exit ticket maakt leerwinst zichtbaar voor leerling en leraar.">⬡ ⑥</span>
+        <span class="s-chip" data-tip="⑫ Leer leren: leerling evalueert het eigen begrip.">⬡ ⑫</span>
+        <span class="l-chip" data-tip="WD2_03.02.02.02 – reflecteren: de leerling reflecteert op het eigen leerproces en de historische stof.">WD2_03.02.02.02</span>
+      </div>
+      <div class="feedback-box" id="exit-fb"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem · Cultuur Thema 3 · Les 2</p>
+
+<script>
+/* ── MODUS TABS ─────────────────────────────────────────────── */
+function toonModus(id, btn) {
+  document.querySelectorAll('.mode-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('modus-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── DIDACTIEK DROPDOWN ─────────────────────────────────────── */
+function toggleDropdown(btn) {
+  const dd = document.getElementById('didactiekDropdown');
+  dd.classList.toggle('open');
+  document.addEventListener('click', function closeDd(e) {
+    if (!btn.closest('.didactiek-wrap').contains(e.target)) {
+      dd.classList.remove('open');
+      document.removeEventListener('click', closeDd);
+    }
+  });
+}
+function toggleLaag(laag) {
+  const body = document.body;
+  const cls = laag + '-mode';
+  body.classList.toggle(cls);
+  document.getElementById('dd-' + laag).classList.toggle('active', body.classList.contains(cls));
+}
+
+/* ── DENKHULP ───────────────────────────────────────────────── */
+function toggleDenkhulp(id, btn) {
+  const el = document.getElementById(id);
+  const zichtbaar = el.classList.toggle('zichtbaar');
+  btn.textContent = zichtbaar ? '🙈 Verberg hulp' : '💡 Denkhulp';
+}
+
+/* ── RETRIEVAL ──────────────────────────────────────────────── */
+function toonAntwoord(btn, antwoordId) {
+  document.getElementById(antwoordId).classList.add('zichtbaar');
+  btn.style.display = 'none';
+  const nr = antwoordId.replace('ra','');
+  const zc = document.getElementById('zc' + nr);
+  if (zc) zc.classList.add('zichtbaar');
+}
+
+let score = 0;
+function scoreZelfcheck(btn, punten, antwoordId) {
+  const nr = antwoordId.replace('ra','');
+  const zc = document.getElementById('zc' + nr);
+  if (zc) zc.querySelectorAll('.zelfcheck-btn').forEach(b => b.disabled = true);
+  score += punten;
+  updateScore();
+}
+
+function updateScore() {
+  document.getElementById('scoreNr').textContent = score;
+  const pct = Math.round((score / 5) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  const statussen = [
+    [0, 'Begin maar!', 'Beantwoord vragen om punten te verdienen.'],
+    [3, 'Goed bezig!', 'Blijf doorgaan — je bent er bijna.'],
+    [4, 'Heel goed!', 'Nog even doorzetten!'],
+    [5, 'Uitstekend!', 'Je beheerst de kernbegrippen van les 2.'],
+  ];
+  const [, status, detail] = statussen.reverse().find(([min]) => score >= min) || statussen[0];
+  document.getElementById('scoreStatus').textContent = status;
+  document.getElementById('scoreDetail').textContent = detail;
+}
+
+/* ── AI FEEDBACK ────────────────────────────────────────────── */
+async function vraagAI(inputId, feedbackId, systeemPrompt) {
+  const input = document.getElementById(inputId);
+  const fbBox = document.getElementById(feedbackId);
+  const tekst = input ? input.value.trim() : '';
+  if (!tekst) { fbBox.textContent = 'Schrijf eerst iets in het tekstvak.'; fbBox.classList.add('active'); return; }
+  fbBox.innerHTML = '<span class="spinner"></span> Verwerken…';
+  fbBox.classList.add('active');
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systeemPrompt + ' Antwoord in het Nederlands. Wees warm, concreet en didactisch. Maximaal 120 woorden.',
+        messages: [{ role: 'user', content: tekst }]
+      })
+    });
+    const data = await res.json();
+    const tekst2 = data.content?.map(b => b.text || '').join('') || '(Geen antwoord ontvangen)';
+    fbBox.textContent = tekst2;
+  } catch (e) {
+    fbBox.textContent = 'Verbindingsfout — probeer opnieuw.';
+  }
+}
+</script>
+</body>
+</html>
