@@ -534,7 +534,7 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
       </ul>
       <div class="vraag-actie" style="margin-top:12px;">
         <textarea id="o-v0" placeholder="Jouw antwoorden op de drie vragen…" style="min-height:70px;"></textarea>
-        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v0','o-fb0','De leerling beantwoordt drie retrieval-vragen vanuit les 1 (factio, publiek als meer dan publiek, macht en spektakel). Reageer per vraag: bevestig wat klopt, stuur bij waar nodig. Maak de brug naar het Nika-oproer: "En nu gaan we zien wat er kan gebeuren als die massa een gemeenschappelijke vijand vindt."')">✦ Feedback + brug</button>
+        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v0','o-fb0','De leerling beantwoordt drie retrieval-vragen vanuit les 1 (factio, publiek als meer dan publiek, macht en spektakel). Reageer per vraag: bevestig wat klopt, stuur bij waar nodig. Maak de brug naar het Nika-oproer: &quot;En nu gaan we zien wat er kan gebeuren als die massa een gemeenschappelijke vijand vindt.&quot;')">✦ Feedback + brug</button>
       </div>
       <div class="feedback-box" id="o-fb0"></div>
     </div>
@@ -824,16 +824,6 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
 <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem · Cultuur Thema 3 · Les 2</p>
 
 <script>
-/* ── AUTH ── */
-let GL_gebruiker = null;
-document.addEventListener("DOMContentLoaded", function () {
-  function initAuth() {
-    if (typeof GroenhoveAuth === "undefined") { setTimeout(initAuth, 50); return; }
-    GroenhoveAuth.init({ onSuccess: function (user) { GL_gebruiker = user; } });
-  }
-  initAuth();
-});
-
 /* ── MODUS TABS ─────────────────────────────────────────────── */
 function toonModus(id, btn) {
   document.querySelectorAll('.mode-panel').forEach(p => p.classList.remove('active'));
