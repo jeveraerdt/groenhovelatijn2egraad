@@ -194,16 +194,17 @@ async function _handleCredential(response, { onSuccess, onFail, overlay }) {
 
   try {
     // Stuur token naar Apps Script voor verificatie
-    const result = await fetch(AUTH_CONFIG.appsScriptUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'verifyToken',
-        token: response.credential,
-      }),
-    });
+    const body = new URLSearchParams({
+  action: 'verifyToken',
+  token: response.credential,
+});
 
-    const data = await result.json();
+const result = await fetch(AUTH_CONFIG.appsScriptUrl, {
+  method: 'POST',
+  body,
+});
+
+const data = await result.json();
 
     if (data.ok && data.email && data.email.endsWith('@' + AUTH_CONFIG.allowedDomain)) {
       const user = { email: data.email, naam: data.naam || '' };
