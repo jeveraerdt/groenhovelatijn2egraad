@@ -1021,28 +1021,29 @@ async function vraagAI(inputId, feedbackId, systeemPrompt, vraagTekst) {
   fbBox.innerHTML = '<span class="spinner"></span> Verwerken…';
   fbBox.classList.add('active');
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const logData = (typeof GL_gebruiker !== 'undefined' && GL_gebruiker) ? {
+      les:     'Thema 3 Les 1 — Wagenrennen',
+      naam:    GL_gebruiker.naam,
+      email:   GL_gebruiker.email,
+      vraagId: inputId,
+      vraag:   vraagTekst || inputId
+    } : null;
+
+    const res = await fetch('https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: systeemPrompt + ' Antwoord in het Nederlands. Wees warm, concreet en didactisch. Maximaal 120 woorden.',
-        messages: [{ role: 'user', content: tekst }]
+        actie:  'ai',
+        systeem: systeemPrompt,
+        tekst:   tekst,
+        log:     logData
       })
     });
     const data = await res.json();
-    const tekst2 = data.content?.map(b => b.text || '').join('') || '(Geen antwoord ontvangen)';
-    fbBox.textContent = tekst2;
-    // Log naar dashboard
-    if (typeof GL_log === 'function') {
-      GL_log({
-        les:      'Thema 3 Les 1 — Wagenrennen',
-        vraagId:  inputId,
-        vraag:    vraagTekst || inputId,
-        antwoord: tekst,
-        feedback: tekst2
-      });
+    if (data.ok) {
+      fbBox.textContent = data.tekst;
+    } else {
+      fbBox.textContent = 'Fout: ' + (data.fout || 'onbekend');
     }
   } catch (e) {
     fbBox.textContent = 'Verbindingsfout — probeer opnieuw.';
