@@ -1,188 +1,225 @@
 /**
- * auth.js — Groenhove Latijn
- * Universele authenticatie + logging voor alle les-pagina's.
- * Voeg toe aan elke les-pagina: <script src="../../../js/auth.js"></script>
- * Pas het src-pad aan naargelang de diepte van de pagina.
+ * auth.js — Groenhove Latijn authenticatie
+ * Google Identity Services (GSI) + Apps Script tokenverificatie
+ * Alleen @groenhoveschool.be accounts krijgen toegang
  */
 
-const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec';
+const AUTH_CONFIG = {
+  clientId: '247782565692-60him09rermeq8u832vpuc3hsihm48ei.apps.googleusercontent.com',
+  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec',
+  allowedDomain: 'groenhoveschool.be',
+  tokenKey: 'groenhove_auth_token',
+  userKey: 'groenhove_auth_user',
+  tokenExpiry: 'groenhove_auth_expiry',
+  sessionHours: 8, // token geldig voor 8 uur (één schooldag)
+};
 
-// ── LEERLINGPROFIEL (opgeslagen in sessionStorage) ────────────
-let GL_gebruiker = null;
+// ─── Publieke API ───────────────────────────────────────────────────────────
 
-function GL_laadGebruiker() {
-  const opgeslagen = sessionStorage.getItem('gl_gebruiker');
-  if (opgeslagen) {
-    GL_gebruiker = JSON.parse(opgeslagen);
-    GL_toonProfiel();
-    return true;
-  }
-  return false;
-}
-
-function GL_slaGebruikerOp(data) {
-  GL_gebruiker = data;
-  sessionStorage.setItem('gl_gebruiker', JSON.stringify(data));
-  GL_toonProfiel();
-}
-
-function GL_uitloggen() {
-  sessionStorage.removeItem('gl_gebruiker');
-  GL_gebruiker = null;
-  GL_toonLoginKnop();
-}
-
-// ── TOOLBAR-INJECTIE ──────────────────────────────────────────
-// Voegt het gebruikersblok toe aan de bestaande .toolbar-right
-document.addEventListener('DOMContentLoaded', () => {
-  // Wacht tot de toolbar bestaat
-  const toolbarRight = document.querySelector('.toolbar-right');
-  if (!toolbarRight) return;
-
-  // Maak het gebruikersblok aan
-  const blok = document.createElement('div');
-  blok.id = 'gl-auth-blok';
-  blok.style.cssText = 'display:flex;align-items:center;gap:.5rem;';
-  toolbarRight.prepend(blok);
-
-  // Controleer of er al een gebruiker is
-  if (!GL_laadGebruiker()) {
-    GL_toonLoginKnop();
-  }
-});
-
-function GL_toonLoginKnop() {
-  const blok = document.getElementById('gl-auth-blok');
-  if (!blok) return;
-  blok.innerHTML = `
-    <button onclick="GL_login()" style="
-      font-family:var(--fb,sans-serif);
-      font-size:.82rem;font-weight:700;
-      background:#006633;color:white;
-      border:none;border-radius:20px;
-      padding:.32rem .9rem;cursor:pointer;
-      display:inline-flex;align-items:center;gap:.4rem;
-    ">
-      <svg viewBox="0 0 18 18" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="9" cy="6" r="3"/><path d="M3 17c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
-      </svg>
-      Aanmelden
-    </button>
-  `;
-}
-
-function GL_toonProfiel() {
-  const blok = document.getElementById('gl-auth-blok');
-  if (!blok || !GL_gebruiker) return;
-  const initialen = GL_gebruiker.naam
-    .split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-  blok.innerHTML = `
-    <div style="display:flex;align-items:center;gap:.5rem;">
-      <div style="
-        width:28px;height:28px;border-radius:50%;
-        background:#006633;color:white;
-        display:flex;align-items:center;justify-content:center;
-        font-size:.7rem;font-weight:700;flex-shrink:0;
-        font-family:var(--fb,sans-serif);
-      ">${initialen}</div>
-      <span style="font-family:var(--fb,sans-serif);font-size:.82rem;color:var(--zwart,#010100);">
-        ${GL_gebruiker.naam}
-      </span>
-      <button onclick="GL_uitloggen()" title="Afmelden" style="
-        background:none;border:1px solid var(--rand,#ccc);
-        border-radius:20px;padding:.2rem .55rem;
-        font-size:.72rem;color:#666;cursor:pointer;
-        font-family:var(--fb,sans-serif);
-      ">↩</button>
-    </div>
-  `;
-}
-
-// ── LOGIN FLOW ────────────────────────────────────────────────
-async function GL_login() {
-  // Open Google-loginvenster via Apps Script
-  const loginUrl = WEBAPP_URL + '?actie=login';
-  const popup = window.open(loginUrl, 'gl_login',
-    'width=500,height=600,left=200,top=100');
-
-  // Luister op bericht van de popup (als die terugkeert)
-  // Fallback: poll de Apps Script URL direct
-  GL_pollLogin(popup);
-}
-
-async function GL_pollLogin(popup) {
-  // Apps Script stuurt de gebruikersdata terug als GET-response
-  // We vragen het direct op via fetch (de gebruiker is al ingelogd op chromebook)
-  const blok = document.getElementById('gl-auth-blok');
-  if (blok) {
-    blok.innerHTML = `<span style="font-size:.8rem;color:#666;font-family:var(--fb,sans-serif);">Aanmelden…</span>`;
-  }
-
-  try {
-    const res  = await fetch(WEBAPP_URL + '?actie=login', { redirect: 'follow' });
-    const data = await res.json();
-
-    if (popup && !popup.closed) popup.close();
-
-    if (data.ok) {
-      GL_slaGebruikerOp({ naam: data.naam, email: data.email });
-    } else {
-      GL_toonFout(data.fout || 'Aanmelden mislukt. Gebruik je schoolaccount.');
-    }
-  } catch (e) {
-    if (popup && !popup.closed) popup.close();
-    GL_toonFout('Verbindingsfout. Probeer opnieuw.');
-  }
-}
-
-function GL_toonFout(bericht) {
-  const blok = document.getElementById('gl-auth-blok');
-  if (!blok) return;
-  blok.innerHTML = `
-    <span style="font-size:.78rem;color:#c00;font-family:var(--fb,sans-serif);">
-      ⚠ ${bericht}
-    </span>
-    <button onclick="GL_toonLoginKnop()" style="
-      font-size:.75rem;background:none;border:none;
-      color:#666;cursor:pointer;text-decoration:underline;
-    ">Opnieuw</button>
-  `;
-}
-
-// ── LOGGING ───────────────────────────────────────────────────
 /**
- * Roep deze functie aan vanuit de les-pagina na elke AI-feedbackcall.
- *
- * GL_log({
- *   les:      'Thema 3 Les 1 — Wagenrennen',
- *   vraagId:  'o-v1',
- *   vraag:    'Wat stel jij je voor bij een Romeins circus?',
- *   antwoord: tekst,
- *   feedback: aiFeedback
- * });
+ * Initialiseer auth op een lespagina.
+ * Roep aan in <script> onderaan elke lespagina:
+ *   GroenhoveAuth.init({ onSuccess: () => toonLes() });
  */
-async function GL_log(data) {
-  if (!GL_gebruiker) return; // niet ingelogd → niet loggen
+const GroenhoveAuth = {
 
-  const payload = {
-    actie:    'log',
-    naam:     GL_gebruiker.naam,
-    email:    GL_gebruiker.email,
-    les:      data.les      || document.title || 'Onbekend',
-    vraagId:  data.vraagId  || '?',
-    vraag:    data.vraag    || '?',
-    antwoord: data.antwoord || '',
-    feedback: data.feedback || ''
-  };
+  init({ onSuccess, onFail } = {}) {
+    // Check bestaande sessie
+    if (_isSessionValid()) {
+      const user = _getStoredUser();
+      _showWelcome(user);
+      if (onSuccess) onSuccess(user);
+      return;
+    }
+
+    // Geen geldige sessie → toon loginscherm
+    _renderLoginOverlay({
+      onSuccess: (user) => {
+        _showWelcome(user);
+        if (onSuccess) onSuccess(user);
+      },
+      onFail: onFail || _defaultFail,
+    });
+  },
+
+  /**
+   * Haal ingelogde gebruiker op (of null).
+   */
+  getUser() {
+    if (!_isSessionValid()) return null;
+    return _getStoredUser();
+  },
+
+  /**
+   * Uitloggen.
+   */
+  logout() {
+    localStorage.removeItem(AUTH_CONFIG.tokenKey);
+    localStorage.removeItem(AUTH_CONFIG.userKey);
+    localStorage.removeItem(AUTH_CONFIG.tokenExpiry);
+    google.accounts.id.disableAutoSelect();
+    location.reload();
+  },
+};
+
+// ─── Interne functies ───────────────────────────────────────────────────────
+
+function _isSessionValid() {
+  const expiry = localStorage.getItem(AUTH_CONFIG.tokenExpiry);
+  const user = localStorage.getItem(AUTH_CONFIG.userKey);
+  if (!expiry || !user) return false;
+  return Date.now() < parseInt(expiry, 10);
+}
+
+function _getStoredUser() {
+  try {
+    return JSON.parse(localStorage.getItem(AUTH_CONFIG.userKey));
+  } catch {
+    return null;
+  }
+}
+
+function _storeSession(user) {
+  const expiry = Date.now() + AUTH_CONFIG.sessionHours * 60 * 60 * 1000;
+  localStorage.setItem(AUTH_CONFIG.userKey, JSON.stringify(user));
+  localStorage.setItem(AUTH_CONFIG.tokenExpiry, String(expiry));
+}
+
+function _showWelcome(user) {
+  // Zoek of maak een welkomstbalk
+  let bar = document.getElementById('auth-welcome-bar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'auth-welcome-bar';
+    bar.style.cssText = `
+      position: fixed; top: 0; right: 0;
+      background: #006633; color: #f3f1ef;
+      font-family: 'Noto Sans', sans-serif; font-size: 13px;
+      padding: 6px 14px; border-radius: 0 0 0 8px;
+      z-index: 9999; display: flex; align-items: center; gap: 10px;
+    `;
+    document.body.appendChild(bar);
+  }
+  const naam = user.naam || user.email.split('@')[0];
+  bar.innerHTML = `
+    <span>👤 ${naam}</span>
+    <button onclick="GroenhoveAuth.logout()" style="
+      background: none; border: 1px solid #f3f1ef; color: #f3f1ef;
+      border-radius: 4px; padding: 2px 8px; cursor: pointer;
+      font-size: 12px; font-family: inherit;
+    ">Uitloggen</button>
+  `;
+}
+
+function _defaultFail(reason) {
+  console.error('Auth mislukt:', reason);
+}
+
+// ─── Login overlay ──────────────────────────────────────────────────────────
+
+function _renderLoginOverlay({ onSuccess, onFail }) {
+  // Blokkeer pagina-inhoud
+  const overlay = document.createElement('div');
+  overlay.id = 'auth-overlay';
+  overlay.style.cssText = `
+    position: fixed; inset: 0;
+    background: #f3f1ef;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 99999; flex-direction: column;
+    font-family: 'Noto Sans', sans-serif;
+  `;
+  overlay.innerHTML = `
+    <div style="
+      background: white; border-radius: 12px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+      padding: 40px 48px; max-width: 400px; width: 90%;
+      text-align: center;
+    ">
+      <div style="font-size: 40px; margin-bottom: 12px;">🏛️</div>
+      <h2 style="
+        font-family: 'Flanders Art Sans', 'Noto Sans', sans-serif;
+        color: #006633; margin: 0 0 8px;
+        font-size: 22px; font-weight: 700;
+      ">Groenhove Latijn</h2>
+      <p style="color: #555; font-size: 14px; margin: 0 0 28px; line-height: 1.5;">
+        Log in met je <strong>@groenhoveschool.be</strong> account om verder te gaan.
+      </p>
+      <div id="auth-google-btn"></div>
+      <p id="auth-error" style="
+        color: #FF3B1D; font-size: 13px; margin: 16px 0 0;
+        display: none; line-height: 1.4;
+      "></p>
+    </div>
+    <p style="color: #999; font-size: 12px; margin-top: 20px;">
+      Alleen toegankelijk voor leerlingen en leerkrachten van Groenhove
+    </p>
+  `;
+  document.body.appendChild(overlay);
+
+  // Laad Google Identity Services script
+  const script = document.createElement('script');
+  script.src = 'https://accounts.google.com/gsi/client';
+  script.async = true;
+  script.defer = true;
+  script.onload = () => _initGSI({ onSuccess, onFail, overlay });
+  document.head.appendChild(script);
+}
+
+function _initGSI({ onSuccess, onFail, overlay }) {
+  google.accounts.id.initialize({
+    client_id: AUTH_CONFIG.clientId,
+    callback: (response) => _handleCredential(response, { onSuccess, onFail, overlay }),
+    auto_select: false,
+    cancel_on_tap_outside: false,
+    hosted_domain: AUTH_CONFIG.allowedDomain, // hint: alleen groenhoveschool.be
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById('auth-google-btn'),
+    {
+      type: 'standard',
+      theme: 'outline',
+      size: 'large',
+      text: 'signin_with',
+      shape: 'rectangular',
+      logo_alignment: 'left',
+      width: 280,
+    }
+  );
+}
+
+async function _handleCredential(response, { onSuccess, onFail, overlay }) {
+  const errorEl = document.getElementById('auth-error');
+  errorEl.style.display = 'none';
 
   try {
-    await fetch(WEBAPP_URL, {
-      method:  'POST',
+    // Stuur token naar Apps Script voor verificatie
+    const result = await fetch(AUTH_CONFIG.appsScriptUrl, {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload)
+      body: JSON.stringify({
+        action: 'verifyToken',
+        token: response.credential,
+      }),
     });
-  } catch (e) {
-    // stil falen — logging is niet kritiek voor de leerling
-    console.warn('GL_log: logging mislukt', e);
+
+    const data = await result.json();
+
+    if (data.ok && data.email && data.email.endsWith('@' + AUTH_CONFIG.allowedDomain)) {
+      const user = { email: data.email, naam: data.naam || '' };
+      _storeSession(user);
+      overlay.remove();
+      onSuccess(user);
+    } else {
+      const reden = data.error || 'Geen toegang met dit account.';
+      errorEl.textContent = `⚠️ ${reden} Gebruik je @groenhoveschool.be account.`;
+      errorEl.style.display = 'block';
+      onFail(reden);
+    }
+  } catch (err) {
+    const msg = 'Verbindingsfout. Probeer opnieuw.';
+    errorEl.textContent = `⚠️ ${msg}`;
+    errorEl.style.display = 'block';
+    onFail(err);
   }
 }
