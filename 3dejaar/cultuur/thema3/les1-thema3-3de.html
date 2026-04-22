@@ -453,6 +453,10 @@ textarea:focus, input[type="text"]:focus {
   margin-bottom: 9px;
 }
 .retrieval-vraag { font-size: .87rem; font-weight: 700; margin-bottom: 9px; color: var(--zwart); }
+.retrieval-uitleg { font-size: .81rem; color: #555; margin-bottom: 10px; }
+.retrieval-input { min-height: 84px; margin-bottom: 10px; }
+.retrieval-note { display: none; margin-top: 8px; padding: 9px 13px; border-radius: 7px; font-size: .82rem; line-height: 1.5; background: var(--geel); border: 1px solid var(--geel-rand); color: #4a3e00; }
+.retrieval-note.zichtbaar { display: block; animation: fadeIn .2s ease; }
 .retrieval-antwoord {
   display: none;
   background: white;
@@ -833,55 +837,56 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
         <span class="s-chip" data-tip="⑧ Gespreid herhalen: retrieval meteen na de leerfase.">⬡ ⑧</span>
         <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de leerling benoemt kernbegrippen en kenmerken van de Romeinse circusbeleving.">WD2_03.03.01</span>
       </div>
+      <p style="font-size:.84rem;color:#555;margin-bottom:12px;line-height:1.55;">Schrijf <strong>eerst zelf</strong> een antwoord op. Toon daarna pas het modelantwoord en geef eerlijk aan of je antwoord volledig was.</p>
 
       <div class="retrieval-blok">
         <div class="retrieval-vraag">1. Welke vier facties kende het Circus Maximus?</div>
-        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra1')">Toon antwoord</button>
+        <div class="retrieval-uitleg">Noteer de vier kleurengroepen.</div>
+        <textarea id="r-v1" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v1','ra1','zc1','rn1')">Toon modelantwoord</button></div>
+        <div class="retrieval-note" id="rn1">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
         <div class="retrieval-antwoord" id="ra1">De Groenen, Blauwen, Roden en Witten. Elke factie was een renstal met eigen kleuren en supporters.</div>
-        <div class="zelfcheck" id="zc1">
-          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra1')">✓ Wist ik</button>
-          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra1')">✗ Nog niet</button>
-        </div>
+        <div class="zelfcheck" id="zc1"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra1','r-v1')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra1','r-v1')">✗ Mijn antwoord was onvolledig/fout</button></div>
       </div>
 
       <div class="retrieval-blok">
         <div class="retrieval-vraag">2. Wat was het <em>pulvinar</em> en waarom was het symbolisch belangrijk?</div>
-        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra2')">Toon antwoord</button>
+        <div class="retrieval-uitleg">Probeer zowel het begrip als het politieke belang te benoemen.</div>
+        <textarea id="r-v2" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v2','ra2','zc2','rn2')">Toon modelantwoord</button></div>
+        <div class="retrieval-note" id="rn2">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
         <div class="retrieval-antwoord" id="ra2">Het pulvinar was de keizerlijke loge. De zichtbare aanwezigheid van de keizer bevestigde zijn status en symbolische macht over het volk.</div>
-        <div class="zelfcheck" id="zc2">
-          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra2')">✓ Wist ik</button>
-          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra2')">✗ Nog niet</button>
-        </div>
+        <div class="zelfcheck" id="zc2"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra2','r-v2')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra2','r-v2')">✗ Mijn antwoord was onvolledig/fout</button></div>
       </div>
 
       <div class="retrieval-blok">
         <div class="retrieval-vraag">3. Waarom waren crashes zo gevaarlijk voor menners?</div>
-        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra3')">Toon antwoord</button>
+        <div class="retrieval-uitleg">Verwijs naar de teugels en het risico bij een val.</div>
+        <textarea id="r-v3" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v3','ra3','zc3','rn3')">Toon modelantwoord</button></div>
+        <div class="retrieval-note" id="rn3">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
         <div class="retrieval-antwoord" id="ra3">De teugels waren rond het middel gebonden. Bij een crash kon de menner meegesleurd worden en moest hij zich met een mes los kunnen snijden.</div>
-        <div class="zelfcheck" id="zc3">
-          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra3')">✓ Wist ik</button>
-          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra3')">✗ Nog niet</button>
-        </div>
+        <div class="zelfcheck" id="zc3"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra3','r-v3')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra3','r-v3')">✗ Mijn antwoord was onvolledig/fout</button></div>
       </div>
 
       <div class="retrieval-blok">
         <div class="retrieval-vraag">4. Wat was de <em>spina</em> en waar lagen de <em>metae</em>?</div>
-        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra4')">Toon antwoord</button>
+        <div class="retrieval-uitleg">Noem zowel de functie van de <em>spina</em> als de plaats van de <em>metae</em>.</div>
+        <textarea id="r-v4" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v4','ra4','zc4','rn4')">Toon modelantwoord</button></div>
+        <div class="retrieval-note" id="rn4">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
         <div class="retrieval-antwoord" id="ra4">De spina was de scheidingsmuur in het midden van de baan. De metae waren de keerpunten aan beide uiteinden — het gevaarlijkste moment van elke ronde.</div>
-        <div class="zelfcheck" id="zc4">
-          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra4')">✓ Wist ik</button>
-          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra4')">✗ Nog niet</button>
-        </div>
+        <div class="zelfcheck" id="zc4"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra4','r-v4')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra4','r-v4')">✗ Mijn antwoord was onvolledig/fout</button></div>
       </div>
 
       <div class="retrieval-blok">
         <div class="retrieval-vraag">5. Waarom waren wagenrennen meer dan alleen sport?</div>
-        <button class="btn btn-outline" onclick="toonAntwoord(this,'ra5')">Toon antwoord</button>
+        <div class="retrieval-uitleg">Verbind sport met macht, propaganda en massa.</div>
+        <textarea id="r-v5" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v5','ra5','zc5','rn5')">Toon modelantwoord</button></div>
+        <div class="retrieval-note" id="rn5">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
         <div class="retrieval-antwoord" id="ra5">Ze waren een instrument van macht en propaganda. De keizer toonde zich aan het volk, de facties organiseerden de samenleving en de massa werd gestuurd via spektakel en gratis eten (<em>panem et circenses</em>).</div>
-        <div class="zelfcheck" id="zc5">
-          <button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra5')">✓ Wist ik</button>
-          <button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra5')">✗ Nog niet</button>
-        </div>
+        <div class="zelfcheck" id="zc5"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra5','r-v5')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra5','r-v5')">✗ Mijn antwoord was onvolledig/fout</button></div>
       </div>
     </div>
 
@@ -977,7 +982,7 @@ function toggleLaag(laag) {
   const cls = laag + '-mode';
   body.classList.toggle(cls);
   const btn = document.getElementById('dd-' + laag);
-  btn.classList.toggle('active', body.classList.contains(cls));
+  if (btn) btn.classList.toggle('active', body.classList.contains(cls));
 }
 
 /* ── DENKHULP ───────────────────────────────────────────────── */
@@ -988,28 +993,43 @@ function toggleDenkhulp(id, btn) {
 }
 
 /* ── RETRIEVAL ──────────────────────────────────────────────── */
-function toonAntwoord(btn, antwoordId) {
-  const antw = document.getElementById(antwoordId);
-  antw.classList.add('zichtbaar');
-  btn.style.display = 'none';
-  const nr = antwoordId.replace('ra', '');
-  const zc = document.getElementById('zc' + nr);
-  if (zc) zc.classList.add('zichtbaar');
+function toonModelantwoord(btn, inputId, antwoordId, zelfcheckId, noteId) {
+  const input = document.getElementById(inputId);
+  const antwoord = document.getElementById(antwoordId);
+  const zelfcheck = document.getElementById(zelfcheckId);
+  const note = document.getElementById(noteId);
+
+  if (!input || !input.value.trim()) {
+    if (note) note.classList.add('zichtbaar');
+    if (input) {
+      input.focus();
+      input.style.borderColor = 'var(--accent)';
+      setTimeout(() => { input.style.borderColor = ''; }, 1400);
+    }
+    return;
+  }
+
+  if (note) note.classList.remove('zichtbaar');
+  if (antwoord) antwoord.classList.add('zichtbaar');
+  if (zelfcheck) zelfcheck.classList.add('zichtbaar');
+  if (btn) btn.style.display = 'none';
 }
 
 let score = 0;
 
-async function scoreZelfcheck(btn, punten, antwoordId) {
+async function scoreZelfcheck(btn, punten, antwoordId, inputId) {
   const nr = antwoordId.replace('ra', '');
   const zc = document.getElementById('zc' + nr);
-  if (zc) {
-    zc.querySelectorAll('.zelfcheck-btn').forEach(b => b.disabled = true);
-  }
+  const input = document.getElementById(inputId);
+  const eigenAntwoord = input ? input.value.trim() : '';
+
+  if (zc) zc.querySelectorAll('.zelfcheck-btn').forEach(b => b.disabled = true);
+  if (input) input.readOnly = true;
 
   score += punten;
   updateScore();
 
-  await stuurVoortgang('retrieval-' + nr, punten, 1);
+  await stuurVoortgang('retrieval-' + nr, punten, 1, eigenAntwoord);
 }
 
 function updateScore() {
@@ -1034,7 +1054,7 @@ function updateScore() {
 }
 
 /* ── BACKEND HELPERS ────────────────────────────────────────── */
-async function stuurVoortgang(onderdeel, scoreBehaald, scoreMaximum) {
+async function stuurVoortgang(onderdeel, scoreBehaald, scoreMaximum, antwoordTekst = '') {
   if (!GL_gebruiker || !GL_gebruiker.email) return;
 
   try {
@@ -1045,13 +1065,11 @@ async function stuurVoortgang(onderdeel, scoreBehaald, scoreMaximum) {
       les: LES_CODE,
       onderdeel: onderdeel || '',
       score: String(scoreBehaald ?? ''),
-      maxScore: String(scoreMaximum ?? '')
+      maxScore: String(scoreMaximum ?? ''),
+      antwoord: antwoordTekst || ''
     });
 
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      body
-    });
+    await fetch(APPS_SCRIPT_URL, { method: 'POST', body });
   } catch (e) {
     console.warn('Voortgang opslaan mislukt:', e);
   }
@@ -1089,11 +1107,7 @@ async function vraagAI(inputId, feedbackId, systeemPrompt, vraagTekst) {
       log: logData ? JSON.stringify(logData) : ''
     });
 
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      body
-    });
-
+    const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body });
     const data = await res.json();
 
     if (data.ok) {
