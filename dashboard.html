@@ -4,211 +4,333 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leraarsdashboard — Groenhove Latijn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    @font-face {
+      font-family: 'Flanders Art Sans';
+      src: url('fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
 
     :root {
       --groen: #006633;
+      --groen-donker: #004c26;
       --groen-licht: #e8f5ee;
       --groen-mid: #65b32e;
       --accent: #FF3B1D;
       --wit: #f3f1ef;
+      --paneel: #ffffff;
       --zwart: #010100;
       --grijs: #6b7280;
+      --grijs-licht: #9ca3af;
       --border: #e5e7eb;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
       --font-titel: 'Flanders Art Sans', 'Noto Sans', sans-serif;
       --font-body: 'Noto Sans', Arial, sans-serif;
+      --radius: 14px;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-body);
-      background: var(--wit);
+      background: linear-gradient(180deg, #f7f5f3 0%, #f3f1ef 100%);
       color: var(--zwart);
       min-height: 100vh;
     }
 
-    /* Header */
+    button, input, select {
+      font: inherit;
+    }
+
     header {
       background: var(--groen);
       color: white;
-      padding: 0 32px;
-      height: 60px;
+      padding: 0 28px;
+      min-height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
       position: sticky;
       top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 20;
+      box-shadow: 0 2px 10px rgba(0,0,0,.14);
     }
 
     .header-left {
       display: flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
     }
 
     .header-logo {
-      font-size: 22px;
+      font-size: 24px;
+      line-height: 1;
+      flex-shrink: 0;
     }
 
     .header-title {
       font-family: var(--font-titel);
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 700;
-      letter-spacing: 0.3px;
+      line-height: 1.15;
     }
 
     .header-sub {
       font-size: 12px;
-      opacity: 0.75;
-      font-weight: 400;
+      opacity: .8;
+      margin-top: 2px;
     }
 
     .header-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-size: 13px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    #auth-status {
-      display: flex;
+    .user-pill {
+      display: inline-flex;
       align-items: center;
       gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      min-height: 36px;
+    }
+
+    .btn-uitloggen, .btn-refresh, .btn-export {
+      border: none;
+      border-radius: 10px;
+      padding: 9px 14px;
+      cursor: pointer;
+      transition: background .18s ease, transform .12s ease, opacity .18s ease;
     }
 
     .btn-uitloggen {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(255,255,255,.12);
       color: white;
-      padding: 5px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 12px;
-      font-family: var(--font-body);
-      transition: background 0.2s;
+      border: 1px solid rgba(255,255,255,.28);
     }
 
-    .btn-uitloggen:hover { background: rgba(255,255,255,0.25); }
+    .btn-uitloggen:hover,
+    .btn-refresh:hover,
+    .btn-export:hover {
+      transform: translateY(-1px);
+    }
 
-    /* Login scherm */
-    #login-screen {
+    .btn-uitloggen:hover {
+      background: rgba(255,255,255,.18);
+    }
+
+    .shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 28px 20px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(0,102,51,.08), rgba(101,179,46,.07));
+      border: 1px solid rgba(0,102,51,.08);
+      border-radius: 20px;
+      padding: 22px 24px;
+      margin-bottom: 22px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 60px);
-      padding: 40px 20px;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
     }
 
-    .login-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.1);
-      padding: 48px;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-    }
-
-    .login-icon { font-size: 48px; margin-bottom: 16px; }
-
-    .login-card h2 {
+    .hero h1 {
       font-family: var(--font-titel);
       color: var(--groen);
-      font-size: 22px;
-      margin-bottom: 8px;
+      font-size: clamp(1.5rem, 2.3vw, 2rem);
+      line-height: 1.06;
+      margin-bottom: 6px;
     }
 
-    .login-card p {
+    .hero p {
+      color: #45515d;
+      line-height: 1.55;
+      max-width: 820px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 2px;
+    }
+
+    .hero-note {
+      font-size: 12px;
       color: var(--grijs);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 28px;
+      margin-top: 10px;
     }
 
-    #login-btn-container { margin-bottom: 8px; }
-
-    .login-error {
-      color: var(--accent);
-      font-size: 13px;
-      margin-top: 12px;
-      display: none;
-      line-height: 1.4;
+    .btn-refresh, .btn-export {
+      background: var(--groen);
+      color: white;
+      min-height: 40px;
     }
 
-    /* Dashboard */
-    #dashboard { display: none; padding: 32px; max-width: 1200px; margin: 0 auto; }
+    .btn-refresh:disabled,
+    .btn-export:disabled {
+      opacity: .55;
+      cursor: default;
+      transform: none;
+    }
 
-    /* Stats balk */
+    .btn-export {
+      background: white;
+      color: var(--groen);
+      border: 1px solid rgba(0,102,51,.22);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1.2fr 220px 220px;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .toolbar-card,
+    .sectie,
+    .stat-card,
+    .login-card {
+      background: var(--paneel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .toolbar-card {
+      padding: 14px 16px;
+    }
+
+    .toolbar-label {
+      display: block;
+      font-size: 12px;
+      color: var(--grijs);
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 700;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0 12px;
+      background: #fff;
+      color: var(--zwart);
+    }
+
+    .toolbar input:focus,
+    .toolbar select:focus {
+      outline: none;
+      border-color: rgba(0,102,51,.45);
+      box-shadow: 0 0 0 3px rgba(0,102,51,.08);
+    }
+
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 16px;
-      margin-bottom: 32px;
+      margin-bottom: 20px;
     }
 
     .stat-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px 24px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      padding: 20px 22px;
     }
 
     .stat-label {
       font-size: 12px;
       color: var(--grijs);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+      font-weight: 700;
     }
 
     .stat-value {
       font-family: var(--font-titel);
-      font-size: 32px;
-      font-weight: 700;
       color: var(--groen);
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      line-height: 1;
+      margin-bottom: 6px;
     }
 
-    .stat-sub { font-size: 12px; color: var(--grijs); margin-top: 2px; }
+    .stat-sub {
+      font-size: 12px;
+      color: var(--grijs);
+      line-height: 1.45;
+    }
 
-    /* Sectie */
     .sectie {
-      background: white;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       overflow: hidden;
     }
 
     .sectie-header {
-      padding: 16px 24px;
+      background: var(--groen-licht);
       border-bottom: 1px solid var(--border);
+      padding: 16px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--groen-licht);
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .sectie-titel {
       font-family: var(--font-titel);
+      color: var(--groen);
       font-size: 15px;
       font-weight: 700;
-      color: var(--groen);
+    }
+
+    .sectie-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .badge {
       background: var(--groen);
       color: white;
       font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: .04em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
     }
 
-    /* Tabel */
+    .badge.badge-soft {
+      background: rgba(0,102,51,.10);
+      color: var(--groen);
+    }
+
+    .paneel-body {
+      padding: 0;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -216,479 +338,961 @@
     }
 
     thead th {
-      padding: 10px 16px;
       text-align: left;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--grijs);
+      padding: 12px 16px;
       background: #fafafa;
+      color: var(--grijs);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
       border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 68px;
+      z-index: 5;
     }
 
     tbody tr {
       border-bottom: 1px solid var(--border);
-      transition: background 0.1s;
     }
 
-    tbody tr:hover { background: var(--groen-licht); }
-    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover {
+      background: #fbfdfb;
+    }
 
-    td { padding: 10px 16px; }
+    td {
+      padding: 12px 16px;
+      vertical-align: top;
+    }
 
-    .td-email { color: var(--grijs); font-size: 13px; }
+    .td-muted,
+    .klein {
+      color: var(--grijs);
+      font-size: 13px;
+    }
 
-    /* Voortgangsbalk */
+    .naamcel strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+
+    .chip-les1 { background: #dbeafe; color: #1d4ed8; }
+    .chip-les2 { background: #fef3c7; color: #92400e; }
+    .chip-geen { background: #f3f4f6; color: #6b7280; }
+    .chip-unknown { background: #ede9fe; color: #6d28d9; }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 120px;
+    }
+
     .progress-bar {
-      width: 100%;
-      height: 6px;
+      width: 94px;
+      height: 8px;
       background: #e5e7eb;
-      border-radius: 99px;
+      border-radius: 999px;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .progress-fill {
       height: 100%;
-      border-radius: 99px;
+      border-radius: 999px;
       background: var(--groen-mid);
-      transition: width 0.5s ease;
     }
 
     .progress-fill.hoog { background: var(--groen); }
     .progress-fill.laag { background: var(--accent); }
 
-    /* Chip */
-    .chip {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .chip-les1 { background: #dbeafe; color: #1d4ed8; }
-    .chip-les2 { background: #fef3c7; color: #92400e; }
-    .chip-geen { background: #f3f4f6; color: var(--grijs); }
-
-    /* Vernieuwen btn */
-    .btn-refresh {
-      background: var(--groen);
-      color: white;
-      border: none;
-      padding: 7px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      font-family: var(--font-body);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.2s;
-    }
-
-    .btn-refresh:hover { background: #00522a; }
-    .btn-refresh:disabled { opacity: 0.5; cursor: default; }
-
-    /* Laadindicator */
-    .loading {
-      text-align: center;
-      padding: 40px;
+    .laatste-update,
+    .statusregel {
+      font-size: 12px;
       color: var(--grijs);
-      font-size: 14px;
+    }
+
+    .statusregel {
+      padding: 14px 2px 0;
+    }
+
+    .loading,
+    .leeg,
+    .foutkaart {
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--grijs);
+    }
+
+    .foutkaart {
+      color: var(--accent);
+      line-height: 1.55;
     }
 
     .spinner {
       display: inline-block;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border: 2px solid var(--border);
       border-top-color: var(--groen);
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin .8s linear infinite;
       margin-right: 8px;
-      vertical-align: middle;
+      vertical-align: text-bottom;
     }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
-    .laatste-update {
+    #dashboard { display: none; }
+
+    #login-screen {
+      min-height: calc(100vh - 68px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 20px 44px;
+    }
+
+    .login-card {
+      max-width: 460px;
+      width: 100%;
+      padding: 42px 34px;
+      text-align: center;
+    }
+
+    .login-icon {
+      font-size: 50px;
+      margin-bottom: 14px;
+      line-height: 1;
+    }
+
+    .login-card h2 {
+      font-family: var(--font-titel);
+      color: var(--groen);
+      font-size: 28px;
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+
+    .login-card p {
+      color: #4b5563;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    #login-btn-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 6px;
+      min-height: 46px;
+    }
+
+    .login-error {
+      display: none;
+      margin-top: 14px;
+      color: var(--accent);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .login-tip {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--grijs);
+    }
+
+    .footer-note {
+      margin-top: 10px;
       font-size: 12px;
       color: var(--grijs);
       text-align: right;
-      margin-bottom: 16px;
     }
 
-    /* Lege staat */
-    .leeg {
-      text-align: center;
-      padding: 32px;
-      color: var(--grijs);
-      font-size: 14px;
+    .table-wrap {
+      overflow: auto;
+    }
+
+    @media (max-width: 980px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      thead th {
+        top: 68px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 12px 16px;
+        align-items: flex-start;
+      }
+
+      .shell {
+        padding: 18px 12px 40px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .login-card {
+        padding: 32px 20px;
+      }
+
+      .hero {
+        padding: 18px 16px;
+      }
+
+      thead th,
+      td {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
     }
   </style>
 </head>
 <body>
-
-<header>
-  <div class="header-left">
-    <span class="header-logo">🏛️</span>
-    <div>
-      <div class="header-title">Groenhove Latijn</div>
-      <div class="header-sub">Leraarsdashboard</div>
-    </div>
-  </div>
-  <div class="header-right">
-    <div id="auth-status"></div>
-  </div>
-</header>
-
-<!-- Login -->
-<div id="login-screen">
-  <div class="login-card">
-    <div class="login-icon">🔐</div>
-    <h2>Leraarsdashboard</h2>
-    <p>Log in met je <strong>@groenhoveschool.be</strong> account om de voortgang van je leerlingen te bekijken.</p>
-    <div id="login-btn-container"></div>
-    <p class="login-error" id="login-error"></p>
-  </div>
-</div>
-
-<!-- Dashboard -->
-<div id="dashboard">
-  <div class="stats-grid" id="stats-grid">
-    <div class="stat-card">
-      <div class="stat-label">Leerlingen</div>
-      <div class="stat-value" id="stat-leerlingen">—</div>
-      <div class="stat-sub">ingelogd dit schooljaar</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Les 1 voltooid</div>
-      <div class="stat-value" id="stat-les1">—</div>
-      <div class="stat-sub">leerlingen</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Les 2 voltooid</div>
-      <div class="stat-value" id="stat-les2">—</div>
-      <div class="stat-sub">leerlingen</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Gem. score</div>
-      <div class="stat-value" id="stat-gem">—</div>
-      <div class="stat-sub">over alle lessen</div>
-    </div>
-  </div>
-
-  <p class="laatste-update" id="laatste-update"></p>
-
-  <!-- Leerlingenoverzicht -->
-  <div class="sectie">
-    <div class="sectie-header">
-      <span class="sectie-titel">Leerlingenoverzicht</span>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <span class="badge" id="badge-leerlingen">0</span>
-        <button class="btn-refresh" id="btn-refresh" onclick="laadData()">
-          ↺ Vernieuwen
-        </button>
+  <header>
+    <div class="header-left">
+      <span class="header-logo">🏛️</span>
+      <div>
+        <div class="header-title">Groenhove Latijn</div>
+        <div class="header-sub">Leraarsdashboard</div>
       </div>
     </div>
-    <div id="tabel-leerlingen">
-      <div class="loading"><span class="spinner"></span> Data laden…</div>
+    <div class="header-right" id="auth-status">
+      <span class="user-pill">Niet aangemeld</span>
+    </div>
+  </header>
+
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-icon">🔐</div>
+      <h2>Leraarsdashboard</h2>
+      <p>Log in met je <strong>@groenhoveschool.be</strong>-account om de voortgang en recente registraties van leerlingen te bekijken.</p>
+      <div id="login-btn-container"></div>
+      <p class="login-error" id="login-error"></p>
+      <p class="login-tip">Als dit later op GitHub Pages staat, kun je het in Chrome als apart venster vastmaken. Een extensie is daarvoor niet nodig.</p>
     </div>
   </div>
 
-  <!-- Voortgang per les -->
-  <div class="sectie">
-    <div class="sectie-header">
-      <span class="sectie-titel">Voortgang per les</span>
-      <span class="badge" id="badge-voortgang">0</span>
+  <main id="dashboard">
+    <div class="shell">
+      <section class="hero">
+        <div>
+          <h1>Overzicht van leerlingen en registraties</h1>
+          <p>Dit dashboard is herschreven zodat de login dezelfde backend-aanpak gebruikt zonder de eerdere CORS-valkuil. Het leest de dashboarddata via <code>?action=getDashboard</code> en normaliseert lescodes zoals <em>les1</em>, <em>les2</em> en de langere titels uit je lespagina's.</p>
+          <div class="hero-note">Tip: host dit bestand op GitHub Pages en maak er in Chrome een snelkoppeling van “als venster”. Dan voelt het al bijna als een aparte app.</div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn-refresh" id="btn-refresh" type="button">↺ Vernieuwen</button>
+          <button class="btn-export" id="btn-export" type="button">⬇︎ CSV export</button>
+        </div>
+      </section>
+
+      <section class="toolbar">
+        <div class="toolbar-card">
+          <label class="toolbar-label" for="zoekveld">Zoek leerling of e-mail</label>
+          <input id="zoekveld" type="text" placeholder="Bijv. Jens, voornaam, familienaam of e-mail">
+        </div>
+        <div class="toolbar-card">
+          <label class="toolbar-label" for="lesfilter">Filter op les</label>
+          <select id="lesfilter">
+            <option value="alle">Alle lessen</option>
+            <option value="les1">Les 1</option>
+            <option value="les2">Les 2</option>
+            <option value="other">Overig / onbekend</option>
+          </select>
+        </div>
+        <div class="toolbar-card">
+          <label class="toolbar-label" for="sorteer">Sorteer leerlingen op</label>
+          <select id="sorteer">
+            <option value="naam">Naam</option>
+            <option value="laatste">Laatste activiteit</option>
+            <option value="score">Gemiddelde score</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-label">Leerlingen</div>
+          <div class="stat-value" id="stat-leerlingen">—</div>
+          <div class="stat-sub">unieke leerlingen in het overzicht</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Les 1</div>
+          <div class="stat-value" id="stat-les1">—</div>
+          <div class="stat-sub">leerlingen met minstens één registratie voor les 1</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Les 2</div>
+          <div class="stat-value" id="stat-les2">—</div>
+          <div class="stat-sub">leerlingen met minstens één registratie voor les 2</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Gem. score</div>
+          <div class="stat-value" id="stat-gem">—</div>
+          <div class="stat-sub">gemiddelde van alle registraties met procentwaarde</div>
+        </article>
+      </section>
+
+      <div class="statusregel">
+        <span id="laatste-update">Nog geen data geladen.</span>
+      </div>
+
+      <section class="sectie">
+        <div class="sectie-header">
+          <span class="sectie-titel">Leerlingenoverzicht</span>
+          <div class="sectie-meta">
+            <span class="badge badge-soft" id="badge-leerlingen">0</span>
+          </div>
+        </div>
+        <div class="paneel-body table-wrap" id="tabel-leerlingen">
+          <div class="loading"><span class="spinner"></span>Data laden…</div>
+        </div>
+      </section>
+
+      <section class="sectie">
+        <div class="sectie-header">
+          <span class="sectie-titel">Recente registraties</span>
+          <div class="sectie-meta">
+            <span class="badge badge-soft" id="badge-voortgang">0</span>
+          </div>
+        </div>
+        <div class="paneel-body table-wrap" id="tabel-voortgang">
+          <div class="loading"><span class="spinner"></span>Data laden…</div>
+        </div>
+      </section>
+
+      <div class="footer-note">Bestand: één HTML-pagina, geen plugin nodig. Zet het online en maak er een venster-app van in Chrome.</div>
     </div>
-    <div id="tabel-voortgang">
-      <div class="loading"><span class="spinner"></span> Data laden…</div>
-    </div>
-  </div>
-</div>
+  </main>
 
-<script>
-// ── Configuratie ──────────────────────────────────────────────────────────────
+  <script>
+    const CONFIG = {
+      clientId: '247782565692-60him09rermeq8u832vpuc3hsihm48ei.apps.googleusercontent.com',
+      appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec',
+      allowedDomain: 'groenhoveschool.be',
+      userKey: 'groenhove_dash_user',
+      expiryKey: 'groenhove_dash_expiry',
+      sessionDurationMs: 8 * 60 * 60 * 1000,
+    };
 
-const CONFIG = {
-  clientId: '247782565692-60him09rermeq8u832vpuc3hsihm48ei.apps.googleusercontent.com',
-  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec',
-  allowedDomain: 'groenhoveschool.be',
-  tokenKey: 'groenhove_dash_token',
-  userKey: 'groenhove_dash_user',
-  expiryKey: 'groenhove_dash_expiry',
-};
+    const state = {
+      currentUser: null,
+      leerlingen: [],
+      voortgang: [],
+      filteredLeerlingen: [],
+      filteredVoortgang: [],
+      loading: false,
+    };
 
-let huidigGebruiker = null;
+    const el = {};
 
-// ── Initialisatie ─────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      cacheEls();
+      bindEvents();
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (isSessionGeldig()) {
-    huidigGebruiker = getStoredUser();
-    toonDashboard();
-  } else {
-    laadGSI();
-  }
-});
-
-function isSessionGeldig() {
-  const expiry = localStorage.getItem(CONFIG.expiryKey);
-  const user = localStorage.getItem(CONFIG.userKey);
-  return expiry && user && Date.now() < parseInt(expiry);
-}
-
-function getStoredUser() {
-  try { return JSON.parse(localStorage.getItem(CONFIG.userKey)); } catch { return null; }
-}
-
-function laadGSI() {
-  const script = document.createElement('script');
-  script.src = 'https://accounts.google.com/gsi/client';
-  script.async = true;
-  script.onload = initGSI;
-  document.head.appendChild(script);
-}
-
-function initGSI() {
-  google.accounts.id.initialize({
-    client_id: CONFIG.clientId,
-    callback: handleCredential,
-    auto_select: false,
-    hosted_domain: CONFIG.allowedDomain,
-  });
-
-  google.accounts.id.renderButton(
-    document.getElementById('login-btn-container'),
-    { type: 'standard', theme: 'outline', size: 'large', text: 'signin_with', width: 280 }
-  );
-}
-
-async function handleCredential(response) {
-  const errorEl = document.getElementById('login-error');
-  errorEl.style.display = 'none';
-
-  try {
-    const result = await fetch(CONFIG.appsScriptUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'verifyToken', token: response.credential }),
+      if (isSessionValid()) {
+        state.currentUser = getStoredUser();
+        showDashboard();
+      } else {
+        loadGSI();
+      }
     });
-    const data = await result.json();
 
-    if (data.ok && data.email && data.email.endsWith('@' + CONFIG.allowedDomain)) {
-      huidigGebruiker = { email: data.email, naam: data.naam || '' };
-      const expiry = Date.now() + 8 * 60 * 60 * 1000;
-      localStorage.setItem(CONFIG.userKey, JSON.stringify(huidigGebruiker));
-      localStorage.setItem(CONFIG.expiryKey, String(expiry));
-      toonDashboard();
-    } else {
-      errorEl.textContent = '⚠️ ' + (data.error || 'Geen toegang.') + ' Gebruik je @groenhoveschool.be account.';
-      errorEl.style.display = 'block';
+    function cacheEls() {
+      el.authStatus = document.getElementById('auth-status');
+      el.loginScreen = document.getElementById('login-screen');
+      el.dashboard = document.getElementById('dashboard');
+      el.loginBtnContainer = document.getElementById('login-btn-container');
+      el.loginError = document.getElementById('login-error');
+      el.btnRefresh = document.getElementById('btn-refresh');
+      el.btnExport = document.getElementById('btn-export');
+      el.zoekveld = document.getElementById('zoekveld');
+      el.lesfilter = document.getElementById('lesfilter');
+      el.sorteer = document.getElementById('sorteer');
+      el.statLeerlingen = document.getElementById('stat-leerlingen');
+      el.statLes1 = document.getElementById('stat-les1');
+      el.statLes2 = document.getElementById('stat-les2');
+      el.statGem = document.getElementById('stat-gem');
+      el.badgeLeerlingen = document.getElementById('badge-leerlingen');
+      el.badgeVoortgang = document.getElementById('badge-voortgang');
+      el.tabelLeerlingen = document.getElementById('tabel-leerlingen');
+      el.tabelVoortgang = document.getElementById('tabel-voortgang');
+      el.laatsteUpdate = document.getElementById('laatste-update');
     }
-  } catch (err) {
-    errorEl.textContent = '⚠️ Verbindingsfout. Probeer opnieuw.';
-    errorEl.style.display = 'block';
-  }
-}
 
-function uitloggen() {
-  localStorage.removeItem(CONFIG.tokenKey);
-  localStorage.removeItem(CONFIG.userKey);
-  localStorage.removeItem(CONFIG.expiryKey);
-  if (window.google) google.accounts.id.disableAutoSelect();
-  location.reload();
-}
-
-// ── Dashboard tonen ───────────────────────────────────────────────────────────
-
-function toonDashboard() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('dashboard').style.display = 'block';
-
-  const naam = huidigGebruiker?.naam || huidigGebruiker?.email?.split('@')[0] || '';
-  document.getElementById('auth-status').innerHTML = `
-    <span style="opacity:0.85;">👤 ${naam}</span>
-    <button class="btn-uitloggen" onclick="uitloggen()">Uitloggen</button>
-  `;
-
-  laadData();
-}
-
-async function laadData() {
-  const btn = document.getElementById('btn-refresh');
-  btn.disabled = true;
-  btn.textContent = '↺ Laden…';
-
-  try {
-    const url = CONFIG.appsScriptUrl + '?action=getDashboard&t=' + Date.now();
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (data.ok) {
-      verwerkData(data);
-      document.getElementById('laatste-update').textContent =
-        'Laatste update: ' + new Date().toLocaleTimeString('nl-BE');
-    } else {
-      toonFout('Kon data niet laden: ' + (data.error || ''));
+    function bindEvents() {
+      el.btnRefresh.addEventListener('click', loadDashboardData);
+      el.btnExport.addEventListener('click', exportCsv);
+      el.zoekveld.addEventListener('input', applyFiltersAndRender);
+      el.lesfilter.addEventListener('change', applyFiltersAndRender);
+      el.sorteer.addEventListener('change', applyFiltersAndRender);
     }
-  } catch (err) {
-    toonFout('Verbindingsfout: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '↺ Vernieuwen';
-  }
-}
 
-function verwerkData(data) {
-  const { leerlingen, voortgang } = data;
+    function isSessionValid() {
+      const expiry = localStorage.getItem(CONFIG.expiryKey);
+      const user = localStorage.getItem(CONFIG.userKey);
+      return !!(expiry && user && Date.now() < parseInt(expiry, 10));
+    }
 
-  // Stats
-  document.getElementById('stat-leerlingen').textContent = leerlingen.length;
-  document.getElementById('badge-leerlingen').textContent = leerlingen.length;
+    function getStoredUser() {
+      try {
+        return JSON.parse(localStorage.getItem(CONFIG.userKey));
+      } catch {
+        return null;
+      }
+    }
 
-  const les1Set = new Set(voortgang.filter(v => v.les === 'les1').map(v => v.email));
-  const les2Set = new Set(voortgang.filter(v => v.les === 'les2').map(v => v.email));
-  document.getElementById('stat-les1').textContent = les1Set.size;
-  document.getElementById('stat-les2').textContent = les2Set.size;
+    function storeSession(user) {
+      localStorage.setItem(CONFIG.userKey, JSON.stringify(user));
+      localStorage.setItem(CONFIG.expiryKey, String(Date.now() + CONFIG.sessionDurationMs));
+    }
 
-  const scores = voortgang.filter(v => v.procent).map(v => parseInt(v.procent));
-  const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
-  document.getElementById('stat-gem').textContent = gem !== null ? gem + '%' : '—';
+    function clearSession() {
+      localStorage.removeItem(CONFIG.userKey);
+      localStorage.removeItem(CONFIG.expiryKey);
+      if (window.google?.accounts?.id) {
+        google.accounts.id.disableAutoSelect();
+      }
+    }
 
-  // Leerlingentabel
-  renderLeerlingen(leerlingen, voortgang, les1Set, les2Set);
+    function loadGSI() {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.onload = initGSI;
+      script.onerror = () => {
+        showLoginError('Google Sign-In kon niet geladen worden. Probeer de pagina opnieuw te verversen.');
+      };
+      document.head.appendChild(script);
+    }
 
-  // Voortgangtabel
-  renderVoortgang(voortgang);
-  document.getElementById('badge-voortgang').textContent = voortgang.length;
-}
+    function initGSI() {
+      google.accounts.id.initialize({
+        client_id: CONFIG.clientId,
+        callback: handleCredential,
+        auto_select: false,
+        hosted_domain: CONFIG.allowedDomain,
+      });
 
-function renderLeerlingen(leerlingen, voortgang, les1Set, les2Set) {
-  const container = document.getElementById('tabel-leerlingen');
+      google.accounts.id.renderButton(el.loginBtnContainer, {
+        type: 'standard',
+        theme: 'outline',
+        size: 'large',
+        text: 'signin_with',
+        width: 300,
+      });
+    }
 
-  if (!leerlingen.length) {
-    container.innerHTML = '<div class="leeg">Nog geen leerlingen ingelogd.</div>';
-    return;
-  }
+    async function handleCredential(response) {
+      showLoginError('');
 
-  const voortgangPerEmail = {};
-  voortgang.forEach(v => {
-    if (!voortgangPerEmail[v.email]) voortgangPerEmail[v.email] = [];
-    voortgangPerEmail[v.email].push(v);
-  });
+      try {
+        const body = new URLSearchParams({
+          action: 'verifyToken',
+          token: response.credential,
+        });
 
-  const rows = leerlingen.map(l => {
-    const vp = voortgangPerEmail[l.email] || [];
-    const heeftLes1 = les1Set.has(l.email);
-    const heeftLes2 = les2Set.has(l.email);
-    const scores = vp.filter(v => v.procent).map(v => parseInt(v.procent));
-    const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
-    const datum = l.laatsteLogin ? new Date(l.laatsteLogin).toLocaleDateString('nl-BE') : '—';
+        const result = await fetch(CONFIG.appsScriptUrl, {
+          method: 'POST',
+          body,
+        });
 
-    return `
-      <tr>
-        <td><strong>${l.naam || '—'}</strong></td>
-        <td class="td-email">${l.email}</td>
-        <td>
-          ${heeftLes1 ? '<span class="chip chip-les1">Les 1 ✓</span>' : '<span class="chip chip-geen">Les 1</span>'}
-          ${heeftLes2 ? ' <span class="chip chip-les2">Les 2 ✓</span>' : ' <span class="chip chip-geen">Les 2</span>'}
-        </td>
-        <td>
-          ${gem !== null ? `
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-bar" style="width:80px;">
-                <div class="progress-fill ${gem >= 70 ? 'hoog' : gem < 50 ? 'laag' : ''}"
-                     style="width:${gem}%"></div>
-              </div>
-              <span style="font-size:13px;">${gem}%</span>
-            </div>
-          ` : '<span style="color:#9ca3af;font-size:13px;">geen data</span>'}
-        </td>
-        <td style="color:var(--grijs);font-size:13px;">${datum}</td>
-      </tr>
-    `;
-  }).join('');
+        const data = await result.json();
+        const email = (data.email || '').toLowerCase();
 
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Naam</th>
-          <th>E-mail</th>
-          <th>Lessen</th>
-          <th>Gem. score</th>
-          <th>Laatste login</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
-}
+        if (data.ok && email.endsWith('@' + CONFIG.allowedDomain)) {
+          state.currentUser = {
+            email,
+            naam: data.naam || email.split('@')[0] || '',
+          };
+          storeSession(state.currentUser);
+          showDashboard();
+          return;
+        }
 
-function renderVoortgang(voortgang) {
-  const container = document.getElementById('tabel-voortgang');
+        showLoginError((data.error || data.fout || 'Geen toegang met dit account.') + ' Gebruik je @groenhoveschool.be account.');
+      } catch (err) {
+        showLoginError('Verbindingsfout tijdens het aanmelden. Controleer of de webapp juist gepubliceerd is en probeer opnieuw.');
+      }
+    }
 
-  if (!voortgang.length) {
-    container.innerHTML = '<div class="leeg">Nog geen voortgang geregistreerd.</div>';
-    return;
-  }
+    function showLoginError(message) {
+      if (!message) {
+        el.loginError.style.display = 'none';
+        el.loginError.textContent = '';
+        return;
+      }
+      el.loginError.style.display = 'block';
+      el.loginError.textContent = '⚠️ ' + message;
+    }
 
-  // Sorteer op datum aflopend
-  const gesorteerd = [...voortgang].sort((a, b) => new Date(b.datum) - new Date(a.datum));
+    function logout() {
+      clearSession();
+      state.currentUser = null;
+      location.reload();
+    }
 
-  const rows = gesorteerd.slice(0, 50).map(v => {
-    const procent = v.procent ? parseInt(v.procent) : null;
-    const datum = v.datum ? new Date(v.datum).toLocaleString('nl-BE', {
-      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
-    }) : '—';
+    function showDashboard() {
+      el.loginScreen.style.display = 'none';
+      el.dashboard.style.display = 'block';
+      const naam = state.currentUser?.naam || state.currentUser?.email || 'Aangemeld';
+      el.authStatus.innerHTML = `
+        <span class="user-pill">👤 ${escapeHtml(naam)}</span>
+        <button class="btn-uitloggen" type="button" id="logout-btn">Uitloggen</button>
+      `;
+      document.getElementById('logout-btn').addEventListener('click', logout);
+      loadDashboardData();
+    }
 
-    return `
-      <tr>
-        <td class="td-email">${v.email}</td>
-        <td><span class="chip ${v.les === 'les1' ? 'chip-les1' : 'chip-les2'}">${v.les || '—'}</span></td>
-        <td style="font-size:13px;color:var(--grijs);">${v.onderdeel || '—'}</td>
-        <td>
-          ${procent !== null ? `
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-bar" style="width:60px;">
-                <div class="progress-fill ${procent >= 70 ? 'hoog' : procent < 50 ? 'laag' : ''}"
-                     style="width:${procent}%"></div>
-              </div>
-              <span style="font-size:13px;">${v.score}/${v.maxScore} (${procent}%)</span>
-            </div>
-          ` : '—'}
-        </td>
-        <td style="color:var(--grijs);font-size:12px;">${datum}</td>
-      </tr>
-    `;
-  }).join('');
+    async function loadDashboardData() {
+      setLoading(true);
+      showTablesLoading();
 
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Leerling</th>
-          <th>Les</th>
-          <th>Onderdeel</th>
-          <th>Score</th>
-          <th>Datum</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-    ${gesorteerd.length > 50 ? `<p style="padding:12px 16px;font-size:12px;color:var(--grijs);">Toont laatste 50 van ${gesorteerd.length} registraties.</p>` : ''}
-  `;
-}
+      try {
+        const url = `${CONFIG.appsScriptUrl}?action=getDashboard&t=${Date.now()}`;
+        const res = await fetch(url, { method: 'GET' });
+        const data = await res.json();
 
-function toonFout(bericht) {
-  document.getElementById('tabel-leerlingen').innerHTML =
-    `<div class="leeg" style="color:var(--accent);">⚠️ ${bericht}</div>`;
-  document.getElementById('tabel-voortgang').innerHTML = '';
-}
-</script>
+        if (!data.ok) {
+          throw new Error(data.error || data.fout || 'De backend gaf geen geldige dashboarddata terug.');
+        }
 
+        state.leerlingen = normalizeLeerlingen(data.leerlingen || data.users || data.leerlingData || []);
+        state.voortgang = normalizeVoortgang(data.voortgang || data.registraties || data.rows || []);
+
+        applyFiltersAndRender();
+        el.laatsteUpdate.textContent = 'Laatste update: ' + new Date().toLocaleString('nl-BE');
+      } catch (err) {
+        showError(err.message || 'Onbekende fout bij het laden van dashboarddata.');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    function setLoading(isLoading) {
+      state.loading = isLoading;
+      el.btnRefresh.disabled = isLoading;
+      el.btnRefresh.textContent = isLoading ? '↺ Laden…' : '↺ Vernieuwen';
+      el.btnExport.disabled = isLoading || !state.voortgang.length;
+    }
+
+    function showTablesLoading() {
+      el.tabelLeerlingen.innerHTML = '<div class="loading"><span class="spinner"></span>Data laden…</div>';
+      el.tabelVoortgang.innerHTML = '<div class="loading"><span class="spinner"></span>Data laden…</div>';
+    }
+
+    function showError(message) {
+      const html = `<div class="foutkaart">⚠️ ${escapeHtml(message)}</div>`;
+      el.tabelLeerlingen.innerHTML = html;
+      el.tabelVoortgang.innerHTML = html;
+      el.statLeerlingen.textContent = '—';
+      el.statLes1.textContent = '—';
+      el.statLes2.textContent = '—';
+      el.statGem.textContent = '—';
+      el.badgeLeerlingen.textContent = '0';
+      el.badgeVoortgang.textContent = '0';
+    }
+
+    function normalizeLeerlingen(rows) {
+      const map = new Map();
+
+      rows.forEach((row) => {
+        const email = String(row.email || row.mail || '').trim().toLowerCase();
+        if (!email) return;
+
+        const existing = map.get(email) || {
+          naam: '',
+          email,
+          laatsteLogin: '',
+        };
+
+        const kandidaatDatum = row.laatsteLogin || row.lastLogin || row.datum || row.timestamp || '';
+        const besteDatum = pickNewestDate(existing.laatsteLogin, kandidaatDatum);
+
+        map.set(email, {
+          naam: row.naam || row.name || existing.naam || email.split('@')[0],
+          email,
+          laatsteLogin: besteDatum,
+        });
+      });
+
+      return Array.from(map.values());
+    }
+
+    function normalizeVoortgang(rows) {
+      return rows.map((row, index) => {
+        const lesRaw = row.les || row.lesson || row.module || '';
+        const les = normalizeLesCode(lesRaw);
+        const score = toNumber(row.score);
+        const maxScore = toNumber(row.maxScore || row.max || row.maximum);
+        const procent = firstValidNumber([
+          row.procent,
+          row.percentage,
+          row.pct,
+          maxScore > 0 && score !== null ? Math.round((score / maxScore) * 100) : null,
+        ]);
+
+        return {
+          id: row.id || `row-${index}`,
+          email: String(row.email || row.mail || '').trim().toLowerCase(),
+          naam: row.naam || row.name || '',
+          les,
+          lesLabel: lessonLabel(les, lesRaw),
+          onderdeel: row.onderdeel || row.vraag || row.vraagId || row.section || row.deel || '—',
+          score,
+          maxScore,
+          procent,
+          datum: row.datum || row.timestamp || row.createdAt || row.time || '',
+          raw: row,
+        };
+      }).filter((row) => row.email || row.naam || row.onderdeel !== '—');
+    }
+
+    function applyFiltersAndRender() {
+      const query = (el.zoekveld.value || '').trim().toLowerCase();
+      const lesfilter = el.lesfilter.value;
+      const sorteer = el.sorteer.value;
+
+      const voortgangPerEmail = buildVoortgangPerEmail(state.voortgang);
+
+      let leerlingen = state.leerlingen.filter((l) => {
+        const vp = voortgangPerEmail.get(l.email) || [];
+        const lesMatch = matchLesFilter(vp, lesfilter);
+        const text = `${l.naam || ''} ${l.email || ''}`.toLowerCase();
+        const zoekMatch = !query || text.includes(query);
+        return lesMatch && zoekMatch;
+      });
+
+      leerlingen = sortLeerlingen(leerlingen, voortgangPerEmail, sorteer);
+      state.filteredLeerlingen = leerlingen;
+
+      let voortgang = state.voortgang.filter((v) => {
+        const text = `${v.naam || ''} ${v.email || ''} ${v.onderdeel || ''} ${v.lesLabel || ''}`.toLowerCase();
+        const zoekMatch = !query || text.includes(query);
+        const lesMatch = lesfilter === 'alle'
+          ? true
+          : lesfilter === 'other'
+            ? !['les1', 'les2'].includes(v.les)
+            : v.les === lesfilter;
+        return zoekMatch && lesMatch;
+      });
+
+      voortgang = [...voortgang].sort((a, b) => new Date(b.datum || 0) - new Date(a.datum || 0));
+      state.filteredVoortgang = voortgang;
+
+      updateStats(leerlingen, voortgang);
+      renderLeerlingen(leerlingen, voortgangPerEmail);
+      renderVoortgang(voortgang);
+    }
+
+    function updateStats(leerlingen, voortgang) {
+      el.statLeerlingen.textContent = String(leerlingen.length);
+      el.badgeLeerlingen.textContent = String(leerlingen.length);
+      el.badgeVoortgang.textContent = String(voortgang.length);
+
+      const les1Set = new Set(voortgang.filter((v) => v.les === 'les1').map((v) => v.email));
+      const les2Set = new Set(voortgang.filter((v) => v.les === 'les2').map((v) => v.email));
+      el.statLes1.textContent = String(les1Set.size);
+      el.statLes2.textContent = String(les2Set.size);
+
+      const scores = voortgang
+        .map((v) => toNumber(v.procent))
+        .filter((n) => n !== null);
+      const avg = scores.length ? Math.round(scores.reduce((sum, n) => sum + n, 0) / scores.length) : null;
+      el.statGem.textContent = avg === null ? '—' : `${avg}%`;
+    }
+
+    function renderLeerlingen(leerlingen, voortgangPerEmail) {
+      if (!leerlingen.length) {
+        el.tabelLeerlingen.innerHTML = '<div class="leeg">Geen leerlingen gevonden voor deze filter.</div>';
+        return;
+      }
+
+      const rows = leerlingen.map((leerling) => {
+        const entries = voortgangPerEmail.get(leerling.email) || [];
+        const les1 = entries.some((v) => v.les === 'les1');
+        const les2 = entries.some((v) => v.les === 'les2');
+        const percentages = entries.map((v) => toNumber(v.procent)).filter((n) => n !== null);
+        const avg = percentages.length ? Math.round(percentages.reduce((sum, n) => sum + n, 0) / percentages.length) : null;
+        const laatsteActiviteit = pickNewestDate(
+          leerling.laatsteLogin,
+          ...entries.map((v) => v.datum)
+        );
+
+        return `
+          <tr>
+            <td class="naamcel">
+              <strong>${escapeHtml(leerling.naam || '—')}</strong>
+              <span class="klein">${escapeHtml(leerling.email || '—')}</span>
+            </td>
+            <td>
+              ${les1 ? '<span class="chip chip-les1">Les 1 ✓</span>' : '<span class="chip chip-geen">Les 1</span>'}
+              ${les2 ? '<span class="chip chip-les2">Les 2 ✓</span>' : '<span class="chip chip-geen">Les 2</span>'}
+              ${(!les1 && !les2 && entries.length) ? '<span class="chip chip-unknown">Overig</span>' : ''}
+            </td>
+            <td>
+              ${avg !== null ? renderProgress(avg, `${avg}%`) : '<span class="klein">geen score</span>'}
+            </td>
+            <td class="td-muted">${formatDateTime(laatsteActiviteit, true)}</td>
+            <td class="td-muted">${entries.length}</td>
+          </tr>
+        `;
+      }).join('');
+
+      el.tabelLeerlingen.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Leerling</th>
+              <th>Lessen</th>
+              <th>Gem. score</th>
+              <th>Laatste activiteit</th>
+              <th>Registraties</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    function renderVoortgang(voortgang) {
+      if (!voortgang.length) {
+        el.tabelVoortgang.innerHTML = '<div class="leeg">Geen registraties gevonden voor deze filter.</div>';
+        return;
+      }
+
+      const rows = voortgang.slice(0, 200).map((v) => {
+        const naamOfMail = v.naam ? `${v.naam} <span class="klein">(${escapeHtml(v.email || '—')})</span>` : escapeHtml(v.email || '—');
+        const scoreHtml = v.procent !== null
+          ? renderProgress(v.procent, `${safeScore(v.score)}/${safeScore(v.maxScore)} (${v.procent}%)`)
+          : '<span class="klein">—</span>';
+
+        return `
+          <tr>
+            <td>${naamOfMail}</td>
+            <td>${renderLesChip(v)}</td>
+            <td class="td-muted">${escapeHtml(v.onderdeel || '—')}</td>
+            <td>${scoreHtml}</td>
+            <td class="td-muted">${formatDateTime(v.datum)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      el.tabelVoortgang.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Leerling</th>
+              <th>Les</th>
+              <th>Onderdeel</th>
+              <th>Score</th>
+              <th>Datum</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+        ${voortgang.length > 200 ? `<div class="leeg">Toont de recentste 200 van ${voortgang.length} registraties.</div>` : ''}
+      `;
+    }
+
+    function renderProgress(percent, label) {
+      const cls = percent >= 70 ? 'hoog' : percent < 50 ? 'laag' : '';
+      return `
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill ${cls}" style="width:${Math.max(0, Math.min(100, percent))}%"></div></div>
+          <span class="klein">${escapeHtml(label)}</span>
+        </div>
+      `;
+    }
+
+    function renderLesChip(v) {
+      if (v.les === 'les1') return '<span class="chip chip-les1">Les 1</span>';
+      if (v.les === 'les2') return '<span class="chip chip-les2">Les 2</span>';
+      return `<span class="chip chip-unknown">${escapeHtml(v.lesLabel || 'Onbekend')}</span>`;
+    }
+
+    function buildVoortgangPerEmail(rows) {
+      const map = new Map();
+      rows.forEach((row) => {
+        const key = row.email || 'zonder-email';
+        if (!map.has(key)) map.set(key, []);
+        map.get(key).push(row);
+      });
+      return map;
+    }
+
+    function matchLesFilter(entries, filter) {
+      if (filter === 'alle') return true;
+      if (filter === 'other') return entries.some((v) => !['les1', 'les2'].includes(v.les));
+      return entries.some((v) => v.les === filter);
+    }
+
+    function sortLeerlingen(leerlingen, voortgangPerEmail, mode) {
+      const copy = [...leerlingen];
+
+      copy.sort((a, b) => {
+        if (mode === 'laatste') {
+          const dateA = newestDateValue(a, voortgangPerEmail);
+          const dateB = newestDateValue(b, voortgangPerEmail);
+          return dateB - dateA;
+        }
+
+        if (mode === 'score') {
+          const scoreA = avgScoreValue(a, voortgangPerEmail);
+          const scoreB = avgScoreValue(b, voortgangPerEmail);
+          if (scoreB !== scoreA) return scoreB - scoreA;
+        }
+
+        return (a.naam || a.email || '').localeCompare(b.naam || b.email || '', 'nl', { sensitivity: 'base' });
+      });
+
+      return copy;
+    }
+
+    function newestDateValue(leerling, voortgangPerEmail) {
+      const entries = voortgangPerEmail.get(leerling.email) || [];
+      const best = pickNewestDate(leerling.laatsteLogin, ...entries.map((v) => v.datum));
+      const time = new Date(best || 0).getTime();
+      return Number.isNaN(time) ? 0 : time;
+    }
+
+    function avgScoreValue(leerling, voortgangPerEmail) {
+      const entries = voortgangPerEmail.get(leerling.email) || [];
+      const scores = entries.map((v) => toNumber(v.procent)).filter((n) => n !== null);
+      if (!scores.length) return -1;
+      return Math.round(scores.reduce((sum, n) => sum + n, 0) / scores.length);
+    }
+
+    function normalizeLesCode(raw) {
+      const value = String(raw || '').trim().toLowerCase();
+      if (!value) return 'unknown';
+      if (value === 'les1' || value.includes('les 1') || value.includes('wagenrennen')) return 'les1';
+      if (value === 'les2' || value.includes('les 2') || value.includes('nika')) return 'les2';
+      return value;
+    }
+
+    function lessonLabel(code, fallback = '') {
+      if (code === 'les1') return 'Les 1';
+      if (code === 'les2') return 'Les 2';
+      const cleanFallback = String(fallback || '').trim();
+      return cleanFallback || 'Onbekend';
+    }
+
+    function safeScore(value) {
+      const n = toNumber(value);
+      return n === null ? '—' : String(n);
+    }
+
+    function toNumber(value) {
+      if (value === null || value === undefined || value === '') return null;
+      const n = Number(value);
+      return Number.isFinite(n) ? n : null;
+    }
+
+    function firstValidNumber(values) {
+      for (const value of values) {
+        const n = toNumber(value);
+        if (n !== null) return Math.round(n);
+      }
+      return null;
+    }
+
+    function pickNewestDate(...values) {
+      let best = '';
+      let bestTime = 0;
+
+      values.flat().forEach((value) => {
+        if (!value) return;
+        const time = new Date(value).getTime();
+        if (!Number.isNaN(time) && time >= bestTime) {
+          bestTime = time;
+          best = value;
+        }
+      });
+
+      return best;
+    }
+
+    function formatDateTime(value, dateOnly = false) {
+      if (!value) return '—';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return escapeHtml(String(value));
+      return dateOnly
+        ? date.toLocaleDateString('nl-BE')
+        : date.toLocaleString('nl-BE', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          });
+    }
+
+    function exportCsv() {
+      if (!state.filteredVoortgang.length) return;
+
+      const rows = [
+        ['Naam', 'E-mail', 'Les', 'Onderdeel', 'Score', 'Max score', 'Procent', 'Datum'],
+        ...state.filteredVoortgang.map((v) => [
+          v.naam || '',
+          v.email || '',
+          v.lesLabel || '',
+          v.onderdeel || '',
+          v.score ?? '',
+          v.maxScore ?? '',
+          v.procent ?? '',
+          v.datum || '',
+        ]),
+      ];
+
+      const csv = rows.map((row) => row.map(csvEscape).join(';')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `groenhove-dashboard-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function csvEscape(value) {
+      const str = String(value ?? '');
+      return `"${str.replaceAll('"', '""')}"`;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+  </script>
 </body>
 </html>
