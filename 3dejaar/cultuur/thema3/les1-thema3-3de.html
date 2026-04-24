@@ -644,9 +644,12 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
 .annotation-tools { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; align-items:center; }
 .annotation-tool { border:1px solid rgba(255,255,255,.35); background:#222; color:white; border-radius:22px; padding:7px 13px; cursor:pointer; font-family:var(--fb); }
 .annotation-tool.active { background: var(--accent); border-color: var(--accent); }
-.annotation-stage { position:relative; max-width: 1040px; margin:0 auto; border:1px solid #444; }
+.annotation-tool.done { box-shadow: inset 0 0 0 2px rgba(255,255,255,.55); }
+.annotation-stage { position:relative; max-width: 1040px; margin:0 auto; border:1px solid #444; cursor: crosshair; }
 .annotation-stage img { width:100%; display:block; }
-.marker { position:absolute; transform:translate(-50%,-50%); background:var(--accent); color:white; border:2px solid white; border-radius:999px; padding:3px 8px; font-weight:700; font-size:.78rem; box-shadow:0 2px 8px rgba(0,0,0,.4); pointer-events:none; }
+.marker { position:absolute; transform:translate(-50%,-50%); background:var(--accent); color:white; border:2px solid white; border-radius:999px; padding:4px 10px; font-weight:700; font-size:.85rem; box-shadow:0 2px 8px rgba(0,0,0,.4); pointer-events:none; z-index:5; }
+.marker[data-label="metae"] { background:#006633; }
+.marker[data-label="pulvinar"] { background:#1f4aa8; }
 .annotation-note { font-size:.84rem; color:#ddd; margin-top:10px; line-height:1.5; }
 
 @media (max-width: 600px) {
@@ -1054,7 +1057,7 @@ const theaterContent = {
   },
   racebaan: {
     title: 'Racebaan aanduiden',
-    html: '<div class="annotation-wrap"><div class="annotation-tools"><button class="annotation-tool active" type="button" onclick="selectLabel(\\\'spina\\\', this)">spina</button><button class="annotation-tool" type="button" onclick="selectLabel(\\\'metae\\\', this)">metae</button><button class="annotation-tool" type="button" onclick="selectLabel(\\\'pulvinar\\\', this)">pulvinar</button><button class="annotation-tool" type="button" onclick="resetMarkers()">Wis</button></div><div class="annotation-stage" id="annotationStage" onclick="placeMarker(event)"><img src="https://cdna.artstation.com/p/assets/images/images/015/632/424/large/katharina-huber-01-1220-pompacircus-fullcgi-0350-logo.jpg?1549034082" alt="Racebaan in het circus"></div><div class="annotation-note">Klik eerst een begrip aan en klik daarna op de plaats in de afbeelding. Bespreek nadien op papier waarom die plaats belangrijk is.</div></div>'
+    html: '<div class="annotation-wrap"><div class="annotation-tools" id="annotationTools"><button class="annotation-tool active" type="button" data-label="spina">spina</button><button class="annotation-tool" type="button" data-label="metae">metae</button><button class="annotation-tool" type="button" data-label="pulvinar">pulvinar</button><button class="annotation-tool" type="button" data-action="reset">Wis</button></div><div class="annotation-stage" id="annotationStage"><img src="https://cdna.artstation.com/p/assets/images/images/015/632/424/large/katharina-huber-01-1220-pompacircus-fullcgi-0350-logo.jpg?1549034082" alt="Racebaan in het circus"></div><div class="annotation-note">Klik bovenaan eerst op een begrip en klik daarna op de juiste plaats in de afbeelding. Na elke aanduiding springt de oefening vanzelf naar het volgende begrip.</div></div>'
   }
 };
 
@@ -1069,6 +1072,7 @@ function openTheater(type) {
   document.getElementById('theater').setAttribute('aria-hidden','false');
   document.body.style.overflow = 'hidden';
   currentLabel = 'spina';
+  if (type === 'racebaan') initAnnotation();
 }
 
 function closeTheater() {
@@ -1083,17 +1087,48 @@ document.addEventListener('click', function(e) { if (e.target && e.target.id ===
 
 function selectLabel(label, btn) {
   currentLabel = label;
-  document.querySelectorAll('.annotation-tool').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#annotationTools .annotation-tool[data-label]').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
+}
+
+function initAnnotation() {
+  const tools = document.getElementById('annotationTools');
+  const stage = document.getElementById('annotationStage');
+  if (!tools || !stage) return;
+
+  tools.addEventListener('click', function(e) {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (btn.dataset.action === 'reset') {
+      resetMarkers();
+      const first = tools.querySelector('[data-label="spina"]');
+      selectLabel('spina', first);
+      return;
+    }
+    if (btn.dataset.label) selectLabel(btn.dataset.label, btn);
+  });
+
+  stage.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    placeMarker(e);
+  });
 }
 
 function placeMarker(e) {
   const stage = document.getElementById('annotationStage');
-  if (!stage) return;
+  const tools = document.getElementById('annotationTools');
+  if (!stage || !tools || !currentLabel) return;
   const rect = stage.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
-  [...stage.querySelectorAll('.marker')].filter(m => m.dataset.label === currentLabel).forEach(m => m.remove());
+  const x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+  const y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+
+  stage.querySelectorAll('.marker').forEach(m => {
+    if (m.dataset.label === currentLabel) m.remove();
+  });
+
   const marker = document.createElement('div');
   marker.className = 'marker';
   marker.dataset.label = currentLabel;
@@ -1101,11 +1136,23 @@ function placeMarker(e) {
   marker.style.left = x + '%';
   marker.style.top = y + '%';
   stage.appendChild(marker);
+
+  const btn = tools.querySelector('[data-label="' + currentLabel + '"]');
+  if (btn) btn.classList.add('done');
+
+  const volgorde = ['spina', 'metae', 'pulvinar'];
+  const huidigeIndex = volgorde.indexOf(currentLabel);
+  const volgende = volgorde.find((label, index) => index > huidigeIndex && !stage.querySelector('.marker[data-label="' + label + '"]'));
+  if (volgende) {
+    selectLabel(volgende, tools.querySelector('[data-label="' + volgende + '"]'));
+  }
 }
 
 function resetMarkers() {
   const stage = document.getElementById('annotationStage');
+  const tools = document.getElementById('annotationTools');
   if (stage) stage.querySelectorAll('.marker').forEach(m => m.remove());
+  if (tools) tools.querySelectorAll('.annotation-tool').forEach(b => b.classList.remove('done'));
 }
 
 /* ── BACKEND HELPERS ────────────────────────────────────────── */
