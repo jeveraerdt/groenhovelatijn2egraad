@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wagenrennen — Cultuur Thema 3 Les 1 · 3de jaar</title>
+<title>Wagenrennen — Cultuur Thema 3 Les 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -600,6 +600,55 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+
+/* ── MEDIA / THEATER ───────────────────────────────────────── */
+.media-launch {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1.5px solid var(--rand);
+  border-radius: var(--radius);
+  background: var(--groen-licht);
+  padding: 16px 18px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+  font-family: var(--fb);
+}
+.media-launch:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,102,51,.12); border-color: var(--jaar-kleur); }
+.media-icon {
+  width: 64px; height: 64px;
+  border-radius: 18px;
+  background: var(--jaar-kleur);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1rem;
+  flex-shrink: 0;
+}
+.media-copy strong { display:block; font-family: var(--ft); color: var(--jaar-kleur); font-size: 1rem; margin-bottom: 4px; }
+.media-copy span { display:block; color:#455; font-size:.87rem; line-height:1.5; }
+.media-row { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 14px 0; }
+.theater { position: fixed; inset: 0; background: rgba(0,0,0,.86); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 24px; }
+.theater.open { display: flex; }
+.theater-panel { width: min(1120px, 96vw); max-height: 92vh; background: #101010; border-radius: 16px; overflow: hidden; box-shadow: 0 18px 60px rgba(0,0,0,.45); display: flex; flex-direction: column; }
+.theater-head { color: white; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #050505; }
+.theater-title { font-family: var(--ft); font-size: .95rem; }
+.theater-close { border: 1px solid rgba(255,255,255,.4); background: transparent; color: white; border-radius: 20px; padding: 5px 12px; cursor: pointer; font-family: var(--fb); }
+.theater-body { overflow: auto; background: #111; }
+.media-frame { width: 100%; aspect-ratio: 16/9; border: 0; display:block; }
+.theater-img { width: 100%; height: auto; display:block; background:#222; }
+.annotation-wrap { background:#111; color:white; padding:16px; }
+.annotation-tools { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; align-items:center; }
+.annotation-tool { border:1px solid rgba(255,255,255,.35); background:#222; color:white; border-radius:22px; padding:7px 13px; cursor:pointer; font-family:var(--fb); }
+.annotation-tool.active { background: var(--accent); border-color: var(--accent); }
+.annotation-stage { position:relative; max-width: 1040px; margin:0 auto; border:1px solid #444; }
+.annotation-stage img { width:100%; display:block; }
+.marker { position:absolute; transform:translate(-50%,-50%); background:var(--accent); color:white; border:2px solid white; border-radius:999px; padding:3px 8px; font-weight:700; font-size:.78rem; box-shadow:0 2px 8px rgba(0,0,0,.4); pointer-events:none; }
+.annotation-note { font-size:.84rem; color:#ddd; margin-top:10px; line-height:1.5; }
+
 @media (max-width: 600px) {
   .two-col { grid-template-columns: 1fr; }
   .begrippen-grid { grid-template-columns: 1fr; }
@@ -653,7 +702,7 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
   <div class="page-title-inner">
     <div class="page-meta">Cultuur · Thema 3 · Panem et circenses · Les 1</div>
     <h2 class="page-title">Wagenrennen</h2>
-    <p class="page-sub">Doorloop de drie modi in volgorde: Ontdek → Leer → Oefen. Elke fase bouwt voort op de vorige.</p>
+    <p class="page-sub">Vandaag lees je de rijke tekst op papier. Deze pagina helpt je kijken, vergelijken, oefenen en feedback vragen.</p>
   </div>
 </div>
 
@@ -661,10 +710,10 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
 <div class="leerdoelen-banner">
   <div class="leerdoelen-inner">
     <span class="leerdoelen-label">Na deze les kun je:</span>
-    <span class="doel-pill">het Circus Maximus beschrijven</span>
-    <span class="doel-pill">facties en hun rol uitleggen</span>
-    <span class="doel-pill">het verloop van een race reconstrueren</span>
-    <span class="doel-pill">wagenrennen als machtsvertoon duiden</span>
+    <span class="doel-pill">Circus Maximus en pulvinar situeren</span>
+    <span class="doel-pill">facties en supporterscultuur uitleggen</span>
+    <span class="doel-pill">paarden en menners als topsporters duiden</span>
+    <span class="doel-pill">raceverloop, risico en nasleep verwoorden</span>
   </div>
 </div>
 
@@ -678,267 +727,202 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
     </div>
     <div class="score-info">
       <strong id="scoreStatus">Begin maar!</strong>
-      <small id="scoreDetail">Beantwoord vragen om punten te verdienen.</small>
+      <small id="scoreDetail">De score hoort bij de oefenfase: eerst zelf antwoorden, daarna checken.</small>
       <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
     </div>
   </div>
 
-  <!-- ══ ONTDEK ══════════════════════════════════════════════════ -->
   <section class="mode-panel active" id="modus-ontdek">
-
     <div class="card">
-      <div class="card-title">
-        👁 Wat weet jij al?
-        <span class="s-chip" data-tip="① Voorkennis activeren: leerlingen halen op wat er al leeft in hun hoofd — ook onzekere kennis telt.">⬡ ①</span>
-        <span class="l-chip" data-tip="WD2_03.03.01 – situeren in tijd & ruimte: voorkennis over de Romeinse samenleving activeren.">WD2_03.03.01</span>
-      </div>
-      <p style="font-size:.85rem;color:#555;margin-bottom:15px;line-height:1.55;">Beantwoord deze vragen <strong>zonder</strong> de rest te lezen. Het gaat om wat er al in jouw hoofd zit — ook als je twijfelt.</p>
-
-      <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">1</span>Wat stel jij je concreet voor bij een Romeins circus? Denk aan plaats, geluid, publiek en sfeer.</div>
-        <textarea id="o-v1" placeholder="Schrijf alles op wat je weet of denkt te weten…"></textarea>
-        <div class="vraag-actie">
-          <button class="btn btn-outline s-highlight l-highlight" onclick="toggleDenkhulp('dh-v1',this)">💡 Denkhulp</button>
-          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v1','o-fb1','De leerling beschrijft een Romans circus vanuit voorkennis. Bevestig wat klopt, stuur vriendelijk bij waar nodig. Sluit af met een prikkelende vraag over macht en spektakel.')">✦ Feedback</button>
-          <span class="s-chip" data-tip="⑦ Scaffolding: denkhulp op verzoek — leerling kiest zelf of hij ondersteuning nodig heeft.">⬡ ⑦</span>
-          <span class="s-chip" data-tip="⑪ Feedback die denken aanzet: AI reageert inhoudelijk en eindigt met een vervolgvraag.">⬡ ⑪</span>
-          <span class="l-chip" data-tip="WD2_03.03.01 – situeren in tijd & ruimte: de leerling situeert het Circus Maximus in het antieke Rome.">WD2_03.03.01</span>
-        </div>
-        <div class="denkhulp" id="dh-v1"><strong>Denk aan:</strong> films, games of verhalen die je kent. Hoe groot was zo'n arena? Wie zat er op welke plek?</div>
-        <div class="feedback-box" id="o-fb1"></div>
-      </div>
-
-      <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">2</span>Waarom zouden Romeinen massaal naar wagenrennen zijn gekomen? Ging het alleen om ontspanning?</div>
-        <textarea id="o-v2" placeholder="Jouw redenering…"></textarea>
-        <div class="vraag-actie">
-          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v2','o-fb2','De leerling redeneert over de sociale en politieke functie van wagenrennen. Stimuleer ze om verder te denken dan pure sport — richting prestige, machtsvertoon, gemeenschap.')">✦ Feedback</button>
-          <span class="s-chip" data-tip="⑪ Feedback die denken aanzet: leerling denkt verder dan de oppervlakte.">⬡ ⑪</span>
-          <span class="l-chip" data-tip="WD2_03.03.02 – cultuur vergelijken oud↔heden: aanzet tot vergelijking van Romeinse volksvermaak met hedendaags massaspektakel.">WD2_03.03.02</span>
-        </div>
-        <div class="feedback-box" id="o-fb2"></div>
-      </div>
-
-      <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">3</span>Met welke moderne sport of evenement vergelijk jij wagenrennen? Waarom juist die?</div>
-        <textarea id="o-v3" placeholder="Vergelijking en redenering…"></textarea>
-        <div class="vraag-actie">
-          <button class="btn btn-outline s-highlight l-highlight" onclick="toggleDenkhulp('dh-v3',this)">💡 Denkhulp</button>
-          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v3','o-fb3','De leerling vergelijkt Roman wagenrennen met een modern evenement. Bevestig de vergelijking, verdiep ze met kenmerken van Panem et circenses — spektakel, macht, massa.')">✦ Feedback</button>
-          <span class="s-chip" data-tip="④ Dual coding: vergelijking activeert zowel beeld als conceptueel denken.">⬡ ④</span>
-          <span class="l-chip" data-tip="WD2_03.03.02 – cultuur vergelijken: leerling legt bewust een brug tussen antieke en hedendaagse cultuur.">WD2_03.03.02</span>
-        </div>
-        <div class="denkhulp" id="dh-v3"><strong>Denk aan:</strong> Formule 1, voetbalstadions, topsporters, grote festivals, fanbases en supporterscultuur.</div>
-        <div class="feedback-box" id="o-fb3"></div>
-      </div>
+      <div class="card-title">👁 Voor je begint</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Schrijf de eerste korte vragen in je papieren cursus. Gebruik deze pagina daarna om één fragment te bekijken en je kijkfocus scherp te zetten.</p>
+      <div class="prompt-blok"><strong>Zo werken we vandaag:</strong> je leest, markeert en schrijft vooral op papier. Op deze pagina open je beelden, oefen je begrippen en vraag je feedback wanneer dat gevraagd wordt.</div>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        📽 Moderne brug: <em>Ben-Hur</em> (2016)
-        <span class="s-chip" data-tip="① Narratieve kapstok: film als emotionele ingang vóór de historische stof.">⬡ ①</span>
-        <span class="s-chip" data-tip="④ Dual coding: bewegend beeld activeert een auditief-visueel schema naast de tekst.">⬡ ④</span>
-        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: historisch aannemelijke vs. filmische details leren onderscheiden.">WD2_03.03.01</span>
-      </div>
-      <p style="font-size:.85rem;color:#555;margin-bottom:12px;">De race in de herwerking van <em>Ben-Hur</em> uit 2016 brengt spektakel, snelheid en gevaar meteen samen. Bekijk een kort fragment en noteer:</p>
-      <ul style="font-size:.85rem;color:#444;">
-        <li>Hoe wordt spanning opgebouwd voor het publiek?</li>
-        <li>Hoe reageert de massa op de race?</li>
-        <li>Wat lijkt historisch aannemelijk?</li>
-        <li>Wat is waarschijnlijk filmisch uitvergroot?</li>
-      </ul>
-      <div class="vraag-actie" style="margin-top:12px;">
-        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('o-v4','o-fb4','De leerling onderscheidt historische en filmische elementen in een moderne verfilming van een Romeinse race. Reageer specifiek op wat ze noemen. Sluit af met: wat zou een echte toeschouwer in 100 n.Chr. het meest verbazen aan die film?')">✦ Feedback</button>
-        <span class="s-chip" data-tip="⑦ Scaffolding: gestructureerde kijkopdracht met vier aandachtspunten.">⬡ ⑦</span>
-      </div>
-      <textarea id="o-v4" placeholder="Jouw observaties na het kijken…" style="margin-top:10px;"></textarea>
-      <div class="feedback-box" id="o-fb4"></div>
+      <div class="card-title">📽 Fragment</div>
+      <button class="media-launch" type="button" onclick="openTheater('benhur')" aria-label="Open het fragment in theatermodus">
+        <span class="media-icon">🎬</span>
+        <span class="media-copy"><strong>Bekijk het fragment</strong><span>Let op massa, snelheid, gevaar en de plaats van macht. Het fragment opent op deze pagina.</span></span>
+      </button>
+      <table class="mini-table">
+        <tr><th>Waar let je op?</th><th>Wat noteer je kort op papier?</th></tr>
+        <tr><td>Massa en geluid</td><td>Hoe reageert het publiek?</td></tr>
+        <tr><td>Snelheid en risico</td><td>Waar wordt het gevaar zichtbaar?</td></tr>
+        <tr><td>Macht en plaats</td><td>Wie heeft overzicht, controle of prestige?</td></tr>
+        <tr><td>Film</td><td>Wat lijkt gemaakt om de spanning groter te maken?</td></tr>
+      </table>
     </div>
-
   </section>
 
-  <!-- ══ LEER ════════════════════════════════════════════════════ -->
   <section class="mode-panel" id="modus-leer">
-
     <div class="card">
-      <div class="card-title">
-        📖 Het Circus Maximus als massaspektakel
-        <span class="s-chip" data-tip="② Gestructureerde instructie: heldere opbouw van grote naar kleine schaal.">⬡ ②</span>
-        <span class="l-chip" data-tip="WD2_03.03.01 – situeren in tijd & ruimte: de leerling plaatst het Circus Maximus in de Romeinse samenleving en begrijpt de symbolische functie ervan.">WD2_03.03.01</span>
+      <div class="card-title">📜 Lezen op papier
+        <span class="s-chip" data-tip="② Gerichte aandacht: leerlingen lezen met een duidelijke focus.">⬡ ②</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 – cultuurhistorische situering van het circus.">WD2_03.03.01</span>
       </div>
-      <p>In de eerste eeuwen van onze jaartelling waren wagenrennen een van de grote passies van de Romeinen. Op hoogtijdagen zat het Circus Maximus volledig vol en kreeg het publiek een dagvullend programma van races. De bezoeker werd overdonderd door de grootte van de tribunes, de decoratie, de massa en het lawaai. Alles ademde spektakel.</p>
-      <p>Belangrijk is ook de plaats van het <strong>pulvinar</strong>, de keizerlijke loge. Van daaruit keek de keizer neer op de baan. Dat was geen neutraal detail: zijn zichtbare aanwezigheid bevestigde zijn verheven status en toonde aan wie de macht in handen had.</p>
-      <div class="prompt-blok">
-        <strong>Denkstop:</strong> waarom is de zichtbare aanwezigheid van de keizer zo belangrijk? Denk aan propaganda, aanwezigheid en symbolische macht.
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">
-        🐎 Facties en supporters
-        <span class="s-chip" data-tip="③ Concrete voorbeelden: de vier facties als herkenbaar anker voor abstractere begrippen.">⬡ ③</span>
-        <span class="s-chip" data-tip="⑤ Actieve verwerking: tabel vraagt leerling zelf verbanden te leggen.">⬡ ⑤</span>
-        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: sociale structuur van de Romeinse samenleving zichtbaar in de supporterscultuur.">WD2_03.03.01</span>
-        <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken: de moderne supporterscultuur als analogie voor de Romeinse factiones.">WD2_03.03.02</span>
-      </div>
-      <p>De menners reden niet voor zichzelf, maar voor een renstal of <strong>factio</strong>. De bekendste waren de Groenen, Blauwen, Roden en Witten. De gebruikelijke scheidslijnen van de Romeinse maatschappij vervaagden hier tijdelijk: zowel elites als gewone mensen konden dezelfde factie aanhangen.</p>
-      <p>Supporters juichten, hoopten, raakten ontmoedigd, riepen leuzen en konden agressief worden. De supporterscultuur is verrassend modern.</p>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Lees de papieren cursus in de volgorde waarin hij is opgebouwd. Gebruik drie kleuren of drie tekens voor <strong>macht</strong>, <strong>spektakel</strong> en <strong>risico</strong>. Onderstreep alleen wat echt belangrijk is.</p>
       <table class="mini-table">
-        <tr><th>Begrip</th><th>Wat is het?</th><th>Waarom belangrijk?</th></tr>
-        <tr><td><em>factio</em></td><td>een renstal of kleurengroep</td><td>maakt van sport ook groepsidentiteit</td></tr>
-        <tr><td>supporters</td><td>aanhang van een factie</td><td>zorgt voor emotie, rivaliteit en massa-effect</td></tr>
-        <tr><td>kleuren</td><td>Groenen, Blauwen, Roden, Witten</td><td>geven herkenbaarheid en partijgevoel</td></tr>
+        <tr><th>Leesfocus</th><th>Markeer in de papieren cursus</th></tr>
+        <tr><td><strong>Macht</strong></td><td>plaats van de keizer, pulvinar, zitorde, organisator, regels, scheidsrechters</td></tr>
+        <tr><td><strong>Spektakel</strong></td><td>massa, lawaai, sterrenstatus, kleuren, supporters, prijzen</td></tr>
+        <tr><td><strong>Risico</strong></td><td>bochten, metae, botsingen, teugels rond de middel, paardenletsels, naufragium</td></tr>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        ⚡ Paarden, menners en gevaar
-        <span class="s-chip" data-tip="③ Modeling: leraar denkt hardop voor over techniek, gevaar en publieksbeleving.">⬡ ③</span>
-        <span class="s-chip" data-tip="② Kleine stappen: van materiaal → techniek → gevaar → publieksbeleving.">⬡ ②</span>
-        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: materiële cultuur (uitrusting, techniek) als onderdeel van de Romeinse samenleving begrijpen.">WD2_03.03.01</span>
-      </div>
-      <p>De paarden werden intensief getraind en de menners moesten sterk, lenig en behendig zijn. De menner bestuurde zijn wagen niet zoals een moderne jockey: de zware teugels werden rond het middel gebonden. Dat gaf kracht en controle, maar maakte ongelukken levensgevaarlijk. Wie crashte, kon meegesleurd worden en moest zich met een mes los kunnen snijden.</p>
-      <div class="prompt-blok">
-        <strong>Verwerkingsvraag:</strong> waarom maakte precies de combinatie van vaardigheid en gevaar het spektakel zo aantrekkelijk voor het publiek?
+      <div class="card-title">🧭 De zes haltes van de tekst</div>
+      <div class="begrippen-grid">
+        <div class="begrip-pill"><span class="bp-term">1. In het circus</span><span class="bp-def">Circus Maximus, massa, zitorde, pulvinar en macht.</span></div>
+        <div class="begrip-pill"><span class="bp-term">2. Renstallen</span><span class="bp-def">Factiones, kleuren, identiteit en supporterscultuur.</span></div>
+        <div class="begrip-pill"><span class="bp-term">3. Paarden</span><span class="bp-def">Herkomst, training, posities in het span en fanatisme rond toppaarden.</span></div>
+        <div class="begrip-pill"><span class="bp-term">4. Menners</span><span class="bp-def">Uitrusting, techniek, sociale status, roem en gevaar.</span></div>
+        <div class="begrip-pill"><span class="bp-term">5. Races</span><span class="bp-def">Start, spina, metae, tactiek, snelheid, botsingen en naufragia.</span></div>
+        <div class="begrip-pill"><span class="bp-term">6. Winnaars</span><span class="bp-def">Prijs, prestige, tweede en derde plaats, supportersreacties en nasleep.</span></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        🏁 Hoe verliep een race?
-        <span class="s-chip" data-tip="④ Dual coding: begrippenkader naast tekst — woord en beeld gelijktijdig.">⬡ ④</span>
-        <span class="s-chip" data-tip="⑦ Scaffolding: begrippenkader als steunstructuur bij het lezen.">⬡ ⑦</span>
-        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de leerling reconstrueert het verloop van een race vanuit concrete details.">WD2_03.03.01</span>
+      <div class="card-title">👀 Menners bekijken</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Lees eerst de passage over de menners. Open daarna de beelden en vergelijk wat je ziet met wat je net gelezen hebt.</p>
+      <div class="media-row">
+        <button class="media-launch" type="button" onclick="openTheater('delphi')" aria-label="Toon de Wagenmenner van Delphi in 3D">
+          <span class="media-icon">🏛️</span>
+          <span class="media-copy"><strong>Griekse menner</strong><span>Bekijk de Wagenmenner van Delphi in 3D.</span></span>
+        </button>
+        <button class="media-launch" type="button" onclick="openTheater('romeinsemenner')" aria-label="Toon een Romeinse menner">
+          <span class="media-icon">🏇</span>
+          <span class="media-copy"><strong>Romeinse menner</strong><span>Bekijk de mozaïekafbeelding van een menner van de rode factie.</span></span>
+        </button>
       </div>
-      <div class="two-col">
-        <div>
-          <p>Een race bestond uit zeven ronden. De wagens reden rond de <strong>spina</strong>, de scheidingsmuur midden op de baan. Vooral aan de <strong>metae</strong>, de keerpunten, werd het gevaarlijk: daar moesten menners scherp sturen, snelheid controleren en tegelijk hun positie behouden. Op die momenten ontstonden de zwaarste botsingen.</p>
-          <p>De wedstrijden waren niet alleen snel, maar ook tactisch. Wie te ver naar buiten gedwongen werd, verloor meters. Wie te scherp sneed, riskeerde een crash of een kettingbotsing.</p>
-        </div>
-        <div class="begrippen-grid" style="grid-template-columns:1fr;">
-          <div class="begrip-pill"><span class="bp-term">spina</span><span class="bp-def">scheidingsmuur in het midden van de baan</span></div>
-          <div class="begrip-pill"><span class="bp-term">metae</span><span class="bp-def">keerpunten aan beide uiteinden</span></div>
-          <div class="begrip-pill"><span class="bp-term">pulvinar</span><span class="bp-def">keizerlijke loge met zicht op de baan</span></div>
-          <div class="begrip-pill"><span class="bp-term">naufragium</span><span class="bp-def">crash — letterlijk "schipbreuk" van de wagen</span></div>
-        </div>
+      <table class="mini-table">
+        <tr><th>Griekse menner</th><th>Romeinse menner</th></tr>
+        <tr><td>houdt de teugels met beide handen vast</td><td>bindt de teugels hoog om zijn middel en corrigeert met de linkerhand</td></tr>
+        <tr><td>draagt chiton en haarband</td><td>draagt helm, beenbanden en strak korset</td></tr>
+        <tr><td>minder beschermd bij een crash</td><td>heeft een mes om zich los te snijden als hij wordt meegesleurd</td></tr>
+      </table>
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">1</span>Formuleer in één zin waarom de Romeinse menner tegelijk professioneler én kwetsbaarder is.</div>
+        <textarea id="l-v1" placeholder="Eén duidelijke zin…"></textarea>
+        <div class="vraag-actie"><button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('l-v1','l-fb1','De leerling verklaart waarom Romeinse menners tegelijk professioneler en kwetsbaarder waren. Geef korte inhoudelijke feedback en vraag om één concreet tekstbewijs indien dat ontbreekt.')">✦ Feedback</button></div>
+        <div class="feedback-box" id="l-fb1"></div>
       </div>
     </div>
 
+    <div class="card">
+      <div class="card-title">🏁 Racebaan aanduiden</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Open de afbeelding en duid drie onderdelen aan: <em>spina</em>, <em>metae</em> en <em>pulvinar</em>. Gebruik daarna je papieren cursus om uit te leggen waarom elk onderdeel belangrijk is.</p>
+      <button class="media-launch" type="button" onclick="openTheater('racebaan')" aria-label="Open de aanduidoefening racebaan">
+        <span class="media-icon">📍</span>
+        <span class="media-copy"><strong>Aanduiden op de racebaan</strong><span>Klik eerst een begrip aan en plaats het daarna op de afbeelding.</span></span>
+      </button>
+      <table class="mini-table">
+        <tr><th>Begrip</th><th>Betekenis</th></tr>
+        <tr><td><em>spina</em></td><td>de scheidingsmuur in het midden van de baan</td></tr>
+        <tr><td><em>metae</em></td><td>de keerpunten aan de uiteinden van de spina</td></tr>
+        <tr><td><em>pulvinar</em></td><td>de keizerlijke loge</td></tr>
+      </table>
+    </div>
   </section>
 
-  <!-- ══ OEFEN ═══════════════════════════════════════════════════ -->
   <section class="mode-panel" id="modus-oefen">
-
     <div class="card">
-      <div class="card-title">
-        🔄 Retrieval — zonder boek
-        <span class="s-chip" data-tip="⑩ Retrieval practice: actief ophalen uit het geheugen versterkt het leereffect.">⬡ ⑩</span>
-        <span class="s-chip" data-tip="⑧ Gespreid herhalen: retrieval meteen na de leerfase.">⬡ ⑧</span>
-        <span class="l-chip" data-tip="WD2_03.03.01 – situeren: de leerling benoemt kernbegrippen en kenmerken van de Romeinse circusbeleving.">WD2_03.03.01</span>
+      <div class="card-title">💪 Oefenen zonder boek
+        <span class="s-chip" data-tip="⑨ Retrieval practice: actief ophalen na lectuur.">⬡ ⑨</span>
+        <span class="l-chip" data-tip="WD2_03.03.01 en WD2_03.03.02 – inhoud verklaren en vergelijken.">WD2_03.03.01/02</span>
       </div>
-      <p style="font-size:.84rem;color:#555;margin-bottom:12px;line-height:1.55;">Schrijf <strong>eerst zelf</strong> een antwoord op. Toon daarna pas het modelantwoord en geef eerlijk aan of je antwoord volledig was.</p>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Sluit je papieren cursus. Schrijf eerst zelf. Open pas daarna het modelantwoord en verbeter je antwoord eerlijk.</p>
 
       <div class="retrieval-blok">
-        <div class="retrieval-vraag">1. Welke vier facties kende het Circus Maximus?</div>
-        <div class="retrieval-uitleg">Noteer de vier kleurengroepen.</div>
-        <textarea id="r-v1" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
-        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v1','ra1','zc1','rn1')">Toon modelantwoord</button></div>
+        <div class="retrieval-vraag">1. Wat vertelt het <em>pulvinar</em> over macht in het circus?</div>
+        <div class="retrieval-uitleg">Noem minstens twee concrete details.</div>
+        <textarea class="retrieval-input" id="r-v1" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v1','ra1','zc1','rn1')">Toon modelantwoord</button>
         <div class="retrieval-note" id="rn1">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
-        <div class="retrieval-antwoord" id="ra1">De Groenen, Blauwen, Roden en Witten. Elke factie was een renstal met eigen kleuren en supporters.</div>
-        <div class="zelfcheck" id="zc1"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra1','r-v1')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra1','r-v1')">✗ Mijn antwoord was onvolledig/fout</button></div>
+        <div class="retrieval-antwoord" id="ra1">Het <em>pulvinar</em> was de keizerlijke loge, prominent tegenover de finishlijn. De keizer keek dus niet zomaar toe: zijn zichtbare plaats maakte zijn verheven status en macht duidelijk voor de hele massa.</div>
+        <div class="zelfcheck" id="zc1"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra1','r-v1')">Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra1','r-v1')">Mijn antwoord was onvolledig</button></div>
       </div>
 
       <div class="retrieval-blok">
-        <div class="retrieval-vraag">2. Wat was het <em>pulvinar</em> en waarom was het symbolisch belangrijk?</div>
-        <div class="retrieval-uitleg">Probeer zowel het begrip als het politieke belang te benoemen.</div>
-        <textarea id="r-v2" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
-        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v2','ra2','zc2','rn2')">Toon modelantwoord</button></div>
+        <div class="retrieval-vraag">2. Waarom zijn de <em>factiones</em> meer dan gewone sportteams?</div>
+        <div class="retrieval-uitleg">Verbind kleur, identiteit en supportersgedrag.</div>
+        <textarea class="retrieval-input" id="r-v2" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v2','ra2','zc2','rn2')">Toon modelantwoord</button>
         <div class="retrieval-note" id="rn2">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
-        <div class="retrieval-antwoord" id="ra2">Het pulvinar was de keizerlijke loge. De zichtbare aanwezigheid van de keizer bevestigde zijn status en symbolische macht over het volk.</div>
-        <div class="zelfcheck" id="zc2"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra2','r-v2')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra2','r-v2')">✗ Mijn antwoord was onvolledig/fout</button></div>
+        <div class="retrieval-antwoord" id="ra2">De <em>factiones</em> waren renstallen met kleuren, identiteit en trouwe supporters. Ze verbonden mensen uit verschillende sociale groepen, maar riepen ook rivaliteit, trots, woede en soms agressie op.</div>
+        <div class="zelfcheck" id="zc2"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra2','r-v2')">Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra2','r-v2')">Mijn antwoord was onvolledig</button></div>
       </div>
 
       <div class="retrieval-blok">
-        <div class="retrieval-vraag">3. Waarom waren crashes zo gevaarlijk voor menners?</div>
-        <div class="retrieval-uitleg">Verwijs naar de teugels en het risico bij een val.</div>
-        <textarea id="r-v3" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
-        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v3','ra3','zc3','rn3')">Toon modelantwoord</button></div>
+        <div class="retrieval-vraag">3. Waarom waren renpaarden echte topsportdieren?</div>
+        <div class="retrieval-uitleg">Denk aan herkomst, training, leeftijd en supporterskennis.</div>
+        <textarea class="retrieval-input" id="r-v3" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v3','ra3','zc3','rn3')">Toon modelantwoord</button>
         <div class="retrieval-note" id="rn3">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
-        <div class="retrieval-antwoord" id="ra3">De teugels waren rond het middel gebonden. Bij een crash kon de menner meegesleurd worden en moest hij zich met een mes los kunnen snijden.</div>
-        <div class="zelfcheck" id="zc3"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra3','r-v3')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra3','r-v3')">✗ Mijn antwoord was onvolledig/fout</button></div>
+        <div class="retrieval-antwoord" id="ra3">Renpaarden werden geselecteerd uit bekende fokgebieden en jarenlang getraind. Hun training verschilde per positie in het span. Supporters kenden hun leeftijd, herkomst, overwinningen, menner en combinaties.</div>
+        <div class="zelfcheck" id="zc3"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra3','r-v3')">Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra3','r-v3')">Mijn antwoord was onvolledig</button></div>
       </div>
 
       <div class="retrieval-blok">
-        <div class="retrieval-vraag">4. Wat was de <em>spina</em> en waar lagen de <em>metae</em>?</div>
-        <div class="retrieval-uitleg">Noem zowel de functie van de <em>spina</em> als de plaats van de <em>metae</em>.</div>
-        <textarea id="r-v4" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
-        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v4','ra4','zc4','rn4')">Toon modelantwoord</button></div>
+        <div class="retrieval-vraag">4. Waarom was een Romeinse menner geen gewone jockey?</div>
+        <div class="retrieval-uitleg">Noem minstens twee concrete kenmerken.</div>
+        <textarea class="retrieval-input" id="r-v4" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v4','ra4','zc4','rn4')">Toon modelantwoord</button>
         <div class="retrieval-note" id="rn4">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
-        <div class="retrieval-antwoord" id="ra4">De spina was de scheidingsmuur in het midden van de baan. De metae waren de keerpunten aan beide uiteinden — het gevaarlijkste moment van elke ronde.</div>
-        <div class="zelfcheck" id="zc4"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra4','r-v4')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra4','r-v4')">✗ Mijn antwoord was onvolledig/fout</button></div>
+        <div class="retrieval-antwoord" id="ra4">Een Romeinse menner had beschermende uitrusting, bond de teugels rond zijn middel en stuurde met lichaamsgewicht, linkerhand en zweep. Hij moest sterk, lenig en uithoudend zijn en liep bij een crash groot gevaar.</div>
+        <div class="zelfcheck" id="zc4"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra4','r-v4')">Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra4','r-v4')">Mijn antwoord was onvolledig</button></div>
       </div>
 
       <div class="retrieval-blok">
-        <div class="retrieval-vraag">5. Waarom waren wagenrennen meer dan alleen sport?</div>
-        <div class="retrieval-uitleg">Verbind sport met macht, propaganda en massa.</div>
-        <textarea id="r-v5" class="retrieval-input" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
-        <div class="vraag-actie"><button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v5','ra5','zc5','rn5')">Toon modelantwoord</button></div>
+        <div class="retrieval-vraag">5. Waarom zijn wagenrennen tegelijk vermaak, prestige en macht?</div>
+        <div class="retrieval-uitleg">Verbind massa, keizer, sporthelden en risico.</div>
+        <textarea class="retrieval-input" id="r-v5" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
+        <button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v5','ra5','zc5','rn5')">Toon modelantwoord</button>
         <div class="retrieval-note" id="rn5">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
-        <div class="retrieval-antwoord" id="ra5">Ze waren een instrument van macht en propaganda. De keizer toonde zich aan het volk, de facties organiseerden de samenleving en de massa werd gestuurd via spektakel en gratis eten (<em>panem et circenses</em>).</div>
-        <div class="zelfcheck" id="zc5"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra5','r-v5')">✓ Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra5','r-v5')">✗ Mijn antwoord was onvolledig/fout</button></div>
+        <div class="retrieval-antwoord" id="ra5">Wagenrennen boden spanning, snelheid, sterren en supportersstrijd: dat is vermaak. Ze brachten ook eer, geld en reputatie: dat is prestige. Door de zichtbare keizerlijke aanwezigheid en de geordende massa waren ze ook machtsvertoon.</div>
+        <div class="zelfcheck" id="zc5"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra5','r-v5')">Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra5','r-v5')">Mijn antwoord was onvolledig</button></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        🔗 Toepassen
-        <span class="s-chip" data-tip="⑨ Afwisseling in oefentypen: van reproductie naar toepassing en vergelijking.">⬡ ⑨</span>
-        <span class="s-chip" data-tip="⑪ Feedback die denken aanzet: feedbackrichting stuurt naar meerlaagsige antwoorden.">⬡ ⑪</span>
-        <span class="l-chip" data-tip="WD2_03.03.02 – vergelijken oud↔heden: leerling legt bewust verbanden tussen de antieke en de moderne sportcultuur.">WD2_03.03.02</span>
-      </div>
-
+      <div class="card-title">✍️ Toepassen en vergelijken</div>
       <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">1</span>Vergelijk een Romeinse wagenrace met een moderne topwedstrijd naar keuze. Noem minstens één gelijkenis én één verschil.</div>
+        <div class="vraag-label"><span class="vraag-nr">1</span>Vergelijk een Romeinse wagenrace met een moderne topwedstrijd. Noem minstens één gelijkenis en één verschil.</div>
         <textarea id="a-v1" placeholder="Jouw vergelijking…"></textarea>
-        <div class="vraag-actie">
-          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v1','a-fb1','De leerling vergelijkt Römische wagenrennen met een moderne sport. Reageer specifiek op de genoemde gelijkenis en het verschil. Sluit af met: welk aspect van Panem et circenses herken je in jouw moderne voorbeeld?')">✦ Feedback</button>
-          <span class="l-chip" data-tip="WD2_03.03.02 – cultuur vergelijken: bewuste analyse van gelijkenissen en verschillen.">WD2_03.03.02</span>
-        </div>
+        <div class="vraag-actie"><button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v1','a-fb1','De leerling vergelijkt Romeinse wagenrennen met moderne topsport. Reageer op de gelijkenis en het verschil en moedig concreet tekstbewijs aan waar nodig.')">✦ Feedback</button></div>
         <div class="feedback-box" id="a-fb1"></div>
       </div>
-
       <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">2</span>Leg uit waarom wagenrennen tegelijk vermaak, prestige en macht waren.</div>
-        <textarea id="a-v2" placeholder="Jouw redenering…"></textarea>
-        <div class="vraag-actie">
-          <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v2','a-fb2','De leerling legt de driedubbele functie van wagenrennen uit: vermaak, prestige en macht. Sterke antwoorden noemen concrete details — het pulvinar, de facties, de massa. Geef gerichte feedback en vraag: hoe zou je dit illustreren met een concreet voorbeeld uit de les?')">✦ Feedback</button>
-          <span class="l-chip" data-tip="WD2_03.02.02 – betekenis geven: de leerling interpreteert culturele verschijnselen in hun maatschappelijke context.">WD2_03.02.02</span>
-        </div>
+        <div class="vraag-label"><span class="vraag-nr">2</span>Leg uit waarom het einde van een racedag niet gewoon een sportafsluiting was, maar deel bleef van hetzelfde spektakel.</div>
+        <textarea id="a-v2" placeholder="Denk aan winnaar, prijzen, reputatie, supporters, kroegen en nasleep…"></textarea>
+        <div class="vraag-actie"><button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v2','a-fb2','De leerling legt de nasleep van een racedag uit. Reageer inhoudelijk en vraag of de leerling prijzen, supportersgedrag en publieke reputatie heeft meegenomen.')">✦ Feedback</button></div>
         <div class="feedback-box" id="a-fb2"></div>
       </div>
     </div>
 
     <div class="exit-ticket">
-      <h3>🏁 Exit ticket</h3>
-      <ul style="font-size:.85rem;color:#333;">
-        <li>Wat wist je vóór deze les nog niet over wagenrennen?</li>
-        <li>Welk begrip (<em>factio, pulvinar, spina, metae, naufragium</em>) is voor jou nog niet helemaal duidelijk?</li>
-        <li>Wat zou jij thuis actief proberen op te halen uit je hoofd?</li>
-      </ul>
-      <div class="vraag-actie" style="margin-top:12px;">
-        <textarea id="exit-v" placeholder="Jouw reflectie…" style="min-height:60px;font-size:.84rem;"></textarea>
-        <button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('exit-v','exit-fb','De leerling reflecteert op zijn leerproces. Reageer warmhartig. Bevestig de eerlijkheid van de reflectie en geef een concrete tip voor thuisstudie rond het genoemde begrip.')">✦ Feedback</button>
-        <span class="s-chip" data-tip="⑥ Check begrip van de hele klas: exit ticket maakt leerwinst zichtbaar.">⬡ ⑥</span>
-        <span class="s-chip" data-tip="⑫ Leer leren: leerling identificeert zelf wat nog onduidelijk is.">⬡ ⑫</span>
-        <span class="l-chip" data-tip="WD2_03.02.02 – reflecteren: de leerling evalueert het eigen leerproces.">WD2_03.02.02</span>
+      <h3>🎟 Exit ticket</h3>
+      <p style="font-size:.85rem;color:#333;">Schrijf eerst op papier. Neem daarna eventueel je antwoord hier over voor korte feedback.</p>
+      <div class="vraag-blok">
+        <div class="vraag-label"><span class="vraag-nr">1</span>Schrijf drie zinnen: één over aantrekkingskracht, één over gevaar, één over macht.</div>
+        <textarea id="exit-v" placeholder="1. Aantrekkingskracht… 2. Gevaar… 3. Macht…"></textarea>
+        <div class="vraag-actie"><button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('exit-v','exit-fb','De leerling schrijft een exit ticket over aantrekkingskracht, gevaar en macht in het circus. Geef korte feedback en één retrieval-tip voor thuis.')">✦ Feedback</button></div>
+        <div class="feedback-box" id="exit-fb"></div>
       </div>
-      <div class="feedback-box" id="exit-fb"></div>
     </div>
-
   </section>
-
 </main>
+
+
+<div class="theater" id="theater" aria-hidden="true">
+  <div class="theater-panel" role="dialog" aria-modal="true" aria-labelledby="theaterTitle">
+    <div class="theater-head">
+      <div class="theater-title" id="theaterTitle">Media</div>
+      <button class="theater-close" type="button" onclick="closeTheater()">Sluiten ✕</button>
+    </div>
+    <div class="theater-body" id="theaterBody"></div>
+  </div>
+</div>
 
 <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem · Cultuur Thema 3 · Les 1</p>
 
@@ -1051,6 +1035,77 @@ function updateScore() {
     document.getElementById('scoreStatus').textContent = 'Uitstekend!';
     document.getElementById('scoreDetail').textContent = 'Je beheerst de kernbegrippen van les 1.';
   }
+}
+
+
+/* ── THEATERMODUS ──────────────────────────────────────────── */
+const theaterContent = {
+  benhur: {
+    title: 'Fragment',
+    html: '<iframe class="media-frame" src="https://www.youtube-nocookie.com/embed/dnWmOuhBqaM?autoplay=1&rel=0" title="Wagenrennen fragment" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+  },
+  delphi: {
+    title: 'Griekse menner — Wagenmenner van Delphi',
+    html: '<iframe class="media-frame" title="Charioteer of Delphi" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b0ff5ed30c3940cd886f6df1e17ab6e1/embed"></iframe><div style="background:#fff;color:#4A4A4A;font-size:13px;padding:8px 12px;">Charioteer of Delphi by gpavlid on Sketchfab.</div>'
+  },
+  romeinsemenner: {
+    title: 'Romeinse menner — rode factie',
+    html: '<img class="theater-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Mosaic_depicting_a_charioteer_and_horse_from_the_Russata_faction_%28Red%29%2C_3rd_century_AD%2C_Palazzo_Massimo_all_Terme%2C_Rome_%2812482059674%29.jpg" alt="Mozaïek van een Romeinse menner en paard van de rode factie">'
+  },
+  racebaan: {
+    title: 'Racebaan aanduiden',
+    html: '<div class="annotation-wrap"><div class="annotation-tools"><button class="annotation-tool active" type="button" onclick="selectLabel(\\\'spina\\\', this)">spina</button><button class="annotation-tool" type="button" onclick="selectLabel(\\\'metae\\\', this)">metae</button><button class="annotation-tool" type="button" onclick="selectLabel(\\\'pulvinar\\\', this)">pulvinar</button><button class="annotation-tool" type="button" onclick="resetMarkers()">Wis</button></div><div class="annotation-stage" id="annotationStage" onclick="placeMarker(event)"><img src="https://cdna.artstation.com/p/assets/images/images/015/632/424/large/katharina-huber-01-1220-pompacircus-fullcgi-0350-logo.jpg?1549034082" alt="Racebaan in het circus"></div><div class="annotation-note">Klik eerst een begrip aan en klik daarna op de plaats in de afbeelding. Bespreek nadien op papier waarom die plaats belangrijk is.</div></div>'
+  }
+};
+
+let currentLabel = 'spina';
+
+function openTheater(type) {
+  const item = theaterContent[type];
+  if (!item) return;
+  document.getElementById('theaterTitle').textContent = item.title;
+  document.getElementById('theaterBody').innerHTML = item.html;
+  document.getElementById('theater').classList.add('open');
+  document.getElementById('theater').setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  currentLabel = 'spina';
+}
+
+function closeTheater() {
+  document.getElementById('theater').classList.remove('open');
+  document.getElementById('theater').setAttribute('aria-hidden','true');
+  document.getElementById('theaterBody').innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeTheater(); });
+document.addEventListener('click', function(e) { if (e.target && e.target.id === 'theater') closeTheater(); });
+
+function selectLabel(label, btn) {
+  currentLabel = label;
+  document.querySelectorAll('.annotation-tool').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function placeMarker(e) {
+  const stage = document.getElementById('annotationStage');
+  if (!stage) return;
+  const rect = stage.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  [...stage.querySelectorAll('.marker')].filter(m => m.dataset.label === currentLabel).forEach(m => m.remove());
+  const marker = document.createElement('div');
+  marker.className = 'marker';
+  marker.dataset.label = currentLabel;
+  marker.textContent = currentLabel;
+  marker.style.left = x + '%';
+  marker.style.top = y + '%';
+  stage.appendChild(marker);
+}
+
+function resetMarkers() {
+  const stage = document.getElementById('annotationStage');
+  if (stage) stage.querySelectorAll('.marker').forEach(m => m.remove());
 }
 
 /* ── BACKEND HELPERS ────────────────────────────────────────── */
