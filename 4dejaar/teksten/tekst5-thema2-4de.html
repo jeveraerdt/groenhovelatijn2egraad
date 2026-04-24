@@ -11,12 +11,13 @@
   --blue:#65b32e; --blue-mid:#4a8a22; --magenta:#65b32e;
   --paper:#f3f1ef; --rule:rgba(101,179,46,.2);
   --ink:#010100; --ink-mid:#3a4a2a; --ink-light:#5a6b4a;
-  /* site-header / toolbar — conform 4e-teksten.html */
   --jaar-kleur:#65b32e; --accent:#FF3B1D;
   --achtergrond:#e0efd5; --wit:#f3f1ef;
   --rand:#c8d4c0; --radius:12px;
   --ft:'Flanders Art Sans',Arial,sans-serif;
   --fb:'Noto Sans',Arial,sans-serif;
+  --deep-forest:#006633;
+  --toolbar-offset-left: max(12px, calc(50vw - 620px));
 }
 @font-face {
   font-family:'Flanders Art Sans';
@@ -41,14 +42,12 @@
 </style>
 <style>
 :root {
-  /* Tekst-viewer specifieke tokens (rest komt uit _theme.css) */
   --green:#2d7a3a; --green-bg:#e8f5eb;
   --orange:#c05a00; --orange-bg:#fff0e0;
   --purple:#6a1a8a; --purple-bg:#f3e8fb;
   --hl:#fff3c4; --hl-b:#e8c840;
   --lh:2.3; --fs:1.18rem;
 }
-/* Body font override: tekst-viewer gebruikt EB Garamond als basis */
 body{font-family:var(--fb);overflow-x:hidden;background:var(--achtergrond);margin:0;padding:0;}
 
 /* WEERGAVE DROPDOWN */
@@ -97,9 +96,37 @@ button.link-pill{font-size:.7rem;font-weight:500;font-family:var(--ft);letter-sp
 .extras-icon svg{width:18px;height:18px;}
 .extras-icon.active{opacity:1;background:#fbe6f1;color:var(--accent);}
 
-/* GRAMMATICALE NOTEN — verborgen tot toggle */
+/* GRAMMATICALE NOTEN */
 .noten-block{display:none;}
 .noten-block.vis{display:block;}
+
+/* LECTUURANALYSE MODAL */
+.poetry-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,102,51,.18);backdrop-filter:blur(3px);z-index:800;align-items:center;justify-content:center;}
+.poetry-modal-overlay.open{display:flex;animation:fadeUp .18s ease both;}
+.poetry-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;box-shadow:0 16px 48px rgba(0,102,51,.18);width:min(700px,92vw);max-height:82vh;display:flex;flex-direction:column;overflow:hidden;}
+.poetry-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);}
+.poetry-modal-title{font-family:var(--ft);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+.poetry-modal-nav{display:flex;align-items:center;gap:.6rem;}
+.poetry-modal-nav-btn{font-family:var(--ft);font-size:.72rem;font-weight:600;padding:.3rem .75rem;border:1.5px solid var(--rule);border-radius:8px;background:none;cursor:pointer;color:var(--ink-mid);transition:background .12s,color .12s,border-color .12s;}
+.poetry-modal-nav-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+.poetry-modal-nav-btn:disabled{opacity:.35;cursor:default;}
+.poetry-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.25rem;border-radius:6px;display:flex;transition:color .12s;}
+.poetry-modal-close:hover{color:var(--blue);}
+.poetry-modal-close svg{width:16px;height:16px;}
+.poetry-modal-body{flex:1;overflow-y:auto;padding:1.25rem 1.5rem;}
+
+/* LA modal body styles */
+.la-modal .poetry-modal-body{padding:1.25rem 1.5rem;}
+.la-sectie-titel{font-family:var(--ft);font-size:.85rem;font-weight:700;color:var(--blue);margin-bottom:1rem;letter-spacing:.02em;}
+.la-vraag{margin-bottom:1.2rem;}
+.la-vraag-tekst{font-family:var(--ft);font-size:.84rem;font-weight:600;color:var(--ink);margin-bottom:.4rem;line-height:1.5;}
+.la-antwoord-wrap{border-left:2px solid var(--rule);padding-left:.85rem;margin-top:.35rem;}
+.la-antwoord{display:none;font-family:var(--fb);font-size:.8rem;color:var(--ink-mid);line-height:1.6;}
+.la-antwoord.vis{display:block;}
+.la-toggle-btn{font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:none;border:1.5px solid var(--rule);border-radius:20px;padding:.22rem .7rem;cursor:pointer;color:var(--ink-light);display:inline-flex;align-items:center;gap:.3rem;transition:background .12s,color .12s;}
+.la-toggle-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+.la-toggle-btn svg{width:12px;height:12px;transition:transform .18s;}
+.la-toggle-btn.open svg{transform:rotate(180deg);}
 
 /* KAART MODAL */
 .kaart-modal-overlay{display:none;position:fixed;inset:0;background:rgba(19,66,127,.18);backdrop-filter:blur(2px);z-index:800;align-items:center;justify-content:center;}
@@ -118,53 +145,39 @@ button.link-pill{font-size:.7rem;font-weight:500;font-family:var(--ft);letter-sp
 body.font-lg .latin-text{--fs:1.35rem;--lh:2.45;}
 .latin-para{margin-bottom:2rem;}
 
-/* ── WORD GROUPS ── */
-/* Each .wg is a clickable phrase chunk */
-.wg{
-  display:inline;
-  border-radius:4px;
-  cursor:pointer;
-  transition:background .15s, outline .1s;
-  padding:1px 0;
-}
-.wg:hover{background:rgba(19,66,127,.07);}
-
-/* Reveal mode: dim everything */
-.reveal-mode .wg{
-  opacity:.12;
-  transition:opacity .3s;
-}
+/* WORD GROUPS */
+.wg{display:inline;border-radius:4px;cursor:pointer;transition:background .15s,outline .1s;padding:1px 0;}
+.wg:hover{background:rgba(101,179,46,.09);}
+.reveal-mode .wg{opacity:.12;transition:opacity .3s;}
 .reveal-mode .wg.revealed{opacity:1;}
-.reveal-mode .wg.current{
-  opacity:1;
-  background:var(--hl);
-  outline:1px solid var(--hl-b);
-  border-radius:4px;
-}
+.reveal-mode .wg.current{opacity:1;background:var(--hl);outline:1px solid var(--hl-b);border-radius:4px;}
 
-/* Word click: 1e klik = determinering (groen), 2e klik = syntaxis (oranje) */
-/* We highlight individual lat-words inside wg */
-.lat-word{
-  display:inline;
-  border-radius:3px;
-  cursor:pointer;
-  transition:background .12s;
-  padding:0 1px;
-}
-.lat-word:hover{background:rgba(19,66,127,.09);}
-.lat-word.st1{background:var(--green-bg);color:var(--green);border-bottom:1.5px solid var(--green);}
-.lat-word.st2{background:var(--orange-bg);color:var(--orange);border-bottom:1.5px solid var(--orange);}
+/* LAT-WORD — basis (tekst7-stijl: stage-systeem) */
+.lat-word{display:inline;border-radius:3px;cursor:pointer;transition:background .12s;padding:0 1px;}
+.lat-word:hover{background:rgba(101,179,46,.10);}
 
-/* Interlinear */
-body.interlin .lat-word{
+/* Interlineaire analyse (tekst7-systeem) */
+body.interlin-analysis .lat-word{
   display:inline-flex;flex-direction:column;align-items:center;
-  vertical-align:bottom;margin:0 1px;
+  vertical-align:bottom;margin:0 2px;padding:0 1px;
 }
-body.interlin .lat-word .iln{
-  display:block;font-family:var(--ft);
-  font-size:.52em;color:var(--accent);line-height:1.1;
-  text-align:center;pointer-events:none;white-space:nowrap;
+.inline-analysis{display:none;}
+body.interlin-analysis .inline-analysis{
+  display:flex;flex-direction:column;align-items:center;
+  gap:1px;margin-bottom:.14rem;min-height:0;
 }
+.lat-surface{display:inline;}
+body.interlin-analysis .lat-surface{display:inline-block;}
+.ia-line{display:block;font-family:var(--ft);line-height:1.05;text-align:center;white-space:nowrap;}
+.ia-lemma{font-size:.53em;color:var(--accent);}
+.ia-meaning{font-size:.5em;color:var(--ink-light);}
+.ia-det{font-size:.49em;color:var(--deep-forest);}
+.ia-func{font-size:.49em;color:var(--blue);font-weight:700;}
+.lat-word.has-analysis .lat-surface{border-radius:3px;}
+.lat-word.stage-1 .lat-surface{box-shadow:inset 0 -2px 0 rgba(255,59,29,.22);}
+.lat-word.stage-2 .lat-surface{box-shadow:inset 0 -2px 0 rgba(0,102,51,.25);}
+.lat-word.stage-3 .lat-surface{background:rgba(255,234,61,.35);outline:1px solid rgba(0,102,51,.28);}
+.lat-word.active-word .lat-surface{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px;}
 
 /* TEKSTSCHEIDING */
 .latin-para.tekst-scheiding{border-top:1px solid #ddd;margin-top:1.5em;padding-top:1.5em;}
@@ -225,69 +238,107 @@ body.interlin .lat-word .iln{
 .ac-row{display:flex;gap:.5rem;margin-bottom:.2rem;align-items:flex-start;}
 .ac-tag{font-size:.6rem;font-weight:700;padding:.08rem .38rem;border-radius:10px;text-transform:uppercase;flex-shrink:0;margin-top:.15rem;}
 .ac-empty{color:var(--ink-light);font-size:.78rem;font-style:italic;}
-
-/* VERTALING ZIJPANEEL */
-.vertaling-tekst{font-family:var(--ft);font-size:.82rem;line-height:1.7;color:var(--zwart);}
+.vertaling-tekst{font-family:var(--ft);font-size:.82rem;line-height:1.7;color:var(--ink);}
 .vertaling-tekst p{margin-bottom:.7rem;}
 .vertaling-tekst p:last-child{margin-bottom:0;}
-
 
 /* KOLOM-RESIZER */
 .col-resizer{display:none;width:12px;cursor:col-resize;align-self:stretch;position:relative;z-index:10;flex-shrink:0;}
 body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;}
-.col-resizer-handle{
-  width:4px;height:48px;border-radius:4px;
-  background:var(--rule);
-  transition:background .15s, height .15s;
-  position:sticky;top:calc(50vh - 24px);
-}
-.col-resizer:hover .col-resizer-handle,
-.col-resizer.dragging .col-resizer-handle{
-  background:var(--blue);height:64px;
-}
+.col-resizer-handle{width:4px;height:48px;border-radius:4px;background:var(--rule);transition:background .15s,height .15s;position:sticky;top:calc(50vh - 24px);}
+.col-resizer:hover .col-resizer-handle,.col-resizer.dragging .col-resizer-handle{background:var(--blue);height:64px;}
 
 /* SCROLL TOP */
-.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all .2s;box-shadow:0 4px 14px rgba(19,66,127,.28);z-index:100;}
+.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all .2s;box-shadow:0 4px 14px rgba(101,179,46,.35);z-index:100;}
 .scroll-top.on{opacity:1;transform:translateY(0);}
 .scroll-top svg{width:15px;height:15px;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
 
-/* ══ DIDACTIEK TOGGLE SYSTEEM ══ */
-
-/* Badges die op elementen verschijnen */
+/* DIDACTIEK TOGGLE SYSTEEM */
 .d-badge{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .5rem;border-radius:20px;vertical-align:middle;margin:0 .2rem .1rem;white-space:nowrap;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none;transform:scale(.85);}
 .d-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;}
 .d-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
 .d-badge.vis{opacity:1;pointer-events:auto;transform:scale(1);}
-
-/* Badge-container boven elk pagina-element */
 .d-badges{display:block;margin-bottom:.35rem;min-height:0;line-height:1.6;}
 .d-badges:empty{margin-bottom:0;}
-
-/* Surma-bouwsteen nummers staan al in de badge-tekst */
-
-/* Donkere hover-tooltip op badges */
-.d-tooltip{
-  position:absolute;z-index:900;
-  background:#1a2238;color:#fff;
-  font-family:var(--ft);font-size:.78rem;font-weight:500;
-  line-height:1.45;letter-spacing:.005em;
-  padding:.7rem .95rem;border-radius:10px;
-  max-width:340px;
-  box-shadow:0 12px 32px rgba(19,66,127,.28);
-  pointer-events:none;
-  opacity:0;transform:translateY(4px);
-  transition:opacity .15s ease,transform .15s ease;
-}
+.d-tooltip{position:absolute;z-index:900;background:#1a2238;color:#fff;font-family:var(--ft);font-size:.78rem;font-weight:500;line-height:1.45;letter-spacing:.005em;padding:.7rem .95rem;border-radius:10px;max-width:340px;box-shadow:0 12px 32px rgba(19,66,127,.28);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .15s ease,transform .15s ease;}
 .d-tooltip.vis{opacity:1;transform:translateY(0);}
 .d-badge{cursor:help;}
 
-@media(max-width:900px){body.twocol .outer{display:block;}body.twocol .main-col{padding:2rem 0 5rem;}body.twocol .side-panel{display:none!important;}}
+/* LESSON TOOLBAR */
+.lesson-toolbar-wrap{
+  position:fixed;top:168px;
+  left:var(--toolbar-offset-left);
+  z-index:700;
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease,transform .22s ease;
+  transform:translateY(10px);
+}
+body.show-lesson-toolbar .lesson-toolbar-wrap{opacity:1;pointer-events:auto;transform:translateY(0);}
+.lesson-toolbar{
+  display:flex;flex-direction:column;align-items:center;
+  gap:.34rem;padding:.35rem;border-radius:24px;
+  background:rgba(255,255,255,.34);
+  border:1px solid rgba(101,179,46,.15);
+  box-shadow:0 10px 28px rgba(0,0,0,.10);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.lesson-toolbar-group{display:flex;flex-direction:column;align-items:center;gap:.34rem;}
+.lesson-toolbar-divider{width:12px;height:10px;}
+.lesson-btn{
+  width:42px;height:42px;padding:0;border:none;border-radius:14px;
+  background:rgba(255,255,255,.78);color:var(--deep-forest);
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:transform .12s ease,background .15s ease,color .15s ease,box-shadow .15s ease;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.lesson-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.96);box-shadow:0 6px 16px rgba(0,0,0,.10);}
+.lesson-btn:active{transform:translateY(0);}
+.lesson-btn.active{background:#ffea3d;color:var(--deep-forest);box-shadow:0 0 0 2px rgba(255,234,61,.28),0 6px 16px rgba(0,0,0,.10);}
+.lesson-btn.danger:hover{background:var(--accent);color:#fff;}
+.lesson-btn svg{width:18px;height:18px;stroke:currentColor;}
+.lesson-status{display:none;}
+.tool-palette{
+  position:absolute;left:calc(100% + 12px);
+  display:none;grid-template-columns:repeat(3,18px);
+  gap:8px;padding:10px;
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(0,0,0,.08);border-radius:14px;
+  box-shadow:0 10px 26px rgba(0,0,0,.12);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.tool-palette.open{display:grid;}
+#penPalette{top:210px;}
+#highlightPalette{top:258px;}
+.swatch{width:18px;height:18px;border-radius:50%;border:2px solid rgba(0,0,0,.10);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;}
+.swatch:hover{transform:scale(1.08);}
+.swatch.active{border-color:#111;box-shadow:0 0 0 2px rgba(0,0,0,.08);}
+
+/* ANNOTATIELAAG */
+.ink-canvas{position:fixed;inset:0;z-index:640;pointer-events:none;touch-action:none;}
+.ink-canvas.on{pointer-events:auto;}
+body.ink-on{cursor:crosshair;}
+
+@media(max-width:1100px){.lesson-toolbar-wrap{left:12px;}}
+@media(max-width:900px){
+  body.twocol .outer{display:block;}
+  body.twocol .main-col{padding:2rem 0 5rem;}
+  body.twocol .side-panel{display:none!important;}
+  .lesson-toolbar-wrap{top:auto;bottom:.75rem;left:50%;transform:translateX(-50%) translateY(10px);}
+  body.show-lesson-toolbar .lesson-toolbar-wrap{transform:translateX(-50%) translateY(0);}
+  .lesson-toolbar{flex-direction:row;gap:.4rem;padding:.42rem;border-radius:22px;}
+  .lesson-toolbar-group{flex-direction:row;gap:.34rem;}
+  .lesson-toolbar-divider{width:10px;height:1px;}
+  .tool-palette{left:50%;transform:translateX(-50%);top:auto!important;bottom:calc(100% + 12px);}
+}
 @media(max-width:600px){.main-col{padding:2rem 0 5rem;}.outer{padding:0 1rem;}.text-title{font-size:1.7rem;}.site-header{padding:0 14px;}.site-toolbar{padding:8px 14px;height:auto;flex-wrap:wrap;}.topbar-label,.topbar-divider{display:none;}}
 </style>
 </head>
 <body>
+
+<canvas id="inkCanvas" class="ink-canvas"></canvas>
 
 <div class="word-popup" id="popup">
   <div class="wp-word" id="ppWord"></div>
@@ -295,6 +346,24 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   <div id="ppContent"></div>
   <hr class="wp-sep" id="ppSep" style="display:none">
   <div class="wp-hint" id="ppHint"></div>
+</div>
+
+<!-- LECTUURANALYSE MODAL -->
+<div class="poetry-modal-overlay la-modal" id="lectuurOverlay" onclick="closeLectuurModal()">
+  <div class="poetry-modal la-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <span class="poetry-modal-title">Lectuuranalyse — De aanslag op Karel de Goede</span>
+      <div class="poetry-modal-nav">
+        <button class="poetry-modal-nav-btn" id="laSectieVorige" onclick="navigateLaSectie(-1)" disabled>&#8592; Vorige</button>
+        <span id="laSectieNr" style="font-family:var(--ft);font-size:.72rem;color:var(--ink-light);min-width:3rem;text-align:center;">1 / 3</span>
+        <button class="poetry-modal-nav-btn" id="laSectieVolgende" onclick="navigateLaSectie(1)">Volgende &#8594;</button>
+      </div>
+      <button class="poetry-modal-close" onclick="closeLectuurModal()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+    <div class="poetry-modal-body" id="lectuurModalBody"></div>
+  </div>
 </div>
 
 <header class="site-header">
@@ -334,8 +403,8 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/></svg>
           Tweekolom
         </button>
-        <div style="height:1px;background:rgba(19,66,127,.08);margin:.3rem 0;"></div>
-        <div style="font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(19,66,127,.4);padding:.2rem .9rem .1rem;">Didactiek</div>
+        <div style="height:1px;background:rgba(101,179,46,.15);margin:.3rem 0;"></div>
+        <div style="font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(101,179,46,.5);padding:.2rem .9rem .1rem;">Didactiek</div>
         <button class="weergave-item" id="btnBs" onclick="toggleLayer('bs');event.stopPropagation()">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;"></span>
           Bouwstenen
@@ -385,6 +454,9 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
       <button type="button" class="extras-icon" id="btnNoten" onclick="toggleNoten()" title="Grammaticale noten tonen / verbergen" aria-label="Grammaticale noten">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 3.5h11M2.5 7h11M2.5 10.5h7"/><circle cx="12" cy="11" r="1.6" fill="currentColor" stroke="none"/></svg>
       </button>
+      <button type="button" class="extras-icon" id="btnLectuur" onclick="openLectuurModal()" title="Lectuuranalyse openen" aria-label="Lectuuranalyse">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/><circle cx="13" cy="11" r="2.2" fill="currentColor" stroke="none"/><path d="M13 10v2M12 11h2" stroke="#fff" stroke-width="1.2"/></svg>
+      </button>
     </div>
   </div>
 
@@ -420,6 +492,8 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
     <span class="rev-count" id="revCount">0 / 0</span>
   </div>
 
+  <div id="textStartSentinel" aria-hidden="true" style="height:1px;"></div>
+
   <div class="d-badges" id="badges-tekst" style="margin-bottom:.5rem;">
     <span class="d-badge bs" data-layer="bs">③ Voorbeelden &amp; modelling</span>
     <span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span>
@@ -428,14 +502,6 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   </div>
   <div class="latin-text" id="latinText">
   <div class="plain-view" id="plainView">
-
-<!-- ══════════════════════════════════════════
-     TEKST — opgedeeld in .wg (woordgroepen)
-     Elke .wg is een semantische chunk:
-     subject, predicaat, object, bepaling …
-     Klik op woord = analyse-popup
-     Onthulling gaat wg voor wg
-══════════════════════════════════════════ -->
 
 <div class="latin-para">
 <span class="wg" data-wg="1"><span class="lat-word" data-w="Tunc" data-l="tunc" data-d="bijw. van tijd" data-s="BWB van tijd bij PV" data-n="toen">Tunc</span></span>
@@ -518,7 +584,7 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   </div>
   </div><!-- /noten-block -->
 
-  <!-- ══ WOORDENLIJST ══ -->
+  <!-- WOORDENLIJST -->
   <div class="d-badges" id="badges-wl" style="margin-bottom:.5rem;">
     <span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span>
     <span class="d-badge bs" data-layer="bs">⑧ Gespreide oefening</span>
@@ -528,7 +594,7 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   <div id="woordenlijst-sectie" style="margin-top:3.5rem;padding-top:2rem;border-top:2px solid var(--rule);">
     <div id="wlSectieLabel" style="font-family:var(--ft);font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;opacity:.85;">Tekst 5 · Thema 2 · 4de jaar</div>
     <h2 style="font-family:var(--ft);font-size:1.3rem;font-weight:600;color:var(--blue);margin-bottom:.3rem;" id="wlSectieTitle">Woordenlijst</h2>
-    <p id="wlSectieInfo" style="font-family:var(--ft);font-size:.78rem;color:var(--ink-light);margin-bottom:1.5rem;">Woordenlijst wordt aangevuld woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.</p>
+    <p id="wlSectieInfo" style="font-family:var(--ft);font-size:.78rem;color:var(--ink-light);margin-bottom:1.5rem;">Woordenlijst wordt aangevuld. Woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.</p>
     <div id="wlTable"></div>
   </div>
 
@@ -543,6 +609,10 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   <div class="panel-card" id="sidePanelVertaling">
     <h3 style="color:var(--accent);">Vertaling</h3>
     <div class="vertaling-tekst" id="vertaalTekst"></div>
+  </div>
+  <div class="panel-card" id="sidePanelWl">
+    <h3>Woordenlijst</h3>
+    <div id="wlSide"></div>
   </div>
   <div class="panel-card">
     <h3>Let op</h3>
@@ -560,19 +630,74 @@ body.twocol .col-resizer{display:flex;align-items:center;justify-content:center;
   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4-4 4 4"/></svg>
 </button>
 
+<!-- LESSON TOOLBAR -->
+<div class="lesson-toolbar-wrap" id="lessonToolbarWrap">
+  <div class="lesson-toolbar" id="lessonToolbar">
+    <div class="lesson-toolbar-group">
+      <button class="lesson-btn" type="button" onclick="revealPrev()" title="Vorige woordgroep" aria-label="Vorige woordgroep">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
+      </button>
+      <button class="lesson-btn" type="button" onclick="revealNext()" title="Volgende woordgroep" aria-label="Volgende woordgroep">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="2"><path d="M6 3l5 5-5 5"/></svg>
+      </button>
+      <button class="lesson-btn" type="button" onclick="toggleReveal()" id="lessonRevealBtn" title="Onthulmodus" aria-label="Onthulmodus">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="1.6"><path d="M2 8s2.5-5 6-5 6 5 6 5-2.5 5-6 5-6-5-6-5z"/><circle cx="8" cy="8" r="2"/></svg>
+      </button>
+      <button class="lesson-btn" type="button" onclick="stepActiveWord()" title="Volgende analysestap" aria-label="Volgende analysestap">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+
+    <div class="lesson-toolbar-divider"></div>
+
+    <div class="lesson-toolbar-group">
+      <button class="lesson-btn" type="button" onclick="focusPrevWord()" title="Vorig woord" aria-label="Vorig woord">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="2"><path d="M9.5 4L5.5 8l4 4"/></svg>
+      </button>
+      <button class="lesson-btn" type="button" onclick="focusNextWord()" title="Volgend woord" aria-label="Volgend woord">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="2"><path d="M6.5 4l4 4-4 4"/></svg>
+      </button>
+      <button class="lesson-btn danger" type="button" onclick="clearCurrentWgAnalysis()" title="Wis huidige woordgroep" aria-label="Wis huidige woordgroep">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="1.7"><path d="M3 4h10M6 4V3h4v1M5 6v6M8 6v6M11 6v6M4 4l.5 9h7L12 4"/></svg>
+      </button>
+      <button class="lesson-btn danger" type="button" onclick="clearAllAnalysis()" title="Wis alle analyse" aria-label="Wis alle analyse">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="1.7"><path d="M3 4h10M6 4V3h4v1M4 4l.5 9h7L12 4"/><path d="M5 11l6-6M11 11L5 5"/></svg>
+      </button>
+    </div>
+
+    <div class="lesson-toolbar-divider"></div>
+
+    <div class="lesson-toolbar-group">
+      <button class="lesson-btn" type="button" id="inkPenBtn" onclick="setInkMode('pen')" title="Pen" aria-label="Pen">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="1.7"><path d="M3 13l2.8-.6L13 5.2 10.8 3 3.6 10.2 3 13z"/><path d="M9.8 4l2.2 2.2"/></svg>
+      </button>
+      <button class="lesson-btn" type="button" id="inkHighBtn" onclick="setInkMode('highlight')" title="Markeerstift" aria-label="Markeerstift">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="1.7"><path d="M3 10.5L9.8 3.7a1.2 1.2 0 011.7 0l.8.8a1.2 1.2 0 010 1.7L5.5 13H3v-2.5z"/><path d="M2.5 13.5h11"/></svg>
+      </button>
+      <button class="lesson-btn" type="button" id="inkEraseBtn" onclick="setInkMode('erase')" title="Gum" aria-label="Gum">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="1.7"><path d="M6.2 3.3l6.5 6.5-2.8 2.8H4.4L2.5 10.7l3.7-3.7"/><path d="M8.5 12.6l4-4"/></svg>
+      </button>
+      <button class="lesson-btn" type="button" onclick="clearInk()" title="Wis annotaties" aria-label="Wis annotaties">
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="1.7"><path d="M3 12h10"/><path d="M5 12l5.8-7.5a1 1 0 00-.1-1.3l-.4-.4a1 1 0 00-1.4 0L3 9.5V12h2z"/></svg>
+      </button>
+    </div>
+
+    <div class="lesson-toolbar-divider"></div>
+    <div class="lesson-status" id="lessonStatus">Les</div>
+  </div>
+
+  <div class="tool-palette" id="penPalette"></div>
+  <div class="tool-palette" id="highlightPalette"></div>
+</div>
+
 <script>
 /* ══════════════════════════════════════════
-   WOORDENLIJST DATA — gefilterd voor deze tekst
-   t = teksten waarin het woord voorkomt
-   vol = volgorde per tekst
+   WOORDENLIJST DATA
 ══════════════════════════════════════════ */
 var WL = [
 /* woordenlijst 4de jaar — nog aan te vullen */
 ];
 
-/* ══════════════════════════════════════════
-   WOORDENLIJST OPZOEKEN
-══════════════════════════════════════════ */
 function lookupWL(lemma) {
   if (!lemma) return null;
   var parts = lemma.toLowerCase().split(/[\/,\s]+/);
@@ -591,25 +716,9 @@ function lookupWL(lemma) {
   return null;
 }
 
-/* ══════════════════════════════════════════
-   RENDER WOORDENLIJST (hoofd + zijpaneel)
-══════════════════════════════════════════ */
 var currentTekst = 'th2/5';
 var tekstLabels = {
-  '6a/1':'Ludus 6A · Tekst 1','6a/2':'Ludus 6A · Tekst 2','6a/4':'Ludus 6A · Tekst 4','6a/7':'Ludus 6A · Tekst 7',
-  '6b/1':'Ludus 6B · Tekst 1','6b/2':'Ludus 6B · Tekst 2','6b/3':'Ludus 6B · Tekst 3','6b/4':'Ludus 6B · Tekst 4',
-  '6b/5':'Ludus 6B · Tekst 5','6b/8':'Ludus 6B · Tekst 8','6b/9':'Ludus 6B · Tekst 9',
-  '7a/1':'Ludus 7A · Tekst 1','7a/2':'Ludus 7A · Tekst 2','7a/3':'Ludus 7A · Tekst 3','7a/5':'Ludus 7A · Tekst 5',
-  '7a/6':'Ludus 7A · Tekst 6','7a/7':'Ludus 7A · Tekst 7','7a/8':'Ludus 7A · Tekst 8',
-  '7b/2':'Ludus 7B · Tekst 2','7b/4':'Ludus 7B · Tekst 4','7b/6':'Ludus 7B · Tekst 6','7b/12':'Ludus 7B · Tekst 12',
-  '8a/2':'Ludus 8A · Tekst 2','8a/3':'Ludus 8A · Tekst 3','8a/5':'Ludus 8A · Tekst 5','8a/6':'Ludus 8A · Tekst 6',
-  '8b/1':'Ludus 8B · Tekst 1','8b/3':'Ludus 8B · Tekst 3','8b/5':'Ludus 8B · Tekst 5','8b/6':'Ludus 8B · Tekst 6',
-  '8b/8':'Ludus 8B · Tekst 8','8b/9':'Ludus 8B · Tekst 9','8b/10':'Ludus 8B · Tekst 10',
-  '9a/1':'Ludus 9A · Tekst 1','9a/4':'Ludus 9A · Tekst 4',
-  '9b/3':'Ludus 9B · Tekst 3','9b/4':'Ludus 9B · Tekst 4','9b/5':'Ludus 9B · Tekst 5','9b/6':'Ludus 9B · Tekst 6',
-  '9b/7':'Ludus 9B · Tekst 7','9b/9':'Ludus 9B · Tekst 9','9b/10':'Ludus 9B · Tekst 10',
-  '10/3':'Ludus 10 · Tekst 3','10/8':'Ludus 10 · Tekst 8','10/9':'Ludus 10 · Tekst 9',
-  '10/14':'Ludus 10 · Tekst 14','10/19':'Ludus 10 · Tekst 19','10/21':'Ludus 10 · Tekst 21','10/26':'Ludus 10 · Tekst 26','th2/5':'Thema 2 · Tekst 5'
+  'th2/5':'Thema 2 · Tekst 5'
 };
 
 function filterWL(tekst) {
@@ -617,14 +726,12 @@ function filterWL(tekst) {
   var label = tekstLabels[tekst] || tekst;
   var filtered = WL.filter(function(w){ return w.t && w.t.indexOf(tekst) !== -1; })
                    .sort(function(a,b){ return (a.volgorde && a.volgorde[tekst]||999) - (b.volgorde && b.volgorde[tekst]||999); });
-  // Update labels
   var sectLabel = document.getElementById('wlSectieLabel');
   var sectTitle = document.getElementById('wlSectieTitle');
   var sectInfo  = document.getElementById('wlSectieInfo');
   if (sectLabel) sectLabel.textContent = label;
   if (sectTitle) sectTitle.textContent = 'Woordenlijst';
   if (sectInfo)  sectInfo.innerHTML = filtered.length + ' woorden op volgorde van voorkomen. <span style="display:inline-block;font-size:.6rem;font-weight:700;padding:.04rem .3rem;border-radius:8px;background:#fbe6f1;color:var(--magenta);text-transform:uppercase;vertical-align:middle;">basis</span> = basiswoordenschat.';
-  // Update side panel header
   var spHead = document.querySelector('#sidePanelWl h3');
   if (spHead) spHead.textContent = 'Woordenlijst — ' + label;
   renderWLData(filtered);
@@ -672,62 +779,161 @@ function renderWLSide(list) {
   el.innerHTML = html;
 }
 
-/* init woordenlijst */
 filterWL('th2/5');
+
+/* ══════════════════════════════════════════
+   LECTUURANALYSE DATA
+══════════════════════════════════════════ */
+var laSectieIdx = 0;
+var LA_SECTIES = [
+  {
+    titel: 'De aanval — structuur en spanning',
+    html: '<div class="la-sectie-titel">1. De aanval — structuur en spanning</div>'
+      + '<div class="la-vraag"><div class="la-vraag-tekst">1. Hoe bouwt Galbert de spanning op in de eerste zin (<em>Tunc ille furibundus … in eodem solario</em>)? Let op de volgorde van de elementen.</div>'
+      + '<div class="la-antwoord-wrap"><button class="la-toggle-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg> Toon antwoord</button>'
+      + '<div class="la-antwoord">Galbert plaatst de karakterisering (<em>furibundus</em>) vóór de naam (<em>Borsiardus</em>), waardoor de emotie de actie voorafgaat. De abl. abs. (<em>acceptis gladiis nudis sub palliis</em>) geeft de lezer een visueel detail — verborgen zwaarden — dat de gepremediteerdheid van de aanval onthult vóór het PV (<em>persequebantur</em>) de actie benoemt.</div></div></div>'
+      + '<div class="la-vraag"><div class="la-vraag-tekst">2. Welke grammaticale constructie benadrukt dat de aanvallers georganiseerd optraden? Verklaar.</div>'
+      + '<div class="la-antwoord-wrap"><button class="la-toggle-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg> Toon antwoord</button>'
+      + '<div class="la-antwoord">De consecutieve bijzin (<em>ita ut … aufugeret</em>) toont dat de opdeling in twee groepen een bedachte strategie was: niemand mocht ontsnappen. De <em>conj. imperf.</em> drukt het beoogde gevolg uit, niet een toevallig resultaat.</div></div></div>'
+  },
+  {
+    titel: 'Et ecce! — narratieve techniek',
+    html: '<div class="la-sectie-titel">2. Et ecce! — narratieve techniek</div>'
+      + '<div class="la-vraag"><div class="la-vraag-tekst">3. Waarom is <em>et ecce!</em> een keerpunt in de passage? Welk effect heeft dit op de lezer?</div>'
+      + '<div class="la-antwoord-wrap"><button class="la-toggle-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg> Toon antwoord</button>'
+      + '<div class="la-antwoord"><em>Et ecce!</em> is een cinematografisch procédé: het verschuift het perspectief van de aanvallers naar de graaf. De lezer "ziet" plotseling wat de aanvallers zien. Galbert imiteert hiermee de techniek van de bijbelverteller (cf. Lc 7,12). De uitroep creëert een dramatische pauze voor de coup de grâce.</div></div></div>'
+      + '<div class="la-vraag"><div class="la-vraag-tekst">4. Vergelijk de houding van Karel de Goede (<em>prostratum … decantabat … erogabat</em>) met die van de aanvallers. Welk contrast bouwt Galbert op?</div>'
+      + '<div class="la-antwoord-wrap"><button class="la-toggle-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg> Toon antwoord</button>'
+      + '<div class="la-antwoord">De aanvallers zijn <em>furibundus</em>, gewapend en doelgericht gewelddadig. Karel is geknield, biddend en aalmoezen gevend — een beeld van vroomheid en zachtheid (<em>devotus</em>). Dit contrast verhoogt de gruwel van de moord en heiligt de graaf: hij sterft als martelaar terwijl hij bidt.</div></div></div>'
+  },
+  {
+    titel: 'Galbert als ooggetuige — stijl en betrouwbaarheid',
+    html: '<div class="la-sectie-titel">3. Galbert als ooggetuige — stijl en betrouwbaarheid</div>'
+      + '<div class="la-vraag"><div class="la-vraag-tekst">5. Galbert schrijft als ooggetuige. Welke taalmiddelen maken de tekst levendig en direct?</div>'
+      + '<div class="la-antwoord-wrap"><button class="la-toggle-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg> Toon antwoord</button>'
+      + '<div class="la-antwoord">Galbert gebruikt: (a) het imperfectum voor duratieve handelingen (<em>persequebantur, decantabat, erogabat</em>) — de lezer is in de scène; (b) visuele details (<em>gladiis nudis sub palliis</em>); (c) het uitroepteken <em>ecce!</em>; (d) de plotse focuswisseling van aanvallers naar slachtoffer. Samen creëren deze middelen een verslaggevende, bijna filmische stijl.</div></div></div>'
+      + '<div class="la-vraag"><div class="la-vraag-tekst">6. Discussievraag: Kan Galbert als betrouwbare bron beschouwd worden? Welke factoren beïnvloeden zijn perspectief?</div>'
+      + '<div class="la-antwoord-wrap"><button class="la-toggle-btn" onclick="toggleAntwoord(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg> Toon antwoord</button>'
+      + '<div class="la-antwoord">Galbert was notarius van de graaf en dus verbonden aan het grafelijk hof. Hij had belang bij de verheerlijking van Karel. Zijn heiligenachtig portret (<em>devotus, psalmos decantabat, pauperibus denarios erogabat</em>) is retorisch gestuurd. Toch geldt hij als een van de meest nauwkeurige middeleeuwse kroniekschrijvers — hij schreef dag per dag, vlak na de feiten.</div></div></div>'
+  }
+];
 
 /* ══════════════════════════════════════════
    STATE
 ══════════════════════════════════════════ */
-var S = {lines:false, font:false, reveal:false, twocol:false, interlin:false, revIdx:-1};
+var S = {
+  lines: false,
+  font: false,
+  reveal: false,
+  twocol: false,
+  interlin: true,
+  revIdx: -1
+};
+
+var popup = document.getElementById('popup');
 var wgroups = Array.from(document.querySelectorAll('.wg'));
-var lastWord = null, clickN = 0;
+var activeWord = null;
+
+document.body.classList.add('interlin-analysis');
 
 /* ══════════════════════════════════════════
-   WORD CLICKS
+   INLINE ANALYSE SYSTEEM (tekst7-stijl)
 ══════════════════════════════════════════ */
+function prepareInlineAnalysis() {
+  document.querySelectorAll('.lat-word').forEach(function(w) {
+    if (w.dataset.prepared === '1') return;
+    var txt = w.textContent;
+    w.dataset.surface = txt;
+    w.innerHTML = '<span class="inline-analysis"></span><span class="lat-surface">' + txt + '</span>';
+    w.dataset.stage = '0';
+    w.dataset.prepared = '1';
+  });
+}
+prepareInlineAnalysis();
+
+function isWordAvailable(word) {
+  if (!S.reveal) return true;
+  var wg = word.closest('.wg');
+  if (!wg) return true;
+  return wg.classList.contains('revealed') || wg.classList.contains('current');
+}
+function getStage(word) {
+  return parseInt(word.dataset.stage || '0', 10);
+}
+function setStage(word, stage) {
+  word.dataset.stage = String(stage);
+  renderInlineAnalysis(word);
+}
+function setActiveWord(word) {
+  document.querySelectorAll('.lat-word.active-word').forEach(function(w) {
+    w.classList.remove('active-word');
+  });
+  activeWord = word || null;
+  if (activeWord) activeWord.classList.add('active-word');
+}
+function renderInlineAnalysis(word) {
+  var slot = word.querySelector('.inline-analysis');
+  if (!slot) return;
+  var stage = getStage(word);
+  word.classList.remove('has-analysis', 'stage-1', 'stage-2', 'stage-3');
+  if (!S.interlin || stage === 0) {
+    slot.innerHTML = '';
+    return;
+  }
+  var html = '';
+  if (stage >= 1) {
+    html += '<span class="ia-line ia-lemma">' + (word.dataset.l || '') + '</span>';
+    html += '<span class="ia-line ia-meaning">' + (word.dataset.n || '') + '</span>';
+  }
+  if (stage >= 2) {
+    html += '<span class="ia-line ia-det">' + (word.dataset.d || '') + '</span>';
+  }
+  if (stage >= 3) {
+    html += '<span class="ia-line ia-func">' + (word.dataset.s || '') + '</span>';
+  }
+  slot.innerHTML = html;
+  word.classList.add('has-analysis', 'stage-' + stage);
+}
+function stepWord(word) {
+  if (!word || !isWordAvailable(word)) return;
+  setActiveWord(word);
+  var stage = getStage(word);
+  if (stage < 3) stage++;
+  setStage(word, stage);
+  updatePanel(word);
+  hidePopup();
+}
+function stepActiveWord() {
+  if (!activeWord) focusFirstWordInCurrentWg();
+  if (activeWord) stepWord(activeWord);
+}
+
 document.querySelectorAll('.lat-word').forEach(function(w) {
   w.addEventListener('click', function(e) {
     e.stopPropagation();
-    if (lastWord === w) { clickN++; } else {
-      if (lastWord) lastWord.classList.remove('st1','st2');
-      lastWord = w; clickN = 1;
-    }
-    w.classList.remove('st1','st2');
-    if (clickN === 1) {
-      w.classList.add('st1');
-      showPopup(w, 1);
-      updatePanel(w);
-    } else if (clickN === 2) {
-      w.classList.add('st2');
-      showPopup(w, 2);
-    } else {
-      clickN = 0; lastWord = null; hidePopup();
-    }
+    stepWord(w);
   });
 });
-document.addEventListener('click', function() {
-  if (lastWord) { lastWord.classList.remove('st1','st2'); lastWord = null; clickN = 0; }
-  hidePopup();
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.lat-word') && !e.target.closest('.lesson-toolbar-wrap') && !e.target.closest('.tool-palette')) {
+    document.querySelectorAll('.lat-word.active-word').forEach(function(w) { w.classList.remove('active-word'); });
+    activeWord = null;
+    hidePopup();
+  }
 });
 
 /* ══════════════════════════════════════════
    POPUP
 ══════════════════════════════════════════ */
-var popup = document.getElementById('popup');
 function showPopup(el, click) {
   var wl = lookupWL(el.dataset.l);
   document.getElementById('ppWord').textContent = el.dataset.w;
   document.getElementById('ppLemma').textContent = el.dataset.l || '';
-
   var info = click === 1 ? el.dataset.d : el.dataset.s;
   var tagClass = click === 1 ? 'tg' : 'to';
   var tagLabel = click === 1 ? 'Det.' : 'Funct.';
   var html = '<div class="wp-row"><span class="wp-tag ' + tagClass + '">' + tagLabel + '</span><span class="wp-val">' + info + '</span></div>';
-
-  // Add NL from data-n
   html += '<div class="wp-row" style="margin-top:.25rem"><span class="wp-tag tp">NL</span><span class="wp-val">' + el.dataset.n + '</span></div>';
-
-  // Add woordenlijst entry if found — weergave conform woordjestrainer
   if (wl) {
     html += '<hr class="wp-sep">';
     var isBasis = wl.b;
@@ -738,12 +944,9 @@ function showPopup(el, click) {
     html += '<div style="font-size:.78rem;color:var(--ink-mid);margin-top:.15rem;">' + wl.v + '</div>';
     html += '</div></div>';
   }
-
   document.getElementById('ppContent').innerHTML = html;
   document.getElementById('ppSep').style.display = 'none';
   document.getElementById('ppHint').innerHTML = '';
-
-  // Position
   var rect = el.getBoundingClientRect();
   var top = rect.bottom + window.scrollY + 6;
   var left = rect.left;
@@ -756,6 +959,9 @@ function showPopup(el, click) {
 }
 function hidePopup() { popup.classList.remove('vis'); }
 
+/* ══════════════════════════════════════════
+   SIDE PANEL
+══════════════════════════════════════════ */
 function updatePanel(w) {
   var wl = lookupWL(w.dataset.l);
   var wlHtml = '';
@@ -770,7 +976,7 @@ function updatePanel(w) {
   }
   document.getElementById('analysisCard').innerHTML =
     '<div class="ac-word">' + w.dataset.w + '</div>' +
-    '<div class="ac-lemma">' + (w.dataset.l||'') + '</div>' +
+    '<div class="ac-lemma">' + (w.dataset.l || '') + '</div>' +
     '<div class="ac-row"><span class="ac-tag tg">Det.</span><span class="ac-val">' + w.dataset.d + '</span></div>' +
     '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag to">Funct.</span><span class="ac-val">' + w.dataset.s + '</span></div>' +
     '<div class="ac-row" style="margin-top:.3rem"><span class="ac-tag tp">NL</span><span class="ac-val">' + w.dataset.n + '</span></div>' +
@@ -778,42 +984,89 @@ function updatePanel(w) {
 }
 
 /* ══════════════════════════════════════════
-   REVEAL PER WOORDGROEP
+   WOORDGROEP NAVIGATIE
+══════════════════════════════════════════ */
+function getCurrentWg() {
+  if (S.reveal && S.revIdx >= 0 && wgroups[S.revIdx]) return wgroups[S.revIdx];
+  if (activeWord) return activeWord.closest('.wg');
+  return null;
+}
+function getWordsInCurrentWg() {
+  var wg = getCurrentWg();
+  return wg ? Array.from(wg.querySelectorAll('.lat-word')) : [];
+}
+function focusFirstWordInCurrentWg() {
+  var words = getWordsInCurrentWg();
+  if (words.length) setActiveWord(words[0]);
+}
+function focusNextWord() {
+  var words = getWordsInCurrentWg();
+  if (!words.length) return;
+  if (!activeWord || words.indexOf(activeWord) === -1) { setActiveWord(words[0]); return; }
+  var idx = words.indexOf(activeWord);
+  idx = Math.min(words.length - 1, idx + 1);
+  setActiveWord(words[idx]);
+  words[idx].scrollIntoView({behavior:'smooth', block:'nearest', inline:'nearest'});
+}
+function focusPrevWord() {
+  var words = getWordsInCurrentWg();
+  if (!words.length) return;
+  if (!activeWord || words.indexOf(activeWord) === -1) { setActiveWord(words[0]); return; }
+  var idx = words.indexOf(activeWord);
+  idx = Math.max(0, idx - 1);
+  setActiveWord(words[idx]);
+  words[idx].scrollIntoView({behavior:'smooth', block:'nearest', inline:'nearest'});
+}
+
+/* ══════════════════════════════════════════
+   ONTHULLING
 ══════════════════════════════════════════ */
 function toggleReveal() {
   S.reveal = !S.reveal;
   document.getElementById('btnReveal').classList.toggle('active', S.reveal);
+  document.getElementById('lessonRevealBtn').classList.toggle('active', S.reveal);
   document.getElementById('revealBar').classList.toggle('vis', S.reveal);
   document.getElementById('latinText').classList.toggle('reveal-mode', S.reveal);
-  if (S.reveal) {
-    S.revIdx = -1;
-    wgroups.forEach(function(g){ g.classList.remove('revealed','current'); });
-    updCount();
-  } else {
-    wgroups.forEach(function(g){ g.classList.remove('revealed','current'); });
-  }
+  wgroups.forEach(function(g) { g.classList.remove('revealed', 'current'); });
+  setActiveWord(null);
+  if (S.reveal) S.revIdx = -1;
+  updCount();
+  updateLessonStatus();
 }
 function revealNext() {
-  if (!S.reveal) return;
+  if (!S.reveal) toggleReveal();
   if (S.revIdx >= 0 && S.revIdx < wgroups.length) wgroups[S.revIdx].classList.remove('current');
   S.revIdx = Math.min(S.revIdx + 1, wgroups.length - 1);
-  wgroups[S.revIdx].classList.add('revealed','current');
+  if (S.revIdx < 0 || !wgroups[S.revIdx]) return;
+  wgroups[S.revIdx].classList.add('revealed', 'current');
   wgroups[S.revIdx].scrollIntoView({behavior:'smooth', block:'nearest'});
+  focusFirstWordInCurrentWg();
   updCount();
+  updateLessonStatus();
 }
 function revealPrev() {
   if (!S.reveal) return;
   if (S.revIdx >= 0) {
-    wgroups[S.revIdx].classList.remove('current','revealed');
+    wgroups[S.revIdx].classList.remove('current', 'revealed');
     S.revIdx = Math.max(S.revIdx - 1, -1);
-    if (S.revIdx >= 0) wgroups[S.revIdx].classList.add('current');
+    if (S.revIdx >= 0) {
+      wgroups[S.revIdx].classList.add('current');
+      focusFirstWordInCurrentWg();
+    } else {
+      setActiveWord(null);
+    }
   }
   updCount();
+  updateLessonStatus();
 }
 function revealAll() {
-  wgroups.forEach(function(g){ g.classList.add('revealed'); g.classList.remove('current'); });
+  if (!S.reveal) toggleReveal();
+  wgroups.forEach(function(g) { g.classList.add('revealed'); g.classList.remove('current'); });
   S.revIdx = wgroups.length - 1;
+  if (wgroups[S.revIdx]) wgroups[S.revIdx].classList.add('current');
+  focusFirstWordInCurrentWg();
   updCount();
+  updateLessonStatus();
 }
 function updCount() {
   var done = document.querySelectorAll('.wg.revealed').length;
@@ -833,29 +1086,9 @@ function toggleLines() {
 function toggleInterlin() {
   S.interlin = !S.interlin;
   document.getElementById('btnInterlin').classList.toggle('active', S.interlin);
-  document.body.classList.toggle('interlin', S.interlin);
-  if (S.interlin) {
-    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
-      if (!w.querySelector('.iln')) {
-        var sp = document.createElement('span');
-        sp.className = 'iln';
-        sp.textContent = w.dataset.n;
-        w.appendChild(sp);
-      }
-    });
-    if (S.lines) toggleLines();
-  } else {
-    // Verwijder alle .iln spans én reset inline stijl op het woord
-    document.querySelectorAll('#plainView .lat-word').forEach(function(w) {
-      var iln = w.querySelector('.iln');
-      if (iln) iln.remove();
-      w.style.display = '';
-      w.style.flexDirection = '';
-      w.style.alignItems = '';
-      w.style.verticalAlign = '';
-      w.style.margin = '';
-    });
-  }
+  document.body.classList.toggle('interlin-analysis', S.interlin);
+  document.querySelectorAll('.lat-word').forEach(renderInlineAnalysis);
+  updateLessonStatus();
 }
 function toggleTwocol() {
   S.twocol = !S.twocol;
@@ -867,9 +1100,9 @@ function toggleTwocol() {
 function renderVertaling() {
   var el = document.getElementById('vertaalTekst');
   if (!el) return;
-  el.innerHTML = `<p>Toen achtervolgden die woedende Borsiard en zijn soldaten en dienaren, met ontblote zwaarden onder hun mantels, de graaf naar diezelfde gaanderij.</p>
-<p>Ze splitsten zich op in twee groepen, zodat van beide kanten van de gaanderij niemand van degenen die ze wilden verraden zou kunnen ontsnappen.</p>
-<p>En kijk! Daar zagen zij de graaf, geknield zoals zijn gewoonte was vlakbij het altaar op een nederig voetenbankje — psalmen zingend voor God; vroom zond hij gebeden op en deelde ondertussen munten uit aan de armen.</p>`;
+  el.innerHTML = '<p>Toen achtervolgden die woedende Borsiard en zijn soldaten en dienaren, met ontblote zwaarden onder hun mantels, de graaf naar diezelfde gaanderij.</p>'
+    + '<p>Ze splitsten zich op in twee groepen, zodat van beide kanten van de gaanderij niemand van degenen die ze wilden verraden zou kunnen ontsnappen.</p>'
+    + '<p>En kijk! Daar zagen zij de graaf, geknield zoals zijn gewoonte was vlakbij het altaar op een nederig voetenbankje — psalmen zingend voor God; vroom zond hij gebeden op en deelde ondertussen munten uit aan de armen.</p>';
 }
 function toggleFont() {
   S.font = !S.font;
@@ -878,10 +1111,9 @@ function toggleFont() {
 }
 
 /* ══════════════════════════════════════════
-   DIDACTIEK TOGGLE SYSTEEM
+   DIDACTIEK TOGGLE
 ══════════════════════════════════════════ */
 var D = { bs: false, lpd: false };
-
 function toggleLayer(layer) {
   D[layer] = !D[layer];
   var btnId = layer === 'bs' ? 'btnBs' : 'btnLpd';
@@ -892,8 +1124,6 @@ function toggleLayer(layer) {
   });
 }
 
-
-/* GRAMMATICALE NOTEN TOGGLE */
 function toggleNoten() {
   var blk = document.getElementById('notenBlock');
   var btn = document.getElementById('btnNoten');
@@ -903,9 +1133,54 @@ function toggleNoten() {
   if (open) blk.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-/* TOOLTIPS OP DIDACTIEK-BADGES — contextspecifiek per locatie + bouwsteen/LPD */
-(function annotateBadges(){
-  // Key = parent-id van .d-badges container + '|' + badge-tekst
+/* ══════════════════════════════════════════
+   LECTUURANALYSE MODAL
+══════════════════════════════════════════ */
+function openLectuurModal() {
+  laSectieIdx = 0;
+  renderLaSectie();
+  document.getElementById('lectuurOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLectuurModal() {
+  document.getElementById('lectuurOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderLaSectie() {
+  var s = LA_SECTIES[laSectieIdx];
+  document.getElementById('lectuurModalBody').innerHTML = s.html;
+  document.getElementById('laSectieNr').textContent = (laSectieIdx + 1) + ' / ' + LA_SECTIES.length;
+  document.getElementById('laSectieVorige').disabled = laSectieIdx === 0;
+  document.getElementById('laSectieVolgende').disabled = laSectieIdx === LA_SECTIES.length - 1;
+}
+function navigateLaSectie(dir) {
+  laSectieIdx = Math.max(0, Math.min(LA_SECTIES.length - 1, laSectieIdx + dir));
+  renderLaSectie();
+}
+function toggleAntwoord(btn) {
+  var wrap = btn.parentElement;
+  var antw = wrap.querySelector('.la-antwoord');
+  var open = antw.classList.toggle('vis');
+  btn.classList.toggle('open', open);
+  btn.querySelector('svg').style.transform = open ? 'rotate(180deg)' : '';
+}
+
+/* ══════════════════════════════════════════
+   KAART MODAL
+══════════════════════════════════════════ */
+function openKaartModal()  { document.getElementById('kaartModalOverlay').classList.add('open'); }
+function closeKaartModal() { document.getElementById('kaartModalOverlay').classList.remove('open'); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeLectuurModal();
+    closeKaartModal();
+  }
+});
+
+/* ══════════════════════════════════════════
+   BADGE TOOLTIPS
+══════════════════════════════════════════ */
+(function annotateBadges() {
   var TIPS = {
     'badges-context|① Voorkennis activeren':
       '① Voorkennis activeren: de context over de aanslag van 1127 activeert kennis over de middeleeuwse Vlaamse grafelijkheid en bereidt de leerling voor op Galberts getuigenisstijl.',
@@ -938,32 +1213,25 @@ function toggleNoten() {
     'badges-wl|WD2_03.02.02 – betekenis geven aan teksten':
       'WD2_03.02.02 betekenis geven aan teksten: furibundus (furia) en devotus (devotie) worden herkend via Nederlandse leenwoorden en dragen bij aan de semantische analyse.'
   };
-
-  // Zorg voor één globale tooltip-node
   var tip = document.createElement('div');
   tip.className = 'd-tooltip';
   document.body.appendChild(tip);
-
   function show(badge, text) {
     tip.textContent = text;
     tip.classList.add('vis');
     var r = badge.getBoundingClientRect();
-    var tw = tip.offsetWidth;
-    var th = tip.offsetHeight;
-    var pad = 10;
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
     var left = r.left + r.width/2 - tw/2;
     left = Math.max(8, Math.min(window.innerWidth - tw - 8, left));
-    var top = r.top - th - pad;
-    if (top < 8) top = r.bottom + pad; // klap onder als bovenaan
+    var top = r.top - th - 10;
+    if (top < 8) top = r.bottom + 10;
     tip.style.left = (left + window.scrollX) + 'px';
     tip.style.top  = (top  + window.scrollY) + 'px';
   }
   function hide() { tip.classList.remove('vis'); }
-
-  document.querySelectorAll('.d-badges').forEach(function(container){
-    var pid = container.id;
-    if (!pid) return;
-    container.querySelectorAll('.d-badge').forEach(function(b){
+  document.querySelectorAll('.d-badges').forEach(function(container) {
+    var pid = container.id; if (!pid) return;
+    container.querySelectorAll('.d-badge').forEach(function(b) {
       var key = pid + '|' + b.textContent.trim();
       var text = TIPS[key];
       if (!text) return;
@@ -975,12 +1243,9 @@ function toggleNoten() {
   });
 })();
 
-/* KAART MODAL */
-function openKaartModal()  { document.getElementById('kaartModalOverlay').classList.add('open'); }
-function closeKaartModal() { document.getElementById('kaartModalOverlay').classList.remove('open'); }
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeKaartModal(); });
-
-/* WEERGAVE DROPDOWN */
+/* ══════════════════════════════════════════
+   WEERGAVE DROPDOWN
+══════════════════════════════════════════ */
 function toggleWeergaveMenu(e) {
   e.stopPropagation();
   var menu = document.getElementById('weergaveMenu');
@@ -997,44 +1262,32 @@ document.addEventListener('click', function(e) {
   }
 });
 
-/* Sync active state inside dropdown */
-var _origToggleLines = toggleLines;
-toggleLines = function() { _origToggleLines(); document.getElementById('btnLines').classList.toggle('active', S.lines); };
-var _origToggleInterlin = toggleInterlin;
-toggleInterlin = function() { _origToggleInterlin(); document.getElementById('btnInterlin').classList.toggle('active', S.interlin); };
-
-/* Scroll */
+/* ══════════════════════════════════════════
+   SCROLL
+══════════════════════════════════════════ */
 window.addEventListener('scroll', function() {
-  var d = document.documentElement;
-  var pct = d.scrollTop / (d.scrollHeight - d.clientHeight);
-  document.getElementById('scrollTop').classList.toggle('on', d.scrollTop > 280);
+  document.getElementById('scrollTop').classList.toggle('on', document.documentElement.scrollTop > 280);
 });
 
 /* ══════════════════════════════════════════
-   KOLOM-RESIZER (drag to resize)
+   KOLOM-RESIZER
 ══════════════════════════════════════════ */
-(function(){
+(function() {
   var resizer = document.getElementById('colResizer');
   if (!resizer) return;
   var outer = resizer.closest('.outer');
-  var dragging = false;
-  var startX, startPct;
-
+  var dragging = false, startX, startPct;
   function getPct() {
     var val = getComputedStyle(document.documentElement).getPropertyValue('--col-split') || '60%';
     return parseFloat(val);
   }
-
   resizer.addEventListener('mousedown', function(e) {
-    dragging = true;
-    startX = e.clientX;
-    startPct = getPct();
+    dragging = true; startX = e.clientX; startPct = getPct();
     resizer.classList.add('dragging');
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
     e.preventDefault();
   });
-
   document.addEventListener('mousemove', function(e) {
     if (!dragging) return;
     var outerW = outer.getBoundingClientRect().width;
@@ -1042,7 +1295,6 @@ window.addEventListener('scroll', function() {
     var newPct = Math.min(80, Math.max(30, startPct + (delta / outerW) * 100));
     document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
   });
-
   document.addEventListener('mouseup', function() {
     if (!dragging) return;
     dragging = false;
@@ -1050,16 +1302,11 @@ window.addEventListener('scroll', function() {
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
   });
-
-  /* Touch support */
   resizer.addEventListener('touchstart', function(e) {
-    dragging = true;
-    startX = e.touches[0].clientX;
-    startPct = getPct();
+    dragging = true; startX = e.touches[0].clientX; startPct = getPct();
     resizer.classList.add('dragging');
     e.preventDefault();
   }, {passive: false});
-
   document.addEventListener('touchmove', function(e) {
     if (!dragging) return;
     var outerW = outer.getBoundingClientRect().width;
@@ -1067,13 +1314,227 @@ window.addEventListener('scroll', function() {
     var newPct = Math.min(80, Math.max(30, startPct + (delta / outerW) * 100));
     document.documentElement.style.setProperty('--col-split', newPct.toFixed(1) + '%');
   }, {passive: false});
-
   document.addEventListener('touchend', function() {
     dragging = false;
     resizer.classList.remove('dragging');
   });
 })();
 
+/* ══════════════════════════════════════════
+   TOOLBAR VISIBILITY (sentinel)
+══════════════════════════════════════════ */
+(function setupToolbarReveal() {
+  var sentinel = document.getElementById('textStartSentinel');
+  if (!sentinel) { document.body.classList.add('show-lesson-toolbar'); return; }
+  function updateToolbarVisibility() {
+    var rect = sentinel.getBoundingClientRect();
+    document.body.classList.toggle('show-lesson-toolbar', rect.top <= 170);
+  }
+  updateToolbarVisibility();
+  window.addEventListener('scroll', updateToolbarVisibility, { passive: true });
+  window.addEventListener('resize', updateToolbarVisibility);
+})();
+
+/* ══════════════════════════════════════════
+   ANALYSE WISSEN
+══════════════════════════════════════════ */
+function clearCurrentWgAnalysis() {
+  getWordsInCurrentWg().forEach(function(w) { setStage(w, 0); });
+  updateLessonStatus();
+}
+function clearAllAnalysis() {
+  document.querySelectorAll('.lat-word').forEach(function(w) { setStage(w, 0); });
+  setActiveWord(null);
+  updateLessonStatus();
+}
+function updateLessonStatus() {
+  var st = document.getElementById('lessonStatus');
+  if (!st) return;
+  if (inkMode) {
+    if (inkMode === 'pen') st.textContent = 'Pen';
+    else if (inkMode === 'highlight') st.textContent = 'Markeer';
+    else if (inkMode === 'erase') st.textContent = 'Gum';
+    return;
+  }
+  if (S.reveal && activeWord) { st.textContent = 'Onthul'; return; }
+  if (S.reveal) { st.textContent = 'Woordgroep'; return; }
+  if (S.interlin) { st.textContent = 'Analyse'; return; }
+  st.textContent = 'Les';
+}
+
+/* ══════════════════════════════════════════
+   INKTLAAG
+══════════════════════════════════════════ */
+var inkCanvas = document.getElementById('inkCanvas');
+var inkCtx = inkCanvas.getContext('2d');
+var inkMode = null;
+var isDrawing = false;
+var lastPt = null;
+var inkPointerId = null;
+
+var penColors = ['#FF3B1D', '#006633', '#65b32e', '#E6007E', '#f3f1ef', '#111111'];
+var highlightColors = ['rgba(255,234,61,.38)', 'rgba(101,179,46,.30)', 'rgba(0,102,51,.22)', 'rgba(230,0,126,.22)', 'rgba(255,59,29,.20)', 'rgba(255,255,255,.20)'];
+var currentPenColor = penColors[0];
+var currentHighlightColor = highlightColors[0];
+
+function buildPalette(elId, colors, type) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  el.innerHTML = '';
+  colors.forEach(function(color, idx) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'swatch' + (idx === 0 ? ' active' : '');
+    b.style.background = color;
+    b.setAttribute('aria-label', type + ' kleur ' + (idx + 1));
+    b.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (type === 'pen') currentPenColor = color;
+      else currentHighlightColor = color;
+      el.querySelectorAll('.swatch').forEach(function(s){ s.classList.remove('active'); });
+      b.classList.add('active');
+    });
+    el.appendChild(b);
+  });
+}
+buildPalette('penPalette', penColors, 'pen');
+buildPalette('highlightPalette', highlightColors, 'markeer');
+
+function closePalettes() {
+  document.getElementById('penPalette').classList.remove('open');
+  document.getElementById('highlightPalette').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.lesson-toolbar-wrap')) closePalettes();
+});
+
+function resizeInkCanvas() {
+  var oldCanvas = document.createElement('canvas');
+  oldCanvas.width = inkCanvas.width;
+  oldCanvas.height = inkCanvas.height;
+  oldCanvas.getContext('2d').drawImage(inkCanvas, 0, 0);
+  inkCanvas.width = window.innerWidth;
+  inkCanvas.height = window.innerHeight;
+  inkCtx.drawImage(oldCanvas, 0, 0);
+}
+resizeInkCanvas();
+window.addEventListener('resize', resizeInkCanvas);
+
+function updateInkButtons() {
+  document.getElementById('inkPenBtn').classList.toggle('active', inkMode === 'pen');
+  document.getElementById('inkHighBtn').classList.toggle('active', inkMode === 'highlight');
+  document.getElementById('inkEraseBtn').classList.toggle('active', inkMode === 'erase');
+  inkCanvas.classList.toggle('on', !!inkMode);
+  document.body.classList.toggle('ink-on', !!inkMode);
+  if (inkMode === 'pen') {
+    document.getElementById('penPalette').classList.add('open');
+    document.getElementById('highlightPalette').classList.remove('open');
+  } else if (inkMode === 'highlight') {
+    document.getElementById('highlightPalette').classList.add('open');
+    document.getElementById('penPalette').classList.remove('open');
+  } else {
+    closePalettes();
+  }
+  updateLessonStatus();
+}
+function setInkMode(mode) {
+  inkMode = (inkMode === mode) ? null : mode;
+  updateInkButtons();
+}
+function clearInk() {
+  inkCtx.clearRect(0, 0, inkCanvas.width, inkCanvas.height);
+}
+function getCanvasPoint(e) {
+  return { x: e.clientX, y: e.clientY };
+}
+function applyInkStyle() {
+  inkCtx.lineCap = 'round';
+  inkCtx.lineJoin = 'round';
+  if (inkMode === 'erase') {
+    inkCtx.globalCompositeOperation = 'destination-out';
+    inkCtx.lineWidth = 28;
+    inkCtx.strokeStyle = 'rgba(0,0,0,1)';
+  } else if (inkMode === 'highlight') {
+    inkCtx.globalCompositeOperation = 'source-over';
+    inkCtx.lineWidth = 20;
+    inkCtx.strokeStyle = currentHighlightColor;
+  } else {
+    inkCtx.globalCompositeOperation = 'source-over';
+    inkCtx.lineWidth = 4;
+    inkCtx.strokeStyle = currentPenColor;
+  }
+}
+inkCanvas.addEventListener('pointerdown', function(e) {
+  if (!inkMode) return;
+  e.preventDefault();
+  isDrawing = true;
+  inkPointerId = e.pointerId;
+  inkCanvas.setPointerCapture(e.pointerId);
+  lastPt = getCanvasPoint(e);
+  applyInkStyle();
+  inkCtx.beginPath();
+  inkCtx.moveTo(lastPt.x, lastPt.y);
+  inkCtx.lineTo(lastPt.x + 0.01, lastPt.y + 0.01);
+  inkCtx.stroke();
+});
+inkCanvas.addEventListener('pointermove', function(e) {
+  if (!inkMode || !isDrawing) return;
+  e.preventDefault();
+  var pt = getCanvasPoint(e);
+  applyInkStyle();
+  inkCtx.beginPath();
+  inkCtx.moveTo(lastPt.x, lastPt.y);
+  inkCtx.lineTo(pt.x, pt.y);
+  inkCtx.stroke();
+  lastPt = pt;
+});
+function stopInk(e) {
+  if (!isDrawing) return;
+  isDrawing = false;
+  lastPt = null;
+  if (e && inkPointerId !== null) {
+    try { inkCanvas.releasePointerCapture(inkPointerId); } catch (err) {}
+  }
+  inkPointerId = null;
+}
+inkCanvas.addEventListener('pointerup', stopInk);
+inkCanvas.addEventListener('pointercancel', stopInk);
+
+/* ══════════════════════════════════════════
+   SNELTOETSEN / R400
+══════════════════════════════════════════ */
+document.addEventListener('keydown', function(e) {
+  var openModal = document.getElementById('lectuurOverlay').classList.contains('open');
+  if (openModal) return;
+
+  var key = e.key;
+  var code = e.code;
+
+  if (key === 'ArrowRight' || key === 'PageDown' || code === 'PageDown' || key === 'MediaTrackNext') {
+    e.preventDefault(); revealNext();
+  } else if (key === 'ArrowLeft' || key === 'PageUp' || code === 'PageUp' || key === 'MediaTrackPrevious') {
+    e.preventDefault(); revealPrev();
+  } else if (key === 'ArrowDown') {
+    e.preventDefault(); focusNextWord();
+  } else if (key === 'ArrowUp') {
+    e.preventDefault(); focusPrevWord();
+  } else if (key === 'Enter' || key === ' ' || code === 'Space') {
+    e.preventDefault(); stepActiveWord();
+  } else if (key === 'Backspace' || key === 'Delete') {
+    e.preventDefault(); clearCurrentWgAnalysis();
+  } else if (key.toLowerCase() === 'p') {
+    e.preventDefault(); setInkMode('pen');
+  } else if (key.toLowerCase() === 'h') {
+    e.preventDefault(); setInkMode('highlight');
+  } else if (key.toLowerCase() === 'e') {
+    e.preventDefault(); setInkMode('erase');
+  } else if (key === 'Escape') {
+    e.preventDefault(); inkMode = null; updateInkButtons();
+  }
+});
+
+document.getElementById('btnInterlin').classList.add('active');
+updateLessonStatus();
 </script>
 </body>
 </html>
