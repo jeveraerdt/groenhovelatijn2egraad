@@ -7,22 +7,24 @@
 <style>
   @font-face {
     font-family: 'FlandersArtSans';
-    src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
+    src: url('../../../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
     font-weight: 700;
     font-style: normal;
   }
   @font-face {
     font-family: 'NotoSans';
-    src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+    src: url('../../../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
     font-weight: 400;
   }
   @font-face {
     font-family: 'NotoSans';
-    src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
+    src: url('../../../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
   }
   :root {
     --blauw: #006633; --roze: #FF3B1D;
+    --vital-green: #65b32e; /* subtitels */
+    --deep-forest: #006633; /* titels */
     --groen: #006633; --groen-licht: #d4edda; --groen-rand: #8fcc9e;
     --rood: #dc2626; --rood-licht: #fee2e2; --rood-rand: #fca5a5;
     --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
@@ -406,6 +408,73 @@
     .flashcard-latijn { font-size: 20px; }
     .resultaat-stats { gap: 1.5rem; }
   }
+
+  /* ══════════════════════════════════════════
+     TYPOGRAFIE-CORRECTIES (huisstijl)
+     - Noto Sans: 2pt kleiner dan Arial-equivalent
+     - Titels: Flanders Art Sans Bold, Deep Forest (#006633)
+     - Subtitels: Flanders Art Sans Bold, Vital Green (#65b32e)
+  ══════════════════════════════════════════ */
+
+  /* Noto Sans body-tekst 2pt kleiner dan Arial-equivalent */
+  body, .selectie-nl, .selectie-aanv, .filter-label,
+  .bereik-sep, .basis-toggle, .tekst-nav-label,
+  .geen-woorden, .voet, .flashcard-aanv, .mk-optie,
+  .feedback-label, .feedback-antwoord, .inv-hint,
+  .inv-taal-label, .score-pill, .te-gaan-badge,
+  .goed-badge, .fout-badge, .streak-badge,
+  .resultaat-sub, .stat-label, .memo-hero p,
+  .memo-step span, .activiteit-pill,
+  .modus-start-sub, .modus-start-check { font-size: 13px; }
+
+  /* Hoofdtitels: Flanders Art Sans Bold, Deep Forest */
+  .header h1,
+  .flashcard-latijn,
+  .resultaat-titel,
+  .modus-start-titel,
+  .memo-hero h2,
+  .memo-step strong,
+  .thema-kaart-naam,
+  .selectie-latijn,
+  .feedback-antwoord,
+  .flashcard-nl,
+  .stat-getal,
+  .res-btn,
+  .oefen-btn,
+  .verder-btn,
+  .controleer-btn,
+  .modus-start-knop,
+  .modus-knop,
+  .bereik-btn,
+  .flip-btn-ja,
+  .flip-btn-nee {
+    font-family: var(--fv);
+    color: var(--deep-forest);
+  }
+
+  /* Subtitels/labels: Flanders Art Sans Bold, Vital Green */
+  .flashcard-label,
+  .sectie-titel,
+  .filter-label,
+  .resultaat-rang,
+  .memo-tile span,
+  .thema-kaart-meta,
+  .tekst-nav-label,
+  .inv-taal-label,
+  .feedback-label { color: var(--vital-green); font-family: var(--fv); }
+
+  /* Knoppen behouden eigen achtergrond-kleur maar krijgen Flanders */
+  .modus-knop { color: var(--tekst-zacht); } /* override: niet actief = grijs */
+  .modus-knop.actief { color: #fff; }
+  .oefen-btn,
+  .verder-btn,
+  .controleer-btn,
+  .modus-start-knop,
+  .bereik-btn { color: #fff; } /* wit op gekleurde achtergrond */
+  .res-btn-secundair { color: var(--tekst); }
+
+  /* Voortgang-labels klein houden */
+  .te-gaan-badge, .score-pill { font-family: var(--fo); font-size: 12px; }
 </style>
 </head>
 <body>
@@ -417,7 +486,7 @@
 
   <!-- Merklint laag 1 -->
   <header style="background:#006633;color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
-    <img src="../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
+    <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
     <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Woordjestrainer 3DS</span>
     <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;white-space:nowrap;">S.O. Groenhove Waregem</span>
   </header>
@@ -518,7 +587,7 @@
       </button>
     </div>
   </div>
-  <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Campus Atheneum &mdash</p>
+  <p class="voet">J. Everaerdt &mdash; athena Campus Groenhove &mdash; 3DS Latijn</p>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -595,7 +664,7 @@
 ══════════════════════════════════════════════ -->
 <div id="s-leaderboard" class="scherm">
   <header style="background:#006633;color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
-    <img src="../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
+    <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
     <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Leaderboard</span>
     <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;">S.O. Groenhove Waregem</span>
   </header>
