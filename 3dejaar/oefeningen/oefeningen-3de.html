@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oefeningen — 3de jaar Latijn</title>
+<style>
+  @font-face {
+    font-family: 'Flanders Art Sans';
+    src: url('fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Noto Sans';
+    src: url('fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Noto Sans';
+    src: url('fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  :root {
+    --jaar-kleur:     #006633; /* Deep Forest — 3de jaar primair */
+    --jaar-licht:     #e0f0e9; /* Deep Forest 15% op wit */
+    --accent:         #FF3B1D;
+    --wit:            #f3f1ef;
+    --zwart:          #010100;
+    --kaart:          #ffffff;
+    --rand:           #d8d5d1;
+    --tekst-zacht:    #5a5754;
+    --radius:         12px;
+    --radius-sm:      8px;
+    --ff-titel:       'Flanders Art Sans', Arial, sans-serif;
+    --ff-body:        'Noto Sans', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--ff-body);
+    background: var(--wit);
+    color: var(--zwart);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── MERKLINT (2 lagen) ── */
+  .site-header {
+    background: var(--jaar-kleur);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .site-header .logo {
+    height: 34px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+  }
+  .site-header h1 {
+    font-family: var(--ff-titel);
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0;
+    letter-spacing: .02em;
+    white-space: nowrap;
+  }
+  .site-header .school-naam {
+    font-family: var(--ff-titel);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .85;
+    margin-left: auto;
+    white-space: nowrap;
+    padding-left: .5rem;
+  }
+  /* Secondaire balk */
+  .site-toolbar {
+    background: var(--wit);
+    border-bottom: 1px solid var(--rand);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .toolbar-divider {
+    width: 1px;
+    height: 22px;
+    background: var(--rand);
+    margin: 0 0.25rem;
+  }
+  .back-btn, .pill-btn {
+    font-family: var(--ff-body);
+    font-size: .85rem;
+    color: var(--zwart);
+    background: transparent;
+    border: 1px solid var(--rand);
+    border-radius: 20px;
+    padding: .35rem .85rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .back-btn:hover, .pill-btn:hover {
+    background: var(--jaar-licht);
+    border-color: var(--jaar-kleur);
+    color: var(--jaar-kleur);
+  }
+  .back-btn svg { width: 14px; height: 14px; }
+
+  /* ── NAV WRAP ── */
+  .nav-wrap {
+    flex: 1;
+    padding: 1.5rem 2rem 3rem;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .sectie-titel {
+    font-family: var(--ff-body);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--tekst-zacht);
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    margin-bottom: 1rem;
+  }
+
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1rem;
+  }
+
+  .nav-tegel {
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  }
+  .nav-tegel:hover {
+    border-color: var(--jaar-kleur);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,102,51,0.12);
+  }
+
+  .nav-tegel-icoon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    background: var(--jaar-licht);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-tegel-icoon svg {
+    width: 22px;
+    height: 22px;
+  }
+  /* accent-variant voor tweede kaart */
+  .icoon-accent {
+    background: #fff0ee;
+  }
+
+  .nav-tegel-naam {
+    font-family: var(--ff-titel);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--jaar-kleur);
+  }
+
+  .nav-tegel-omschrijving {
+    font-family: var(--ff-body);
+    font-size: 13px;
+    color: var(--tekst-zacht);
+    line-height: 1.55;
+  }
+
+  .nav-tegel-pijl {
+    margin-top: auto;
+    font-size: 18px;
+    color: var(--rand);
+    transition: color 0.15s;
+  }
+  .nav-tegel:hover .nav-tegel-pijl { color: var(--jaar-kleur); }
+
+  /* ── VOET ── */
+  .voet {
+    text-align: center;
+    padding: 1rem;
+    font-family: var(--ff-body);
+    font-size: 11px;
+    color: #b0ada9;
+    border-top: 1px solid var(--rand);
+  }
+</style>
+</head>
+<body>
+
+<!-- MERKLINT laag 1 -->
+<header class="site-header">
+  <img class="logo" src="images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+  <h1>Oefeningen</h1>
+  <span class="school-naam">S.O. Groenhove Waregem</span>
+</header>
+
+<!-- MERKLINT laag 2: toolbar -->
+<nav class="site-toolbar">
+  <a class="back-btn" href="../../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Terug
+  </a>
+  <div class="toolbar-divider"></div>
+  <a class="pill-btn" href="grammatica-keuze.html">Grammatica</a>
+  <a class="pill-btn" href="woordjestrainer.html">Woordenschat</a>
+</nav>
+
+<!-- TEGELS -->
+<div class="nav-wrap">
+  <p class="sectie-titel">Oefeningen</p>
+  <div class="nav-grid">
+
+    <a class="nav-tegel" href="grammatica-keuze.html">
+      <div class="nav-tegel-icoon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#006633" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6h16M4 12h16M4 18h10"/>
+        </svg>
+      </div>
+      <div class="nav-tegel-naam">Grammatica</div>
+      <div class="nav-tegel-omschrijving">Oefen verbuigingen, vervoegingen en andere grammaticaonderwerpen.</div>
+      <div class="nav-tegel-pijl">›</div>
+    </a>
+
+    <a class="nav-tegel" href="woordjestrainer.html">
+      <div class="nav-tegel-icoon icoon-accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF3B1D" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+      </div>
+      <div class="nav-tegel-naam">Woordenschat</div>
+      <div class="nav-tegel-omschrijving">Latijnse woorden inoefenen via de woordenlijst van de cursus.</div>
+      <div class="nav-tegel-pijl">›</div>
+    </a>
+
+  </div>
+</div>
+
+<p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
+</body>
+</html>
