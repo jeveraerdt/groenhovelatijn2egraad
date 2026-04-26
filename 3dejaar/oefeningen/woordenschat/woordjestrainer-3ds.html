@@ -7,18 +7,18 @@
 <style>
   @font-face {
     font-family: 'FlandersArtSans';
-    src: url('fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
+    src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
   }
   @font-face {
     font-family: 'NotoSans';
-    src: url('fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+    src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
     font-weight: 400;
   }
   @font-face {
     font-family: 'NotoSans';
-    src: url('fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
+    src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
   }
   :root {
@@ -67,6 +67,60 @@
     transition: border-color 0.15s;
   }
   .filter-select:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(0,102,51,0.12); }
+
+  /* ── THEMAKAARTEN (vervangt dropdowns — Memolingo-logica) ── */
+  .thema-zoek-wrap { position: relative; margin-bottom: 1.25rem; }
+  .thema-zoek {
+    width: 100%; font-family: var(--fo); font-size: 14px;
+    padding: 11px 16px 11px 40px;
+    border: 1px solid var(--rand); border-radius: var(--radius);
+    background: var(--kaart); color: var(--tekst); outline: none;
+    transition: border-color .15s;
+  }
+  .thema-zoek:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(0,102,51,.1); }
+  .thema-zoek-icoon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--tekst-zacht); pointer-events: none; }
+
+  .thema-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
+  .thema-kaart {
+    background: var(--kaart); border: 1.5px solid var(--rand);
+    border-radius: var(--radius-lg); padding: 1rem 1rem .9rem;
+    cursor: pointer; transition: border-color .15s, transform .12s, box-shadow .15s;
+    display: flex; flex-direction: column; gap: 6px; position: relative;
+    user-select: none;
+  }
+  .thema-kaart:hover { border-color: var(--blauw); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,102,51,.12); }
+  .thema-kaart.actief { border-color: var(--blauw); background: var(--jaar-kleur-licht); box-shadow: 0 0 0 3px rgba(0,102,51,.12); }
+  .thema-kaart-icoon { font-size: 28px; line-height: 1; margin-bottom: 2px; }
+  .thema-kaart-naam { font-family: var(--fv); font-size: 13px; color: var(--blauw); line-height: 1.2; }
+  .thema-kaart-meta { font-family: var(--fo); font-size: 11px; color: var(--tekst-zacht); }
+  .thema-kaart-check {
+    position: absolute; top: 8px; right: 8px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--blauw); display: none; align-items: center; justify-content: center;
+  }
+  .thema-kaart.actief .thema-kaart-check { display: flex; }
+  .thema-kaart-check::after { content: ''; width: 4px; height: 7px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
+
+  /* Tekst-subkaarten (verschijnen na klik op thema) */
+  .tekst-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .tekst-nav-label { font-family: var(--fo); font-size: 12px; color: var(--tekst-zacht); }
+  .tekst-pill {
+    font-family: var(--fo); font-size: 13px; font-weight: 600;
+    padding: 7px 14px; border-radius: 99px;
+    border: 1.5px solid var(--rand); background: var(--kaart);
+    color: var(--tekst-zacht); cursor: pointer; transition: all .12s;
+    white-space: nowrap;
+  }
+  .tekst-pill:hover { border-color: var(--blauw); color: var(--blauw); }
+  .tekst-pill.actief { border-color: var(--blauw); background: var(--blauw); color: #fff; }
+
+  /* Voortgangsbalkje per themakaart */
+  .thema-voortgang { height: 4px; border-radius: 99px; background: rgba(0,102,51,.12); overflow: hidden; margin-top: 2px; }
+  .thema-voortgang-inner { height: 100%; border-radius: 99px; background: var(--blauw); transition: width .3s ease; }
+
+  /* Filter-basiswoorden (blijft als toggle) */
+  .basis-toggle { display: flex; align-items: center; gap: 8px; font-family: var(--fo); font-size: 13px; color: var(--tekst-zacht); cursor: pointer; user-select: none; }
+  .basis-toggle input { cursor: pointer; accent-color: var(--blauw); width: 15px; height: 15px; }
 
   /* Bereik */
   .bereik-rij { display: flex; align-items: center; gap: 8px; }
@@ -344,32 +398,6 @@
   .stat-blok { background: rgba(224,239,213,0.62); border: 1px solid rgba(0,102,51,0.10); border-radius: var(--radius); padding: .9rem 1rem; min-width: 92px; }
   .resultaat-stats { align-items: stretch; gap: .75rem; flex-wrap: wrap; }
 
-
-
-  /* ── Memolingo-geïnspireerde bovenlaag: luchtige app-kaarten, pad en activiteit ── */
-  .memo-hero { background: radial-gradient(circle at 85% 10%, rgba(255,59,29,.16), transparent 28%), linear-gradient(135deg, #f3f1ef 0%, #e0efd5 100%); border: 1px solid var(--rand); border-radius: 28px; padding: 1.4rem; margin-bottom: 1.25rem; display: grid; grid-template-columns: 1.2fr .8fr; gap: 1rem; box-shadow: 0 18px 40px rgba(0,102,51,.10); overflow: hidden; position: relative; }
-  .memo-hero h2 { font-family: var(--fv); color: var(--blauw); font-size: clamp(24px,4vw,42px); line-height: 1; letter-spacing: -.8px; margin-bottom: .5rem; }
-  .memo-hero p { font-family: var(--fo); color: var(--tekst-zacht); font-size: 14px; line-height: 1.55; max-width: 46ch; }
-  .memo-quick { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; align-content: center; }
-  .memo-tile { background: rgba(255,255,255,.72); border: 1px solid rgba(0,102,51,.13); border-radius: 22px; padding: .9rem; min-height: 86px; box-shadow: 0 10px 22px rgba(0,0,0,.06); }
-  .memo-tile strong { display:block; font-family:var(--fv); color:var(--blauw); font-size:22px; }
-  .memo-tile span { font-family:var(--fo); color:var(--tekst-zacht); font-size:12px; }
-  .memo-identity { display:flex; gap:.75rem; flex-wrap:wrap; align-items:end; background:rgba(243,241,239,.7); border:1px solid var(--rand); border-radius:22px; padding:1rem; margin-bottom:1.25rem; }
-  .memo-input { font-family:var(--fo); font-size:14px; padding:10px 12px; border:1px solid var(--rand); border-radius:12px; background:#fff; outline:none; min-width:220px; }
-  .memo-input:focus { border-color:var(--blauw); box-shadow:0 0 0 3px rgba(0,102,51,.12); }
-  .memo-link-btn { font-family:var(--fv); font-size:13px; color:#fff; background:var(--blauw); border:none; border-radius:999px; padding:10px 16px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; box-shadow:0 8px 18px rgba(0,102,51,.18); }
-  .memo-path { display:grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap:.75rem; margin-bottom:1.25rem; }
-  .memo-step { background:#fff; border:1px solid var(--rand); border-radius:22px; padding:1rem; min-height:110px; position:relative; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.06); }
-  .memo-step:before { content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--blauw),var(--roze)); }
-  .memo-step .ico { font-size:24px; margin-bottom:.4rem; }
-  .memo-step strong { display:block; font-family:var(--fv); color:var(--tekst); font-size:16px; }
-  .memo-step span { font-family:var(--fo); color:var(--tekst-zacht); font-size:12px; line-height:1.35; }
-  .activiteit-pill { display:inline-flex; align-items:center; gap:6px; font-family:var(--fo); font-size:12px; color:var(--tekst-zacht); background:rgba(255,255,255,.7); border:1px solid var(--rand); border-radius:999px; padding:7px 10px; }
-  .trainer-kaart, .modus-start, .resultaat-card { border-radius:28px !important; }
-  .flashcard-boven, .mk-boven, .inv-boven { background: radial-gradient(circle at 12% 10%, rgba(255,59,29,.08), transparent 30%); }
-  .mk-optie, .accent-btn, .res-btn, .modus-knop { border-radius:18px; }
-  @media (max-width: 760px){ .memo-hero{grid-template-columns:1fr}.memo-path{grid-template-columns:repeat(2,minmax(0,1fr))}.memo-quick{grid-template-columns:repeat(2,1fr)} }
-
   /* ── Responsive ── */
   @media (max-width: 600px) {
     .selectie-aanv { display: none; }
@@ -388,82 +416,49 @@
 <div id="s-selectie" class="scherm actief">
     <div style="max-width:960px;margin:0 auto;width:100%;padding:1.5rem 2rem 1.25rem;border-bottom:3px solid var(--jaar-kleur);display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:#f3f1ef;">
     <div style="display:flex;flex-direction:column;gap:3px;">
-      <a class="terug-link" href="oefeningen-3ds.html">← Terug naar Oefeningen</a>
+      <a class="terug-link" href="../oefeningen-3de.html">← Terug naar Oefeningen</a>
       <h1 style="font-size:28px;font-weight:700;color:var(--jaar-kleur);letter-spacing:-0.5px;font-family:var(--fv);">Woordjestrainer 3DS</h1>
     </div>
     <span id="header-teller" style="font-size:13px;color:var(--tekst-zacht);font-family:var(--fo);">laden…</span>
-    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
-      <span class="activiteit-pill" id="activiteit-samenvatting">Vandaag: 0 sessies</span>
-      <a class="memo-link-btn" href="dashboard_memolingo.html">Dashboard</a>
-      <button class="moeilijk-teller" id="moeilijk-teller" onclick="naarMoeilijkeLijst()" title="Ga naar mijn moeilijke woorden" style="display:none">
-        ⭐ <span id="moeilijk-aantal">0</span>
-      </button>
-    </div>
+    <button class="moeilijk-teller" id="moeilijk-teller" onclick="naarMoeilijkeLijst()" title="Ga naar mijn moeilijke woorden" style="display:none">
+      ⭐ <span id="moeilijk-aantal">0</span>
+    </button>
   </div>
 
   <div class="inhoud">
 
-    <section class="memo-hero">
-      <div>
-        <h2>Leer Latijnse woorden stap voor stap — oefen, antwoord en verbeter</h2>
-        <p>Kies je reeks, start een korte missie en bouw combo op. De trainer bewaart activiteit lokaal en kan die doorgeven aan het dashboard.</p>
-      </div>
-      <div class="memo-quick">
-        <div class="memo-tile"><strong id="memo-sessies">0</strong><span>sessies vandaag</span></div>
-        <div class="memo-tile"><strong id="memo-gem">—</strong><span>gemiddelde score</span></div>
-        <div class="memo-tile"><strong id="memo-combo">0</strong><span>beste combo</span></div>
-        <div class="memo-tile"><strong id="memo-woorden">0</strong><span>woorden geoefend</span></div>
-      </div>
-    </section>
+    <!-- Zoekbalk -->
+    <div class="thema-zoek-wrap">
+      <svg class="thema-zoek-icoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="thema-zoek" type="text" id="zoek-input" placeholder="Zoek een woord…" oninput="filterOpZoekterm()">
+    </div>
 
-    <section class="memo-identity">
-      <div class="filter-groep">
-        <span class="filter-label">Leerlingcode / nickname</span>
-        <input class="memo-input" id="leerling-code" placeholder="bv. 3DS-07 of Aquila7" oninput="bewaarLeerlingCode()">
-      </div>
-      <a class="memo-link-btn" href="dashboard_memolingo.html">Bekijk activiteit →</a>
-    </section>
+    <!-- Themakaarten -->
+    <div class="thema-grid" id="thema-grid">
+      <!-- dynamisch gevuld door renderThemaKaarten() -->
+    </div>
 
-    <section class="memo-path" aria-label="Leerpad">
-      <div class="memo-step"><div class="ico">①</div><strong>Kies set</strong><span>Thema, tekst, basiswoorden of moeilijke woorden.</span></div>
-      <div class="memo-step"><div class="ico">②</div><strong>Leerkaart</strong><span>Grondvorm, aanvulling en betekenis komen als kaart binnen.</span></div>
-      <div class="memo-step"><div class="ico">③</div><strong>Quiz</strong><span>Meerkeuze of invullen met combo-feedback.</span></div>
-      <div class="memo-step"><div class="ico">④</div><strong>Herhaal</strong><span>Fouten worden bewaard voor gerichte herhaling.</span></div>
-    </section>
-
-    <!-- Filters -->
-    <div class="filter-rij">
-      <div class="filter-groep">
-        <span class="filter-label">Thema</span>
-        <select class="filter-select" id="sel-ludus" onchange="laadTeksten()">
-          <option value="">— Kies thema —</option>
-        </select>
-      </div>
-      <div class="filter-groep">
-        <span class="filter-label">Tekst</span>
-        <select class="filter-select" id="sel-tekst" onchange="laadWoorden()" disabled>
-          <option value="">— Kies tekst —</option>
-        </select>
-      </div>
-      <div class="filter-groep">
-        <span class="filter-label">Filter</span>
-        <select class="filter-select" id="sel-filter" onchange="laadWoorden()">
-          <option value="alle">Alle woorden</option>
-          <option value="basis">Alleen basiswoorden</option>
-        </select>
+    <!-- Tekst-pills (verschijnen na thema-keuze) -->
+    <div id="tekst-nav-wrap" style="display:none">
+      <div class="tekst-nav" id="tekst-nav">
+        <!-- dynamisch gevuld -->
       </div>
     </div>
 
-    <!-- Bereik -->
-    <div class="filter-rij" style="margin-bottom:1rem;">
+    <!-- Filter basiswoorden + bereik -->
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:1rem;">
+      <label class="basis-toggle">
+        <input type="checkbox" id="filter-basis" onchange="laadWoorden()">
+        Alleen basiswoorden (□-woorden)
+      </label>
       <div class="filter-groep">
-        <span class="filter-label">Selecteer woordjes (bereik)</span>
+        <span class="filter-label">Bereik</span>
         <div class="bereik-rij">
           <input class="bereik-input" type="number" id="bereik-van" placeholder="van" min="1">
           <span class="bereik-sep">t/m</span>
           <input class="bereik-input" type="number" id="bereik-tot" placeholder="tot" min="1">
           <button class="bereik-btn" onclick="selecteerBereik()">Selecteer</button>
-          <button class="bereik-btn" onclick="deselecteerAlles()" style="border-color:var(--rand);color:var(--tekst-zacht);">Wis selectie</button>
+          <button class="bereik-btn" onclick="deselecteerAlles()" style="border-color:var(--rand);color:var(--tekst-zacht);">Wis</button>
         </div>
       </div>
     </div>
@@ -608,103 +603,201 @@ let lerenSubfase     = {};  // bijhouding per woord in leren-modus
 // Dropdown 1 = Thema (1, 2), Dropdown 2 = Tekst (1..n binnen thema)
 // ══════════════════════════════════════════════
 
-const THEMA_NAMEN = {
-  1: 'Thema 1 — Animo subdolo',
-  2: 'Thema 2 — Vita an species?',
+// ══════════════════════════════════════════════
+// THEMA-CONFIGURATIE (iconen + namen)
+// ══════════════════════════════════════════════
+const THEMA_CONFIG = {
+  1: { naam: 'Animo subdolo',       icoon: '🦊', kleur: '#e0f5eb' },
+  2: { naam: 'Vita an species?',    icoon: '🎭', kleur: '#fff3e0' },
+  3: { naam: 'Thema 3',             icoon: '🏛️', kleur: '#e8eaf6' },
+  4: { naam: 'Thema 4',             icoon: '⚔️', kleur: '#fce4ec' },
 };
 
+// State voor kaart-selectie
+let gekozenThema   = null; // thema-nummer, 'alfa', 'moei', of null
+let gekozenTekst   = null; // tekst-nummer of 'alle'
+let zoekterm       = '';
+
+// ══════════════════════════════════════════════
+// INIT — bouw themakaarten
+// ══════════════════════════════════════════════
 function init() {
-  const selLudus = document.getElementById('sel-ludus');
-
-  // Verzamel unieke thema's
-  const themaSet = new Set();
-  woordenlijst_3ds.forEach(w => { if (w.thema) themaSet.add(w.thema); });
-  const themas = [...themaSet].sort((a, b) => a - b);
-
-  selLudus.innerHTML = '<option value="">— Kies thema —</option>';
-  selLudus.innerHTML += '<option value="alfabetisch">📖 Volledige alfabetische lijst</option>';
-  selLudus.innerHTML += '<option value="moeilijk">⭐ Mijn moeilijke woorden</option>';
-
-  themas.forEach(t => {
-    const opt = document.createElement('option');
-    opt.value = String(t);
-    opt.textContent = THEMA_NAMEN[t] || `Thema ${t}`;
-    selLudus.appendChild(opt);
-  });
-
-  updateHeaderTeller();
+  renderThemaKaarten();
+  updateMoeilijkTeller();
+  updateLokaleActiviteit();
+  const leerlingInput = document.getElementById('leerling-code');
+  if (leerlingInput) leerlingInput.value = localStorage.getItem('groenhove_leerling_code') || '';
 }
 
-function laadTeksten() {
-  const thema = document.getElementById('sel-ludus').value;
-  const selTekst = document.getElementById('sel-tekst');
-  selTekst.innerHTML = '<option value="">— Kies tekst —</option>';
-  selTekst.disabled = !thema;
-  geselecteerd.clear();
+function renderThemaKaarten() {
+  const grid = document.getElementById('thema-grid');
+  if (!grid) return;
 
-  if (thema === 'alfabetisch') {
-    selTekst.innerHTML = '<option value="alle">Volledige lijst</option>';
-    selTekst.value = 'alle'; selTekst.disabled = false;
-    laadWoorden(); return;
-  }
-
-  if (thema === 'moeilijk') {
-    selTekst.innerHTML = '<option value="alle">Alle moeilijke woorden</option>';
-    selTekst.value = 'alle'; selTekst.disabled = false;
-    laadWoorden(); return;
-  }
-
-  if (!thema) { huidigeWoorden = []; renderLijst(); return; }
-
-  // Verzamel teksten voor dit thema
-  const tekstSet = new Set();
+  // Tel woorden per thema
+  const tellers = {};
   woordenlijst_3ds.forEach(w => {
-    if (String(w.thema) === thema) tekstSet.add(w.tekst);
+    if (w.thema) tellers[w.thema] = (tellers[w.thema] || 0) + 1;
   });
 
-  const teksten = [...tekstSet].sort((a, b) => a - b);
+  // Unieke thema's
+  const themas = [...new Set(woordenlijst_3ds.map(w => w.thema).filter(Boolean))].sort((a,b)=>a-b);
+  const moeilijkN = laadMoeilijkeWoorden().size;
 
-  teksten.forEach(t => {
-    const opt = document.createElement('option');
-    opt.value = String(t);
-    opt.textContent = `Tekst ${t}`;
-    selTekst.appendChild(opt);
+  let html = '';
+
+  // Vaste kaarten: Alfabetisch + Moeilijk
+  html += `<div class="thema-kaart${gekozenThema==='alfa'?' actief':''}" onclick="kiesThema('alfa')">
+    <div class="thema-kaart-check"></div>
+    <div class="thema-kaart-icoon">📖</div>
+    <div class="thema-kaart-naam">Alfabetisch</div>
+    <div class="thema-kaart-meta">Alle ${woordenlijst_3ds.length} woorden</div>
+    <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
+  </div>`;
+
+  if (moeilijkN > 0) {
+    html += `<div class="thema-kaart${gekozenThema==='moei'?' actief':''}" onclick="kiesThema('moei')">
+      <div class="thema-kaart-check"></div>
+      <div class="thema-kaart-icoon">⭐</div>
+      <div class="thema-kaart-naam">Moeilijke woorden</div>
+      <div class="thema-kaart-meta">${moeilijkN} woord${moeilijkN===1?'':'en'}</div>
+      <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
+    </div>`;
+  }
+
+  // Themakaarten
+  themas.forEach(t => {
+    const cfg = THEMA_CONFIG[t] || { naam:`Thema ${t}`, icoon:'📚', kleur:'#f5f5f5' };
+    const n = tellers[t] || 0;
+    const actief = gekozenThema === String(t);
+    html += `<div class="thema-kaart${actief?' actief':''}" onclick="kiesThema('${t}')">
+      <div class="thema-kaart-check"></div>
+      <div class="thema-kaart-icoon">${cfg.icoon}</div>
+      <div class="thema-kaart-naam">Thema ${t}<br><span style="font-weight:400;font-size:11px;opacity:.8">${cfg.naam}</span></div>
+      <div class="thema-kaart-meta">${n} woorden</div>
+      <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:${scoreVoorThema(t)}%"></div></div>
+    </div>`;
   });
 
-  if (teksten.length === 1) { selTekst.value = String(teksten[0]); laadWoorden(); }
-  else { huidigeWoorden = []; renderLijst(); }
+  grid.innerHTML = html;
 }
 
-function laadWoorden() {
-  const thema  = document.getElementById('sel-ludus').value;
-  const tekst  = document.getElementById('sel-tekst').value;
-  const filter = document.getElementById('sel-filter').value;
-  geselecteerd.clear();
+function scoreVoorThema(thema) {
+  // Haal gemiddelde score op uit localStorage voor visuele voortgang
+  try {
+    const scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]');
+    const relevant = scores.filter(s => s.thema === String(thema));
+    if (!relevant.length) return 0;
+    const gem = relevant.reduce((a,s) => a + (s.juistheid||0), 0) / relevant.length;
+    return Math.round(gem);
+  } catch { return 0; }
+}
 
+// ══════════════════════════════════════════════
+// KAART-SELECTIE
+// ══════════════════════════════════════════════
+function kiesThema(thema) {
+  gekozenThema = thema;
+  gekozenTekst = null;
+  zoekterm = '';
+  document.getElementById('zoek-input').value = '';
+  geselecteerd.clear();
+  renderThemaKaarten();
+  renderTekstPills();
+  laadWoorden();
+}
+
+function renderTekstPills() {
+  const wrap = document.getElementById('tekst-nav-wrap');
+  const nav  = document.getElementById('tekst-nav');
+  if (!wrap || !nav) return;
+
+  // Alleen voor echte thema's (niet alfa/moei)
+  const themaNum = parseInt(gekozenThema);
+  if (!themaNum) { wrap.style.display = 'none'; return; }
+
+  const tekstSet = new Set();
+  woordenlijst_3ds.forEach(w => { if (String(w.thema) === String(themaNum)) tekstSet.add(w.tekst); });
+  const teksten = [...tekstSet].sort((a,b) => a-b);
+
+  if (teksten.length <= 1) { wrap.style.display = 'none'; if (teksten.length === 1) gekozenTekst = String(teksten[0]); return; }
+
+  wrap.style.display = 'block';
+  let html = '<span class="tekst-nav-label">Tekst:</span>';
+  html += `<button class="tekst-pill${gekozenTekst==='alle'||!gekozenTekst?' actief':''}" onclick="kiesTekst('alle')">Alle</button>`;
+  teksten.forEach(t => {
+    const actief = gekozenTekst === String(t);
+    html += `<button class="tekst-pill${actief?' actief':''}" onclick="kiesTekst('${t}')">Tekst ${t}</button>`;
+  });
+  nav.innerHTML = html;
+}
+
+function kiesTekst(tekst) {
+  gekozenTekst = tekst;
+  geselecteerd.clear();
+  renderTekstPills();
+  laadWoorden();
+}
+
+// ══════════════════════════════════════════════
+// ZOEKFUNCTIE
+// ══════════════════════════════════════════════
+function filterOpZoekterm() {
+  zoekterm = (document.getElementById('zoek-input').value || '').trim().toLowerCase();
+  if (zoekterm) {
+    // Zoekterm overschrijft thema-selectie: zoek in alle woorden
+    gekozenThema = null;
+    gekozenTekst = null;
+    renderThemaKaarten();
+    document.getElementById('tekst-nav-wrap').style.display = 'none';
+  }
+  geselecteerd.clear();
+  laadWoorden();
+}
+
+// ══════════════════════════════════════════════
+// LAAD WOORDEN (nieuwe versie — kaart-gebaseerd)
+// ══════════════════════════════════════════════
+function laadWoorden() {
+  const basisOnly = document.getElementById('filter-basis')?.checked;
+  geselecteerd.clear();
   let basis = woordenlijst_3ds;
 
-  if (thema === 'moeilijk') {
-    const moeilijk = laadMoeilijkeWoorden();
-    basis = basis.filter(w => moeilijk.has(w.grondvorm));
-  } else if (thema === 'alfabetisch') {
-    basis = [...basis].sort((a, b) => a.grondvorm.localeCompare(b.grondvorm, 'nl'));
-  } else if (thema) {
-    basis = basis.filter(w => String(w.thema) === thema);
-    if (tekst && tekst !== 'alle') {
-      basis = basis.filter(w => String(w.tekst) === tekst);
-    }
-    // Sorteer op tekst, dan zin
-    basis = [...basis].sort((a, b) => (a.tekst - b.tekst) || (a.zin - b.zin));
+  if (zoekterm) {
+    // Zoekterm-modus: filter op grondvorm of vertaling
+    basis = basis.filter(w =>
+      w.grondvorm.toLowerCase().includes(zoekterm) ||
+      (w.vertaling||'').toLowerCase().includes(zoekterm) ||
+      (w.aanvullingen||'').toLowerCase().includes(zoekterm)
+    );
+  } else if (gekozenThema === 'moei') {
+    const m = laadMoeilijkeWoorden();
+    basis = basis.filter(w => m.has(w.grondvorm));
+  } else if (gekozenThema === 'alfa') {
+    basis = [...basis].sort((a,b) => a.grondvorm.localeCompare(b.grondvorm, 'nl'));
+  } else if (gekozenThema) {
+    basis = basis.filter(w => String(w.thema) === String(gekozenThema));
+    const tekst = gekozenTekst || 'alle';
+    if (tekst && tekst !== 'alle') basis = basis.filter(w => String(w.tekst) === tekst);
+    basis = [...basis].sort((a,b) => (a.tekst - b.tekst) || (a.zin - b.zin));
+  } else {
+    // Niets geselecteerd — toon lege staat
+    huidigeWoorden = [];
+    renderLijst();
+    updateHeaderTeller();
+    return;
   }
 
-  if (filter === 'basis') {
-    basis = basis.filter(w => w.repertorium);
-  }
+  if (basisOnly) basis = basis.filter(w => w.repertorium);
 
   huidigeWoorden = basis;
   renderLijst();
   updateHeaderTeller();
 }
+
+// Stub voor achterwaartse compatibiliteit (bewaarScore gebruikt sel-ludus/sel-tekst niet meer)
+function laadTeksten() {}
+
+
 
 // ══════════════════════════════════════════════
 // RENDER SELECTIELIJST
@@ -1383,39 +1476,21 @@ function trainFoutenOpnieuw() {
 
 function bewaarScore(pct) {
   try {
-    const thema = document.getElementById('sel-ludus')?.value || '';
-    const tekst = document.getElementById('sel-tekst')?.value || '';
-    const leerling = (localStorage.getItem('groenhove_leerling_code') || '').trim() || 'anoniem';
-    const record = {
-      datum: new Date().toISOString(), leerling, email: leerling, naam: leerling,
-      modus: gekozenModus, les: thema ? `thema${thema}` : 'vrije_selectie', onderdeel: tekst ? `tekst ${tekst}` : 'alle teksten', thema, tekst,
-      goed: aantalGoed, fout: aantalFout, score: aantalGoed, maxScore: Math.max(1, aantalGoed + aantalFout), procent: pct, juistheid: pct,
-      besteStreak, scorePunten, aantalWoorden: trainRij.length, fouten: foutWoorden.map(w => w.grondvorm)
-    };
     const key = 'latijn_3ds_scores';
-    const scores = JSON.parse(localStorage.getItem(key) || '[]'); scores.push(record); localStorage.setItem(key, JSON.stringify(scores.slice(-200)));
-    const activityKey = 'groenhove_latijn_activity';
-    const activity = JSON.parse(localStorage.getItem(activityKey) || '[]'); activity.push(record); localStorage.setItem(activityKey, JSON.stringify(activity.slice(-500)));
-    zendScoreNaarDashboard(record); updateLokaleActiviteit();
-  } catch (err) { console.warn('Score bewaren mislukt', err); }
-}
-function zendScoreNaarDashboard(record) {
-  const url = window.GROENHOVE_APPS_SCRIPT_URL || '';
-  if (!url) return;
-  try { fetch(url, { method:'POST', body:new URLSearchParams({ action:'saveProgress', payload:JSON.stringify(record) }), mode:'no-cors' }).catch(() => {}); } catch {}
-}
-function bewaarLeerlingCode() { const val = document.getElementById('leerling-code')?.value || ''; localStorage.setItem('groenhove_leerling_code', val.trim()); }
-function updateLokaleActiviteit() {
-  let items = []; try { items = JSON.parse(localStorage.getItem('groenhove_latijn_activity') || localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
-  const vandaag = new Date().toISOString().slice(0,10);
-  const vandaagItems = items.filter(x => String(x.datum || '').slice(0,10) === vandaag);
-  const scores = items.map(x => Number(x.procent ?? x.juistheid)).filter(n => !Number.isNaN(n));
-  const woorden = items.reduce((a,x) => a + Number(x.aantalWoorden || x.maxScore || 0), 0);
-  const combo = items.reduce((a,x) => Math.max(a, Number(x.besteStreak || 0)), 0);
-  const gem = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) + '%' : '—';
-  const set = (id, value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
-  set('memo-sessies', vandaagItems.length); set('memo-gem', gem); set('memo-combo', combo); set('memo-woorden', woorden);
-  set('activiteit-samenvatting', `Vandaag: ${vandaagItems.length} sessie${vandaagItems.length===1?'':'s'}`);
+    const scores = JSON.parse(localStorage.getItem(key) || '[]');
+    scores.push({
+      datum: new Date().toISOString(),
+      modus: gekozenModus,
+      goed: aantalGoed,
+      fout: aantalFout,
+      juistheid: pct,
+      besteStreak,
+      aantalWoorden: trainRij.length,
+      thema: gekozenThema || '',
+      tekst: gekozenTekst || ''
+    });
+    localStorage.setItem(key, JSON.stringify(scores.slice(-50)));
+  } catch {}
 }
 
 // ══════════════════════════════════════════════
@@ -1484,11 +1559,7 @@ function updateMoeilijkTeller() {
 }
 
 function naarMoeilijkeLijst() {
-  const sel = document.getElementById('sel-ludus');
-  if (sel) {
-    sel.value = 'moeilijk';
-    laadTeksten();
-  }
+  kiesThema('moei');
 }
 
 // ══════════════════════════════════════════════
@@ -1496,9 +1567,6 @@ function naarMoeilijkeLijst() {
 // ══════════════════════════════════════════════
 init();
 updateMoeilijkTeller();
-const leerlingInput = document.getElementById('leerling-code');
-if (leerlingInput) leerlingInput.value = localStorage.getItem('groenhove_leerling_code') || '';
-updateLokaleActiviteit();
 </script>
 </body>
 </html>
