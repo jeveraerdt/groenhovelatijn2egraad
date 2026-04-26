@@ -139,13 +139,14 @@
   .bereik-input:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(0,102,51,0.12); }
   .bereik-sep { font-size: 13px; color: var(--tekst-zacht); font-family: var(--fo); }
   .bereik-btn {
-    font-family: var(--fv); font-size: 13px; font-weight: 500;
+    font-family: var(--fv); font-size: 13px; font-weight: 700;
     padding: 9px 14px; border-radius: var(--radius-sm);
-    border: 0.5px solid var(--blauw); background: transparent;
-    color: var(--blauw); cursor: pointer; transition: background 0.12s, color 0.12s;
-    white-space: nowrap;
+    border: 1.5px solid var(--deep-forest); background: transparent;
+    color: var(--deep-forest); cursor: pointer; transition: background 0.12s, color 0.12s;
+    white-space: nowrap; outline: none;
   }
-  .bereik-btn:hover { background: var(--blauw); color: #fff; }
+  .bereik-btn:hover { background: var(--deep-forest); color: #fff; }
+  .bereik-btn:focus { box-shadow: 0 0 0 2px rgba(0,102,51,.25); }
 
   /* Actiebalk boven lijst */
   .actie-balk { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; flex-wrap: wrap; }
@@ -441,16 +442,7 @@
   .selectie-latijn,
   .feedback-antwoord,
   .flashcard-nl,
-  .stat-getal,
-  .res-btn,
-  .oefen-btn,
-  .verder-btn,
-  .controleer-btn,
-  .modus-start-knop,
-  .modus-knop,
-  .bereik-btn,
-  .flip-btn-ja,
-  .flip-btn-nee {
+  .stat-getal {
     font-family: var(--fv);
     color: var(--deep-forest);
   }
@@ -466,15 +458,58 @@
   .inv-taal-label,
   .feedback-label { color: var(--vital-green); font-family: var(--fv); }
 
-  /* Knoppen behouden eigen achtergrond-kleur maar krijgen Flanders */
-  .modus-knop { color: var(--tekst-zacht); } /* override: niet actief = grijs */
-  .modus-knop.actief { color: #fff; }
-  .oefen-btn,
-  .verder-btn,
-  .controleer-btn,
-  .modus-start-knop,
-  .bereik-btn { color: #fff; } /* wit op gekleurde achtergrond */
-  .res-btn-secundair { color: var(--tekst); }
+  /* ── KNOPPEN: huisstijlregels ──────────────────────────────
+     Zonder hover: Deep Forest tekst + Deep Forest rand
+     Bij hover:    wit tekst op Deep Forest achtergrond
+     Uitzondering: primaire actie-knoppen zijn altijd gevuld
+  ─────────────────────────────────────────────────────────── */
+
+  /* Alle knoppen: Flanders Art Sans Bold als basis */
+  .res-btn, .oefen-btn, .verder-btn, .controleer-btn,
+  .modus-start-knop, .modus-knop, .bereik-btn,
+  .flip-btn-ja, .flip-btn-nee {
+    font-family: var(--fv);
+  }
+
+  /* Secundaire knoppen (outline-stijl): Deep Forest tekst + rand, wit bij hover */
+  .res-btn-secundair {
+    color: var(--deep-forest);
+    border: 1.5px solid var(--deep-forest);
+    background: transparent;
+    transition: background .15s, color .15s;
+  }
+  .res-btn-secundair:hover {
+    background: var(--deep-forest);
+    color: #fff;
+  }
+
+  /* Primaire actie-knop: altijd wit op Deep Forest */
+  .res-btn-primair {
+    background: var(--deep-forest);
+    color: #fff;
+    border: none;
+  }
+  .res-btn-primair:hover { opacity: .88; }
+
+  /* Oefen-knop (gevuld, Deep Forest) */
+  .oefen-btn { color: #fff; }
+
+  /* Verder / Controleer (gevuld, Deep Forest) */
+  .verder-btn, .controleer-btn { color: #fff; }
+
+  /* Modus-startknop (gevuld) */
+  .modus-start-knop { color: #fff; }
+
+  /* Bereik-knoppen: al gedefinieerd boven, geen override nodig */
+
+  /* Modus-knoppen: grijs zonder hover, Deep Forest rand + tekst bij hover, wit tekst als actief */
+  .modus-knop { color: var(--tekst-zacht); border-color: var(--rand); }
+  .modus-knop:hover { color: var(--deep-forest); border-color: var(--deep-forest); background: var(--kaart); }
+  .modus-knop.actief { color: #fff; border-color: var(--deep-forest); background: var(--deep-forest); }
+
+  /* Flip-knoppen behouden eigen rood/groen */
+  .flip-btn-ja  { color: #16a34a; }
+  .flip-btn-nee { color: #dc2626; }
 
   /* Voortgang-labels klein houden */
   .te-gaan-badge, .score-pill { font-family: var(--fo); font-size: 12px; }
