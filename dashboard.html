@@ -27,7 +27,6 @@
       min-height: 100vh;
     }
 
-    /* Header */
     header {
       background: var(--groen);
       color: white;
@@ -48,8 +47,11 @@
       gap: 12px;
     }
 
-    .header-logo {
-      font-size: 22px;
+    .header-logo-img {
+      height: 34px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
     }
 
     .header-title {
@@ -92,7 +94,6 @@
 
     .btn-uitloggen:hover { background: rgba(255,255,255,0.25); }
 
-    /* Login scherm */
     #login-screen {
       display: flex;
       align-items: center;
@@ -109,9 +110,25 @@
       max-width: 400px;
       width: 100%;
       text-align: center;
+      border: 1px solid rgba(0,102,51,.08);
     }
 
-    .login-icon { font-size: 48px; margin-bottom: 16px; }
+    .login-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 18px;
+      border-radius: 20px;
+      background: var(--groen-licht);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-icon img {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
 
     .login-card h2 {
       font-family: var(--font-titel);
@@ -127,7 +144,60 @@
       margin-bottom: 28px;
     }
 
-    #login-btn-container { margin-bottom: 8px; }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+    }
+
+    .login-form label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--groen);
+    }
+
+    .login-form input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 11px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .login-form input:focus {
+      outline: none;
+      border-color: var(--groen);
+      box-shadow: 0 0 0 3px rgba(0,102,51,.12);
+    }
+
+    .login-form button {
+      margin-top: 8px;
+      background: var(--groen);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, transform .15s;
+    }
+
+    .login-form button:hover {
+      background: #00522a;
+      transform: translateY(-1px);
+    }
+
+    .login-form button:disabled {
+      opacity: .6;
+      cursor: default;
+      transform: none;
+    }
 
     .login-error {
       color: var(--accent);
@@ -137,10 +207,8 @@
       line-height: 1.4;
     }
 
-    /* Dashboard */
     #dashboard { display: none; padding: 32px; max-width: 1200px; margin: 0 auto; }
 
-    /* Stats balk */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -173,7 +241,6 @@
 
     .stat-sub { font-size: 12px; color: var(--grijs); margin-top: 2px; }
 
-    /* Sectie */
     .sectie {
       background: white;
       border-radius: 10px;
@@ -208,7 +275,6 @@
       font-weight: 600;
     }
 
-    /* Tabel */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -239,7 +305,6 @@
 
     .td-email { color: var(--grijs); font-size: 13px; }
 
-    /* Voortgangsbalk */
     .progress-bar {
       width: 100%;
       height: 6px;
@@ -258,7 +323,6 @@
     .progress-fill.hoog { background: var(--groen); }
     .progress-fill.laag { background: var(--accent); }
 
-    /* Chip */
     .chip {
       display: inline-block;
       padding: 2px 8px;
@@ -271,7 +335,6 @@
     .chip-les2 { background: #fef3c7; color: #92400e; }
     .chip-geen { background: #f3f4f6; color: var(--grijs); }
 
-    /* Vernieuwen btn */
     .btn-refresh {
       background: var(--groen);
       color: white;
@@ -290,7 +353,6 @@
     .btn-refresh:hover { background: #00522a; }
     .btn-refresh:disabled { opacity: 0.5; cursor: default; }
 
-    /* Laadindicator */
     .loading {
       text-align: center;
       padding: 40px;
@@ -319,12 +381,20 @@
       margin-bottom: 16px;
     }
 
-    /* Lege staat */
     .leeg {
       text-align: center;
       padding: 32px;
       color: var(--grijs);
       font-size: 14px;
+    }
+
+    @media (max-width: 760px) {
+      header { padding: 0 18px; }
+      #dashboard { padding: 20px 14px; }
+      .login-card { padding: 32px 24px; }
+      .header-sub { display: none; }
+      table { min-width: 720px; }
+      .sectie { overflow-x: auto; }
     }
   </style>
 </head>
@@ -332,7 +402,7 @@
 
 <header>
   <div class="header-left">
-    <span class="header-logo">🏛️</span>
+    <img class="header-logo-img" src="images/nav/logo_mono_wit.png" alt="Groenhove Latijn">
     <div>
       <div class="header-title">Groenhove Latijn</div>
       <div class="header-sub">Leraarsdashboard</div>
@@ -343,25 +413,32 @@
   </div>
 </header>
 
-<!-- Login -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-icon">🔐</div>
+    <div class="login-icon">
+      <img src="images/nav/logo.svg" alt="Groenhove Latijn">
+    </div>
     <h2>Leraarsdashboard</h2>
-    <p>Log in met je <strong>@groenhoveschool.be</strong> account om de voortgang van je leerlingen te bekijken.</p>
-    <div id="login-btn-container"></div>
+    <p>Log in om het leraarsdashboard te openen.</p>
+
+    <form id="login-form" class="login-form">
+      <label>
+        Loginnaam
+        <input id="login-naam" type="text" autocomplete="username" required>
+      </label>
+
+      <label>
+        Paswoord
+        <input id="login-wachtwoord" type="password" autocomplete="current-password" required>
+      </label>
+
+      <button id="login-submit" type="submit">Inloggen</button>
+    </form>
+
     <p class="login-error" id="login-error"></p>
-    <hr style="margin:1.5rem 0;border:none;border-top:1px solid #e5e7eb;">
-    <p style="font-size:13px;color:#6b7280;margin-bottom:.75rem;">Of bekijk de lokale scores van deze computer:</p>
-    <button onclick="toonLokaleModus()" style="font-family:var(--font-body);font-size:14px;padding:10px 20px;border-radius:8px;border:1.5px solid #006633;background:transparent;color:#006633;cursor:pointer;transition:all .15s;"
-      onmouseover="this.style.background='#006633';this.style.color='#fff'"
-      onmouseout="this.style.background='transparent';this.style.color='#006633'">
-      📊 Lokale scores bekijken
-    </button>
   </div>
 </div>
 
-<!-- Dashboard -->
 <div id="dashboard">
   <div class="stats-grid" id="stats-grid">
     <div class="stat-card">
@@ -388,7 +465,6 @@
 
   <p class="laatste-update" id="laatste-update"></p>
 
-  <!-- Leerlingenoverzicht -->
   <div class="sectie">
     <div class="sectie-header">
       <span class="sectie-titel">Leerlingenoverzicht</span>
@@ -404,107 +480,109 @@
     </div>
   </div>
 
-  <!-- Voortgang per les -->\n  <div class="sectie">\n    <div class="sectie-header">\n      <span class="sectie-titel">Voortgang per les</span>\n      <span class="badge" id="badge-voortgang">0</span>\n    </div>\n    <div id="tabel-voortgang">\n      <div class="loading"><span class="spinner"></span> Data laden…</div>\n    </div>\n  </div>\n</div>\n\n<!-- LOKALE MODUS (geen auth vereist) -->\n<div id="lokaal-screen" style="display:none;max-width:900px;margin:2rem auto;padding:0 2rem;">\n  <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap;">\n    <h2 style="font-family:var(--font-titel);font-size:22px;color:var(--groen);">📊 Lokale scores</h2>\n    <span style="font-size:12px;color:#888;font-family:var(--font-body);">Scores opgeslagen op deze computer</span>\n    <button onclick="document.getElementById('lokaal-screen').style.display='none';document.getElementById('login-screen').style.display='flex';" style="margin-left:auto;font-family:var(--font-body);font-size:13px;padding:7px 14px;border-radius:8px;border:1px solid #e5e7eb;background:transparent;cursor:pointer;">← Terug</button>\n    <button onclick="renderLokaalDashboard()" style="font-family:var(--font-body);font-size:13px;padding:7px 14px;border-radius:8px;border:none;background:var(--groen);color:#fff;cursor:pointer;">↺ Vernieuwen</button>\n  </div>\n\n  <!-- Stats -->\n  <div id="lokaal-stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:1.5rem;"></div>\n\n  <!-- Leaderboard -->\n  <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;">\n    <div style="padding:14px 16px;border-bottom:1px solid #e5e7eb;font-family:var(--font-titel);font-size:16px;color:var(--groen);">🏆 Leaderboard — beste score per leerling</div>\n    <div id="lokaal-leaderboard"></div>\n  </div>\n\n  <!-- Recente sessies -->\n  <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">\n    <div style="padding:14px 16px;border-bottom:1px solid #e5e7eb;font-family:var(--font-titel);font-size:16px;color:var(--groen);">📋 Recente sessies (laatste 50)</div>\n    <div id="lokaal-sessies"></div>\n  </div>\n</div>\n\n<script>\n// ── Configuratie ──────────────────────────────────────────────────────────────\n
+  <div class="sectie">
+    <div class="sectie-header">
+      <span class="sectie-titel">Voortgang per les</span>
+      <span class="badge" id="badge-voortgang">0</span>
+    </div>
+    <div id="tabel-voortgang">
+      <div class="loading"><span class="spinner"></span> Data laden…</div>
+    </div>
+  </div>
+</div>
 
+<script>
 const CONFIG = {
-  clientId: '247782565692-60him09rermeq8u832vpuc3hsihm48ei.apps.googleusercontent.com',
   appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec',
-  allowedDomain: 'groenhoveschool.be',
-  tokenKey: 'groenhove_dash_token',
   userKey: 'groenhove_dash_user',
   expiryKey: 'groenhove_dash_expiry',
 };
 
 let huidigGebruiker = null;
 
-// ── Initialisatie ─────────────────────────────────────────────────────────────
-
 window.addEventListener('DOMContentLoaded', () => {
   if (isSessionGeldig()) {
     huidigGebruiker = getStoredUser();
     toonDashboard();
   } else {
-    laadGSI();
+    const form = document.getElementById('login-form');
+    if (form) form.addEventListener('submit', handleLogin);
   }
 });
 
 function isSessionGeldig() {
   const expiry = localStorage.getItem(CONFIG.expiryKey);
   const user = localStorage.getItem(CONFIG.userKey);
-  return expiry && user && Date.now() < parseInt(expiry);
+  return expiry && user && Date.now() < parseInt(expiry, 10);
 }
 
 function getStoredUser() {
   try { return JSON.parse(localStorage.getItem(CONFIG.userKey)); } catch { return null; }
 }
 
-function laadGSI() {
-  const script = document.createElement('script');
-  script.src = 'https://accounts.google.com/gsi/client';
-  script.async = true;
-  script.onload = initGSI;
-  document.head.appendChild(script);
-}
+async function handleLogin(e) {
+  e.preventDefault();
 
-function initGSI() {
-  google.accounts.id.initialize({
-    client_id: CONFIG.clientId,
-    callback: handleCredential,
-    auto_select: false,
-    hosted_domain: CONFIG.allowedDomain,
-  });
-
-  google.accounts.id.renderButton(
-    document.getElementById('login-btn-container'),
-    { type: 'standard', theme: 'outline', size: 'large', text: 'signin_with', width: 280 }
-  );
-}
-
-async function handleCredential(response) {
   const errorEl = document.getElementById('login-error');
+  const submitBtn = document.getElementById('login-submit');
   errorEl.style.display = 'none';
+
+  const loginnaam = document.getElementById('login-naam').value.trim();
+  const wachtwoord = document.getElementById('login-wachtwoord').value;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Controleren…';
 
   try {
     const result = await fetch(CONFIG.appsScriptUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'verifyToken', token: response.credential }),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'teacherLogin',
+        loginnaam,
+        wachtwoord
+      }),
     });
+
     const data = await result.json();
 
-    if (data.ok && data.email && data.email.endsWith('@' + CONFIG.allowedDomain)) {
-      huidigGebruiker = { email: data.email, naam: data.naam || '' };
+    if (data.ok) {
+      huidigGebruiker = {
+        naam: data.naam || loginnaam,
+        email: data.email || ''
+      };
+
       const expiry = Date.now() + 8 * 60 * 60 * 1000;
       localStorage.setItem(CONFIG.userKey, JSON.stringify(huidigGebruiker));
       localStorage.setItem(CONFIG.expiryKey, String(expiry));
+
       toonDashboard();
     } else {
-      errorEl.textContent = '⚠️ ' + (data.error || 'Geen toegang.') + ' Gebruik je @groenhoveschool.be account.';
+      errorEl.textContent = '⚠️ Loginnaam of paswoord is niet correct.';
       errorEl.style.display = 'block';
     }
   } catch (err) {
     errorEl.textContent = '⚠️ Verbindingsfout. Probeer opnieuw.';
     errorEl.style.display = 'block';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Inloggen';
   }
 }
 
 function uitloggen() {
-  localStorage.removeItem(CONFIG.tokenKey);
   localStorage.removeItem(CONFIG.userKey);
   localStorage.removeItem(CONFIG.expiryKey);
-  if (window.google) google.accounts.id.disableAutoSelect();
   location.reload();
 }
-
-// ── Dashboard tonen ───────────────────────────────────────────────────────────
 
 function toonDashboard() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
 
-  const naam = huidigGebruiker?.naam || huidigGebruiker?.email?.split('@')[0] || '';
+  const naam = huidigGebruiker?.naam || huidigGebruiker?.email?.split('@')[0] || 'Jens';
   document.getElementById('auth-status').innerHTML = `
-    <span style="opacity:0.85;">👤 ${naam}</span>
+    <span style="opacity:0.85;">${escapeHtml(naam)}</span>
     <button class="btn-uitloggen" onclick="uitloggen()">Uitloggen</button>
   `;
 
@@ -537,9 +615,9 @@ async function laadData() {
 }
 
 function verwerkData(data) {
-  const { leerlingen, voortgang } = data;
+  const leerlingen = Array.isArray(data.leerlingen) ? data.leerlingen : [];
+  const voortgang = Array.isArray(data.voortgang) ? data.voortgang : [];
 
-  // Stats
   document.getElementById('stat-leerlingen').textContent = leerlingen.length;
   document.getElementById('badge-leerlingen').textContent = leerlingen.length;
 
@@ -548,14 +626,11 @@ function verwerkData(data) {
   document.getElementById('stat-les1').textContent = les1Set.size;
   document.getElementById('stat-les2').textContent = les2Set.size;
 
-  const scores = voortgang.filter(v => v.procent).map(v => parseInt(v.procent));
+  const scores = voortgang.filter(v => v.procent !== undefined && v.procent !== '').map(v => parseInt(v.procent, 10)).filter(n => !isNaN(n));
   const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
   document.getElementById('stat-gem').textContent = gem !== null ? gem + '%' : '—';
 
-  // Leerlingentabel
   renderLeerlingen(leerlingen, voortgang, les1Set, les2Set);
-
-  // Voortgangtabel
   renderVoortgang(voortgang);
   document.getElementById('badge-voortgang').textContent = voortgang.length;
 }
@@ -564,7 +639,7 @@ function renderLeerlingen(leerlingen, voortgang, les1Set, les2Set) {
   const container = document.getElementById('tabel-leerlingen');
 
   if (!leerlingen.length) {
-    container.innerHTML = '<div class="leeg">Nog geen leerlingen ingelogd.</div>';
+    container.innerHTML = '<div class="leeg">Nog geen leerlingen geregistreerd.</div>';
     return;
   }
 
@@ -575,17 +650,18 @@ function renderLeerlingen(leerlingen, voortgang, les1Set, les2Set) {
   });
 
   const rows = leerlingen.map(l => {
-    const vp = voortgangPerEmail[l.email] || [];
-    const heeftLes1 = les1Set.has(l.email);
-    const heeftLes2 = les2Set.has(l.email);
-    const scores = vp.filter(v => v.procent).map(v => parseInt(v.procent));
+    const email = l.email || '';
+    const vp = voortgangPerEmail[email] || [];
+    const heeftLes1 = les1Set.has(email);
+    const heeftLes2 = les2Set.has(email);
+    const scores = vp.filter(v => v.procent !== undefined && v.procent !== '').map(v => parseInt(v.procent, 10)).filter(n => !isNaN(n));
     const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
     const datum = l.laatsteLogin ? new Date(l.laatsteLogin).toLocaleDateString('nl-BE') : '—';
 
     return `
       <tr>
-        <td><strong>${l.naam || '—'}</strong></td>
-        <td class="td-email">${l.email}</td>
+        <td><strong>${escapeHtml(l.naam || '—')}</strong></td>
+        <td class="td-email">${escapeHtml(email)}</td>
         <td>
           ${heeftLes1 ? '<span class="chip chip-les1">Les 1 ✓</span>' : '<span class="chip chip-geen">Les 1</span>'}
           ${heeftLes2 ? ' <span class="chip chip-les2">Les 2 ✓</span>' : ' <span class="chip chip-geen">Les 2</span>'}
@@ -630,153 +706,15 @@ function renderVoortgang(voortgang) {
     return;
   }
 
-  // Sorteer op datum aflopend
-  const gesorteerd = [...voortgang].sort((a, b) => new Date(b.datum) - new Date(a.datum));
+  const gesorteerd = [...voortgang].sort((a, b) => new Date(b.datum || 0) - new Date(a.datum || 0));
 
   const rows = gesorteerd.slice(0, 50).map(v => {
-    const procent = v.procent ? parseInt(v.procent) : null;
+    const procent = v.procent !== undefined && v.procent !== '' ? parseInt(v.procent, 10) : null;
     const datum = v.datum ? new Date(v.datum).toLocaleString('nl-BE', {
       day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
     }) : '—';
 
     return `
       <tr>
-        <td class="td-email">${v.email}</td>
-        <td><span class="chip ${v.les === 'les1' ? 'chip-les1' : 'chip-les2'}">${v.les || '—'}</span></td>
-        <td style="font-size:13px;color:var(--grijs);">${v.onderdeel || '—'}</td>
-        <td>
-          ${procent !== null ? `
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-bar" style="width:60px;">
-                <div class="progress-fill ${procent >= 70 ? 'hoog' : procent < 50 ? 'laag' : ''}"
-                     style="width:${procent}%"></div>
-              </div>
-              <span style="font-size:13px;">${v.score}/${v.maxScore} (${procent}%)</span>
-            </div>
-          ` : '—'}
-        </td>
-        <td style="color:var(--grijs);font-size:12px;">${datum}</td>
-      </tr>
-    `;
-  }).join('');
-
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Leerling</th>
-          <th>Les</th>
-          <th>Onderdeel</th>
-          <th>Score</th>
-          <th>Datum</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-    ${gesorteerd.length > 50 ? `<p style="padding:12px 16px;font-size:12px;color:var(--grijs);">Toont laatste 50 van ${gesorteerd.length} registraties.</p>` : ''}
-  `;
-}
-
-function toonFout(bericht) {
-  document.getElementById('tabel-leerlingen').innerHTML =
-    `<div class="leeg" style="color:var(--accent);">⚠️ ${bericht}</div>`;
-  document.getElementById('tabel-voortgang').innerHTML = '';
-}
-
-// ══════════════════════════════════════════════
-// LOKALE MODUS — leest latijn_3ds_scores
-// ══════════════════════════════════════════════
-function toonLokaleModus() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('lokaal-screen').style.display = 'block';
-  renderLokaalDashboard();
-}
-
-function renderLokaalDashboard() {
-  let scores = [];
-  try { scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
-
-  // Stats
-  const vandaag = new Date().toISOString().slice(0,10);
-  const vandaagScores = scores.filter(s => (s.datum||'').slice(0,10) === vandaag);
-  const alleScores    = scores.map(s => s.juistheid ?? s.procent ?? 0).filter(n => !isNaN(n));
-  const gem           = alleScores.length ? Math.round(alleScores.reduce((a,b)=>a+b,0)/alleScores.length) : null;
-  const besteStreak   = scores.reduce((a,s) => Math.max(a, s.besteStreak||0), 0);
-  const totaalWoorden = scores.reduce((a,s) => a + (s.aantalWoorden||0), 0);
-
-  document.getElementById('lokaal-stats').innerHTML = [
-    { label:'Sessies vandaag', val: vandaagScores.length },
-    { label:'Totaal sessies',  val: scores.length },
-    { label:'Gemiddelde score',val: gem !== null ? gem+'%' : '—' },
-    { label:'Beste combo',     val: besteStreak + ' 🔥' },
-    { label:'Woorden geoefend',val: totaalWoorden },
-  ].map(s => `<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1rem;">
-    <div style="font-family:var(--font-titel);font-size:22px;color:var(--groen);">${s.val}</div>
-    <div style="font-family:var(--font-body);font-size:11px;color:#888;margin-top:2px;">${s.label}</div>
-  </div>`).join('');
-
-  // Leaderboard
-  const perLeerling = {};
-  scores.forEach(s => {
-    const naam = (s.leerling || s.naam || 'Anoniem').trim();
-    const pct  = s.juistheid ?? s.procent ?? 0;
-    if (!perLeerling[naam] || pct > perLeerling[naam].pct) {
-      perLeerling[naam] = { naam, pct, streak: s.besteStreak||0, datum: s.datum, modus: s.modus };
-    }
-  });
-  const gesorteerd = Object.values(perLeerling).sort((a,b) => b.pct - a.pct);
-  const medailles  = ['🥇','🥈','🥉'];
-
-  if (!gesorteerd.length) {
-    document.getElementById('lokaal-leaderboard').innerHTML =
-      '<p style="padding:1.5rem;text-align:center;color:#888;font-size:13px;">Nog geen scores.</p>';
-  } else {
-    document.getElementById('lokaal-leaderboard').innerHTML = gesorteerd.map((r,i) => `
-      <div style="display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #f3f4f6;background:${i===0?'rgba(245,158,11,.06)':'transparent'};">
-        <span style="font-size:20px;width:28px;text-align:center;flex-shrink:0;">${medailles[i]||(i+1)}</span>
-        <div style="flex:1;">
-          <div style="font-family:var(--font-titel);font-size:14px;color:var(--groen);">${r.naam}</div>
-          <div style="font-size:11px;color:#9ca3af;">${r.modus||''} · ${r.datum?new Date(r.datum).toLocaleDateString('nl-BE'):''}</div>
-        </div>
-        <div style="text-align:right;">
-          <div style="font-family:var(--font-titel);font-size:18px;color:${r.pct>=80?'#16a34a':r.pct>=50?'var(--groen)':'#dc2626'};">${Math.round(r.pct)}%</div>
-          <div style="font-size:11px;color:#f59e0b;">🔥 ${r.streak}</div>
-        </div>
-      </div>`).join('');
-  }
-
-  // Recente sessies
-  const recent = [...scores].sort((a,b) => new Date(b.datum)-new Date(a.datum)).slice(0,50);
-  if (!recent.length) {
-    document.getElementById('lokaal-sessies').innerHTML =
-      '<p style="padding:1.5rem;text-align:center;color:#888;font-size:13px;">Nog geen sessies.</p>';
-  } else {
-    document.getElementById('lokaal-sessies').innerHTML = `
-      <table style="width:100%;border-collapse:collapse;">
-        <thead><tr style="background:#f9fafb;">
-          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Leerling</th>
-          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Modus</th>
-          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Thema/Tekst</th>
-          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Score</th>
-          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Datum</th>
-        </tr></thead>
-        <tbody>${recent.map(s => {
-          const pct = Math.round(s.juistheid ?? s.procent ?? 0);
-          const kleur = pct>=80?'#16a34a':pct>=50?'#006633':'#dc2626';
-          return `<tr style="border-top:1px solid #f3f4f6;">
-            <td style="padding:9px 14px;font-size:13px;font-weight:600;">${s.leerling||s.naam||'Anoniem'}</td>
-            <td style="padding:9px 14px;font-size:12px;color:#6b7280;">${s.modus||'—'}</td>
-            <td style="padding:9px 14px;font-size:12px;color:#6b7280;">${s.thema?'Th.'+s.thema:''} ${s.tekst?'T.'+s.tekst:''}</td>
-            <td style="padding:9px 14px;">
-              <span style="font-weight:700;color:${kleur};font-size:14px;">${pct}%</span>
-              <span style="font-size:11px;color:#9ca3af;margin-left:4px;">${s.goed||0}/${(s.goed||0)+(s.fout||0)}</span>
-            </td>
-            <td style="padding:9px 14px;font-size:11px;color:#9ca3af;">${s.datum?new Date(s.datum).toLocaleString('nl-BE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):''}</td>
-          </tr>`;
-        }).join('')}</tbody>
-      </table>`;
-  }
-}
-</script>
-</body>
-</html>
+        <td class="td-email">${escapeHtml(v.email || '—')}</td>
+        <td><span class="chip ${v.les === 'les1' ? 'chip-les1' : 'chip-les2'}">${escapeHtml(v.les || '—')}</span></td>
