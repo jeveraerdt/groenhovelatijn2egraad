@@ -516,7 +516,11 @@ function isSessionGeldig() {
 }
 
 function getStoredUser() {
-  try { return JSON.parse(localStorage.getItem(CONFIG.userKey)); } catch { return null; }
+  try {
+    return JSON.parse(localStorage.getItem(CONFIG.userKey));
+  } catch {
+    return null;
+  }
 }
 
 async function handleLogin(e) {
