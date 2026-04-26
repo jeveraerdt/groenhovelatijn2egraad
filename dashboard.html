@@ -4,746 +4,420 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leraarsdashboard — Groenhove Latijn</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @font-face {
-      font-family: 'Flanders Art Sans';
-      src: url('fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --groen: #006633;
-      --groen-donker: #004c26;
       --groen-licht: #e8f5ee;
-      --groen-zacht: #f4faf6;
       --groen-mid: #65b32e;
       --accent: #FF3B1D;
-      --accent-zacht: #fff0ec;
       --wit: #f3f1ef;
-      --paneel: #ffffff;
-      --tekst: #010100;
-      --tekst-zacht: #667085;
-      --rand: #e4e7ec;
-      --shadow: 0 8px 24px rgba(16, 24, 40, 0.07);
-      --radius: 16px;
+      --zwart: #010100;
+      --grijs: #6b7280;
+      --border: #e5e7eb;
       --font-titel: 'Flanders Art Sans', 'Noto Sans', sans-serif;
       --font-body: 'Noto Sans', Arial, sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: var(--font-body);
-      background: linear-gradient(180deg, #f7f6f4 0%, var(--wit) 100%);
-      color: var(--tekst);
+      background: var(--wit);
+      color: var(--zwart);
       min-height: 100vh;
     }
 
-    button, input, select {
-      font: inherit;
-    }
-
-    .topbar {
+    /* Header */
+    header {
       background: var(--groen);
       color: white;
-      min-height: 72px;
-      padding: 0 28px;
+      padding: 0 32px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
       position: sticky;
       top: 0;
-      z-index: 20;
-      box-shadow: 0 2px 10px rgba(0,0,0,.14);
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
 
-    .topbar-left {
+    .header-left {
       display: flex;
       align-items: center;
-      gap: 14px;
-      min-width: 0;
+      gap: 12px;
     }
 
-    .topbar-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.10);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
+    .header-logo {
+      font-size: 22px;
     }
 
-    .topbar-title {
+    .header-title {
       font-family: var(--font-titel);
-      font-size: 1.15rem;
-      line-height: 1.05;
-      letter-spacing: .01em;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
     }
 
-    .topbar-sub {
-      font-size: .78rem;
-      opacity: .82;
-      margin-top: 3px;
+    .header-sub {
+      font-size: 12px;
+      opacity: 0.75;
+      font-weight: 400;
     }
 
-    .topbar-right {
+    .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      gap: 12px;
+      font-size: 13px;
     }
 
-    .user-pill {
-      display: inline-flex;
+    #auth-status {
+      display: flex;
       align-items: center;
       gap: 8px;
-      min-height: 38px;
-      padding: 0 13px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.24);
-      background: rgba(255,255,255,.12);
-      font-size: .86rem;
     }
 
-    .btn,
-    .btn-secondary,
-    .btn-ghost {
-      border: none;
-      border-radius: 10px;
+    .btn-uitloggen {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: transform .12s ease, background .18s ease, opacity .18s ease, border-color .18s ease;
-      min-height: 40px;
-      padding: 0 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
+      font-size: 12px;
+      font-family: var(--font-body);
+      transition: background 0.2s;
     }
 
-    .btn:hover,
-    .btn-secondary:hover,
-    .btn-ghost:hover { transform: translateY(-1px); }
+    .btn-uitloggen:hover { background: rgba(255,255,255,0.25); }
 
-    .btn {
-      background: var(--groen);
-      color: white;
-    }
-
-    .btn:hover { background: var(--groen-donker); }
-
-    .btn-secondary {
-      background: white;
-      color: var(--groen);
-      border: 1px solid rgba(0,102,51,.18);
-    }
-
-    .btn-secondary:hover {
-      background: var(--groen-zacht);
-    }
-
-    .btn-ghost {
-      background: rgba(255,255,255,.12);
-      color: white;
-      border: 1px solid rgba(255,255,255,.24);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(255,255,255,.18);
-    }
-
-    .btn:disabled,
-    .btn-secondary:disabled,
-    .btn-ghost:disabled {
-      opacity: .55;
-      cursor: default;
-      transform: none;
-    }
-
-    .shell {
-      max-width: 1380px;
-      margin: 0 auto;
-      padding: 28px 20px 56px;
-    }
-
-    .login-wrap {
-      min-height: calc(100vh - 72px);
+    /* Login scherm */
+    #login-screen {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 30px 20px;
-    }
-
-    .login-card,
-    .card,
-    .stat-card,
-    .filter-card {
-      background: var(--paneel);
-      border: 1px solid var(--rand);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      min-height: calc(100vh - 60px);
+      padding: 40px 20px;
     }
 
     .login-card {
-      max-width: 430px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.1);
+      padding: 48px;
+      max-width: 400px;
       width: 100%;
       text-align: center;
-      padding: 42px 34px;
     }
 
-    .login-icon {
-      font-size: 2.8rem;
-      margin-bottom: 14px;
-    }
+    .login-icon { font-size: 48px; margin-bottom: 16px; }
 
-    .login-card h1 {
+    .login-card h2 {
       font-family: var(--font-titel);
       color: var(--groen);
-      font-size: 1.5rem;
+      font-size: 22px;
       margin-bottom: 8px;
     }
 
     .login-card p {
-      color: var(--tekst-zacht);
-      font-size: .94rem;
+      color: var(--grijs);
+      font-size: 14px;
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
+
+    #login-btn-container { margin-bottom: 8px; }
 
     .login-error {
-      margin-top: 14px;
       color: var(--accent);
-      font-size: .86rem;
+      font-size: 13px;
+      margin-top: 12px;
       display: none;
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
-    #dashboard { display: none; }
+    /* Dashboard */
+    #dashboard { display: none; padding: 32px; max-width: 1200px; margin: 0 auto; }
 
-    .hero {
-      background: linear-gradient(135deg, rgba(0,102,51,.09), rgba(101,179,46,.07));
-      border: 1px solid rgba(0,102,51,.08);
-      border-radius: 22px;
-      padding: 22px 24px;
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .hero-meta {
-      font-size: .77rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .hero h1 {
-      font-family: var(--font-titel);
-      color: var(--groen);
-      font-size: clamp(1.55rem, 2.4vw, 2rem);
-      line-height: 1.06;
-      margin-bottom: 6px;
-    }
-
-    .hero p {
-      max-width: 780px;
-      color: #495564;
-      font-size: .96rem;
-      line-height: 1.6;
-    }
-
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: flex-end;
-    }
-
-    .update-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 38px;
-      padding: 0 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(0,102,51,.10);
-      color: var(--tekst-zacht);
-      font-size: .84rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
+    /* Stats balk */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 16px;
-      margin-bottom: 18px;
+      margin-bottom: 32px;
     }
 
     .stat-card {
-      padding: 18px 20px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
 
     .stat-label {
-      font-size: .73rem;
+      font-size: 12px;
+      color: var(--grijs);
       text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--tekst-zacht);
-      font-weight: 700;
+      letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
 
     .stat-value {
       font-family: var(--font-titel);
-      font-size: 2rem;
-      color: var(--groen);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .stat-sub {
-      font-size: .84rem;
-      color: var(--tekst-zacht);
-      line-height: 1.45;
-    }
-
-    .filters-grid {
-      display: grid;
-      grid-template-columns: minmax(280px, 1.3fr) 220px 220px;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .filter-card {
-      padding: 14px 16px;
-    }
-
-    .filter-label {
-      display: block;
-      font-size: .74rem;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--tekst-zacht);
+      font-size: 32px;
       font-weight: 700;
-      margin-bottom: 8px;
+      color: var(--groen);
     }
 
-    .filter-card input,
-    .filter-card select {
-      width: 100%;
-      min-height: 44px;
-      border: 1px solid var(--rand);
+    .stat-sub { font-size: 12px; color: var(--grijs); margin-top: 2px; }
+
+    /* Sectie */
+    .sectie {
+      background: white;
       border-radius: 10px;
-      padding: 0 12px;
-      background: #fff;
-      color: var(--tekst);
-    }
-
-    .filter-card input:focus,
-    .filter-card select:focus {
-      outline: none;
-      border-color: rgba(0,102,51,.4);
-      box-shadow: 0 0 0 3px rgba(0,102,51,.08);
-    }
-
-    .card {
-      margin-bottom: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      margin-bottom: 24px;
       overflow: hidden;
     }
 
-    .card-header {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--rand);
-      background: #fbfcfb;
+    .sectie-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      background: var(--groen-licht);
     }
 
-    .card-title-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .card-title {
+    .sectie-titel {
       font-family: var(--font-titel);
+      font-size: 15px;
+      font-weight: 700;
       color: var(--groen);
-      font-size: 1.02rem;
-      line-height: 1.1;
-    }
-
-    .card-sub {
-      color: var(--tekst-zacht);
-      font-size: .86rem;
-      line-height: 1.45;
     }
 
     .badge {
-      min-width: 30px;
-      height: 30px;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: rgba(0,102,51,.08);
-      color: var(--groen);
-      font-weight: 700;
-      font-size: .83rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      background: var(--groen);
+      color: white;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-weight: 600;
     }
 
-    .table-wrap {
-      overflow-x: auto;
-    }
-
+    /* Tabel */
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: .92rem;
+      font-size: 14px;
     }
 
     thead th {
+      padding: 10px 16px;
       text-align: left;
-      padding: 12px 16px;
-      font-size: .72rem;
+      font-size: 11px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--tekst-zacht);
-      border-bottom: 1px solid var(--rand);
-      background: #fcfcfc;
-      white-space: nowrap;
+      letter-spacing: 0.5px;
+      color: var(--grijs);
+      background: #fafafa;
+      border-bottom: 1px solid var(--border);
     }
 
-    tbody td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--rand);
-      vertical-align: middle;
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
     }
 
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
+    tbody tr:hover { background: var(--groen-licht); }
+    tbody tr:last-child { border-bottom: none; }
 
-    tbody tr:hover {
-      background: #fbfdfb;
-    }
+    td { padding: 10px 16px; }
 
-    .persoon {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 280px;
-    }
+    .td-email { color: var(--grijs); font-size: 13px; }
 
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--groen-licht);
-      color: var(--groen);
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      border: 1px solid rgba(0,102,51,.10);
-    }
-
-    .persoon-info {
-      min-width: 0;
-    }
-
-    .persoon-naam {
-      font-weight: 700;
-      color: var(--tekst);
-      line-height: 1.2;
-      margin-bottom: 3px;
-    }
-
-    .persoon-mail,
-    .muted {
-      color: var(--tekst-zacht);
-      font-size: .84rem;
-      line-height: 1.4;
-    }
-
-    .chips {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
-      font-size: .78rem;
-      font-weight: 700;
-      white-space: nowrap;
-      border: 1px solid transparent;
-    }
-
-    .chip-les1 { background: #e8f0ff; color: #1e4fd6; }
-    .chip-les2 { background: #fff2d6; color: #9a5a00; }
-    .chip-neutral { background: #f3f4f6; color: #667085; }
-    .chip-ai { background: #efe8ff; color: #6f42c1; }
-    .chip-progress { background: var(--groen-licht); color: var(--groen); }
-
-    .progress-inline {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 140px;
-    }
-
-    .progress-track {
-      width: 112px;
-      height: 8px;
-      border-radius: 999px;
+    /* Voortgangsbalk */
+    .progress-bar {
+      width: 100%;
+      height: 6px;
       background: #e5e7eb;
+      border-radius: 99px;
       overflow: hidden;
-      flex-shrink: 0;
     }
 
     .progress-fill {
       height: 100%;
-      border-radius: 999px;
+      border-radius: 99px;
       background: var(--groen-mid);
+      transition: width 0.5s ease;
     }
 
     .progress-fill.hoog { background: var(--groen); }
     .progress-fill.laag { background: var(--accent); }
 
-    .mini-pill {
-      display: inline-flex;
+    /* Chip */
+    .chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .chip-les1 { background: #dbeafe; color: #1d4ed8; }
+    .chip-les2 { background: #fef3c7; color: #92400e; }
+    .chip-geen { background: #f3f4f6; color: var(--grijs); }
+
+    /* Vernieuwen btn */
+    .btn-refresh {
+      background: var(--groen);
+      color: white;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: var(--font-body);
+      display: flex;
       align-items: center;
-      justify-content: center;
-      min-width: 34px;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: #f3f4f6;
-      color: #475467;
-      font-size: .78rem;
-      font-weight: 700;
+      gap: 6px;
+      transition: background 0.2s;
     }
 
-    .answer-preview {
-      max-width: 360px;
-      color: #475467;
-      font-size: .84rem;
-      line-height: 1.45;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+    .btn-refresh:hover { background: #00522a; }
+    .btn-refresh:disabled { opacity: 0.5; cursor: default; }
 
-    .loading,
-    .empty-state {
-      padding: 36px 24px;
+    /* Laadindicator */
+    .loading {
       text-align: center;
-      color: var(--tekst-zacht);
-      font-size: .95rem;
+      padding: 40px;
+      color: var(--grijs);
+      font-size: 14px;
     }
 
     .spinner {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border: 2px solid #d9dde3;
-      border-top-color: var(--groen);
       display: inline-block;
-      vertical-align: -4px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--groen);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
       margin-right: 8px;
-      animation: spin .8s linear infinite;
+      vertical-align: middle;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    @media (max-width: 1100px) {
-      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .filters-grid { grid-template-columns: 1fr 1fr; }
-      .filters-grid .filter-card:first-child { grid-column: 1 / -1; }
+    .laatste-update {
+      font-size: 12px;
+      color: var(--grijs);
+      text-align: right;
+      margin-bottom: 16px;
     }
 
-    @media (max-width: 760px) {
-      .topbar {
-        padding: 12px 16px;
-        min-height: auto;
-        align-items: flex-start;
-      }
-
-      .shell { padding: 18px 12px 38px; }
-      .hero { padding: 18px 16px; }
-      .hero-right { align-items: flex-start; }
-      .hero-actions { justify-content: flex-start; }
-      .stats-grid,
-      .filters-grid { grid-template-columns: 1fr; }
-      .card-header { padding: 16px; }
-      thead th, tbody td { padding-left: 12px; padding-right: 12px; }
-      .persoon { min-width: 240px; }
-      .answer-preview { max-width: 240px; }
+    /* Lege staat */
+    .leeg {
+      text-align: center;
+      padding: 32px;
+      color: var(--grijs);
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-left">
-    <div class="topbar-icon">🏛️</div>
+<header>
+  <div class="header-left">
+    <span class="header-logo">🏛️</span>
     <div>
-      <div class="topbar-title">Groenhove Latijn</div>
-      <div class="topbar-sub">Leraarsdashboard</div>
+      <div class="header-title">Groenhove Latijn</div>
+      <div class="header-sub">Leraarsdashboard</div>
     </div>
   </div>
-  <div class="topbar-right" id="auth-status"></div>
+  <div class="header-right">
+    <div id="auth-status"></div>
+  </div>
 </header>
 
-<div id="login-screen" class="login-wrap">
+<!-- Login -->
+<div id="login-screen">
   <div class="login-card">
     <div class="login-icon">🔐</div>
-    <h1>Leraarsdashboard</h1>
-    <p>Log in met je <strong>@groenhoveschool.be</strong>-account om leerlingactiviteit, resultaten en antwoorden te bekijken.</p>
+    <h2>Leraarsdashboard</h2>
+    <p>Log in met je <strong>@groenhoveschool.be</strong> account om de voortgang van je leerlingen te bekijken.</p>
     <div id="login-btn-container"></div>
-    <div class="login-error" id="login-error"></div>
+    <p class="login-error" id="login-error"></p>
+    <hr style="margin:1.5rem 0;border:none;border-top:1px solid #e5e7eb;">
+    <p style="font-size:13px;color:#6b7280;margin-bottom:.75rem;">Of bekijk de lokale scores van deze computer:</p>
+    <button onclick="toonLokaleModus()" style="font-family:var(--font-body);font-size:14px;padding:10px 20px;border-radius:8px;border:1.5px solid #006633;background:transparent;color:#006633;cursor:pointer;transition:all .15s;"
+      onmouseover="this.style.background='#006633';this.style.color='#fff'"
+      onmouseout="this.style.background='transparent';this.style.color='#006633'">
+      📊 Lokale scores bekijken
+    </button>
   </div>
 </div>
 
+<!-- Dashboard -->
 <div id="dashboard">
-  <div class="shell">
-    <section class="hero">
-      <div>
-        <div class="hero-meta">Overzicht</div>
-        <h1>Leerlingen, resultaten en recente activiteit in één oogopslag</h1>
-        <p>Hier zie je per leerling welke lessen gebruikt werden, hoe vaak er interactie was en welke resultaten of AI-antwoorden recent geregistreerd zijn.</p>
-      </div>
-      <div class="hero-right">
-        <div class="update-pill" id="laatste-update">Nog niet geladen</div>
-        <div class="hero-actions">
-          <button class="btn" id="btn-refresh" onclick="laadData()">↺ Vernieuwen</button>
-          <button class="btn-secondary" id="btn-export" onclick="exporteerCsv()">⬇ Exporteer CSV</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats-grid">
-      <article class="stat-card">
-        <div class="stat-label">Leerlingen</div>
-        <div class="stat-value" id="stat-leerlingen">—</div>
-        <div class="stat-sub">unieke leerlingen met activiteit of login</div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-label">Actieve lessen</div>
-        <div class="stat-value" id="stat-lessen">—</div>
-        <div class="stat-sub">leerlingen die minstens één les gebruikten</div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-label">Gemiddeld resultaat</div>
-        <div class="stat-value" id="stat-gem">—</div>
-        <div class="stat-sub">berekend op registraties met score</div>
-      </article>
-      <article class="stat-card">
-        <div class="stat-label">Recente registraties</div>
-        <div class="stat-value" id="stat-reg">—</div>
-        <div class="stat-sub">zichtbaar in de huidige dataset</div>
-      </article>
-    </section>
-
-    <section class="filters-grid">
-      <div class="filter-card">
-        <label class="filter-label" for="zoek-input">Zoeken</label>
-        <input id="zoek-input" type="text" placeholder="Zoek op naam of e-mail…" oninput="applyFilters()">
-      </div>
-      <div class="filter-card">
-        <label class="filter-label" for="filter-les">Les</label>
-        <select id="filter-les" onchange="applyFilters()">
-          <option value="all">Alle lessen</option>
-          <option value="les1">Les 1</option>
-          <option value="les2">Les 2</option>
-        </select>
-      </div>
-      <div class="filter-card">
-        <label class="filter-label" for="filter-type">Type registratie</label>
-        <select id="filter-type" onchange="applyFilters()">
-          <option value="all">Alles</option>
-          <option value="progress">Scores / voortgang</option>
-          <option value="ai">AI-feedback</option>
-        </select>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="card-header">
-        <div class="card-title-wrap">
-          <div class="card-title">Leerlingenoverzicht</div>
-          <div class="card-sub">Naam en e-mail staan samen; je ziet meteen lessen, gemiddelde score, laatste activiteit en aantal registraties.</div>
-        </div>
-        <span class="badge" id="badge-leerlingen">0</span>
-      </div>
-      <div class="table-wrap" id="tabel-leerlingen">
-        <div class="loading"><span class="spinner"></span>Gegevens laden…</div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="card-header">
-        <div class="card-title-wrap">
-          <div class="card-title">Recente registraties</div>
-          <div class="card-sub">Een leesbaar logboek van recente activiteit, met duidelijke namen, leslabels en mensentaal voor onderdelen.</div>
-        </div>
-        <span class="badge" id="badge-registraties">0</span>
-      </div>
-      <div class="table-wrap" id="tabel-voortgang">
-        <div class="loading"><span class="spinner"></span>Gegevens laden…</div>
-      </div>
-    </section>
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Leerlingen</div>
+      <div class="stat-value" id="stat-leerlingen">—</div>
+      <div class="stat-sub">ingelogd dit schooljaar</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Les 1 voltooid</div>
+      <div class="stat-value" id="stat-les1">—</div>
+      <div class="stat-sub">leerlingen</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Les 2 voltooid</div>
+      <div class="stat-value" id="stat-les2">—</div>
+      <div class="stat-sub">leerlingen</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Gem. score</div>
+      <div class="stat-value" id="stat-gem">—</div>
+      <div class="stat-sub">over alle lessen</div>
+    </div>
   </div>
-</div>
 
-<script>
+  <p class="laatste-update" id="laatste-update"></p>
+
+  <!-- Leerlingenoverzicht -->
+  <div class="sectie">
+    <div class="sectie-header">
+      <span class="sectie-titel">Leerlingenoverzicht</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge" id="badge-leerlingen">0</span>
+        <button class="btn-refresh" id="btn-refresh" onclick="laadData()">
+          ↺ Vernieuwen
+        </button>
+      </div>
+    </div>
+    <div id="tabel-leerlingen">
+      <div class="loading"><span class="spinner"></span> Data laden…</div>
+    </div>
+  </div>
+
+  <!-- Voortgang per les -->\n  <div class="sectie">\n    <div class="sectie-header">\n      <span class="sectie-titel">Voortgang per les</span>\n      <span class="badge" id="badge-voortgang">0</span>\n    </div>\n    <div id="tabel-voortgang">\n      <div class="loading"><span class="spinner"></span> Data laden…</div>\n    </div>\n  </div>\n</div>\n\n<!-- LOKALE MODUS (geen auth vereist) -->\n<div id="lokaal-screen" style="display:none;max-width:900px;margin:2rem auto;padding:0 2rem;">\n  <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap;">\n    <h2 style="font-family:var(--font-titel);font-size:22px;color:var(--groen);">📊 Lokale scores</h2>\n    <span style="font-size:12px;color:#888;font-family:var(--font-body);">Scores opgeslagen op deze computer</span>\n    <button onclick="document.getElementById('lokaal-screen').style.display='none';document.getElementById('login-screen').style.display='flex';" style="margin-left:auto;font-family:var(--font-body);font-size:13px;padding:7px 14px;border-radius:8px;border:1px solid #e5e7eb;background:transparent;cursor:pointer;">← Terug</button>\n    <button onclick="renderLokaalDashboard()" style="font-family:var(--font-body);font-size:13px;padding:7px 14px;border-radius:8px;border:none;background:var(--groen);color:#fff;cursor:pointer;">↺ Vernieuwen</button>\n  </div>\n\n  <!-- Stats -->\n  <div id="lokaal-stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:1.5rem;"></div>\n\n  <!-- Leaderboard -->\n  <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;">\n    <div style="padding:14px 16px;border-bottom:1px solid #e5e7eb;font-family:var(--font-titel);font-size:16px;color:var(--groen);">🏆 Leaderboard — beste score per leerling</div>\n    <div id="lokaal-leaderboard"></div>\n  </div>\n\n  <!-- Recente sessies -->\n  <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">\n    <div style="padding:14px 16px;border-bottom:1px solid #e5e7eb;font-family:var(--font-titel);font-size:16px;color:var(--groen);">📋 Recente sessies (laatste 50)</div>\n    <div id="lokaal-sessies"></div>\n  </div>\n</div>\n\n<script>\n// ── Configuratie ──────────────────────────────────────────────────────────────\n
+
 const CONFIG = {
   clientId: '247782565692-60him09rermeq8u832vpuc3hsihm48ei.apps.googleusercontent.com',
   appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwhh5IJNej_vQ7s-iCAFJXikwBPMBUWdUciKdMgTzDUKoBbkhXfH8NPrG_S_EH8iMGO/exec',
   allowedDomain: 'groenhoveschool.be',
+  tokenKey: 'groenhove_dash_token',
   userKey: 'groenhove_dash_user',
-  expiryKey: 'groenhove_dash_expiry'
+  expiryKey: 'groenhove_dash_expiry',
 };
 
 let huidigGebruiker = null;
-const state = {
-  leerlingen: [],
-  voortgang: [],
-  filteredStudents: [],
-  filteredRecords: []
-};
+
+// ── Initialisatie ─────────────────────────────────────────────────────────────
 
 window.addEventListener('DOMContentLoaded', () => {
   if (isSessionGeldig()) {
@@ -757,15 +431,11 @@ window.addEventListener('DOMContentLoaded', () => {
 function isSessionGeldig() {
   const expiry = localStorage.getItem(CONFIG.expiryKey);
   const user = localStorage.getItem(CONFIG.userKey);
-  return Boolean(expiry && user && Date.now() < parseInt(expiry, 10));
+  return expiry && user && Date.now() < parseInt(expiry);
 }
 
 function getStoredUser() {
-  try {
-    return JSON.parse(localStorage.getItem(CONFIG.userKey));
-  } catch {
-    return null;
-  }
+  try { return JSON.parse(localStorage.getItem(CONFIG.userKey)); } catch { return null; }
 }
 
 function laadGSI() {
@@ -786,7 +456,7 @@ function initGSI() {
 
   google.accounts.id.renderButton(
     document.getElementById('login-btn-container'),
-    { type: 'standard', theme: 'outline', size: 'large', text: 'signin_with', width: 300 }
+    { type: 'standard', theme: 'outline', size: 'large', text: 'signin_with', width: 280 }
   );
 }
 
@@ -798,7 +468,7 @@ async function handleCredential(response) {
     const result = await fetch(CONFIG.appsScriptUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'verifyToken', token: response.credential })
+      body: JSON.stringify({ action: 'verifyToken', token: response.credential }),
     });
     const data = await result.json();
 
@@ -809,7 +479,7 @@ async function handleCredential(response) {
       localStorage.setItem(CONFIG.expiryKey, String(expiry));
       toonDashboard();
     } else {
-      errorEl.textContent = '⚠️ ' + (data.error || data.fout || 'Geen toegang. Gebruik je schoolaccount.');
+      errorEl.textContent = '⚠️ ' + (data.error || 'Geen toegang.') + ' Gebruik je @groenhoveschool.be account.';
       errorEl.style.display = 'block';
     }
   } catch (err) {
@@ -819,233 +489,173 @@ async function handleCredential(response) {
 }
 
 function uitloggen() {
+  localStorage.removeItem(CONFIG.tokenKey);
   localStorage.removeItem(CONFIG.userKey);
   localStorage.removeItem(CONFIG.expiryKey);
   if (window.google) google.accounts.id.disableAutoSelect();
   location.reload();
 }
 
+// ── Dashboard tonen ───────────────────────────────────────────────────────────
+
 function toonDashboard() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
 
-  const naam = huidigGebruiker?.naam || titleCase((huidigGebruiker?.email || '').split('@')[0] || 'Leraar');
+  const naam = huidigGebruiker?.naam || huidigGebruiker?.email?.split('@')[0] || '';
   document.getElementById('auth-status').innerHTML = `
-    <span class="user-pill">👤 ${escapeHtml(naam)}</span>
-    <button class="btn-ghost" onclick="uitloggen()">Uitloggen</button>
+    <span style="opacity:0.85;">👤 ${naam}</span>
+    <button class="btn-uitloggen" onclick="uitloggen()">Uitloggen</button>
   `;
 
   laadData();
 }
 
 async function laadData() {
-  const refreshBtn = document.getElementById('btn-refresh');
-  const exportBtn = document.getElementById('btn-export');
-  refreshBtn.disabled = true;
-  exportBtn.disabled = true;
-  refreshBtn.textContent = '↺ Laden…';
+  const btn = document.getElementById('btn-refresh');
+  btn.disabled = true;
+  btn.textContent = '↺ Laden…';
 
   try {
-    const res = await fetch(CONFIG.appsScriptUrl + '?action=getDashboard&t=' + Date.now());
+    const url = CONFIG.appsScriptUrl + '?action=getDashboard&t=' + Date.now();
+    const res = await fetch(url);
     const data = await res.json();
 
-    if (!data.ok) throw new Error(data.fout || data.error || 'Kon gegevens niet laden.');
-
-    state.leerlingen = Array.isArray(data.leerlingen) ? data.leerlingen : [];
-    state.voortgang = Array.isArray(data.voortgang) ? data.voortgang : [];
-
-    updateHeaderTimestamp(data.timestamp);
-    applyFilters();
+    if (data.ok) {
+      verwerkData(data);
+      document.getElementById('laatste-update').textContent =
+        'Laatste update: ' + new Date().toLocaleTimeString('nl-BE');
+    } else {
+      toonFout('Kon data niet laden: ' + (data.error || ''));
+    }
   } catch (err) {
-    toonFout(err.message || 'Onbekende fout.');
+    toonFout('Verbindingsfout: ' + err.message);
   } finally {
-    refreshBtn.disabled = false;
-    exportBtn.disabled = false;
-    refreshBtn.textContent = '↺ Vernieuwen';
+    btn.disabled = false;
+    btn.innerHTML = '↺ Vernieuwen';
   }
 }
 
-function updateHeaderTimestamp(ts) {
-  const date = ts ? new Date(ts) : new Date();
-  const text = isNaN(date) ? 'Laatst vernieuwd: zonet' : 'Laatst vernieuwd: ' + formatDateTime(date, true);
-  document.getElementById('laatste-update').textContent = text;
+function verwerkData(data) {
+  const { leerlingen, voortgang } = data;
+
+  // Stats
+  document.getElementById('stat-leerlingen').textContent = leerlingen.length;
+  document.getElementById('badge-leerlingen').textContent = leerlingen.length;
+
+  const les1Set = new Set(voortgang.filter(v => v.les === 'les1').map(v => v.email));
+  const les2Set = new Set(voortgang.filter(v => v.les === 'les2').map(v => v.email));
+  document.getElementById('stat-les1').textContent = les1Set.size;
+  document.getElementById('stat-les2').textContent = les2Set.size;
+
+  const scores = voortgang.filter(v => v.procent).map(v => parseInt(v.procent));
+  const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
+  document.getElementById('stat-gem').textContent = gem !== null ? gem + '%' : '—';
+
+  // Leerlingentabel
+  renderLeerlingen(leerlingen, voortgang, les1Set, les2Set);
+
+  // Voortgangtabel
+  renderVoortgang(voortgang);
+  document.getElementById('badge-voortgang').textContent = voortgang.length;
 }
 
-function applyFilters() {
-  const term = (document.getElementById('zoek-input').value || '').trim().toLowerCase();
-  const lesFilter = document.getElementById('filter-les').value;
-  const typeFilter = document.getElementById('filter-type').value;
-
-  const normalizedRecords = state.voortgang.map(normalizeRecord);
-  const filteredRecords = normalizedRecords.filter(rec => {
-    const matchText = !term || rec.searchText.includes(term);
-    const matchLes = lesFilter === 'all' || rec.lesKey === lesFilter;
-    const matchType = typeFilter === 'all' || rec.type === typeFilter;
-    return matchText && matchLes && matchType;
-  });
-
-  state.filteredRecords = filteredRecords;
-
-  const allStudents = buildStudents(state.leerlingen, normalizedRecords);
-  const filteredStudents = allStudents.filter(st => {
-    const matchText = !term || st.searchText.includes(term);
-    const matchLes = lesFilter === 'all' || st.lessen.includes(lesFilter);
-    const matchType = typeFilter === 'all' || st.records.some(r => r.type === typeFilter);
-    return matchText && matchLes && matchType;
-  });
-
-  state.filteredStudents = filteredStudents;
-
-  renderStats(allStudents, normalizedRecords);
-  renderLeerlingen(filteredStudents);
-  renderVoortgang(filteredRecords);
-}
-
-function normalizeRecord(raw) {
-  const email = normalizeEmail(raw.email || '');
-  const displayName = chooseDisplayName(raw.naam, email);
-  const lesKey = getLesKey(raw.les || '');
-  const lesLabel = getLesLabel(lesKey, raw.les || '');
-  const type = raw.type === 'ai' ? 'ai' : 'progress';
-  const onderdeel = humanizeOnderdeel(raw.onderdeel || raw.vraagId || '');
-  const antwoord = String(raw.antwoord || '').trim();
-  const datumObj = parseDate(raw.datum);
-  const score = numberOrNull(raw.score);
-  const maxScore = numberOrNull(raw.maxScore);
-  const procent = numberOrNull(raw.procent);
-
-  return {
-    ...raw,
-    email,
-    displayName,
-    lesKey,
-    lesLabel,
-    type,
-    onderdeel,
-    antwoord,
-    datumObj,
-    score,
-    maxScore,
-    procent,
-    searchText: `${displayName} ${email} ${lesLabel} ${onderdeel}`.toLowerCase()
-  };
-}
-
-function buildStudents(leerlingen, records) {
-  const map = new Map();
-
-  (leerlingen || []).forEach(l => {
-    const email = normalizeEmail(l.email || '');
-    if (!email) return;
-    map.set(email, {
-      email,
-      naam: chooseDisplayName(l.naam, email),
-      laatsteLogin: parseDate(l.laatsteLogin),
-      eersteLogin: parseDate(l.eersteLogin),
-      records: []
-    });
-  });
-
-  records.forEach(r => {
-    if (!r.email) return;
-    if (!map.has(r.email)) {
-      map.set(r.email, {
-        email: r.email,
-        naam: r.displayName,
-        laatsteLogin: null,
-        eersteLogin: null,
-        records: []
-      });
-    }
-    const student = map.get(r.email);
-    if (!student.naam || student.naam === titleCase(r.email.split('@')[0])) {
-      student.naam = r.displayName;
-    }
-    student.records.push(r);
-  });
-
-  return Array.from(map.values()).map(st => {
-    const lessonSet = new Set(st.records.map(r => r.lesKey).filter(Boolean));
-    const scored = st.records.filter(r => typeof r.procent === 'number');
-    const gemiddelde = scored.length
-      ? Math.round(scored.reduce((sum, r) => sum + r.procent, 0) / scored.length)
-      : null;
-
-    const latestRecordDate = st.records
-      .map(r => r.datumObj)
-      .filter(Boolean)
-      .sort((a,b) => b - a)[0] || null;
-
-    const laatsteActiviteit = latestRecordDate || st.laatsteLogin || null;
-
-    return {
-      ...st,
-      lessen: Array.from(lessonSet).sort(),
-      gemiddelde,
-      registraties: st.records.length,
-      laatsteActiviteit,
-      laatsteLabel: laatsteActiviteit ? formatDateTime(laatsteActiviteit, true) : '—',
-      searchText: `${st.naam} ${st.email}`.toLowerCase()
-    };
-  }).sort((a, b) => {
-    const da = a.laatsteActiviteit ? a.laatsteActiviteit.getTime() : 0;
-    const db = b.laatsteActiviteit ? b.laatsteActiviteit.getTime() : 0;
-    return db - da || a.naam.localeCompare(b.naam, 'nl');
-  });
-}
-
-function renderStats(students, records) {
-  const uniekeLeerlingen = students.length;
-  const actieveLessen = students.filter(st => st.lessen.length > 0).length;
-  const scored = records.filter(r => typeof r.procent === 'number');
-  const gemiddelde = scored.length ? Math.round(scored.reduce((sum, r) => sum + r.procent, 0) / scored.length) : null;
-
-  document.getElementById('stat-leerlingen').textContent = uniekeLeerlingen;
-  document.getElementById('stat-lessen').textContent = actieveLessen;
-  document.getElementById('stat-gem').textContent = gemiddelde === null ? '—' : gemiddelde + '%';
-  document.getElementById('stat-reg').textContent = records.length;
-}
-
-function renderLeerlingen(students) {
+function renderLeerlingen(leerlingen, voortgang, les1Set, les2Set) {
   const container = document.getElementById('tabel-leerlingen');
-  document.getElementById('badge-leerlingen').textContent = students.length;
 
-  if (!students.length) {
-    container.innerHTML = '<div class="empty-state">Geen leerlingen gevonden voor deze filters.</div>';
+  if (!leerlingen.length) {
+    container.innerHTML = '<div class="leeg">Nog geen leerlingen ingelogd.</div>';
     return;
   }
 
-  const rows = students.map(st => {
-    const lessonsHtml = st.lessen.length
-      ? `<div class="chips">${st.lessen.map(key => `<span class="chip ${key === 'les1' ? 'chip-les1' : key === 'les2' ? 'chip-les2' : 'chip-neutral'}">${escapeHtml(getLesLabel(key))}</span>`).join('')}</div>`
-      : '<span class="muted">Nog geen lesactiviteit</span>';
+  const voortgangPerEmail = {};
+  voortgang.forEach(v => {
+    if (!voortgangPerEmail[v.email]) voortgangPerEmail[v.email] = [];
+    voortgangPerEmail[v.email].push(v);
+  });
 
-    const scoreHtml = typeof st.gemiddelde === 'number'
-      ? `
-        <div class="progress-inline">
-          <div class="progress-track">
-            <div class="progress-fill ${st.gemiddelde >= 70 ? 'hoog' : st.gemiddelde < 50 ? 'laag' : ''}" style="width:${st.gemiddelde}%"></div>
-          </div>
-          <strong>${st.gemiddelde}%</strong>
-        </div>
-      `
-      : '<span class="muted">Geen scoredata</span>';
+  const rows = leerlingen.map(l => {
+    const vp = voortgangPerEmail[l.email] || [];
+    const heeftLes1 = les1Set.has(l.email);
+    const heeftLes2 = les2Set.has(l.email);
+    const scores = vp.filter(v => v.procent).map(v => parseInt(v.procent));
+    const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
+    const datum = l.laatsteLogin ? new Date(l.laatsteLogin).toLocaleDateString('nl-BE') : '—';
 
     return `
       <tr>
+        <td><strong>${l.naam || '—'}</strong></td>
+        <td class="td-email">${l.email}</td>
         <td>
-          <div class="persoon">
-            <div class="avatar">${escapeHtml(initials(st.naam))}</div>
-            <div class="persoon-info">
-              <div class="persoon-naam">${escapeHtml(st.naam)}</div>
-              <div class="persoon-mail">${escapeHtml(st.email)}</div>
-            </div>
-          </div>
+          ${heeftLes1 ? '<span class="chip chip-les1">Les 1 ✓</span>' : '<span class="chip chip-geen">Les 1</span>'}
+          ${heeftLes2 ? ' <span class="chip chip-les2">Les 2 ✓</span>' : ' <span class="chip chip-geen">Les 2</span>'}
         </td>
-        <td>${lessonsHtml}</td>
-        <td>${scoreHtml}</td>
-        <td><span class="muted">${escapeHtml(st.laatsteLabel)}</span></td>
-        <td><span class="mini-pill">${st.registraties}</span></td>
+        <td>
+          ${gem !== null ? `
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="progress-bar" style="width:80px;">
+                <div class="progress-fill ${gem >= 70 ? 'hoog' : gem < 50 ? 'laag' : ''}"
+                     style="width:${gem}%"></div>
+              </div>
+              <span style="font-size:13px;">${gem}%</span>
+            </div>
+          ` : '<span style="color:#9ca3af;font-size:13px;">geen data</span>'}
+        </td>
+        <td style="color:var(--grijs);font-size:13px;">${datum}</td>
+      </tr>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Naam</th>
+          <th>E-mail</th>
+          <th>Lessen</th>
+          <th>Gem. score</th>
+          <th>Laatste login</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+}
+
+function renderVoortgang(voortgang) {
+  const container = document.getElementById('tabel-voortgang');
+
+  if (!voortgang.length) {
+    container.innerHTML = '<div class="leeg">Nog geen voortgang geregistreerd.</div>';
+    return;
+  }
+
+  // Sorteer op datum aflopend
+  const gesorteerd = [...voortgang].sort((a, b) => new Date(b.datum) - new Date(a.datum));
+
+  const rows = gesorteerd.slice(0, 50).map(v => {
+    const procent = v.procent ? parseInt(v.procent) : null;
+    const datum = v.datum ? new Date(v.datum).toLocaleString('nl-BE', {
+      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+    }) : '—';
+
+    return `
+      <tr>
+        <td class="td-email">${v.email}</td>
+        <td><span class="chip ${v.les === 'les1' ? 'chip-les1' : 'chip-les2'}">${v.les || '—'}</span></td>
+        <td style="font-size:13px;color:var(--grijs);">${v.onderdeel || '—'}</td>
+        <td>
+          ${procent !== null ? `
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="progress-bar" style="width:60px;">
+                <div class="progress-fill ${procent >= 70 ? 'hoog' : procent < 50 ? 'laag' : ''}"
+                     style="width:${procent}%"></div>
+              </div>
+              <span style="font-size:13px;">${v.score}/${v.maxScore} (${procent}%)</span>
+            </div>
+          ` : '—'}
+        </td>
+        <td style="color:var(--grijs);font-size:12px;">${datum}</td>
       </tr>
     `;
   }).join('');
@@ -1055,234 +665,117 @@ function renderLeerlingen(students) {
       <thead>
         <tr>
           <th>Leerling</th>
-          <th>Lessen</th>
-          <th>Gem. score</th>
-          <th>Laatste activiteit</th>
-          <th>Registraties</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
-}
-
-function renderVoortgang(records) {
-  const container = document.getElementById('tabel-voortgang');
-  document.getElementById('badge-registraties').textContent = records.length;
-
-  if (!records.length) {
-    container.innerHTML = '<div class="empty-state">Geen registraties gevonden voor deze filters.</div>';
-    return;
-  }
-
-  const rows = [...records]
-    .sort((a, b) => (b.datumObj?.getTime() || 0) - (a.datumObj?.getTime() || 0))
-    .slice(0, 80)
-    .map(rec => {
-      const resultHtml = typeof rec.procent === 'number'
-        ? `
-          <div class="progress-inline">
-            <div class="progress-track">
-              <div class="progress-fill ${rec.procent >= 70 ? 'hoog' : rec.procent < 50 ? 'laag' : ''}" style="width:${rec.procent}%"></div>
-            </div>
-            <span>${rec.score ?? '—'}/${rec.maxScore ?? '—'} (${rec.procent}%)</span>
-          </div>
-        `
-        : '<span class="muted">—</span>';
-
-      const preview = rec.antwoord
-        ? `<div class="answer-preview">${escapeHtml(rec.antwoord)}</div>`
-        : '<span class="muted">—</span>';
-
-      return `
-        <tr>
-          <td>
-            <div class="persoon">
-              <div class="avatar">${escapeHtml(initials(rec.displayName))}</div>
-              <div class="persoon-info">
-                <div class="persoon-naam">${escapeHtml(rec.displayName)}</div>
-                <div class="persoon-mail">${escapeHtml(rec.email)}</div>
-              </div>
-            </div>
-          </td>
-          <td><span class="chip ${rec.lesKey === 'les1' ? 'chip-les1' : rec.lesKey === 'les2' ? 'chip-les2' : 'chip-neutral'}">${escapeHtml(rec.lesLabel || 'Onbekende les')}</span></td>
-          <td><span class="muted" style="font-weight:600;color:#344054;">${escapeHtml(rec.onderdeel)}</span></td>
-          <td>${resultHtml}</td>
-          <td><span class="chip ${rec.type === 'ai' ? 'chip-ai' : 'chip-progress'}">${rec.type === 'ai' ? 'AI-feedback' : 'Voortgang'}</span></td>
-          <td>${preview}</td>
-          <td><span class="muted">${escapeHtml(formatDateTime(rec.datumObj, true))}</span></td>
-        </tr>
-      `;
-    }).join('');
-
-  const extraNote = records.length > 80
-    ? `<div class="empty-state" style="padding-top:14px;padding-bottom:16px;font-size:.82rem;">De tabel toont de 80 meest recente registraties van ${records.length} in totaal.</div>`
-    : '';
-
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Leerling</th>
           <th>Les</th>
           <th>Onderdeel</th>
-          <th>Resultaat</th>
-          <th>Type</th>
-          <th>Antwoord / preview</th>
+          <th>Score</th>
           <th>Datum</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
     </table>
-    ${extraNote}
+    ${gesorteerd.length > 50 ? `<p style="padding:12px 16px;font-size:12px;color:var(--grijs);">Toont laatste 50 van ${gesorteerd.length} registraties.</p>` : ''}
   `;
 }
 
-function exporteerCsv() {
-  if (!state.filteredRecords.length) return;
-
-  const rows = state.filteredRecords
-    .slice()
-    .sort((a, b) => (b.datumObj?.getTime() || 0) - (a.datumObj?.getTime() || 0))
-    .map(rec => ({
-      leerling: rec.displayName,
-      email: rec.email,
-      les: rec.lesLabel,
-      onderdeel: rec.onderdeel,
-      type: rec.type === 'ai' ? 'AI-feedback' : 'Voortgang',
-      score: rec.score ?? '',
-      maxScore: rec.maxScore ?? '',
-      procent: rec.procent ?? '',
-      antwoord: rec.antwoord || '',
-      datum: formatDateTime(rec.datumObj, false)
-    }));
-
-  const headers = Object.keys(rows[0]);
-  const csv = [
-    headers.join(';'),
-    ...rows.map(row => headers.map(h => csvEscape(row[h])).join(';'))
-  ].join('\n');
-
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'groenhove-dashboard-export.csv';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
-
 function toonFout(bericht) {
-  document.getElementById('tabel-leerlingen').innerHTML = `<div class="empty-state" style="color:var(--accent);">⚠️ ${escapeHtml(bericht)}</div>`;
-  document.getElementById('tabel-voortgang').innerHTML = `<div class="empty-state" style="color:var(--accent);">⚠️ ${escapeHtml(bericht)}</div>`;
+  document.getElementById('tabel-leerlingen').innerHTML =
+    `<div class="leeg" style="color:var(--accent);">⚠️ ${bericht}</div>`;
+  document.getElementById('tabel-voortgang').innerHTML = '';
 }
 
-function getLesKey(value) {
-  const raw = String(value || '').toLowerCase();
-  if (raw.includes('les 1') || raw.includes('les1') || raw.includes('wagenrennen')) return 'les1';
-  if (raw.includes('les 2') || raw.includes('les2') || raw.includes('nika')) return 'les2';
-  return '';
+// ══════════════════════════════════════════════
+// LOKALE MODUS — leest latijn_3ds_scores
+// ══════════════════════════════════════════════
+function toonLokaleModus() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('lokaal-screen').style.display = 'block';
+  renderLokaalDashboard();
 }
 
-function getLesLabel(key, fallback) {
-  if (key === 'les1') return 'Les 1';
-  if (key === 'les2') return 'Les 2';
-  return fallback ? String(fallback) : 'Onbekende les';
-}
+function renderLokaalDashboard() {
+  let scores = [];
+  try { scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
 
-function humanizeOnderdeel(value) {
-  const raw = String(value || '').trim();
-  const lower = raw.toLowerCase();
-  if (!raw) return '—';
-  if (lower === 'exit-v') return 'Exit ticket';
-  if (/^retrieval-\d+$/.test(lower)) return 'Retrieval ' + lower.split('-')[1];
-  if (/^ra\d+$/.test(lower)) return 'Retrieval antwoord ' + lower.replace('ra', '');
-  if (/^o-v\d+$/.test(lower)) return 'Ontdek ' + lower.replace('o-v', '');
-  if (/^a-v\d+$/.test(lower)) return 'Oefen ' + lower.replace('a-v', '');
-  if (lower === 'o-v0') return 'Terugblik op les 1';
-  if (lower.includes('thema 3 les 1')) return 'Les 1 — Wagenrennen';
-  if (lower.includes('thema 3 les 2')) return 'Les 2 — Nika-oproer';
-  return raw
-    .replace(/_/g, ' ')
-    .replace(/\b([oa])-v(\d+)\b/gi, (_, a, b) => a.toLowerCase() === 'o' ? `Ontdek ${b}` : `Oefen ${b}`)
-    .replace(/\s+/g, ' ')
-    .trim();
-}
+  // Stats
+  const vandaag = new Date().toISOString().slice(0,10);
+  const vandaagScores = scores.filter(s => (s.datum||'').slice(0,10) === vandaag);
+  const alleScores    = scores.map(s => s.juistheid ?? s.procent ?? 0).filter(n => !isNaN(n));
+  const gem           = alleScores.length ? Math.round(alleScores.reduce((a,b)=>a+b,0)/alleScores.length) : null;
+  const besteStreak   = scores.reduce((a,s) => Math.max(a, s.besteStreak||0), 0);
+  const totaalWoorden = scores.reduce((a,s) => a + (s.aantalWoorden||0), 0);
 
-function chooseDisplayName(name, email) {
-  const candidate = String(name || '').trim();
-  if (candidate && !candidate.includes('@') && !/\(answer\)/i.test(candidate) && !/^les\s*\d$/i.test(candidate)) {
-    return candidate;
+  document.getElementById('lokaal-stats').innerHTML = [
+    { label:'Sessies vandaag', val: vandaagScores.length },
+    { label:'Totaal sessies',  val: scores.length },
+    { label:'Gemiddelde score',val: gem !== null ? gem+'%' : '—' },
+    { label:'Beste combo',     val: besteStreak + ' 🔥' },
+    { label:'Woorden geoefend',val: totaalWoorden },
+  ].map(s => `<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1rem;">
+    <div style="font-family:var(--font-titel);font-size:22px;color:var(--groen);">${s.val}</div>
+    <div style="font-family:var(--font-body);font-size:11px;color:#888;margin-top:2px;">${s.label}</div>
+  </div>`).join('');
+
+  // Leaderboard
+  const perLeerling = {};
+  scores.forEach(s => {
+    const naam = (s.leerling || s.naam || 'Anoniem').trim();
+    const pct  = s.juistheid ?? s.procent ?? 0;
+    if (!perLeerling[naam] || pct > perLeerling[naam].pct) {
+      perLeerling[naam] = { naam, pct, streak: s.besteStreak||0, datum: s.datum, modus: s.modus };
+    }
+  });
+  const gesorteerd = Object.values(perLeerling).sort((a,b) => b.pct - a.pct);
+  const medailles  = ['🥇','🥈','🥉'];
+
+  if (!gesorteerd.length) {
+    document.getElementById('lokaal-leaderboard').innerHTML =
+      '<p style="padding:1.5rem;text-align:center;color:#888;font-size:13px;">Nog geen scores.</p>';
+  } else {
+    document.getElementById('lokaal-leaderboard').innerHTML = gesorteerd.map((r,i) => `
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #f3f4f6;background:${i===0?'rgba(245,158,11,.06)':'transparent'};">
+        <span style="font-size:20px;width:28px;text-align:center;flex-shrink:0;">${medailles[i]||(i+1)}</span>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-titel);font-size:14px;color:var(--groen);">${r.naam}</div>
+          <div style="font-size:11px;color:#9ca3af;">${r.modus||''} · ${r.datum?new Date(r.datum).toLocaleDateString('nl-BE'):''}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--font-titel);font-size:18px;color:${r.pct>=80?'#16a34a':r.pct>=50?'var(--groen)':'#dc2626'};">${Math.round(r.pct)}%</div>
+          <div style="font-size:11px;color:#f59e0b;">🔥 ${r.streak}</div>
+        </div>
+      </div>`).join('');
   }
-  if (email) {
-    const clean = email.replace(/\s*\(answer\)\s*/gi, '');
-    return titleCase(clean.split('@')[0].replace(/[._-]+/g, ' '));
+
+  // Recente sessies
+  const recent = [...scores].sort((a,b) => new Date(b.datum)-new Date(a.datum)).slice(0,50);
+  if (!recent.length) {
+    document.getElementById('lokaal-sessies').innerHTML =
+      '<p style="padding:1.5rem;text-align:center;color:#888;font-size:13px;">Nog geen sessies.</p>';
+  } else {
+    document.getElementById('lokaal-sessies').innerHTML = `
+      <table style="width:100%;border-collapse:collapse;">
+        <thead><tr style="background:#f9fafb;">
+          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Leerling</th>
+          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Modus</th>
+          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Thema/Tekst</th>
+          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Score</th>
+          <th style="padding:10px 14px;text-align:left;font-size:12px;color:#6b7280;font-weight:600;">Datum</th>
+        </tr></thead>
+        <tbody>${recent.map(s => {
+          const pct = Math.round(s.juistheid ?? s.procent ?? 0);
+          const kleur = pct>=80?'#16a34a':pct>=50?'#006633':'#dc2626';
+          return `<tr style="border-top:1px solid #f3f4f6;">
+            <td style="padding:9px 14px;font-size:13px;font-weight:600;">${s.leerling||s.naam||'Anoniem'}</td>
+            <td style="padding:9px 14px;font-size:12px;color:#6b7280;">${s.modus||'—'}</td>
+            <td style="padding:9px 14px;font-size:12px;color:#6b7280;">${s.thema?'Th.'+s.thema:''} ${s.tekst?'T.'+s.tekst:''}</td>
+            <td style="padding:9px 14px;">
+              <span style="font-weight:700;color:${kleur};font-size:14px;">${pct}%</span>
+              <span style="font-size:11px;color:#9ca3af;margin-left:4px;">${s.goed||0}/${(s.goed||0)+(s.fout||0)}</span>
+            </td>
+            <td style="padding:9px 14px;font-size:11px;color:#9ca3af;">${s.datum?new Date(s.datum).toLocaleString('nl-BE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):''}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>`;
   }
-  return 'Onbekend';
-}
-
-function normalizeEmail(value) {
-  return String(value || '').trim().toLowerCase().replace(/\s*\(answer\)\s*/gi, '');
-}
-
-function numberOrNull(value) {
-  if (value === '' || value === null || value === undefined) return null;
-  const n = Number(String(value).replace('%', '').trim());
-  return Number.isFinite(n) ? n : null;
-}
-
-function parseDate(value) {
-  if (!value) return null;
-  const d = value instanceof Date ? value : new Date(value);
-  return isNaN(d) ? null : d;
-}
-
-function formatDateTime(date, shortYear) {
-  if (!date) return '—';
-  try {
-    return new Intl.DateTimeFormat('nl-BE', {
-      day: '2-digit',
-      month: '2-digit',
-      year: shortYear ? 'numeric' : 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(date);
-  } catch {
-    return '—';
-  }
-}
-
-function initials(name) {
-  const words = String(name || '').trim().split(/\s+/).filter(Boolean);
-  if (!words.length) return '—';
-  return words.slice(0, 2).map(w => w.charAt(0).toUpperCase()).join('');
-}
-
-function titleCase(value) {
-  return String(value || '')
-    .split(/\s+/)
-    .filter(Boolean)
-    .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-    .join(' ');
-}
-
-function csvEscape(value) {
-  const str = String(value ?? '');
-  if (/[";\n]/.test(str)) {
-    return '"' + str.replace(/"/g, '""') + '"';
-  }
-  return str;
-}
-
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
 }
 </script>
 </body>
