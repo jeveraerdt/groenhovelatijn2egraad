@@ -7,18 +7,18 @@
 <style>
   @font-face {
     font-family: 'FlandersArtSans';
-    src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
+    src: url('fonts/flanders-art-sans/FlandersArtSans-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
   }
   @font-face {
     font-family: 'NotoSans';
-    src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+    src: url('fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
     font-weight: 400;
   }
   @font-face {
     font-family: 'NotoSans';
-    src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
+    src: url('fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
   }
   :root {
@@ -344,6 +344,32 @@
   .stat-blok { background: rgba(224,239,213,0.62); border: 1px solid rgba(0,102,51,0.10); border-radius: var(--radius); padding: .9rem 1rem; min-width: 92px; }
   .resultaat-stats { align-items: stretch; gap: .75rem; flex-wrap: wrap; }
 
+
+
+  /* ── Memolingo-geïnspireerde bovenlaag: luchtige app-kaarten, pad en activiteit ── */
+  .memo-hero { background: radial-gradient(circle at 85% 10%, rgba(255,59,29,.16), transparent 28%), linear-gradient(135deg, #f3f1ef 0%, #e0efd5 100%); border: 1px solid var(--rand); border-radius: 28px; padding: 1.4rem; margin-bottom: 1.25rem; display: grid; grid-template-columns: 1.2fr .8fr; gap: 1rem; box-shadow: 0 18px 40px rgba(0,102,51,.10); overflow: hidden; position: relative; }
+  .memo-hero h2 { font-family: var(--fv); color: var(--blauw); font-size: clamp(24px,4vw,42px); line-height: 1; letter-spacing: -.8px; margin-bottom: .5rem; }
+  .memo-hero p { font-family: var(--fo); color: var(--tekst-zacht); font-size: 14px; line-height: 1.55; max-width: 46ch; }
+  .memo-quick { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; align-content: center; }
+  .memo-tile { background: rgba(255,255,255,.72); border: 1px solid rgba(0,102,51,.13); border-radius: 22px; padding: .9rem; min-height: 86px; box-shadow: 0 10px 22px rgba(0,0,0,.06); }
+  .memo-tile strong { display:block; font-family:var(--fv); color:var(--blauw); font-size:22px; }
+  .memo-tile span { font-family:var(--fo); color:var(--tekst-zacht); font-size:12px; }
+  .memo-identity { display:flex; gap:.75rem; flex-wrap:wrap; align-items:end; background:rgba(243,241,239,.7); border:1px solid var(--rand); border-radius:22px; padding:1rem; margin-bottom:1.25rem; }
+  .memo-input { font-family:var(--fo); font-size:14px; padding:10px 12px; border:1px solid var(--rand); border-radius:12px; background:#fff; outline:none; min-width:220px; }
+  .memo-input:focus { border-color:var(--blauw); box-shadow:0 0 0 3px rgba(0,102,51,.12); }
+  .memo-link-btn { font-family:var(--fv); font-size:13px; color:#fff; background:var(--blauw); border:none; border-radius:999px; padding:10px 16px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; box-shadow:0 8px 18px rgba(0,102,51,.18); }
+  .memo-path { display:grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap:.75rem; margin-bottom:1.25rem; }
+  .memo-step { background:#fff; border:1px solid var(--rand); border-radius:22px; padding:1rem; min-height:110px; position:relative; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.06); }
+  .memo-step:before { content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--blauw),var(--roze)); }
+  .memo-step .ico { font-size:24px; margin-bottom:.4rem; }
+  .memo-step strong { display:block; font-family:var(--fv); color:var(--tekst); font-size:16px; }
+  .memo-step span { font-family:var(--fo); color:var(--tekst-zacht); font-size:12px; line-height:1.35; }
+  .activiteit-pill { display:inline-flex; align-items:center; gap:6px; font-family:var(--fo); font-size:12px; color:var(--tekst-zacht); background:rgba(255,255,255,.7); border:1px solid var(--rand); border-radius:999px; padding:7px 10px; }
+  .trainer-kaart, .modus-start, .resultaat-card { border-radius:28px !important; }
+  .flashcard-boven, .mk-boven, .inv-boven { background: radial-gradient(circle at 12% 10%, rgba(255,59,29,.08), transparent 30%); }
+  .mk-optie, .accent-btn, .res-btn, .modus-knop { border-radius:18px; }
+  @media (max-width: 760px){ .memo-hero{grid-template-columns:1fr}.memo-path{grid-template-columns:repeat(2,minmax(0,1fr))}.memo-quick{grid-template-columns:repeat(2,1fr)} }
+
   /* ── Responsive ── */
   @media (max-width: 600px) {
     .selectie-aanv { display: none; }
@@ -362,16 +388,48 @@
 <div id="s-selectie" class="scherm actief">
     <div style="max-width:960px;margin:0 auto;width:100%;padding:1.5rem 2rem 1.25rem;border-bottom:3px solid var(--jaar-kleur);display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:#f3f1ef;">
     <div style="display:flex;flex-direction:column;gap:3px;">
-      <a class="terug-link" href="../oefeningen-3de.html">← Terug naar Oefeningen</a>
+      <a class="terug-link" href="oefeningen-3ds.html">← Terug naar Oefeningen</a>
       <h1 style="font-size:28px;font-weight:700;color:var(--jaar-kleur);letter-spacing:-0.5px;font-family:var(--fv);">Woordjestrainer 3DS</h1>
     </div>
     <span id="header-teller" style="font-size:13px;color:var(--tekst-zacht);font-family:var(--fo);">laden…</span>
-    <button class="moeilijk-teller" id="moeilijk-teller" onclick="naarMoeilijkeLijst()" title="Ga naar mijn moeilijke woorden" style="display:none">
-      ⭐ <span id="moeilijk-aantal">0</span>
-    </button>
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+      <span class="activiteit-pill" id="activiteit-samenvatting">Vandaag: 0 sessies</span>
+      <a class="memo-link-btn" href="dashboard_memolingo.html">Dashboard</a>
+      <button class="moeilijk-teller" id="moeilijk-teller" onclick="naarMoeilijkeLijst()" title="Ga naar mijn moeilijke woorden" style="display:none">
+        ⭐ <span id="moeilijk-aantal">0</span>
+      </button>
+    </div>
   </div>
 
   <div class="inhoud">
+
+    <section class="memo-hero">
+      <div>
+        <h2>Leer Latijnse woorden stap voor stap — oefen, antwoord en verbeter</h2>
+        <p>Kies je reeks, start een korte missie en bouw combo op. De trainer bewaart activiteit lokaal en kan die doorgeven aan het dashboard.</p>
+      </div>
+      <div class="memo-quick">
+        <div class="memo-tile"><strong id="memo-sessies">0</strong><span>sessies vandaag</span></div>
+        <div class="memo-tile"><strong id="memo-gem">—</strong><span>gemiddelde score</span></div>
+        <div class="memo-tile"><strong id="memo-combo">0</strong><span>beste combo</span></div>
+        <div class="memo-tile"><strong id="memo-woorden">0</strong><span>woorden geoefend</span></div>
+      </div>
+    </section>
+
+    <section class="memo-identity">
+      <div class="filter-groep">
+        <span class="filter-label">Leerlingcode / nickname</span>
+        <input class="memo-input" id="leerling-code" placeholder="bv. 3DS-07 of Aquila7" oninput="bewaarLeerlingCode()">
+      </div>
+      <a class="memo-link-btn" href="dashboard_memolingo.html">Bekijk activiteit →</a>
+    </section>
+
+    <section class="memo-path" aria-label="Leerpad">
+      <div class="memo-step"><div class="ico">①</div><strong>Kies set</strong><span>Thema, tekst, basiswoorden of moeilijke woorden.</span></div>
+      <div class="memo-step"><div class="ico">②</div><strong>Leerkaart</strong><span>Grondvorm, aanvulling en betekenis komen als kaart binnen.</span></div>
+      <div class="memo-step"><div class="ico">③</div><strong>Quiz</strong><span>Meerkeuze of invullen met combo-feedback.</span></div>
+      <div class="memo-step"><div class="ico">④</div><strong>Herhaal</strong><span>Fouten worden bewaard voor gerichte herhaling.</span></div>
+    </section>
 
     <!-- Filters -->
     <div class="filter-rij">
@@ -1325,21 +1383,39 @@ function trainFoutenOpnieuw() {
 
 function bewaarScore(pct) {
   try {
+    const thema = document.getElementById('sel-ludus')?.value || '';
+    const tekst = document.getElementById('sel-tekst')?.value || '';
+    const leerling = (localStorage.getItem('groenhove_leerling_code') || '').trim() || 'anoniem';
+    const record = {
+      datum: new Date().toISOString(), leerling, email: leerling, naam: leerling,
+      modus: gekozenModus, les: thema ? `thema${thema}` : 'vrije_selectie', onderdeel: tekst ? `tekst ${tekst}` : 'alle teksten', thema, tekst,
+      goed: aantalGoed, fout: aantalFout, score: aantalGoed, maxScore: Math.max(1, aantalGoed + aantalFout), procent: pct, juistheid: pct,
+      besteStreak, scorePunten, aantalWoorden: trainRij.length, fouten: foutWoorden.map(w => w.grondvorm)
+    };
     const key = 'latijn_3ds_scores';
-    const scores = JSON.parse(localStorage.getItem(key) || '[]');
-    scores.push({
-      datum: new Date().toISOString(),
-      modus: gekozenModus,
-      goed: aantalGoed,
-      fout: aantalFout,
-      juistheid: pct,
-      besteStreak,
-      aantalWoorden: trainRij.length,
-      thema: document.getElementById('sel-ludus')?.value || '',
-      tekst: document.getElementById('sel-tekst')?.value || ''
-    });
-    localStorage.setItem(key, JSON.stringify(scores.slice(-50)));
-  } catch {}
+    const scores = JSON.parse(localStorage.getItem(key) || '[]'); scores.push(record); localStorage.setItem(key, JSON.stringify(scores.slice(-200)));
+    const activityKey = 'groenhove_latijn_activity';
+    const activity = JSON.parse(localStorage.getItem(activityKey) || '[]'); activity.push(record); localStorage.setItem(activityKey, JSON.stringify(activity.slice(-500)));
+    zendScoreNaarDashboard(record); updateLokaleActiviteit();
+  } catch (err) { console.warn('Score bewaren mislukt', err); }
+}
+function zendScoreNaarDashboard(record) {
+  const url = window.GROENHOVE_APPS_SCRIPT_URL || '';
+  if (!url) return;
+  try { fetch(url, { method:'POST', body:new URLSearchParams({ action:'saveProgress', payload:JSON.stringify(record) }), mode:'no-cors' }).catch(() => {}); } catch {}
+}
+function bewaarLeerlingCode() { const val = document.getElementById('leerling-code')?.value || ''; localStorage.setItem('groenhove_leerling_code', val.trim()); }
+function updateLokaleActiviteit() {
+  let items = []; try { items = JSON.parse(localStorage.getItem('groenhove_latijn_activity') || localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
+  const vandaag = new Date().toISOString().slice(0,10);
+  const vandaagItems = items.filter(x => String(x.datum || '').slice(0,10) === vandaag);
+  const scores = items.map(x => Number(x.procent ?? x.juistheid)).filter(n => !Number.isNaN(n));
+  const woorden = items.reduce((a,x) => a + Number(x.aantalWoorden || x.maxScore || 0), 0);
+  const combo = items.reduce((a,x) => Math.max(a, Number(x.besteStreak || 0)), 0);
+  const gem = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) + '%' : '—';
+  const set = (id, value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
+  set('memo-sessies', vandaagItems.length); set('memo-gem', gem); set('memo-combo', combo); set('memo-woorden', woorden);
+  set('activiteit-samenvatting', `Vandaag: ${vandaagItems.length} sessie${vandaagItems.length===1?'':'s'}`);
 }
 
 // ══════════════════════════════════════════════
@@ -1420,6 +1496,9 @@ function naarMoeilijkeLijst() {
 // ══════════════════════════════════════════════
 init();
 updateMoeilijkTeller();
+const leerlingInput = document.getElementById('leerling-code');
+if (leerlingInput) leerlingInput.value = localStorage.getItem('groenhove_leerling_code') || '';
+updateLokaleActiviteit();
 </script>
 </body>
 </html>
