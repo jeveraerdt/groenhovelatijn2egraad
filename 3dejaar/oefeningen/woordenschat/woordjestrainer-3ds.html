@@ -116,6 +116,9 @@
   .tekst-pill:hover { border-color: var(--blauw); color: var(--blauw); }
   .tekst-pill.actief { border-color: var(--blauw); background: var(--blauw); color: #fff; }
 
+  .thema-placeholder { opacity: .6; cursor: default !important; }
+  .thema-placeholder:hover { transform: none !important; box-shadow: none !important; border-color: var(--rand) !important; }
+
   /* Voortgangsbalkje per themakaart */
   .thema-voortgang { height: 4px; border-radius: 99px; background: rgba(0,102,51,.12); overflow: hidden; margin-top: 2px; }
   .thema-voortgang-inner { height: 100%; border-radius: 99px; background: var(--blauw); transition: width .3s ease; }
@@ -396,7 +399,7 @@
   .resultaat-card { background: var(--kaart); border: 1px solid var(--rand); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: 0 16px 38px rgba(0,102,51,0.11); margin: 0 auto 1.5rem; max-width: 520px; }
   .resultaat-meter { height: 12px; border-radius: 99px; background: rgba(0,102,51,0.12); overflow: hidden; margin-top: 1rem; }
   .resultaat-meter-inner { height: 100%; background: linear-gradient(90deg, var(--blauw), var(--roze)); border-radius: 99px; transition: width .8s ease; }
-  .resultaat-rang { display: inline-flex; margin-bottom: .75rem; font-family: var(--fo); font-size: 12px; color: var(--blauw); background: var(--jaar-kleur-licht); border: 1px solid var(--rand); padding: 6px 10px; border-radius: 99px; }
+  .resultaat-rang { display: inline-flex; margin-bottom: .75rem; font-family: var(--fv); font-size: 12px; color: #fff; background: var(--deep-forest); border: 1px solid var(--deep-forest); padding: 6px 12px; border-radius: 99px; letter-spacing: .03em; }
   .stat-blok { background: rgba(224,239,213,0.62); border: 1px solid rgba(0,102,51,0.10); border-radius: var(--radius); padding: .9rem 1rem; min-width: 92px; }
   .resultaat-stats { align-items: stretch; gap: .75rem; flex-wrap: wrap; }
 
@@ -508,6 +511,17 @@
 
   <div class="inhoud">
 
+    <!-- Naam invoeren (logische plek: vóór de oefening begint) -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;background:var(--kaart);border:1px solid var(--rand);border-radius:var(--radius);padding:.85rem 1rem;flex-wrap:wrap;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tekst-zacht)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <label for="leerling-code" style="font-family:var(--fv);font-size:13px;color:var(--blauw);white-space:nowrap;">Jouw naam:</label>
+      <input id="leerling-code" type="text" placeholder="bv. Jan of 3DS-07"
+        style="font-family:var(--fo);font-size:13px;padding:7px 11px;border:1px solid var(--rand);border-radius:8px;background:#fff;outline:none;flex:1;min-width:140px;transition:border-color .15s;"
+        oninput="bewaarLeerlingCode()"
+        onfocus="this.style.borderColor='var(--blauw)'" onblur="this.style.borderColor='var(--rand)'">
+      <span style="font-family:var(--fo);font-size:11px;color:#aaa;white-space:nowrap;">Naam wordt bewaard voor het leaderboard</span>
+    </div>
+
     <!-- Zoekbalk -->
     <div class="thema-zoek-wrap">
       <svg class="thema-zoek-icoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -587,7 +601,7 @@
       </button>
     </div>
   </div>
-  <p class="voet">J. Everaerdt &mdash; athena Campus Groenhove &mdash; 3DS Latijn</p>
+  <p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -656,7 +670,7 @@
       <button class="res-btn res-btn-secundair" onclick="naarSelectie()">Andere selectie</button>
     </div>
   </div>
-  <p class="voet">J. Everaerdt &mdash; athena Campus Groenhove &mdash; 3DS Latijn</p>
+  <p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -669,13 +683,11 @@
     <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;">S.O. Groenhove Waregem</span>
   </header>
   <div style="max-width:700px;margin:2rem auto;padding:0 1.5rem;flex:1;">
-    <!-- Naam invoeren -->
+    <!-- Naam weergeven + knoppen -->
     <div style="background:#fff;border:1px solid var(--rand);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-      <label style="font-family:var(--fo);font-size:13px;color:var(--tekst-zacht);flex-shrink:0;">Jouw naam:</label>
-      <input id="lb-naam" type="text" placeholder="bv. Jan of 3DS-07"
-        style="font-family:var(--fo);font-size:14px;padding:8px 12px;border:1px solid var(--rand);border-radius:8px;background:#fff;outline:none;flex:1;min-width:160px;"
-        oninput="bewaarLeerlingCode()" value="">
-      <button onclick="renderLeaderboard()" style="font-family:var(--fv);font-size:13px;padding:8px 16px;border-radius:99px;border:none;background:var(--blauw);color:#fff;cursor:pointer;">↺ Vernieuwen</button>
+      <span style="font-family:var(--fv);font-size:14px;color:var(--blauw);" id="lb-naam-toon">—</span>
+      <span style="font-family:var(--fo);font-size:11px;color:#aaa;">Wijzig je naam op de startpagina</span>
+      <button onclick="renderLeaderboard()" style="font-family:var(--fv);font-size:13px;padding:8px 16px;border-radius:99px;border:none;background:var(--blauw);color:#fff;cursor:pointer;margin-left:auto;">↺ Vernieuwen</button>
       <button onclick="naarSelectie()" style="font-family:var(--fo);font-size:13px;padding:8px 16px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;">← Terug</button>
     </div>
     <!-- Ranglijst -->
@@ -729,7 +741,7 @@ let lerenSubfase     = {};  // bijhouding per woord in leren-modus
 const THEMA_CONFIG = {
   1: { naam: 'Animo subdolo',       icoon: '🦊', kleur: '#e0f5eb' },
   2: { naam: 'Vita an species?',    icoon: '🎭', kleur: '#fff3e0' },
-  3: { naam: 'Thema 3',             icoon: '🏛️', kleur: '#e8eaf6' },
+  3: { naam: 'Panem et Circenses',  icoon: '🏟️', kleur: '#e8eaf6' },
   4: { naam: 'Thema 4',             icoon: '⚔️', kleur: '#fce4ec' },
 };
 
@@ -761,8 +773,10 @@ function renderThemaKaarten() {
     if (w.thema) tellers[w.thema] = (tellers[w.thema] || 0) + 1;
   });
 
-  // Unieke thema's
-  const themas = [...new Set(woordenlijst_3ds.map(w => w.thema).filter(Boolean))].sort((a,b)=>a-b);
+  // Unieke thema's — altijd ook thema 3 tonen als placeholder (ook als woordenlijst nog leeg)
+  const themaSetRaw = new Set(woordenlijst_3ds.map(w => w.thema).filter(Boolean));
+  themaSetRaw.add(3); // Panem et Circenses — placeholder tot woordenlijst.js wordt aangevuld
+  const themas = [...themaSetRaw].sort((a,b)=>a-b);
   const moeilijkN = laadMoeilijkeWoorden().size;
 
   let html = '';
@@ -791,11 +805,12 @@ function renderThemaKaarten() {
     const cfg = THEMA_CONFIG[t] || { naam:`Thema ${t}`, icoon:'📚', kleur:'#f5f5f5' };
     const n = tellers[t] || 0;
     const actief = gekozenThema === String(t);
-    html += `<div class="thema-kaart${actief?' actief':''}" onclick="kiesThema('${t}')">
+    const placeholder = n === 0;
+    html += `<div class="thema-kaart${actief?' actief':''}${placeholder?' thema-placeholder':''}" onclick="${placeholder?'':'kiesThema(\''+t+'\')'}">
       <div class="thema-kaart-check"></div>
       <div class="thema-kaart-icoon">${cfg.icoon}</div>
       <div class="thema-kaart-naam">Thema ${t}<br><span style="font-weight:400;font-size:11px;opacity:.8">${cfg.naam}</span></div>
-      <div class="thema-kaart-meta">${n} woorden</div>
+      <div class="thema-kaart-meta">${n > 0 ? n+' woorden' : '<span style="color:#f59e0b;font-size:10px;">⏳ Binnenkort</span>'}</div>
       <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:${scoreVoorThema(t)}%"></div></div>
     </div>`;
   });
@@ -818,6 +833,11 @@ function scoreVoorThema(thema) {
 // KAART-SELECTIE
 // ══════════════════════════════════════════════
 function kiesThema(thema) {
+  // Negeer klik als er geen woorden zijn voor dit thema
+  const tellers = {};
+  woordenlijst_3ds.forEach(w => { if (w.thema) tellers[w.thema] = (tellers[w.thema]||0)+1; });
+  if (parseInt(thema) && !tellers[thema]) return; // placeholder
+
   gekozenThema = thema;
   gekozenTekst = null;
   zoekterm = '';
@@ -1011,6 +1031,9 @@ function toonLeaderboardScherm() {
 }
 
 function renderLeaderboard() {
+  const naam = localStorage.getItem('groenhove_leerling_code') || 'Anoniem';
+  const toon = document.getElementById('lb-naam-toon');
+  if (toon) toon.textContent = naam;
   const container = document.getElementById('lb-tabel');
   let scores = [];
   try { scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
@@ -1288,24 +1311,41 @@ function toonHuidig() {
 
 // ── FLASHCARD ENKEL-MODUS (standalone, niet als stap 1 van leren) ──
 function toonFlashcardEnkel(w) {
-  // Toont grondvorm → tik → vertaling zichtbaar → Volgende knop
   const stage = document.getElementById('trainer-stage');
   stage.innerHTML = `
     <div class="trainer-kaart">
-      <div class="flashcard-boven">
-        <div class="flashcard-label">Flashcard · ${trainIndex + 1}/${trainRij.length}</div>
-        <div class="flashcard-latijn">${esc(w.grondvorm)}${w.aanvullingen ? ' <span style="font-weight:400;font-size:18px;color:var(--tekst-zacht);">' + esc(w.aanvullingen) + '</span>' : ''}</div>
+      <!-- VOORKANT: alleen grondvorm -->
+      <div class="flashcard-boven" style="min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="flashcard-label">Flashcard · ${trainIndex + 1}/${trainRij.length} · voorkant</div>
+        <div class="flashcard-latijn" style="margin-top:.5rem;">${esc(w.grondvorm)}</div>
       </div>
-      <div id="fc-antwoord-zone" style="cursor:pointer;padding:1.5rem 2rem;text-align:center;border-top:0.5px solid var(--rand);background:rgba(0,102,51,.03);">
-        <span style="font-family:var(--fo);font-size:12px;color:var(--tekst-zacht);">Tik om de vertaling te zien</span>
+      <div id="fc-antwoord-zone" style="cursor:pointer;padding:1.25rem 2rem;text-align:center;border-top:0.5px solid var(--rand);background:rgba(0,102,51,.03);">
+        <span style="font-family:var(--fo);font-size:12px;color:var(--tekst-zacht);">↩ Tik om om te draaien</span>
       </div>
     </div>`;
   document.getElementById('fc-antwoord-zone').addEventListener('click', () => {
-    document.getElementById('fc-antwoord-zone').innerHTML = `
-      <div class="flashcard-nl">${esc(w.vertaling)}</div>
-      <div style="display:flex;gap:10px;justify-content:center;margin-top:1.25rem;">
-        <button class="verder-btn" style="background:#dc2626;" onclick="flashEnkelNee()">✕ Wist ik niet</button>
-        <button class="verder-btn" onclick="flashEnkelJa()">✓ Wist ik wel</button>
+    // OMMEZIJDE: aanvullingen + woordsoort/geslacht + vertaling
+    document.getElementById('fc-antwoord-zone').outerHTML = `
+      <div id="fc-ommezijde" style="border-top:0.5px solid var(--rand);animation:cardIn .18s ease both;">
+        <!-- Label ommezijde -->
+        <div style="padding:.75rem 2rem .25rem;text-align:center;">
+          <span class="flashcard-label">ommezijde</span>
+        </div>
+        <!-- Aanvullingen / woordsoort / geslacht -->
+        ${w.aanvullingen ? `<div style="padding:.5rem 2rem;text-align:center;font-family:var(--fo);font-size:14px;color:var(--tekst-zacht);border-bottom:0.5px solid rgba(0,102,51,.08);">
+          <span style="font-size:10px;font-family:var(--fv);color:var(--vital-green);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:3px;">Aanvullingen / woordsoort</span>
+          ${esc(w.aanvullingen)}
+        </div>` : ''}
+        <!-- Vertaling -->
+        <div style="padding:1.25rem 2rem;text-align:center;">
+          <span style="font-size:10px;font-family:var(--fv);color:var(--vital-green);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:.5rem;">Vertaling</span>
+          <div class="flashcard-nl">${esc(w.vertaling)}</div>
+        </div>
+        <!-- Knoppen -->
+        <div style="display:flex;gap:10px;justify-content:center;padding:0 2rem 1.5rem;">
+          <button class="verder-btn" style="background:#dc2626;color:#fff;" onclick="flashEnkelNee()">✕ Wist ik niet</button>
+          <button class="verder-btn" style="color:#fff;" onclick="flashEnkelJa()">✓ Wist ik wel</button>
+        </div>
       </div>`;
   }, { once: true });
 }
