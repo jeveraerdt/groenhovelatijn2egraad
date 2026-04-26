@@ -34,11 +34,7 @@
     --radius-sm: 8px;
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: var(--fo);
@@ -49,169 +45,36 @@
     flex-direction: column;
   }
 
-  .hero {
-    width: 100%;
-    position: relative;
-    min-height: auto;
-    background: transparent;
-    flex-shrink: 0;
-  }
+  .hero { width: 100%; position: relative; min-height: auto; background: transparent; flex-shrink: 0; }
+  .hero-inhoud { position: relative; z-index: 1; padding: 3.5rem 2rem 3rem; text-align: center; }
+  .hero h1 { font-family: var(--fv); font-size: 38px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 5px; }
+  .hero h1 .latijn { color: var(--deep-forest); }
+  .hero h1 .jaar { color: var(--vital-green); }
+  .hero .ondertitel { font-size: 13px; color: var(--tekst-zacht); font-family: var(--fo); letter-spacing: 0.3px; }
+  .school-logo { width: 44px; height: auto; margin-top: 10px; display: block; margin-left: auto; margin-right: auto; }
 
-  .hero-inhoud {
-    position: relative;
-    z-index: 1;
-    padding: 3.5rem 2rem 3rem;
-    text-align: center;
-  }
+  .terug-wrap { padding: 1.25rem 2rem 0; max-width: 1100px; width: 100%; margin: 0 auto; }
+  .terug-link { font-size: 12px; color: var(--tekst-zacht); text-decoration: none; font-family: var(--fo); }
+  .terug-link:hover { color: var(--vital-green); }
 
-  .hero h1 {
-    font-family: var(--fv);
-    font-size: 38px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-    margin-bottom: 5px;
-  }
+  .nav-wrap { flex: 1; padding: 1.5rem 2rem 3rem; max-width: 1100px; width: 100%; margin: 0 auto; }
+  .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
 
-  .hero h1 .latijn {
-    color: var(--deep-forest);
-  }
+  .nav-tegel { background: var(--kaart); border: 0.5px solid var(--rand); border-radius: var(--radius); padding: 2rem 1.5rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .nav-tegel:hover { border-color: var(--vital-green); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(101,179,46,0.12); }
 
-  .hero h1 .jaar {
-    color: var(--vital-green);
-  }
+  .nav-tegel-icoon { width: 48px; height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-tegel-icoon svg { width: 26px; height: 26px; }
+  .icoon-groen { background: #d4e8db; color: var(--vital-green); }
+  .icoon-accent { background: #e0f5eb; color: #0d7946; }
+  .icoon-blauw { background: #e6f0fb; color: #13427f; }
 
-  .hero .ondertitel {
-    font-size: 13px;
-    color: var(--tekst-zacht);
-    font-family: var(--fo);
-    letter-spacing: 0.3px;
-  }
+  .nav-tegel-naam { font-family: var(--fv); font-size: 16px; font-weight: 700; color: var(--deep-forest); }
+  .nav-tegel-omschrijving { font-family: var(--fo); font-size: 13px; color: var(--tekst-zacht); line-height: 1.6; }
+  .nav-tegel-pijl { margin-top: auto; font-size: 20px; color: var(--accent); font-weight: 500; transition: transform 0.15s; }
+  .nav-tegel:hover .nav-tegel-pijl { transform: translateX(4px); }
 
-  .school-logo {
-    width: 44px;
-    height: auto;
-    margin-top: 10px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .terug-wrap {
-    padding: 1.25rem 2rem 0;
-    max-width: 1100px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .terug-link {
-    font-size: 12px;
-    color: var(--tekst-zacht);
-    text-decoration: none;
-    font-family: var(--fo);
-  }
-
-  .terug-link:hover {
-    color: var(--vital-green);
-  }
-
-  .nav-wrap {
-    flex: 1;
-    padding: 1.5rem 2rem 3rem;
-    max-width: 1100px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .nav-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .nav-tegel {
-    background: var(--kaart);
-    border: 0.5px solid var(--rand);
-    border-radius: var(--radius);
-    padding: 2rem 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-
-  .nav-tegel:hover {
-    border-color: var(--vital-green);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(101, 179, 46, 0.12);
-  }
-
-  .nav-tegel-icoon {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .nav-tegel-icoon svg {
-    width: 26px;
-    height: 26px;
-  }
-
-  .icoon-groen {
-    background: #d4e8db;
-    color: var(--vital-green);
-  }
-
-  .icoon-accent {
-    background: #e0f5eb;
-    color: #0d7946;
-  }
-
-  .icoon-blauw {
-    background: #e6f0fb;
-    color: #13427f;
-  }
-
-  .nav-tegel-naam {
-    font-family: var(--fv);
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--deep-forest);
-  }
-
-  .nav-tegel-omschrijving {
-    font-family: var(--fo);
-    font-size: 13px;
-    color: var(--tekst-zacht);
-    line-height: 1.6;
-  }
-
-  .nav-tegel-pijl {
-    margin-top: auto;
-    font-size: 20px;
-    color: var(--accent);
-    font-weight: 500;
-    transition: transform 0.15s;
-  }
-
-  .nav-tegel:hover .nav-tegel-pijl {
-    transform: translateX(4px);
-  }
-
-  .voet {
-    text-align: center;
-    padding: 1.5rem;
-    font-family: var(--fo);
-    font-size: 12px;
-    color: var(--tekst-zacht);
-  }
+  .voet { text-align: center; padding: 1.5rem; font-family: var(--fo); font-size: 12px; color: var(--tekst-zacht); }
 </style>
 </head>
 <body>
@@ -234,8 +97,7 @@
     <a class="nav-tegel" href="themas.html">
       <div class="nav-tegel-icoon icoon-groen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 6 12 12 16 14"/>
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
         </svg>
       </div>
       <div class="nav-tegel-naam">Thema's</div>
@@ -248,9 +110,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
           <polyline points="14 2 14 8 20 8"/>
-          <line x1="12" y1="13" x2="8" y2="13"/>
-          <line x1="12" y1="17" x2="8" y2="17"/>
-          <line x1="10" y1="9" x2="8" y2="9"/>
+          <line x1="12" y1="13" x2="8" y2="13"/><line x1="12" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
         </svg>
       </div>
       <div class="nav-tegel-naam">Taalfiches</div>
@@ -258,7 +118,7 @@
       <div class="nav-tegel-pijl">›</div>
     </a>
 
-    <a class="nav-tegel" href="oefeningen-3de.html">
+    <a class="nav-tegel" href="oefeningen/oefeningen-3de.html">
       <div class="nav-tegel-icoon icoon-blauw">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="9 11 12 14 22 4"/>
