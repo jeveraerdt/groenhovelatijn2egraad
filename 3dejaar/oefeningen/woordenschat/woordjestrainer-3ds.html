@@ -414,16 +414,28 @@
      SCHERM 1: SELECTIE
 ══════════════════════════════════════════════ -->
 <div id="s-selectie" class="scherm actief">
-    <div style="max-width:960px;margin:0 auto;width:100%;padding:1.5rem 2rem 1.25rem;border-bottom:3px solid var(--jaar-kleur);display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:#f3f1ef;">
-    <div style="display:flex;flex-direction:column;gap:3px;">
-      <a class="terug-link" href="../oefeningen-3de.html">← Terug naar Oefeningen</a>
-      <h1 style="font-size:28px;font-weight:700;color:var(--jaar-kleur);letter-spacing:-0.5px;font-family:var(--fv);">Woordjestrainer 3DS</h1>
-    </div>
-    <span id="header-teller" style="font-size:13px;color:var(--tekst-zacht);font-family:var(--fo);">laden…</span>
+
+  <!-- Merklint laag 1 -->
+  <header style="background:#006633;color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+    <img src="../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
+    <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Woordjestrainer 3DS</span>
+    <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;white-space:nowrap;">S.O. Groenhove Waregem</span>
+  </header>
+  <!-- Merklint laag 2 -->
+  <nav style="background:var(--achtergrond);border-bottom:1px solid var(--rand);padding:.5rem 1.5rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+    <a href="../oefeningen-3de.html" style="font-family:var(--fo);font-size:.8rem;color:var(--tekst);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.28rem .75rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Terug
+    </a>
+    <div style="width:1px;height:20px;background:var(--rand);margin:0 .2rem;"></div>
+    <span id="header-teller" style="font-size:12px;color:var(--tekst-zacht);font-family:var(--fo);">laden…</span>
     <button class="moeilijk-teller" id="moeilijk-teller" onclick="naarMoeilijkeLijst()" title="Ga naar mijn moeilijke woorden" style="display:none">
       ⭐ <span id="moeilijk-aantal">0</span>
     </button>
-  </div>
+    <a href="dashboard.html" style="margin-left:auto;font-family:var(--fo);font-size:.8rem;color:var(--blauw);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.28rem .75rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;">
+      📊 Dashboard
+    </a>
+  </nav>
 
   <div class="inhoud">
 
@@ -480,6 +492,10 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
         Leren
       </button>
+      <button class="modus-knop" id="btn-flash" onclick="kiesModus('flash', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Flashcard
+      </button>
       <button class="modus-knop" id="btn-toets" onclick="kiesModus('toets', this)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         Toets
@@ -491,6 +507,10 @@
       <button class="modus-knop" id="btn-invullen" onclick="kiesModus('invullen', this)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
         Invullen
+      </button>
+      <button class="modus-knop" id="btn-leaderboard" onclick="kiesModus('leaderboard', this)" style="border-color:#f59e0b;color:#f59e0b;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Leaderboard
       </button>
       <button class="oefen-btn" id="oefen-btn" onclick="startTraining()" disabled>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -570,6 +590,37 @@
   <p class="voet">J. Everaerdt &mdash; athena Campus Groenhove &mdash; 3DS Latijn</p>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     SCHERM 4: LEADERBOARD
+══════════════════════════════════════════════ -->
+<div id="s-leaderboard" class="scherm">
+  <header style="background:#006633;color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+    <img src="../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
+    <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Leaderboard</span>
+    <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;">S.O. Groenhove Waregem</span>
+  </header>
+  <div style="max-width:700px;margin:2rem auto;padding:0 1.5rem;flex:1;">
+    <!-- Naam invoeren -->
+    <div style="background:#fff;border:1px solid var(--rand);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <label style="font-family:var(--fo);font-size:13px;color:var(--tekst-zacht);flex-shrink:0;">Jouw naam:</label>
+      <input id="lb-naam" type="text" placeholder="bv. Jan of 3DS-07"
+        style="font-family:var(--fo);font-size:14px;padding:8px 12px;border:1px solid var(--rand);border-radius:8px;background:#fff;outline:none;flex:1;min-width:160px;"
+        oninput="bewaarLeerlingCode()" value="">
+      <button onclick="renderLeaderboard()" style="font-family:var(--fv);font-size:13px;padding:8px 16px;border-radius:99px;border:none;background:var(--blauw);color:#fff;cursor:pointer;">↺ Vernieuwen</button>
+      <button onclick="naarSelectie()" style="font-family:var(--fo);font-size:13px;padding:8px 16px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;">← Terug</button>
+    </div>
+    <!-- Ranglijst -->
+    <div style="background:#fff;border:1px solid var(--rand);border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06);">
+      <div style="padding:14px 16px;border-bottom:1px solid var(--rand);display:flex;align-items:center;gap:8px;">
+        <span style="font-family:var(--fv);font-size:16px;color:var(--blauw);">🏆 Hoogste scores</span>
+        <span style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:auto;">Lokale scores — beste per leerling</span>
+      </div>
+      <div id="lb-tabel"></div>
+    </div>
+  </div>
+  <p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
+</div>
+
 <script src="woordenlijst_3ds_volledig.js"></script>
 <script>
 // ══════════════════════════════════════════════
@@ -627,6 +678,8 @@ function init() {
   updateLokaleActiviteit();
   const leerlingInput = document.getElementById('leerling-code');
   if (leerlingInput) leerlingInput.value = localStorage.getItem('groenhove_leerling_code') || '';
+  const lbNaam = document.getElementById('lb-naam');
+  if (lbNaam) lbNaam.value = localStorage.getItem('groenhove_leerling_code') || '';
 }
 
 function renderThemaKaarten() {
@@ -871,11 +924,62 @@ function updateHeaderTeller() {
     huidigeWoorden.length > 0 ? `${huidigeWoorden.length} woorden` : '';
 }
 
+// ── LEADERBOARD MODUS ──
+// Vangt de kiesModus-klik op: toont direct leaderboard i.p.v. trainer
 function kiesModus(modus, btn) {
   gekozenModus = modus;
   document.querySelectorAll('.modus-knop').forEach(b => b.classList.remove('actief'));
   btn.classList.add('actief');
+  if (modus === 'leaderboard') {
+    toonLeaderboardScherm();
+  }
 }
+
+function toonLeaderboardScherm() {
+  if (geselecteerd.size < 1) { alert('Selecteer eerst woorden.'); return; }
+  toonScherm('s-leaderboard');
+  renderLeaderboard();
+}
+
+function renderLeaderboard() {
+  const container = document.getElementById('lb-tabel');
+  let scores = [];
+  try { scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
+
+  if (!scores.length) {
+    container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Nog geen scores opgeslagen. Oefen eerst een reeks.</p>';
+    return;
+  }
+
+  // Groepeer per leerling (leerling-code of 'anoniem'), neem beste score per leerling
+  const perLeerling = {};
+  scores.forEach(s => {
+    const naam = s.leerling || s.naam || 'Anoniem';
+    const pct  = s.juistheid ?? s.procent ?? 0;
+    const streak = s.besteStreak ?? 0;
+    if (!perLeerling[naam] || pct > perLeerling[naam].pct) {
+      perLeerling[naam] = { naam, pct, streak, datum: s.datum, modus: s.modus, woorden: s.aantalWoorden };
+    }
+  });
+
+  const gesorteerd = Object.values(perLeerling).sort((a,b) => b.pct - a.pct);
+  const medailles = ['🥇','🥈','🥉'];
+
+  container.innerHTML = gesorteerd.map((r, i) => `
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rand);background:${i===0?'rgba(245,158,11,.07)':'transparent'};">
+      <span style="font-size:22px;width:32px;text-align:center;flex-shrink:0;">${medailles[i] || (i+1)}</span>
+      <div style="flex:1;">
+        <div style="font-family:var(--fv);font-size:15px;color:var(--blauw);">${esc(r.naam)}</div>
+        <div style="font-family:var(--fo);font-size:11px;color:#888;">${r.modus||''} · ${r.woorden||'?'} woorden · ${r.datum ? new Date(r.datum).toLocaleDateString('nl-BE') : ''}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:var(--fv);font-size:20px;color:${r.pct>=80?'var(--groen)':r.pct>=50?'var(--blauw)':'var(--rood)'};">${r.pct}%</div>
+        <div style="font-size:11px;color:#f59e0b;">🔥 ${r.streak}</div>
+      </div>
+    </div>`).join('');
+}
+
+
 
 // ══════════════════════════════════════════════
 // TRAINING STARTEN
@@ -1102,6 +1206,8 @@ function toonHuidig() {
     if (fase === 0) toonFlashcard(w);
     else if (fase === 1) toonMeerkeuze(w);
     else toonInvullen(w);
+  } else if (gekozenModus === 'flash') {
+    toonFlashcardEnkel(w);
   } else if (gekozenModus === 'meerkeuze') {
     toonMeerkeuze(w);
   } else if (gekozenModus === 'toets') {
@@ -1111,7 +1217,34 @@ function toonHuidig() {
   }
 }
 
-// ── FLASHCARD ──
+// ── FLASHCARD ENKEL-MODUS (standalone, niet als stap 1 van leren) ──
+function toonFlashcardEnkel(w) {
+  // Toont grondvorm → tik → vertaling zichtbaar → Volgende knop
+  const stage = document.getElementById('trainer-stage');
+  stage.innerHTML = `
+    <div class="trainer-kaart">
+      <div class="flashcard-boven">
+        <div class="flashcard-label">Flashcard · ${trainIndex + 1}/${trainRij.length}</div>
+        <div class="flashcard-latijn">${esc(w.grondvorm)}${w.aanvullingen ? ' <span style="font-weight:400;font-size:18px;color:var(--tekst-zacht);">' + esc(w.aanvullingen) + '</span>' : ''}</div>
+      </div>
+      <div id="fc-antwoord-zone" style="cursor:pointer;padding:1.5rem 2rem;text-align:center;border-top:0.5px solid var(--rand);background:rgba(0,102,51,.03);">
+        <span style="font-family:var(--fo);font-size:12px;color:var(--tekst-zacht);">Tik om de vertaling te zien</span>
+      </div>
+    </div>`;
+  document.getElementById('fc-antwoord-zone').addEventListener('click', () => {
+    document.getElementById('fc-antwoord-zone').innerHTML = `
+      <div class="flashcard-nl">${esc(w.vertaling)}</div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:1.25rem;">
+        <button class="verder-btn" style="background:#dc2626;" onclick="flashEnkelNee()">✕ Wist ik niet</button>
+        <button class="verder-btn" onclick="flashEnkelJa()">✓ Wist ik wel</button>
+      </div>`;
+  }, { once: true });
+}
+
+function flashEnkelJa()  { registreerAntwoord(true);  trainIndex++; updateVoortgang(); toonHuidig(); }
+function flashEnkelNee() { registreerAntwoord(false); trainIndex++; updateVoortgang(); toonHuidig(); }
+
+
 function toonFlashcard(w) {
   document.getElementById('trainer-stage').innerHTML = `
     <div class="trainer-kaart">
@@ -1565,6 +1698,14 @@ function naarMoeilijkeLijst() {
 // ══════════════════════════════════════════════
 // START
 // ══════════════════════════════════════════════
+function bewaarLeerlingCode() {
+  const v = (document.getElementById('leerling-code')?.value || document.getElementById('lb-naam')?.value || '').trim();
+  if (v) localStorage.setItem('groenhove_leerling_code', v);
+  // sync beide velden
+  const a = document.getElementById('leerling-code'); if (a && v) a.value = v;
+  const b = document.getElementById('lb-naam');       if (b && v) b.value = v;
+}
+
 init();
 updateMoeilijkTeller();
 </script>
