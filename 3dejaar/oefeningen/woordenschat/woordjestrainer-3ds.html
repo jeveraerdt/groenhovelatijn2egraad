@@ -140,12 +140,9 @@
   .bereik-sep { font-size: 13px; color: var(--tekst-zacht); font-family: var(--fo); }
   .bereik-btn {
     font-family: var(--fv); font-size: 13px; font-weight: 700;
-    padding: 9px 14px; border-radius: var(--radius-sm);
-    border: 1.5px solid var(--deep-forest); background: transparent;
-    color: var(--deep-forest); cursor: pointer; transition: background 0.12s, color 0.12s;
+    padding: 9px 16px; border-radius: 99px;
     white-space: nowrap; outline: none;
   }
-  .bereik-btn:hover { background: var(--deep-forest); color: #fff; }
   .bereik-btn:focus { box-shadow: 0 0 0 2px rgba(0,102,51,.25); }
 
   /* Actiebalk boven lijst */
@@ -210,22 +207,14 @@
   .start-balk { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
   .modus-knop {
     font-family: var(--fv); font-size: 14px; font-weight: 500;
-    padding: 11px 20px; border-radius: 99px; cursor: pointer;
-    border: 1.5px solid var(--rand); background: var(--kaart);
-    color: var(--tekst-zacht); transition: border-color 0.12s, color 0.12s, background 0.12s;
+    padding: 11px 20px; border-radius: 99px;
     display: flex; align-items: center; gap: 7px;
   }
-  .modus-knop:hover { border-color: var(--blauw); color: var(--blauw); }
-  .modus-knop.actief { border-color: var(--blauw); background: var(--blauw); color: #fff; }
   .oefen-btn {
     font-family: var(--fv); font-size: 15px; font-weight: 600;
-    padding: 12px 28px; border-radius: 99px; cursor: pointer;
-    border: none; background: var(--blauw); color: #fff;
-    transition: opacity 0.15s, transform 0.1s;
+    padding: 12px 28px; border-radius: 99px;
     display: flex; align-items: center; gap: 8px; margin-left: auto;
   }
-  .oefen-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-  .oefen-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
 
   /* ══════════════════════════════════════════════════
      SCHERM 2: LEREN (flashcard → meerkeuze → invullen)
@@ -256,8 +245,7 @@
   .modus-start-illustratie { width: 120px; height: 120px; margin: 0 auto 1.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
   .modus-start-titel { font-size: 26px; font-weight: 600; color: var(--tekst); margin-bottom: 0.5rem; }
   .modus-start-sub { font-family: var(--fo); font-size: 15px; color: var(--tekst-zacht); margin-bottom: 2rem; line-height: 1.5; }
-  .modus-start-knop { font-family: var(--fv); font-size: 15px; font-weight: 600; padding: 13px 32px; border-radius: 99px; border: none; background: var(--groen); color: #fff; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.15s, transform 0.1s; }
-  .modus-start-knop:hover { opacity: 0.88; transform: translateY(-1px); }
+  .modus-start-knop { font-family: var(--fv); font-size: 15px; font-weight: 600; padding: 13px 32px; border-radius: 99px; display: inline-flex; align-items: center; gap: 8px; }
   .modus-start-check { display: flex; align-items: center; gap: 8px; justify-content: center; margin-top: 1.25rem; font-family: var(--fo); font-size: 13px; color: var(--tekst-zacht); cursor: pointer; }
   .modus-start-check input { cursor: pointer; }
 
@@ -324,16 +312,11 @@
   /* Gedeelde knop */
   .verder-btn {
     font-family: var(--fv); font-size: 14px; font-weight: 600;
-    padding: 11px 24px; border-radius: 99px; border: none;
-    background: var(--groen); color: #fff; cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
+    padding: 11px 24px; border-radius: 99px;
   }
-  .verder-btn:hover { opacity: 0.88; transform: translateY(-1px); }
   .controleer-btn {
     font-family: var(--fv); font-size: 14px; font-weight: 600;
-    padding: 11px 24px; border-radius: 99px; border: none;
-    background: var(--groen); color: #fff; cursor: pointer;
-    transition: opacity 0.15s; opacity: 1;
+    padding: 11px 24px; border-radius: 99px;
   }
   .controleer-btn:disabled { opacity: 0.4; cursor: default; }
 
@@ -354,11 +337,7 @@
   .res-btn {
     font-family: var(--fv); font-size: 14px; font-weight: 500;
     padding: 11px 22px; border-radius: 99px; cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
   }
-  .res-btn:hover { opacity: 0.85; transform: translateY(-1px); }
-  .res-btn-primair { border: none; background: var(--blauw); color: #fff; }
-  .res-btn-secundair { border: 1.5px solid var(--rand); background: var(--kaart); color: var(--tekst); }
 
 
   /* ══════════════════════════════════════════════════
@@ -458,58 +437,70 @@
   .inv-taal-label,
   .feedback-label { color: var(--vital-green); font-family: var(--fv); }
 
-  /* ── KNOPPEN: huisstijlregels ──────────────────────────────
-     Zonder hover: Deep Forest tekst + Deep Forest rand
-     Bij hover:    wit tekst op Deep Forest achtergrond
-     Uitzondering: primaire actie-knoppen zijn altijd gevuld
-  ─────────────────────────────────────────────────────────── */
+  /* ══════════════════════════════════════════════════
+     KNOPPEN — huisstijl (definitief, geen conflicten)
+     Outline-stijl: Deep Forest tekst + rand, hover = Deep Forest achtergrond + wit
+     Primair-gevuld: altijd Deep Forest achtergrond + wit
+  ══════════════════════════════════════════════════ */
 
-  /* Alle knoppen: Flanders Art Sans Bold als basis */
+  /* Basis-reset voor alle knoppen */
   .res-btn, .oefen-btn, .verder-btn, .controleer-btn,
-  .modus-start-knop, .modus-knop, .bereik-btn,
+  .modus-knop, .bereik-btn, .modus-start-knop,
   .flip-btn-ja, .flip-btn-nee {
     font-family: var(--fv);
+    cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s, transform .1s, opacity .15s;
   }
 
-  /* Secundaire knoppen (outline-stijl): Deep Forest tekst + rand, wit bij hover */
-  .res-btn-secundair {
+  /* ── OUTLINE-KNOPPEN (res-btn-secundair, modus-knop, bereik-btn) ── */
+  .res-btn-secundair,
+  .modus-knop,
+  .bereik-btn {
+    background: transparent;
     color: var(--deep-forest);
     border: 1.5px solid var(--deep-forest);
-    background: transparent;
-    transition: background .15s, color .15s;
   }
-  .res-btn-secundair:hover {
+  .res-btn-secundair:hover,
+  .modus-knop:hover,
+  .bereik-btn:hover {
     background: var(--deep-forest);
-    color: #fff;
+    color: #fff !important;
+    border-color: var(--deep-forest);
+  }
+  /* Actieve modus-knop = altijd gevuld */
+  .modus-knop.actief {
+    background: var(--deep-forest) !important;
+    color: #fff !important;
+    border-color: var(--deep-forest) !important;
   }
 
-  /* Primaire actie-knop: altijd wit op Deep Forest */
-  .res-btn-primair {
+  /* ── PRIMAIRE GEVULDE KNOPPEN ── */
+  .res-btn-primair,
+  .oefen-btn,
+  .verder-btn,
+  .controleer-btn,
+  .modus-start-knop {
     background: var(--deep-forest);
-    color: #fff;
+    color: #fff !important;
     border: none;
   }
-  .res-btn-primair:hover { opacity: .88; }
+  .res-btn-primair:hover,
+  .oefen-btn:hover,
+  .verder-btn:hover,
+  .controleer-btn:hover,
+  .modus-start-knop:hover { opacity: .88; transform: translateY(-1px); }
+  .oefen-btn:disabled { opacity: .35 !important; cursor: default; transform: none; }
+  .controleer-btn:disabled { opacity: .35 !important; cursor: default; }
 
-  /* Oefen-knop (gevuld, Deep Forest) */
-  .oefen-btn { color: #fff; }
+  /* ── FLIP-KNOPPEN (eigen kleur) ── */
+  .flip-btn-nee { background: #fee2e2; color: #dc2626 !important; border: none; }
+  .flip-btn-ja  { background: #dcfce7; color: #16a34a !important; border: none; }
+  .flip-btn-nee:hover { background: #dc2626; color: #fff !important; }
+  .flip-btn-ja:hover  { background: #16a34a; color: #fff !important; }
 
-  /* Verder / Controleer (gevuld, Deep Forest) */
-  .verder-btn, .controleer-btn { color: #fff; }
 
-  /* Modus-startknop (gevuld) */
-  .modus-start-knop { color: #fff; }
-
-  /* Bereik-knoppen: al gedefinieerd boven, geen override nodig */
-
-  /* Modus-knoppen: grijs zonder hover, Deep Forest rand + tekst bij hover, wit tekst als actief */
-  .modus-knop { color: var(--tekst-zacht); border-color: var(--rand); }
-  .modus-knop:hover { color: var(--deep-forest); border-color: var(--deep-forest); background: var(--kaart); }
-  .modus-knop.actief { color: #fff; border-color: var(--deep-forest); background: var(--deep-forest); }
-
-  /* Flip-knoppen behouden eigen rood/groen */
-  .flip-btn-ja  { color: #16a34a; }
-  .flip-btn-nee { color: #dc2626; }
+  /* Voortgang-labels klein houden */
+  .te-gaan-badge, .score-pill { font-family: var(--fo); font-size: 12px; }
 
   /* Voortgang-labels klein houden */
   .te-gaan-badge, .score-pill { font-family: var(--fo); font-size: 12px; }
@@ -539,7 +530,7 @@
     <button class="moeilijk-teller" id="moeilijk-teller" onclick="naarMoeilijkeLijst()" title="Ga naar mijn moeilijke woorden" style="display:none">
       ⭐ <span id="moeilijk-aantal">0</span>
     </button>
-    <a href="dashboard.html" style="margin-left:auto;font-family:var(--fo);font-size:.8rem;color:var(--blauw);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.28rem .75rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;">
+    <a href="../../../dashboard.html" style="margin-left:auto;font-family:var(--fo);font-size:.8rem;color:var(--blauw);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.28rem .75rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;">
       📊 Dashboard
     </a>
   </nav>
@@ -588,7 +579,7 @@
           <span class="bereik-sep">t/m</span>
           <input class="bereik-input" type="number" id="bereik-tot" placeholder="tot" min="1">
           <button class="bereik-btn" onclick="selecteerBereik()">Selecteer</button>
-          <button class="bereik-btn" onclick="deselecteerAlles()" style="border-color:var(--rand);color:var(--tekst-zacht);">Wis</button>
+          <button class="bereik-btn" onclick="deselecteerAlles()">Wis</button>
         </div>
       </div>
     </div>
