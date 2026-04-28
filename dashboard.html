@@ -489,6 +489,22 @@
       <div class="loading"><span class="spinner"></span> Data laden…</div>
     </div>
   </div>
+
+  <div class="sectie" id="sectie-trainer">
+    <div class="sectie-header">
+      <span class="sectie-titel">Woordjestrainer 3DS — lokale activiteit</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge" id="badge-trainer">0</span>
+        <button class="btn-refresh" onclick="renderTrainerActiviteit()">↺ Vernieuwen</button>
+      </div>
+    </div>
+    <p style="padding:0 16px 8px;font-size:12px;color:var(--grijs);">
+      Scores opgeslagen in de browser van dit toestel (localStorage). Persistent leaderboard: vul Google Form config in in de trainer-HTML.
+    </p>
+    <div id="tabel-trainer">
+      <div class="leeg">Geen trainer-activiteit gevonden op dit toestel.</div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -590,6 +606,7 @@ function toonDashboard() {
   `;
 
   laadData();
+  renderTrainerActiviteit();
 }
 
 async function laadData() {
@@ -759,6 +776,73 @@ function toonFout(bericht) {
   document.getElementById('tabel-leerlingen').innerHTML =
     `<div class="leeg" style="color:var(--accent);">⚠️ ${escapeHtml(bericht)}</div>`;
   document.getElementById('tabel-voortgang').innerHTML = '';
+}
+
+function renderTrainerActiviteit() {
+  const container = document.getElementById('tabel-trainer');
+  const badge = document.getElementById('badge-trainer');
+  let scores = [];
+  try {
+    scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]');
+  } catch {}
+
+  if (!scores.length) {
+    container.innerHTML = '<div class="leeg">Geen trainer-activiteit gevonden op dit toestel.</div>';
+    badge.textContent = '0';
+    return;
+  }
+
+  const gesorteerd = [...scores].sort((a, b) => new Date(b.datum || 0) - new Date(a.datum || 0));
+  badge.textContent = gesorteerd.length;
+
+  const modusLabel = { leren: 'Leren', flash: 'Flashcard', toets: 'Toets', meerkeuze: 'Meerkeuze', invullen: 'Invullen' };
+
+  const rows = gesorteerd.map(s => {
+    const pct = typeof s.juistheid === 'number' ? Math.round(s.juistheid) : null;
+    const datum = s.datum ? new Date(s.datum).toLocaleString('nl-BE', {
+      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+    }) : '—';
+    const naam = escapeHtml(s.leerling || s.naam || 'Anoniem');
+    const thema = s.thema ? `Thema ${s.thema}` : 'Alfa';
+    const tekst = s.tekst ? `/ Tekst ${s.tekst}` : '';
+    const modus = modusLabel[s.modus] || escapeHtml(s.modus || '—');
+    return `
+      <tr>
+        <td><strong>${naam}</strong></td>
+        <td><span class="chip chip-les1">${escapeHtml(modus)}</span></td>
+        <td style="font-size:13px;color:var(--grijs);">${escapeHtml(thema)}${escapeHtml(tekst)}</td>
+        <td style="font-size:13px;">${s.goed ?? '—'} goed / ${s.fout ?? '—'} fout (${s.aantalWoorden ?? '?'} woorden)</td>
+        <td>
+          ${pct !== null ? `
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="progress-bar" style="width:60px;">
+                <div class="progress-fill ${pct >= 70 ? 'hoog' : pct < 50 ? 'laag' : ''}" style="width:${Math.min(pct,100)}%"></div>
+              </div>
+              <span style="font-size:13px;">${pct}%</span>
+            </div>
+          ` : '—'}
+        </td>
+        <td style="color:var(--grijs);font-size:12px;">${datum}</td>
+      </tr>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Naam</th>
+          <th>Modus</th>
+          <th>Thema/tekst</th>
+          <th>Resultaat</th>
+          <th>Score</th>
+          <th>Datum</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${gesorteerd.length >= 50 ? '<p style="padding:12px 16px;font-size:12px;color:var(--grijs);">Toont laatste 50 sessies (localStorage limiet).</p>' : ''}
+  `;
 }
 
 function escapeHtml(value) {
