@@ -584,18 +584,7 @@
       </div>
     </div>
 
-    <!-- Actiebalk -->
-    <div class="actie-balk">
-      <button class="selecteer-alle-btn" onclick="selecteerAlles()">Alles selecteren</button>
-      <span class="geselecteerd-teller" id="sel-teller">0 geselecteerd</span>
-    </div>
-
-    <!-- Lijst -->
-    <div class="selectie-lijst" id="selectie-lijst">
-      <div class="geen-woorden">Kies eerst een Thema en Tekst om woorden te laden.</div>
-    </div>
-
-    <!-- Start -->
+    <!-- Start (toetsmogelijkheden — boven de woordenlijst) -->
     <div class="start-balk">
       <button class="modus-knop actief" id="btn-leren" onclick="kiesModus('leren', this)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
@@ -626,6 +615,18 @@
         Oefen selectie
       </button>
     </div>
+
+    <!-- Actiebalk -->
+    <div class="actie-balk">
+      <button class="selecteer-alle-btn" onclick="selecteerAlles()">Alles selecteren</button>
+      <span class="geselecteerd-teller" id="sel-teller">0 geselecteerd</span>
+    </div>
+
+    <!-- Lijst -->
+    <div class="selectie-lijst" id="selectie-lijst">
+      <div class="geen-woorden">Kies eerst een Thema en Tekst om woorden te laden.</div>
+    </div>
+
   </div>
   <p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
 </div>
@@ -760,6 +761,24 @@ let lerenSubfase     = {};  // bijhouding per woord in leren-modus
 // Schema: { grondvorm, aanvullingen, vertaling, repertorium?, thema, tekst, zin }
 // Dropdown 1 = Thema (1, 2), Dropdown 2 = Tekst (1..n binnen thema)
 // ══════════════════════════════════════════════
+
+// ══════════════════════════════════════════════
+// GOOGLE FORM CONFIG — persistente leaderboard-scores
+// Maak een Google Form met velden: naam, modus, thema, tekst, goed, fout, pct, streak, datum
+// Vul de constanten hieronder in na aanmaken van het form.
+// ══════════════════════════════════════════════
+const SCORE_FORM_URL = ''; // bv. 'https://docs.google.com/forms/d/e/1FAIpQL.../formResponse'
+const SCORE_FORM_FIELDS = {
+  naam:   '', // bv. 'entry.123456789'
+  modus:  '', // bv. 'entry.234567890'
+  thema:  '', // bv. 'entry.345678901'
+  tekst:  '', // bv. 'entry.456789012'
+  goed:   '', // bv. 'entry.567890123'
+  fout:   '', // bv. 'entry.678901234'
+  pct:    '', // bv. 'entry.789012345'
+  streak: '', // bv. 'entry.890123456'
+  datum:  '', // bv. 'entry.901234567'
+};
 
 // ══════════════════════════════════════════════
 // THEMA-CONFIGURATIE (iconen + namen)
@@ -1746,8 +1765,12 @@ function bewaarScore(pct) {
   try {
     const key = 'latijn_3ds_scores';
     const scores = JSON.parse(localStorage.getItem(key) || '[]');
+    const leerlingNaam = (document.getElementById('leerling-code')?.value || '').trim()
+                       || localStorage.getItem('groenhove_leerling_code') || 'Anoniem';
     scores.push({
       datum: new Date().toISOString(),
+      leerling: leerlingNaam,
+      naam: leerlingNaam,
       modus: gekozenModus,
       goed: aantalGoed,
       fout: aantalFout,
@@ -1758,6 +1781,20 @@ function bewaarScore(pct) {
       tekst: gekozenTekst || ''
     });
     localStorage.setItem(key, JSON.stringify(scores.slice(-50)));
+    // Stuur score ook naar Google Form voor persistent leaderboard
+    if (SCORE_FORM_URL) {
+      const fd = new FormData();
+      if (SCORE_FORM_FIELDS.naam)   fd.append(SCORE_FORM_FIELDS.naam,   leerlingNaam);
+      if (SCORE_FORM_FIELDS.modus)  fd.append(SCORE_FORM_FIELDS.modus,  gekozenModus);
+      if (SCORE_FORM_FIELDS.thema)  fd.append(SCORE_FORM_FIELDS.thema,  String(gekozenThema || ''));
+      if (SCORE_FORM_FIELDS.tekst)  fd.append(SCORE_FORM_FIELDS.tekst,  String(gekozenTekst || ''));
+      if (SCORE_FORM_FIELDS.goed)   fd.append(SCORE_FORM_FIELDS.goed,   String(aantalGoed));
+      if (SCORE_FORM_FIELDS.fout)   fd.append(SCORE_FORM_FIELDS.fout,   String(aantalFout));
+      if (SCORE_FORM_FIELDS.pct)    fd.append(SCORE_FORM_FIELDS.pct,    String(pct));
+      if (SCORE_FORM_FIELDS.streak) fd.append(SCORE_FORM_FIELDS.streak, String(besteStreak));
+      if (SCORE_FORM_FIELDS.datum)  fd.append(SCORE_FORM_FIELDS.datum,  new Date().toISOString());
+      fetch(SCORE_FORM_URL, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
+    }
   } catch {}
 }
 
