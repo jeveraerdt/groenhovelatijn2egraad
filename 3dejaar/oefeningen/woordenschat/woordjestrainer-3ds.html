@@ -772,8 +772,6 @@ let lerenSubfase     = {};  // bijhouding per woord in leren-modus
 
 // ══════════════════════════════════════════════
 // GOOGLE FORM CONFIG — persistente leaderboard-scores
-// Vul in na aanmaken van het Google Form.
-// Prefilled link → kopieer entry.XXXXXXX nummers hieronder.
 // ══════════════════════════════════════════════
 const SCORE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScSVs_bSRH5wq_VW-jS0aQMbrv-IfkujesW3gAUuZYHUfOsjQ/formResponse';
 const SCORE_FORM_FIELDS = {
@@ -789,18 +787,18 @@ const SCORE_FORM_FIELDS = {
 };
 
 function stuurScoreNaarForm(s) {
-  if (!SCORE_FORM_URL || !SCORE_FORM_FIELDS.naam) return;
+  if (!SCORE_FORM_URL) return;
   try {
     const fd = new FormData();
-    if (SCORE_FORM_FIELDS.naam)   fd.append(SCORE_FORM_FIELDS.naam,   s.leerling  || 'Anoniem');
-    if (SCORE_FORM_FIELDS.modus)  fd.append(SCORE_FORM_FIELDS.modus,  s.modus     || '');
-    if (SCORE_FORM_FIELDS.thema)  fd.append(SCORE_FORM_FIELDS.thema,  String(s.thema  || ''));
-    if (SCORE_FORM_FIELDS.tekst)  fd.append(SCORE_FORM_FIELDS.tekst,  String(s.tekst  || ''));
-    if (SCORE_FORM_FIELDS.goed)   fd.append(SCORE_FORM_FIELDS.goed,   String(s.goed   ?? ''));
-    if (SCORE_FORM_FIELDS.fout)   fd.append(SCORE_FORM_FIELDS.fout,   String(s.fout   ?? ''));
-    if (SCORE_FORM_FIELDS.pct)    fd.append(SCORE_FORM_FIELDS.pct,    String(Math.round(s.juistheid ?? 0)));
-    if (SCORE_FORM_FIELDS.streak) fd.append(SCORE_FORM_FIELDS.streak, String(s.besteStreak ?? 0));
-    if (SCORE_FORM_FIELDS.datum)  fd.append(SCORE_FORM_FIELDS.datum,  s.datum     || new Date().toISOString());
+    fd.append(SCORE_FORM_FIELDS.naam,   s.leerling  || 'Anoniem');
+    fd.append(SCORE_FORM_FIELDS.modus,  s.modus     || '');
+    fd.append(SCORE_FORM_FIELDS.thema,  String(s.thema  || ''));
+    fd.append(SCORE_FORM_FIELDS.tekst,  String(s.tekst  || ''));
+    fd.append(SCORE_FORM_FIELDS.goed,   String(s.goed   ?? ''));
+    fd.append(SCORE_FORM_FIELDS.fout,   String(s.fout   ?? ''));
+    fd.append(SCORE_FORM_FIELDS.pct,    String(Math.round(s.juistheid ?? 0)));
+    fd.append(SCORE_FORM_FIELDS.streak, String(s.besteStreak ?? 0));
+    fd.append(SCORE_FORM_FIELDS.datum,  s.datum     || new Date().toISOString());
     fetch(SCORE_FORM_URL, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
   } catch {}
 }
@@ -830,7 +828,6 @@ function init() {
   const leerlingInput = document.getElementById('leerling-code');
   if (leerlingInput) {
     const opgeslagen = localStorage.getItem('groenhove_leerling_code') || '';
-    // Selecteer de juiste optie in de dropdown
     const opties = leerlingInput.querySelectorAll('option');
     for (const opt of opties) {
       if (opt.value === opgeslagen) { opt.selected = true; break; }
@@ -1113,22 +1110,24 @@ function renderLeaderboard() {
   if (toon) toon.textContent = naam;
   const container = document.getElementById('lb-tabel');
   let scores = [];
-  // Probeer scores op te halen van Google Sheet (via Apps Script)
+  // Haal scores op van Google Sheet via Apps Script
   try {
     const appsUrl = 'https://script.google.com/macros/s/AKfycbw5hzoZuYf5aP0ZNaWXY4ZnCxtlcoqMinxktjTMKGywCpXGG5J7YtOodauz2qo1cKUC/exec';
     const resp = await fetch(appsUrl + '?action=getTrainerScores&t=' + Date.now());
     if (resp.ok) {
       const data = await resp.json();
-      if (data.ok && Array.isArray(data.scores)) {
+      if (data.ok && Array.isArray(data.scores) && data.scores.length) {
         scores = data.scores;
-        document.getElementById('lb-bron').textContent = 'Gedeeld leaderboard';
+        const bron = document.getElementById('lb-bron');
+        if (bron) bron.textContent = 'Gedeeld leaderboard';
       }
     }
   } catch {}
   // Fallback: lokale scores
   if (!scores.length) {
     try { scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
-    document.getElementById('lb-bron').textContent = 'Lokale scores (geen verbinding)';
+    const bron = document.getElementById('lb-bron');
+    if (bron) bron.textContent = scores.length ? 'Lokale scores' : '';
   }
 
   if (!scores.length) {
@@ -1830,7 +1829,6 @@ function bewaarScore(pct) {
     };
     scores.push(scoreEntry);
     localStorage.setItem(key, JSON.stringify(scores.slice(-50)));
-    // Stuur naar Google Form voor persistent leaderboard
     stuurScoreNaarForm(scoreEntry);
   } catch {}
 }
