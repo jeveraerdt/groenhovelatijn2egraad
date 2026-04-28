@@ -678,9 +678,10 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
     <div class="topbar-divider"></div>
     <span class="topbar-label">Thema 3</span>
     <div class="topbar-divider"></div>
-    <button class="ctrl-btn tab-btn active" onclick="toonModus('ontdek',this)">👁 Ontdek</button>
-    <button class="ctrl-btn tab-btn" onclick="toonModus('leer',this)">📜 Leer</button>
-    <button class="ctrl-btn tab-btn" onclick="toonModus('oefen',this)">💪 Oefen</button>
+    <button class="ctrl-btn tab-btn active" onclick="toonModus('fragment',this)">🎬 Fragment</button>
+    <button class="ctrl-btn tab-btn" onclick="toonModus('bekijk',this)">👀 Bekijk</button>
+    <button class="ctrl-btn tab-btn" onclick="toonModus('duidaan',this)">📍 Duid aan</button>
+    <button class="ctrl-btn tab-btn" onclick="toonModus('check',this)">💪 Check</button>
   </div>
   <div class="toolbar-right">
     <div class="didactiek-wrap">
@@ -705,7 +706,7 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
   <div class="page-title-inner">
     <div class="page-meta">Cultuur · Thema 3 · Panem et circenses · Les 1</div>
     <h2 class="page-title">Wagenrennen</h2>
-    <p class="page-sub">Vandaag lees je de rijke tekst op papier. Deze pagina helpt je kijken, vergelijken, oefenen en feedback vragen.</p>
+    <p class="page-sub">Je werkboek is de hoofdroute. Deze pagina opent fragmenten en beelden, laat je aanduiden wat je gezien hebt en helpt je nadien kort checken wat je onthouden hebt.</p>
   </div>
 </div>
 
@@ -723,71 +724,62 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
 <!-- ══ MAIN ══════════════════════════════════════════════════════ -->
 <main class="main">
 
-  <div class="score-bar" id="scoreBar">
-    <div class="score-circle">
-      <span class="score-number" id="scoreNr">0</span>
-      <span class="score-label">punten</span>
-    </div>
-    <div class="score-info">
-      <strong id="scoreStatus">Begin maar!</strong>
-      <small id="scoreDetail">De score hoort bij de oefenfase: eerst zelf antwoorden, daarna checken.</small>
-      <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
-    </div>
-  </div>
-
-  <section class="mode-panel active" id="modus-ontdek">
+  <!-- ══ FRAGMENT ════════════════════════════════════════════════ -->
+  <section class="mode-panel active" id="modus-fragment">
     <div class="card">
-      <div class="card-title">👁 Voor je begint</div>
-      <p style="font-size:.85rem;color:#555;line-height:1.55;">Schrijf de eerste korte vragen in je papieren cursus. Gebruik deze pagina daarna om één fragment te bekijken en je kijkfocus scherp te zetten.</p>
-      <div class="prompt-blok"><strong>Zo werken we vandaag:</strong> je leest, markeert en schrijft vooral op papier. Op deze pagina open je beelden, oefen je begrippen en vraag je feedback wanneer dat gevraagd wordt.</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">📽 Fragment</div>
+      <div class="card-title">🎬 Fragment</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">
+        Start in je werkboek op p. 5. Beantwoord eerst de vragen bij <strong>Ontdek</strong>. Bekijk daarna het fragment en vul je eerste indrukken aan op papier.
+      </p>
       <button class="media-launch" type="button" onclick="openTheater('benhur')" aria-label="Open het fragment in theatermodus">
         <span class="media-icon">🎬</span>
-        <span class="media-copy"><strong>Bekijk het fragment</strong><span>Let op massa, snelheid, gevaar en de plaats van macht. Het fragment opent op deze pagina.</span></span>
+        <span class="media-copy"><strong>Fragment</strong><span>Let op massa, snelheid, gevaar en de plaats van macht. Het fragment opent op deze pagina.</span></span>
       </button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">✍️ Daarna op papier</div>
       <table class="mini-table">
-        <tr><th>Waar let je op?</th><th>Wat noteer je kort op papier?</th></tr>
-        <tr><td>Massa en geluid</td><td>Hoe reageert het publiek?</td></tr>
-        <tr><td>Snelheid en risico</td><td>Waar wordt het gevaar zichtbaar?</td></tr>
-        <tr><td>Macht en plaats</td><td>Wie heeft overzicht, controle of prestige?</td></tr>
-        <tr><td>Film</td><td>Wat lijkt gemaakt om de spanning groter te maken?</td></tr>
+        <tr><th>In je werkboek</th><th>Wat doe je?</th></tr>
+        <tr><td>p. 5 · Ontdek</td><td>Schrijf je antwoorden in volledige zinnen.</td></tr>
+        <tr><td>p. 5 · Leesfocus</td><td>Hou drie lijnen vast: macht, spektakel en risico.</td></tr>
+        <tr><td>p. 6–7 · In het circus</td><td>Lees traag en markeer waar plaats, zichtbaarheid en macht samenkomen.</td></tr>
       </table>
+      <div class="prompt-blok"><strong>Werkafspraak:</strong> het werkboek blijft de plaats waar je leest, markeert en schrijft. Deze pagina gebruik je alleen wanneer je een beeld, fragment of oefening nodig hebt.</div>
     </div>
   </section>
 
-  <section class="mode-panel" id="modus-leer">
+  <!-- ══ BEKIJK ══════════════════════════════════════════════════ -->
+  <section class="mode-panel" id="modus-bekijk">
     <div class="card">
-      <div class="card-title">📜 Lezen op papier
-        <span class="s-chip" data-tip="② Gerichte aandacht: leerlingen lezen met een duidelijke focus.">⬡ ②</span>
-        <span class="l-chip" data-tip="WD2_03.03.01 – cultuurhistorische situering van het circus.">WD2_03.03.01</span>
-      </div>
-      <p style="font-size:.85rem;color:#555;line-height:1.55;">Lees de papieren cursus in de volgorde waarin hij is opgebouwd. Gebruik drie kleuren of drie tekens voor <strong>macht</strong>, <strong>spektakel</strong> en <strong>risico</strong>. Onderstreep alleen wat echt belangrijk is.</p>
+      <div class="card-title">👀 Kijkwijzer bij de tekst</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">
+        Lees telkens eerst de passage in je werkboek. Open daarna het beeld dat erbij hoort. Zo blijft het papier de hoofdtekst en helpt het scherm vooral om scherper te kijken.
+      </p>
       <table class="mini-table">
-        <tr><th>Leesfocus</th><th>Markeer in de papieren cursus</th></tr>
-        <tr><td><strong>Macht</strong></td><td>plaats van de keizer, pulvinar, zitorde, organisator, regels, scheidsrechters</td></tr>
-        <tr><td><strong>Spektakel</strong></td><td>massa, lawaai, sterrenstatus, kleuren, supporters, prijzen</td></tr>
-        <tr><td><strong>Risico</strong></td><td>bochten, metae, botsingen, teugels rond de middel, paardenletsels, naufragium</td></tr>
+        <tr><th>Werkboek</th><th>Open hier</th><th>Waarop let je?</th></tr>
+        <tr><td>p. 6–7 · In het circus</td><td>Racebaan bij <em>Duid aan</em></td><td>Waar zie je <em>spina</em>, <em>metae</em> en <em>pulvinar</em>?</td></tr>
+        <tr><td>p. 8 · Renstallen</td><td>Facties hieronder</td><td>Waarom zijn kleuren meer dan versiering?</td></tr>
+        <tr><td>p. 9–11 · Menners</td><td>Griekse en Romeinse menner</td><td>Wat verandert er aan houding, kleding en risico?</td></tr>
+        <tr><td>p. 12–14 · Races</td><td>Racebaan bij <em>Duid aan</em></td><td>Waarom zijn bochten en keerpunten zo gevaarlijk?</td></tr>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-title">🧭 De zes haltes van de tekst</div>
+      <div class="card-title">🎨 De vier facties</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Lees p. 7–8 in je werkboek. Gebruik dit kaartje alleen om de vier kleuren en hun betekenis snel te ordenen.</p>
       <div class="begrippen-grid">
-        <div class="begrip-pill"><span class="bp-term">1. In het circus</span><span class="bp-def">Circus Maximus, massa, zitorde, pulvinar en macht.</span></div>
-        <div class="begrip-pill"><span class="bp-term">2. Renstallen</span><span class="bp-def">Factiones, kleuren, identiteit en supporterscultuur.</span></div>
-        <div class="begrip-pill"><span class="bp-term">3. Paarden</span><span class="bp-def">Herkomst, training, posities in het span en fanatisme rond toppaarden.</span></div>
-        <div class="begrip-pill"><span class="bp-term">4. Menners</span><span class="bp-def">Uitrusting, techniek, sociale status, roem en gevaar.</span></div>
-        <div class="begrip-pill"><span class="bp-term">5. Races</span><span class="bp-def">Start, spina, metae, tactiek, snelheid, botsingen en naufragia.</span></div>
-        <div class="begrip-pill"><span class="bp-term">6. Winnaars</span><span class="bp-def">Prijs, prestige, tweede en derde plaats, supportersreacties en nasleep.</span></div>
+        <div class="begrip-pill"><span class="bp-term">Groenen</span><span class="bp-def"><em>factio prasina</em> · lente, aarde, bloemen, Venus.</span></div>
+        <div class="begrip-pill"><span class="bp-term">Blauwen</span><span class="bp-def"><em>factio veneta</em> · herfst, hemel, water van de zee.</span></div>
+        <div class="begrip-pill"><span class="bp-term">Roden</span><span class="bp-def"><em>factio russata</em> · zomer, vuur, Mars.</span></div>
+        <div class="begrip-pill"><span class="bp-term">Witten</span><span class="bp-def"><em>factio albata</em> · winter, lucht, westenwinden, Jupiter.</span></div>
       </div>
+      <div class="prompt-blok"><strong>Op papier:</strong> beantwoord de denkstop en de korte verwerking over de facties in je werkboek.</div>
     </div>
 
     <div class="card">
-      <div class="card-title">👀 Menners bekijken</div>
-      <p style="font-size:.85rem;color:#555;line-height:1.55;">Lees eerst de passage over de menners. Open daarna de beelden en vergelijk wat je ziet met wat je net gelezen hebt.</p>
+      <div class="card-title">🏛️ Menners bekijken</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Lees p. 9–11. Open daarna de twee beelden. Maak de vergelijking in je werkboek, niet hier.</p>
       <div class="media-row">
         <button class="media-launch" type="button" onclick="openTheater('delphi')" aria-label="Toon de Wagenmenner van Delphi in 3D">
           <span class="media-icon">🏛️</span>
@@ -802,39 +794,68 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
         <tr><th>Griekse menner</th><th>Romeinse menner</th></tr>
         <tr><td>houdt de teugels met beide handen vast</td><td>bindt de teugels hoog om zijn middel en corrigeert met de linkerhand</td></tr>
         <tr><td>draagt chiton en haarband</td><td>draagt helm, beenbanden en strak korset</td></tr>
-        <tr><td>minder beschermd bij een crash</td><td>heeft een mes om zich los te snijden als hij wordt meegesleurd</td></tr>
+        <tr><td>minder beschermd bij een crash</td><td>heeft een mes om zich los te snijden wanneer hij wordt meegesleurd</td></tr>
       </table>
       <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">1</span>Formuleer in één zin waarom de Romeinse menner tegelijk professioneler én kwetsbaarder is.</div>
-        <textarea id="l-v1" placeholder="Eén duidelijke zin…"></textarea>
+        <div class="vraag-label"><span class="vraag-nr">1</span>Checkzin: waarom is de Romeinse menner tegelijk professioneler én kwetsbaarder?</div>
+        <textarea id="l-v1" placeholder="Schrijf één korte checkzin nadat je p. 9–11 en de beelden hebt bekeken…"></textarea>
         <div class="vraag-actie"><button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('l-v1','l-fb1','De leerling verklaart waarom Romeinse menners tegelijk professioneler en kwetsbaarder waren. Geef korte inhoudelijke feedback en vraag om één concreet tekstbewijs indien dat ontbreekt.')">✦ Feedback</button></div>
         <div class="feedback-box" id="l-fb1"></div>
       </div>
     </div>
+  </section>
 
+  <!-- ══ DUID AAN ════════════════════════════════════════════════ -->
+  <section class="mode-panel" id="modus-duidaan">
     <div class="card">
-      <div class="card-title">🏁 Racebaan aanduiden</div>
-      <p style="font-size:.85rem;color:#555;line-height:1.55;">Open de afbeelding en duid drie onderdelen aan: <em>spina</em>, <em>metae</em> en <em>pulvinar</em>. Gebruik daarna je papieren cursus om uit te leggen waarom elk onderdeel belangrijk is.</p>
+      <div class="card-title">📍 Racebaan aanduiden</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Lees eerst p. 6–7 en p. 12–14. Open daarna de afbeelding en plaats de drie begrippen. Schrijf de uitleg bij de denkstops in je werkboek.</p>
       <button class="media-launch" type="button" onclick="openTheater('racebaan')" aria-label="Open de aanduidoefening racebaan">
         <span class="media-icon">📍</span>
         <span class="media-copy"><strong>Aanduiden op de racebaan</strong><span>Klik eerst een begrip aan en plaats het daarna op de afbeelding.</span></span>
       </button>
       <table class="mini-table">
-        <tr><th>Begrip</th><th>Betekenis</th></tr>
-        <tr><td><em>spina</em></td><td>de scheidingsmuur in het midden van de baan</td></tr>
-        <tr><td><em>metae</em></td><td>de keerpunten aan de uiteinden van de spina</td></tr>
-        <tr><td><em>pulvinar</em></td><td>de keizerlijke loge</td></tr>
+        <tr><th>Begrip</th><th>Wat moet je kunnen uitleggen?</th><th>Werkboek</th></tr>
+        <tr><td><em>spina</em></td><td>Waarom willen menners zo dicht mogelijk langs de scheidingsmuur rijden?</td><td>p. 12</td></tr>
+        <tr><td><em>metae</em></td><td>Waarom ontstaan precies aan de keerpunten botsingen?</td><td>p. 12–13</td></tr>
+        <tr><td><em>pulvinar</em></td><td>Wat zegt de plaats van de keizerlijke loge over macht?</td><td>p. 6</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏁 Van start tot crash</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Gebruik dit als geheugensteun bij p. 12–14. De uitleg zelf schrijf je in je werkboek.</p>
+      <table class="mini-table">
+        <tr><th>Stap</th><th>Wat gebeurt er?</th></tr>
+        <tr><td>1. <em>mappa</em></td><td>De organisator laat de witte doek vallen: het startsein.</td></tr>
+        <tr><td>2. <em>moratores</em></td><td>Helpers openen de klapdeuren van de startboxen.</td></tr>
+        <tr><td>3. Eerste 160 meter</td><td>Iedere menner moet zijn baan houden; te vroeg afwijken betekent diskwalificatie.</td></tr>
+        <tr><td>4. <em>metae</em></td><td>Iedereen wil zo scherp mogelijk keren: daar ontstaat het grootste gedrang.</td></tr>
+        <tr><td>5. <em>naufragium</em></td><td>Bij een zware crash ligt de wagen als een wrak in stukken in de arena.</td></tr>
       </table>
     </div>
   </section>
 
-  <section class="mode-panel" id="modus-oefen">
+  <!-- ══ CHECK ═══════════════════════════════════════════════════ -->
+  <section class="mode-panel" id="modus-check">
+    <div class="score-bar" id="scoreBar">
+      <div class="score-circle">
+        <span class="score-number" id="scoreNr">0</span>
+        <span class="score-label">punten</span>
+      </div>
+      <div class="score-info">
+        <strong id="scoreStatus">Begin maar!</strong>
+        <small id="scoreDetail">Sluit je werkboek, antwoord eerst zelf en check pas daarna.</small>
+        <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar" style="width:0%"></div></div>
+      </div>
+    </div>
+
     <div class="card">
-      <div class="card-title">💪 Oefenen zonder boek
+      <div class="card-title">💪 Check zonder boek
         <span class="s-chip" data-tip="⑨ Retrieval practice: actief ophalen na lectuur.">⬡ ⑨</span>
         <span class="l-chip" data-tip="WD2_03.03.01 en WD2_03.03.02 – inhoud verklaren en vergelijken.">WD2_03.03.01/02</span>
       </div>
-      <p style="font-size:.85rem;color:#555;line-height:1.55;">Sluit je papieren cursus. Schrijf eerst zelf. Open pas daarna het modelantwoord en verbeter je antwoord eerlijk.</p>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Deze check komt na het lezen. Sluit je papieren cursus. Schrijf eerst zelf. Open pas daarna het modelantwoord en verbeter eerlijk.</p>
 
       <div class="retrieval-blok">
         <div class="retrieval-vraag">1. Wat vertelt het <em>pulvinar</em> over macht in het circus?</div>
@@ -877,37 +898,32 @@ body.lpd-mode .l-highlight { outline: 2px solid rgba(0,102,51,.22); outline-offs
       </div>
 
       <div class="retrieval-blok">
-        <div class="retrieval-vraag">5. Waarom zijn wagenrennen tegelijk vermaak, prestige en macht?</div>
-        <div class="retrieval-uitleg">Verbind massa, keizer, sporthelden en risico.</div>
+        <div class="retrieval-vraag">5. Leg het verschil uit tussen <em>occupavit et vicit</em>, <em>successit et vicit</em> en <em>erupit et vicit</em>.</div>
+        <div class="retrieval-uitleg">Gebruik drie korte scenario’s.</div>
         <textarea class="retrieval-input" id="r-v5" placeholder="Schrijf eerst je eigen antwoord op…"></textarea>
         <button class="btn btn-outline" onclick="toonModelantwoord(this,'r-v5','ra5','zc5','rn5')">Toon modelantwoord</button>
         <div class="retrieval-note" id="rn5">Schrijf eerst zelf een antwoord op voor je het modelantwoord opent.</div>
-        <div class="retrieval-antwoord" id="ra5">Wagenrennen boden spanning, snelheid, sterren en supportersstrijd: dat is vermaak. Ze brachten ook eer, geld en reputatie: dat is prestige. Door de zichtbare keizerlijke aanwezigheid en de geordende massa waren ze ook machtsvertoon.</div>
+        <div class="retrieval-antwoord" id="ra5"><em>Occupavit et vicit</em>: de menner rijdt van start tot finish aan kop. <em>Successit et vicit</em>: hij passeert later de koploper nadat hij lang achteraan reed. <em>Erupit et vicit</em>: hij ligt lang tweede en gaat de koploper vlak voor de finish voorbij.</div>
         <div class="zelfcheck" id="zc5"><button class="zelfcheck-btn ja" onclick="scoreZelfcheck(this,1,'ra5','r-v5')">Mijn antwoord was juist</button><button class="zelfcheck-btn nee" onclick="scoreZelfcheck(this,0,'ra5','r-v5')">Mijn antwoord was onvolledig</button></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">✍️ Toepassen en vergelijken</div>
+      <div class="card-title">✍️ Korte feedback op je papierantwoord</div>
+      <p style="font-size:.85rem;color:#555;line-height:1.55;">Kies één antwoord uit je werkboek op p. 15 en neem het hier over. Vraag pas feedback nadat je zelf hebt geschreven.</p>
       <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">1</span>Vergelijk een Romeinse wagenrace met een moderne topwedstrijd. Noem minstens één gelijkenis en één verschil.</div>
-        <textarea id="a-v1" placeholder="Jouw vergelijking…"></textarea>
+        <div class="vraag-label"><span class="vraag-nr">1</span>Vergelijk één element uit deze tekst met moderne topsport. Wat is gelijkaardig? Wat is anders?</div>
+        <textarea id="a-v1" placeholder="Neem je antwoord uit het werkboek over…"></textarea>
         <div class="vraag-actie"><button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v1','a-fb1','De leerling vergelijkt Romeinse wagenrennen met moderne topsport. Reageer op de gelijkenis en het verschil en moedig concreet tekstbewijs aan waar nodig.')">✦ Feedback</button></div>
         <div class="feedback-box" id="a-fb1"></div>
-      </div>
-      <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">2</span>Leg uit waarom het einde van een racedag niet gewoon een sportafsluiting was, maar deel bleef van hetzelfde spektakel.</div>
-        <textarea id="a-v2" placeholder="Denk aan winnaar, prijzen, reputatie, supporters, kroegen en nasleep…"></textarea>
-        <div class="vraag-actie"><button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('a-v2','a-fb2','De leerling legt de nasleep van een racedag uit. Reageer inhoudelijk en vraag of de leerling prijzen, supportersgedrag en publieke reputatie heeft meegenomen.')">✦ Feedback</button></div>
-        <div class="feedback-box" id="a-fb2"></div>
       </div>
     </div>
 
     <div class="exit-ticket">
       <h3>🎟 Exit ticket</h3>
-      <p style="font-size:.85rem;color:#333;">Schrijf eerst op papier. Neem daarna eventueel je antwoord hier over voor korte feedback.</p>
+      <p style="font-size:.85rem;color:#333;">Maak het exit ticket eerst op p. 15 van je werkboek. Neem daarna eventueel je drie zinnen over voor korte feedback.</p>
       <div class="vraag-blok">
-        <div class="vraag-label"><span class="vraag-nr">1</span>Schrijf drie zinnen: één over aantrekkingskracht, één over gevaar, één over macht.</div>
+        <div class="vraag-label"><span class="vraag-nr">1</span>Drie zinnen: één over aantrekkingskracht, één over gevaar, één over macht.</div>
         <textarea id="exit-v" placeholder="1. Aantrekkingskracht… 2. Gevaar… 3. Macht…"></textarea>
         <div class="vraag-actie"><button class="btn btn-primary s-highlight l-highlight" onclick="vraagAI('exit-v','exit-fb','De leerling schrijft een exit ticket over aantrekkingskracht, gevaar en macht in het circus. Geef korte feedback en één retrieval-tip voor thuis.')">✦ Feedback</button></div>
         <div class="feedback-box" id="exit-fb"></div>
