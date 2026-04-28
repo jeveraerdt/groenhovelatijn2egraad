@@ -1104,7 +1104,7 @@ async function toonLeaderboardScherm() {
   renderLeaderboard();
 }
 
-function renderLeaderboard() {
+async function renderLeaderboard() {
   const naam = localStorage.getItem('groenhove_leerling_code') || 'Anoniem';
   const toon = document.getElementById('lb-naam-toon');
   if (toon) toon.textContent = naam;
