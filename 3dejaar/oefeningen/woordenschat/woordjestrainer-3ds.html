@@ -729,7 +729,7 @@
       <div style="padding:14px 16px;border-bottom:1px solid var(--rand);display:flex;align-items:center;gap:8px;">
         <span style="font-family:var(--fv);font-size:16px;color:var(--blauw);">🏆 Hoogste scores</span>
         <span id="lb-bron" style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:8px;"></span>
-        <span style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:auto;">Lokale scores — beste per leerling</span>
+        <span style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:auto;">Namen uit dropdown — score onder naam</span>
       </div>
       <div id="lb-tabel"></div>
     </div>
@@ -1099,69 +1099,121 @@ function kiesModus(modus, btn) {
 }
 
 async function toonLeaderboardScherm() {
-  if (geselecteerd.size < 1) { alert('Selecteer eerst woorden.'); return; }
+  // Leaderboard mag open zonder eerst woorden te selecteren.
   toonScherm('s-leaderboard');
   renderLeaderboard();
 }
 
+function getLeerlingenUitDropdown() {
+  const sel = document.getElementById('leerling-code');
+  if (!sel) return [];
+  return [...sel.options]
+    .map(opt => (opt.value || '').trim())
+    .filter(Boolean);
+}
+
+function normaliseerNaam(naam) {
+  return String(naam || '').trim().replace(/\s+/g, ' ').toLowerCase();
+}
+
+function scorePct(s) {
+  const raw = s.juistheid ?? s.procent ?? s.pct ?? s.percentage ?? 0;
+  const n = Number(raw);
+  return Number.isFinite(n) ? Math.round(n) : 0;
+}
+
+function scoreDatum(s) {
+  const d = s.datum || s.timestamp || s.date || '';
+  const time = d ? new Date(d).getTime() : 0;
+  return Number.isFinite(time) ? time : 0;
+}
+
 async function renderLeaderboard() {
-  const naam = localStorage.getItem('groenhove_leerling_code') || 'Anoniem';
+  const gekozenNaam = localStorage.getItem('groenhove_leerling_code') || '—';
   const toon = document.getElementById('lb-naam-toon');
-  if (toon) toon.textContent = naam;
+  if (toon) toon.textContent = gekozenNaam;
+
   const container = document.getElementById('lb-tabel');
+  if (!container) return;
+
+  const leerlingen = getLeerlingenUitDropdown();
   let scores = [];
-  // Haal scores op van Google Sheet via Apps Script
+
+  // 1. Probeer gedeelde scores via Apps Script.
   try {
     const appsUrl = 'https://script.google.com/macros/s/AKfycbw5hzoZuYf5aP0ZNaWXY4ZnCxtlcoqMinxktjTMKGywCpXGG5J7YtOodauz2qo1cKUC/exec';
     const resp = await fetch(appsUrl + '?action=getTrainerScores&t=' + Date.now());
     if (resp.ok) {
       const data = await resp.json();
-      if (data.ok && Array.isArray(data.scores) && data.scores.length) {
+      if (data.ok && Array.isArray(data.scores)) {
         scores = data.scores;
         const bron = document.getElementById('lb-bron');
         if (bron) bron.textContent = 'Gedeeld leaderboard';
       }
     }
   } catch {}
-  // Fallback: lokale scores
+
+  // 2. Fallback: lokale scores.
   if (!scores.length) {
     try { scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
     const bron = document.getElementById('lb-bron');
     if (bron) bron.textContent = scores.length ? 'Lokale scores' : '';
   }
 
-  if (!scores.length) {
-    container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Nog geen scores opgeslagen. Oefen eerst een reeks.</p>';
+  // 3. Groepeer ALTIJD volgens de namen uit het dropdownmenu.
+  const groepen = {};
+  leerlingen.forEach(naam => { groepen[normaliseerNaam(naam)] = { naam, scores: [] }; });
+
+  // Scores koppelen aan bestaande dropdownnamen. Onbekende namen niet kwijtspelen, maar onderaan toevoegen.
+  scores.forEach(s => {
+    const naam = (s.leerling || s.naam || '').trim();
+    if (!naam) return;
+    const key = normaliseerNaam(naam);
+    if (!groepen[key]) groepen[key] = { naam, scores: [] };
+    groepen[key].scores.push(s);
+  });
+
+  const rijen = Object.values(groepen).map(g => {
+    const gesorteerdeScores = g.scores
+      .slice()
+      .sort((a,b) => scorePct(b) - scorePct(a) || (b.besteStreak ?? 0) - (a.besteStreak ?? 0) || scoreDatum(b) - scoreDatum(a));
+    const beste = gesorteerdeScores[0] || null;
+    return { naam: g.naam, scores: gesorteerdeScores, beste, pct: beste ? scorePct(beste) : -1 };
+  }).sort((a,b) => b.pct - a.pct || a.naam.localeCompare(b.naam, 'nl'));
+
+  if (!rijen.length) {
+    container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Geen namen gevonden in het dropdownmenu.</p>';
     return;
   }
 
-  // Groepeer per leerling (leerling-code of 'anoniem'), neem beste score per leerling
-  const perLeerling = {};
-  scores.forEach(s => {
-    const naam = s.leerling || s.naam || 'Anoniem';
-    const pct  = s.juistheid ?? s.procent ?? 0;
-    const streak = s.besteStreak ?? 0;
-    if (!perLeerling[naam] || pct > perLeerling[naam].pct) {
-      perLeerling[naam] = { naam, pct, streak, datum: s.datum, modus: s.modus, woorden: s.aantalWoorden };
-    }
-  });
-
-  const gesorteerd = Object.values(perLeerling).sort((a,b) => b.pct - a.pct);
   const medailles = ['🥇','🥈','🥉'];
 
-  container.innerHTML = gesorteerd.map((r, i) => `
-    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rand);background:${i===0?'rgba(245,158,11,.07)':'transparent'};">
-      <span style="font-size:22px;width:32px;text-align:center;flex-shrink:0;">${medailles[i] || (i+1)}</span>
-      <div style="flex:1;">
+  container.innerHTML = rijen.map((r, i) => {
+    const heeftScore = !!r.beste;
+    const pct = heeftScore ? scorePct(r.beste) : null;
+    const laatsteScores = r.scores.slice(0, 3).map(s => {
+      const datum = s.datum ? new Date(s.datum).toLocaleDateString('nl-BE') : '';
+      return `<div style="font-family:var(--fo);font-size:11px;color:#777;margin-top:3px;">
+        ${scorePct(s)}% · ${s.modus || 'oefening'} · ${s.aantalWoorden || '?'} woorden${datum ? ' · ' + datum : ''}
+      </div>`;
+    }).join('');
+
+    return `<div style="display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-bottom:1px solid var(--rand);background:${i===0 && heeftScore ? 'rgba(245,158,11,.07)' : 'transparent'};">
+      <span style="font-size:22px;width:32px;text-align:center;flex-shrink:0;">${heeftScore ? (medailles[i] || (i+1)) : '—'}</span>
+      <div style="flex:1;min-width:0;">
         <div style="font-family:var(--fv);font-size:15px;color:var(--blauw);">${esc(r.naam)}</div>
-        <div style="font-family:var(--fo);font-size:11px;color:#888;">${r.modus||''} · ${r.woorden||'?'} woorden · ${r.datum ? new Date(r.datum).toLocaleDateString('nl-BE') : ''}</div>
+        ${heeftScore
+          ? `<div style="font-family:var(--fo);font-size:11px;color:#888;margin-top:2px;">Beste score onder deze naam</div>${laatsteScores}`
+          : `<div style="font-family:var(--fo);font-size:11px;color:#aaa;margin-top:2px;">Nog geen score opgeslagen onder deze naam.</div>`}
       </div>
-      <div style="text-align:right;">
-        <div style="font-family:var(--fv);font-size:20px;color:${r.pct>=80?'var(--groen)':r.pct>=50?'var(--blauw)':'var(--rood)'};">${r.pct}%</div>
-        <div style="font-size:11px;color:#f59e0b;">🔥 ${r.streak}</div>
+      <div style="text-align:right;flex-shrink:0;">
+        <div style="font-family:var(--fv);font-size:20px;color:${heeftScore ? (pct>=80?'var(--groen)':pct>=50?'var(--blauw)':'var(--rood)') : '#aaa'};">${heeftScore ? pct + '%' : '—'}</div>
+        <div style="font-size:11px;color:#f59e0b;">🔥 ${heeftScore ? (r.beste.besteStreak ?? 0) : '—'}</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
+
 
 
 
