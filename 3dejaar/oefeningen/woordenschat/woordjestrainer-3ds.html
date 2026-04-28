@@ -541,11 +541,19 @@
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;background:var(--kaart);border:1px solid var(--rand);border-radius:var(--radius);padding:.85rem 1rem;flex-wrap:wrap;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tekst-zacht)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <label for="leerling-code" style="font-family:var(--fv);font-size:13px;color:var(--blauw);white-space:nowrap;">Jouw naam:</label>
-      <input id="leerling-code" type="text" placeholder="bv. Jan of 3DS-07"
-        style="font-family:var(--fo);font-size:13px;padding:7px 11px;border:1px solid var(--rand);border-radius:8px;background:#fff;outline:none;flex:1;min-width:140px;transition:border-color .15s;"
-        oninput="bewaarLeerlingCode()"
+      <select id="leerling-code"
+        style="font-family:var(--fo);font-size:13px;padding:7px 11px;border:1px solid var(--rand);border-radius:8px;background:#fff;outline:none;flex:1;min-width:140px;transition:border-color .15s;cursor:pointer;"
+        onchange="bewaarLeerlingCode()"
         onfocus="this.style.borderColor='var(--blauw)'" onblur="this.style.borderColor='var(--rand)'">
-      <span style="font-family:var(--fo);font-size:11px;color:#aaa;white-space:nowrap;">Naam wordt bewaard voor het leaderboard</span>
+        <option value="">— Kies je naam —</option>
+        <option value="Yanis Bouti">Yanis Bouti</option>
+        <option value="Lien Duytschaevers">Lien Duytschaevers</option>
+        <option value="Viktor Devriendt">Viktor Devriendt</option>
+        <option value="Matteo Vanherzeele">Matteo Vanherzeele</option>
+        <option value="Jens Everaerdt">Jens Everaerdt</option>
+        <option value="Test">Test</option>
+      </select>
+      <span style="font-family:var(--fo);font-size:11px;color:#aaa;white-space:nowrap;">Kies je naam voor het leaderboard</span>
     </div>
 
     <!-- Zoekbalk -->
@@ -626,7 +634,6 @@
     <div class="selectie-lijst" id="selectie-lijst">
       <div class="geen-woorden">Kies eerst een Thema en Tekst om woorden te laden.</div>
     </div>
-
   </div>
   <p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
 </div>
@@ -721,6 +728,7 @@
     <div style="background:#fff;border:1px solid var(--rand);border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06);">
       <div style="padding:14px 16px;border-bottom:1px solid var(--rand);display:flex;align-items:center;gap:8px;">
         <span style="font-family:var(--fv);font-size:16px;color:var(--blauw);">🏆 Hoogste scores</span>
+        <span id="lb-bron" style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:8px;"></span>
         <span style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:auto;">Lokale scores — beste per leerling</span>
       </div>
       <div id="lb-tabel"></div>
@@ -764,21 +772,38 @@ let lerenSubfase     = {};  // bijhouding per woord in leren-modus
 
 // ══════════════════════════════════════════════
 // GOOGLE FORM CONFIG — persistente leaderboard-scores
-// Maak een Google Form met velden: naam, modus, thema, tekst, goed, fout, pct, streak, datum
-// Vul de constanten hieronder in na aanmaken van het form.
+// Vul in na aanmaken van het Google Form.
+// Prefilled link → kopieer entry.XXXXXXX nummers hieronder.
 // ══════════════════════════════════════════════
-const SCORE_FORM_URL = ''; // bv. 'https://docs.google.com/forms/d/e/1FAIpQL.../formResponse'
+const SCORE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScSVs_bSRH5wq_VW-jS0aQMbrv-IfkujesW3gAUuZYHUfOsjQ/formResponse';
 const SCORE_FORM_FIELDS = {
-  naam:   '', // bv. 'entry.123456789'
-  modus:  '', // bv. 'entry.234567890'
-  thema:  '', // bv. 'entry.345678901'
-  tekst:  '', // bv. 'entry.456789012'
-  goed:   '', // bv. 'entry.567890123'
-  fout:   '', // bv. 'entry.678901234'
-  pct:    '', // bv. 'entry.789012345'
-  streak: '', // bv. 'entry.890123456'
-  datum:  '', // bv. 'entry.901234567'
+  naam:   'entry.1481564302',
+  modus:  'entry.796940469',
+  thema:  'entry.1714045958',
+  tekst:  'entry.856287731',
+  goed:   'entry.1928322991',
+  fout:   'entry.386037051',
+  pct:    'entry.2011926864',
+  streak: 'entry.1505969841',
+  datum:  'entry.1733253030',
 };
+
+function stuurScoreNaarForm(s) {
+  if (!SCORE_FORM_URL || !SCORE_FORM_FIELDS.naam) return;
+  try {
+    const fd = new FormData();
+    if (SCORE_FORM_FIELDS.naam)   fd.append(SCORE_FORM_FIELDS.naam,   s.leerling  || 'Anoniem');
+    if (SCORE_FORM_FIELDS.modus)  fd.append(SCORE_FORM_FIELDS.modus,  s.modus     || '');
+    if (SCORE_FORM_FIELDS.thema)  fd.append(SCORE_FORM_FIELDS.thema,  String(s.thema  || ''));
+    if (SCORE_FORM_FIELDS.tekst)  fd.append(SCORE_FORM_FIELDS.tekst,  String(s.tekst  || ''));
+    if (SCORE_FORM_FIELDS.goed)   fd.append(SCORE_FORM_FIELDS.goed,   String(s.goed   ?? ''));
+    if (SCORE_FORM_FIELDS.fout)   fd.append(SCORE_FORM_FIELDS.fout,   String(s.fout   ?? ''));
+    if (SCORE_FORM_FIELDS.pct)    fd.append(SCORE_FORM_FIELDS.pct,    String(Math.round(s.juistheid ?? 0)));
+    if (SCORE_FORM_FIELDS.streak) fd.append(SCORE_FORM_FIELDS.streak, String(s.besteStreak ?? 0));
+    if (SCORE_FORM_FIELDS.datum)  fd.append(SCORE_FORM_FIELDS.datum,  s.datum     || new Date().toISOString());
+    fetch(SCORE_FORM_URL, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
+  } catch {}
+}
 
 // ══════════════════════════════════════════════
 // THEMA-CONFIGURATIE (iconen + namen)
@@ -803,7 +828,14 @@ function init() {
   updateMoeilijkTeller();
   updateLokaleActiviteit();
   const leerlingInput = document.getElementById('leerling-code');
-  if (leerlingInput) leerlingInput.value = localStorage.getItem('groenhove_leerling_code') || '';
+  if (leerlingInput) {
+    const opgeslagen = localStorage.getItem('groenhove_leerling_code') || '';
+    // Selecteer de juiste optie in de dropdown
+    const opties = leerlingInput.querySelectorAll('option');
+    for (const opt of opties) {
+      if (opt.value === opgeslagen) { opt.selected = true; break; }
+    }
+  }
   const lbNaam = document.getElementById('lb-naam');
   if (lbNaam) lbNaam.value = localStorage.getItem('groenhove_leerling_code') || '';
 }
@@ -1069,7 +1101,7 @@ function kiesModus(modus, btn) {
   }
 }
 
-function toonLeaderboardScherm() {
+async function toonLeaderboardScherm() {
   if (geselecteerd.size < 1) { alert('Selecteer eerst woorden.'); return; }
   toonScherm('s-leaderboard');
   renderLeaderboard();
@@ -1081,7 +1113,23 @@ function renderLeaderboard() {
   if (toon) toon.textContent = naam;
   const container = document.getElementById('lb-tabel');
   let scores = [];
-  try { scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
+  // Probeer scores op te halen van Google Sheet (via Apps Script)
+  try {
+    const appsUrl = 'https://script.google.com/macros/s/AKfycbw5hzoZuYf5aP0ZNaWXY4ZnCxtlcoqMinxktjTMKGywCpXGG5J7YtOodauz2qo1cKUC/exec';
+    const resp = await fetch(appsUrl + '?action=getTrainerScores&t=' + Date.now());
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data.ok && Array.isArray(data.scores)) {
+        scores = data.scores;
+        document.getElementById('lb-bron').textContent = 'Gedeeld leaderboard';
+      }
+    }
+  } catch {}
+  // Fallback: lokale scores
+  if (!scores.length) {
+    try { scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]'); } catch {}
+    document.getElementById('lb-bron').textContent = 'Lokale scores (geen verbinding)';
+  }
 
   if (!scores.length) {
     container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Nog geen scores opgeslagen. Oefen eerst een reeks.</p>';
@@ -1766,8 +1814,8 @@ function bewaarScore(pct) {
     const key = 'latijn_3ds_scores';
     const scores = JSON.parse(localStorage.getItem(key) || '[]');
     const leerlingNaam = (document.getElementById('leerling-code')?.value || '').trim()
-                       || localStorage.getItem('groenhove_leerling_code') || 'Anoniem';
-    scores.push({
+                     || localStorage.getItem('groenhove_leerling_code') || 'Anoniem';
+    const scoreEntry = {
       datum: new Date().toISOString(),
       leerling: leerlingNaam,
       naam: leerlingNaam,
@@ -1779,22 +1827,11 @@ function bewaarScore(pct) {
       aantalWoorden: trainRij.length,
       thema: gekozenThema || '',
       tekst: gekozenTekst || ''
-    });
+    };
+    scores.push(scoreEntry);
     localStorage.setItem(key, JSON.stringify(scores.slice(-50)));
-    // Stuur score ook naar Google Form voor persistent leaderboard
-    if (SCORE_FORM_URL) {
-      const fd = new FormData();
-      if (SCORE_FORM_FIELDS.naam)   fd.append(SCORE_FORM_FIELDS.naam,   leerlingNaam);
-      if (SCORE_FORM_FIELDS.modus)  fd.append(SCORE_FORM_FIELDS.modus,  gekozenModus);
-      if (SCORE_FORM_FIELDS.thema)  fd.append(SCORE_FORM_FIELDS.thema,  String(gekozenThema || ''));
-      if (SCORE_FORM_FIELDS.tekst)  fd.append(SCORE_FORM_FIELDS.tekst,  String(gekozenTekst || ''));
-      if (SCORE_FORM_FIELDS.goed)   fd.append(SCORE_FORM_FIELDS.goed,   String(aantalGoed));
-      if (SCORE_FORM_FIELDS.fout)   fd.append(SCORE_FORM_FIELDS.fout,   String(aantalFout));
-      if (SCORE_FORM_FIELDS.pct)    fd.append(SCORE_FORM_FIELDS.pct,    String(pct));
-      if (SCORE_FORM_FIELDS.streak) fd.append(SCORE_FORM_FIELDS.streak, String(besteStreak));
-      if (SCORE_FORM_FIELDS.datum)  fd.append(SCORE_FORM_FIELDS.datum,  new Date().toISOString());
-      fetch(SCORE_FORM_URL, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
-    }
+    // Stuur naar Google Form voor persistent leaderboard
+    stuurScoreNaarForm(scoreEntry);
   } catch {}
 }
 
