@@ -485,7 +485,7 @@ function renderPdfScan(lessons) {
 
         <label class="file-drop" for="pdfInput">
           <div class="upload-visual">
-            <span class="mi" style="font-size:2.8rem;width:auto;height:auto;color:#C8860A;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48" aria-hidden="true">barcode_scanner</span>
+            <span class="mi" style="font-size:2.8rem;width:2.8rem;height:2.8rem;color:#C8860A;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48" aria-hidden="true">barcode_scanner</span>
             <div>
               <strong>Sleep je PDF hierheen</strong>
               <span>of kies een bestand</span>
@@ -524,7 +524,7 @@ function renderPdfSuggestions() {
       <div class="suggestions-empty">
         <div>
           <div class="icon" aria-hidden="true">
-            <span class="mi" style="font-size:2.4rem;width:auto;height:auto;color:#C8860A;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48" aria-hidden="true">search</span>
+            <span class="mi" style="font-size:2.4rem;width:2.4rem;height:2.4rem;color:#C8860A;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48" aria-hidden="true">search</span>
           </div>
           <h3>Nog geen suggesties</h3>
           <p>Scan een PDF. Mogelijke LPD’s en bouwstenen verschijnen hier overzichtelijk.</p>
