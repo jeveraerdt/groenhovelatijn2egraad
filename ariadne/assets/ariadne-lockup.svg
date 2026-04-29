@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 140" role="img" aria-labelledby="title desc">
+  <title id="title">Ariadne logo</title>
+  <desc id="desc">Gouden wolkluwen naast het zwarte woordmerk ARIADNE.</desc>
+
+  <defs>
+    <clipPath id="ballClip">
+      <circle cx="96" cy="54" r="42"/>
+    </clipPath>
+  </defs>
+
+  <g transform="translate(0 10) scale(0.88)" fill="none" stroke="#D4AF37" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 90 C 20 68, 49 78, 62 92 C 73 103, 91 100, 106 88"/>
+    <circle cx="96" cy="54" r="42"/>
+    <g clip-path="url(#ballClip)">
+      <path d="M51 40 C 76 23, 105 20, 136 29"/>
+      <path d="M50 57 C 75 38, 103 35, 141 43"/>
+      <path d="M51 74 C 77 56, 105 55, 143 61"/>
+      <path d="M61 91 C 83 75, 108 74, 138 78"/>
+      <path d="M64 15 C 58 38, 63 68, 82 102"/>
+      <path d="M82 10 C 76 37, 81 70, 103 107"/>
+      <path d="M103 11 C 92 39, 94 67, 118 102"/>
+      <path d="M45 33 C 59 56, 82 75, 120 87"/>
+      <path d="M49 84 C 60 65, 77 45, 103 21"/>
+    </g>
+  </g>
+
+  <g transform="translate(178 0)">
+    <text x="0" y="86"
+      fill="#111111"
+      font-family="Inter, Avenir Next, Noto Sans, Helvetica Neue, Arial, sans-serif"
+      font-size="76"
+      font-weight="500"
+      letter-spacing="25">ARIADN</text>
+
+    <g transform="translate(682 32)" fill="none" stroke="#111111" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter">
+      <path d="M0 0 V58"/>
+      <path d="M0 0 H74"/>
+      <path d="M0 29 H60"/>
+      <path d="M0 58 H54"/>
+      <path d="M54 58 C71 58, 76 66, 91 62 C101 60, 107 56, 114 58" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

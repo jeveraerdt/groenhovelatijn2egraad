@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/ariadne-favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="ariadne.css">
 </head>
 <body>
@@ -15,16 +16,17 @@
   <header class="hero">
     <div class="hero__thread" aria-hidden="true"></div>
     <nav class="topbar" aria-label="Ariadne navigatie">
-      <div class="brandmark" aria-hidden="true">
-        <svg viewBox="0 0 64 64" role="img">
-          <path d="M14 45c4-14 13-26 28-28 5-.6 9 2 10 6 2 7-4 11-11 10-11-1-19 4-24 15" />
-          <path d="M22 49c5-7 12-11 22-10" />
-          <circle cx="43" cy="24" r="3.5" />
-        </svg>
-      </div>
-      <div>
-        <p class="eyebrow">Curriculumlaag</p>
-        <h1>Ariadne</h1>
+      <a class="brand" href="#" aria-label="Ariadne dashboard">
+        <img src="assets/ariadne-lockup.svg" alt="Ariadne" class="brand-logo">
+      </a>
+
+      <div class="topnav" aria-label="Hoofdnavigatie">
+        <a class="is-active" href="#">Dashboard</a>
+        <a href="#content">Lessen</a>
+        <a href="#content">Curriculum</a>
+        <a href="#content">Rapporten</a>
+        <a href="#content">Help</a>
+        <span class="avatar" aria-label="Gebruiker">AV</span>
       </div>
     </nav>
 
@@ -33,14 +35,21 @@
         <p class="kicker">LPD’s · Surma-bouwstenen · leerstof · hiaten</p>
         <h2>De draad door je lessen zichtbaar.</h2>
         <p>
-          Ariadne v1 verzamelt lesmetadata, koppelt elke les aan de juiste LPD-set,
-          toont waar Surma-bouwstenen voorkomen en genereert overzichten die je kunt hergebruiken.
+          Ariadne verzamelt lesmetadata, koppelt elke les aan de juiste LPD-set,
+          toont waar Surma-bouwstenen voorkomen en genereert overzicht en inzicht.
         </p>
+
+        <div class="quicklinks" aria-label="kernfuncties">
+          <span>LPD’s</span>
+          <span>Surma-bouwstenen</span>
+          <span>Leerstof</span>
+          <span>Hiaten</span>
+        </div>
       </div>
 
       <div class="hero-card" aria-label="status">
         <span class="status-dot"></span>
-        <strong>v1 draait lokaal op JSON-data</strong>
+        <strong>v1.2 draait lokaal op JSON-data</strong>
         <small>Vervang later de voorbeelddata door echte lessen en officiële leerplandoelen.</small>
       </div>
     </section>

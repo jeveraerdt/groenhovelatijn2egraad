@@ -1,10 +1,10 @@
-# Ariadne v1
+# Ariadne v1.2
 
 Ariadne is een losse curriculumlaag voor je educatieve sites.
 
-## Wat zit in v1.1?
+## Wat zit in v1.2?
 
-- Dashboard in goud `#D4AF37` en oranje `#FF8C00`
+- Dashboard in goud `#D4AF37`, oranje `#FF8C00`, zwart woordmerk en warm ivoor
 - Aparte LPD-set per site/richting/graad
 - Gedeelde Surma-bouwstenen
 - Lesmetadata in JSON
@@ -151,3 +151,29 @@ https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
 ```
 
 Daarom heb je internet nodig, tenzij je PDF.js later lokaal in de repo zet.
+
+
+## Merkassets
+
+De map `assets/` bevat:
+
+```text
+assets/
+  ariadne-yarn.svg          los logo-icoon
+  ariadne-wordmark.svg      woordmerk ARIADNE
+  ariadne-lockup.svg        icoon + woordmerk
+  ariadne-favicon.svg       compacte favicon/app-icon
+  ariadne-labyrinth-bg.svg  subtiele achtergrond
+```
+
+Vaste richting:
+
+```text
+- bol wol = goud #D4AF37
+- woordmerk = zwart #111111
+- R blijft zuiver
+- E krijgt subtiel draadeinde in zwart
+- in combinatiemerk overschrijdt het icoon de letterhoogte niet
+```
+
+De SVG’s gebruiken geen externe fontbestanden. Het woordmerk gebruikt een moderne sans-serif fallback-stack in SVG-tekst, met een handgetekende E-vorm.

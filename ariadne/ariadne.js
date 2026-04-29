@@ -469,7 +469,7 @@ function renderGaps(lessons) {
 function renderPdfScan(lessons) {
   const content = $("#content");
   const siteWarning = Ariadne.state.site === "all"
-    ? `<div class="pdf-note"><strong>Kies bij voorkeur één site.</strong><br>Dan vergelijkt Ariadne de PDF met de juiste LPD-set. Bij “alle sites” worden voorlopig vooral bouwstenen gesuggereerd.</div>`
+    ? `<div class="pdf-note"><strong>Kies bij voorkeur één site.</strong><br>Zo gebruikt Ariadne de juiste LPD-set.</div>`
     : "";
 
   content.innerHTML = `
@@ -477,32 +477,34 @@ function renderPdfScan(lessons) {
       <section class="scan-box">
         <h3>PDF scannen</h3>
         <p>
-          Upload een digitale tekst-PDF. Ariadne leest de tekst lokaal in je browser,
-          zoekt mogelijke LPD- en bouwsteenkoppelingen en toont die als suggesties.
+          Upload een digitale tekst-PDF. Ariadne leest lokaal in je browser
+          en toont mogelijke LPD’s en bouwstenen als suggestie.
         </p>
 
         ${siteWarning}
 
         <label class="file-drop" for="pdfInput">
-          <strong>Kies een PDF-bestand</strong>
-          <span>Tekst-PDF’s werken het best. Gescande afbeeldingen vragen later OCR.</span>
-          <input id="pdfInput" type="file" accept="application/pdf">
+          <div class="upload-visual">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 3h6l4 4v14H7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M13 3v5h5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <strong>Sleep je PDF hierheen</strong>
+              <span>of kies een bestand</span>
+            </div>
+            <input id="pdfInput" type="file" accept="application/pdf">
+          </div>
         </label>
 
         <div class="scan-controls">
-          <label for="pdfThemeInput">Thema / reeksnaam voor suggesties</label>
+          <label for="pdfThemeInput">Thema / reeksnaam, optioneel</label>
           <input id="pdfThemeInput" type="text" placeholder="bv. Thema 3 — Nullus sine vitio">
 
           <button class="primary-btn" type="button" id="scanPdfBtn">Scan PDF</button>
         </div>
 
         <div class="scan-status" id="scanStatus">${escapeHtml(Ariadne.state.pdfScan.status)}</div>
-
-        <div class="pdf-note" style="margin-top: .8rem;">
-          <strong>Belangrijk</strong><br>
-          Deze scan is v1.1: tekstextractie + trefwoordmatching. Dit is dus nog geen OCR en nog geen AI-beoordeling.
-          De resultaten blijven suggesties tot jij ze bevestigt.
-        </div>
       </section>
 
       <section class="scan-box">
@@ -522,9 +524,17 @@ function renderPdfSuggestions() {
 
   if (!scan.suggestions.length) {
     return `
-      <div class="empty">
-        <h3>Nog geen suggesties</h3>
-        <p>Scan een PDF om mogelijke LPD’s en bouwstenen per pagina te zien.</p>
+      <div class="suggestions-empty">
+        <div>
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none">
+              <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M16 16l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Nog geen suggesties</h3>
+          <p>Scan een PDF. Mogelijke LPD’s en bouwstenen verschijnen hier overzichtelijk.</p>
+        </div>
       </div>
     `;
   }
