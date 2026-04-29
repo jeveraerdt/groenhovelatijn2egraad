@@ -2,7 +2,7 @@
 
 Ariadne is een losse curriculumlaag voor je educatieve sites.
 
-## Wat zit in v1?
+## Wat zit in v1.1?
 
 - Dashboard in goud `#D4AF37` en oranje `#FF8C00`
 - Aparte LPD-set per site/richting/graad
@@ -13,7 +13,11 @@ Ariadne is een losse curriculumlaag voor je educatieve sites.
 - Leerstofoverzicht
 - Hiatencheck
 - Export naar JSON, CSV en planner-CSV
-- `bronType: "html"` en `bronType: "pdf"` zijn beide al voorzien, zodat PDF-scanning later kan aansluiten
+- `bronType: "html"` en `bronType: "pdf"` zijn beide voorzien
+- PDF-scanmodule met uploadknop
+- Tekstextractie uit digitale PDF’s via PDF.js
+- Suggesties voor LPD’s en Surma-bouwstenen per pagina
+- Resultaten blijven bewust suggesties tot jij ze bevestigt
 
 ## Installatie
 
@@ -115,3 +119,35 @@ data/lessons-index.json
 
 Ariadne v1 werkt met handmatig bevestigde metadata.
 Ariadne v2 kan PDF's scannen en LPD-/bouwsteensuggesties voorstellen, maar die moeten eerst bevestigd worden.
+
+
+## PDF-scan in v1.1
+
+Open het tabblad **PDF-scan**.
+
+De scan werkt zo:
+
+```text
+PDF uploaden
+→ tekst per pagina uitlezen
+→ vergelijken met de gekozen LPD-set
+→ vergelijken met Surma-bouwstenen
+→ suggesties per pagina tonen
+```
+
+### Beperkingen
+
+- Werkt vooral met digitale tekst-PDF’s.
+- Scans/foto-PDF’s hebben later OCR nodig.
+- De huidige scan gebruikt trefwoordmatching, nog geen AI.
+- Suggesties zijn niet automatisch definitief. Jij bevestigt of corrigeert ze later.
+
+### Belangrijk bij testen
+
+De PDF-scan gebruikt PDF.js via CDN:
+
+```text
+https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+```
+
+Daarom heb je internet nodig, tenzij je PDF.js later lokaal in de repo zet.

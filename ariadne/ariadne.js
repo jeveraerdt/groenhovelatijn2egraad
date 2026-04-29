@@ -11,7 +11,13 @@ const Ariadne = {
     lpd: "all",
     block: "all",
     search: "",
-    view: "lessons"
+    view: "lessons",
+    pdfScan: {
+      fileName: "",
+      status: "Nog geen PDF gescand.",
+      suggestions: [],
+      pages: []
+    }
   }
 };
 
@@ -179,6 +185,7 @@ function render() {
     blocks: renderBlockCoverage,
     content: renderContentOverview,
     gaps: renderGaps,
+    pdfscan: renderPdfScan,
     export: renderExport
   };
 
@@ -207,6 +214,7 @@ function renderViewTitle(lessons) {
     blocks: "Surma-bouwstenen",
     content: "Leerstofoverzicht",
     gaps: "Hiaten en aandachtspunten",
+    pdfscan: "PDF-scan",
     export: "Export"
   };
 
@@ -456,6 +464,277 @@ function renderGaps(lessons) {
     </div>
   `;
 }
+
+
+function renderPdfScan(lessons) {
+  const content = $("#content");
+  const siteWarning = Ariadne.state.site === "all"
+    ? `<div class="pdf-note"><strong>Kies bij voorkeur één site.</strong><br>Dan vergelijkt Ariadne de PDF met de juiste LPD-set. Bij “alle sites” worden voorlopig vooral bouwstenen gesuggereerd.</div>`
+    : "";
+
+  content.innerHTML = `
+    <div class="pdf-scan-grid">
+      <section class="scan-box">
+        <h3>PDF scannen</h3>
+        <p>
+          Upload een digitale tekst-PDF. Ariadne leest de tekst lokaal in je browser,
+          zoekt mogelijke LPD- en bouwsteenkoppelingen en toont die als suggesties.
+        </p>
+
+        ${siteWarning}
+
+        <label class="file-drop" for="pdfInput">
+          <strong>Kies een PDF-bestand</strong>
+          <span>Tekst-PDF’s werken het best. Gescande afbeeldingen vragen later OCR.</span>
+          <input id="pdfInput" type="file" accept="application/pdf">
+        </label>
+
+        <div class="scan-controls">
+          <label for="pdfThemeInput">Thema / reeksnaam voor suggesties</label>
+          <input id="pdfThemeInput" type="text" placeholder="bv. Thema 3 — Nullus sine vitio">
+
+          <button class="primary-btn" type="button" id="scanPdfBtn">Scan PDF</button>
+        </div>
+
+        <div class="scan-status" id="scanStatus">${escapeHtml(Ariadne.state.pdfScan.status)}</div>
+
+        <div class="pdf-note" style="margin-top: .8rem;">
+          <strong>Belangrijk</strong><br>
+          Deze scan is v1.1: tekstextractie + trefwoordmatching. Dit is dus nog geen OCR en nog geen AI-beoordeling.
+          De resultaten blijven suggesties tot jij ze bevestigt.
+        </div>
+      </section>
+
+      <section class="scan-box">
+        <h3>Suggesties</h3>
+        <div id="scanResults">
+          ${renderPdfSuggestions()}
+        </div>
+      </section>
+    </div>
+  `;
+
+  $("#scanPdfBtn").addEventListener("click", handlePdfScan);
+}
+
+function renderPdfSuggestions() {
+  const scan = Ariadne.state.pdfScan;
+
+  if (!scan.suggestions.length) {
+    return `
+      <div class="empty">
+        <h3>Nog geen suggesties</h3>
+        <p>Scan een PDF om mogelijke LPD’s en bouwstenen per pagina te zien.</p>
+      </div>
+    `;
+  }
+
+  return scan.suggestions.map(suggestion => `
+    <article class="scan-result-card">
+      <div class="coverage-head">
+        <div>
+          <h4>Pagina ${escapeHtml(suggestion.page)} — ${escapeHtml(suggestion.typeLabel)}</h4>
+          <p><strong>${escapeHtml(suggestion.code)}</strong> · ${escapeHtml(suggestion.label)}</p>
+        </div>
+        <span class="confidence confidence--${escapeAttr(suggestion.confidence)}">${escapeHtml(suggestion.confidence)}</span>
+      </div>
+      <p>${escapeHtml(suggestion.reason)}</p>
+      <div class="excerpt">${escapeHtml(suggestion.excerpt)}</div>
+    </article>
+  `).join("");
+}
+
+async function handlePdfScan() {
+  const input = $("#pdfInput");
+  const status = $("#scanStatus");
+
+  if (!input.files || !input.files[0]) {
+    setPdfStatus("Kies eerst een PDF-bestand.", true);
+    return;
+  }
+
+  if (typeof pdfjsLib === "undefined") {
+    setPdfStatus("PDF.js kon niet geladen worden. Controleer je internetverbinding of host pdf.js lokaal.", true);
+    return;
+  }
+
+  try {
+    setPdfStatus("PDF wordt gelezen…");
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+    const file = input.files[0];
+    const buffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
+    const pages = [];
+
+    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+      setPdfStatus(`Pagina ${pageNumber} van ${pdf.numPages} wordt gelezen…`);
+      const page = await pdf.getPage(pageNumber);
+      const textContent = await page.getTextContent();
+      const text = textContent.items
+        .map(item => item.str)
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      pages.push({ page: pageNumber, text });
+    }
+
+    const suggestions = suggestPdfLinks(pages);
+
+    Ariadne.state.pdfScan = {
+      fileName: file.name,
+      status: `${file.name}: ${pages.length} pagina’s gelezen · ${suggestions.length} suggestie(s) gevonden.`,
+      pages,
+      suggestions
+    };
+
+    setPdfStatus(Ariadne.state.pdfScan.status);
+    $("#scanResults").innerHTML = renderPdfSuggestions();
+  } catch (error) {
+    console.error(error);
+    setPdfStatus(`PDF-scan mislukt: ${error.message}`, true);
+  }
+}
+
+function setPdfStatus(message, isError = false) {
+  const status = $("#scanStatus");
+  if (!status) return;
+  status.textContent = message;
+  status.classList.toggle("is-error", isError);
+  Ariadne.state.pdfScan.status = message;
+}
+
+function suggestPdfLinks(pages) {
+  const lpdSuggestions = suggestLpdLinksFromPdf(pages);
+  const blockSuggestions = suggestBlockLinksFromPdf(pages);
+
+  return [...lpdSuggestions, ...blockSuggestions]
+    .sort((a, b) => {
+      const pageDiff = a.page - b.page;
+      if (pageDiff !== 0) return pageDiff;
+      return confidenceScore(b.confidence) - confidenceScore(a.confidence);
+    })
+    .slice(0, 80);
+}
+
+function suggestLpdLinksFromPdf(pages) {
+  const lpds = getCurrentLpds();
+  if (!lpds.length) return [];
+
+  return pages.flatMap(page => {
+    const pageText = normalizeText(page.text);
+    return lpds.map(lpd => {
+      const terms = buildKeywordSet([lpd.code, lpd.titel, lpd.omschrijving, lpd.categorie]);
+      const score = countKeywordHits(pageText, terms);
+      if (score < 2) return null;
+
+      return {
+        page: page.page,
+        type: "lpd",
+        typeLabel: "mogelijke LPD-koppeling",
+        code: lpd.code,
+        label: lpd.titel,
+        confidence: score >= 5 ? "hoog" : score >= 3 ? "middelmatig" : "laag",
+        reason: `Ariadne vond ${score} inhoudelijke overeenkomst(en) met deze LPD-set.`,
+        excerpt: makeExcerpt(page.text, terms)
+      };
+    }).filter(Boolean);
+  });
+}
+
+function suggestBlockLinksFromPdf(pages) {
+  return pages.flatMap(page => {
+    const pageText = normalizeText(page.text);
+    return Ariadne.data.bouwstenen.map(block => {
+      const terms = buildBlockKeywords(block);
+      const score = countKeywordHits(pageText, terms);
+      if (score < 2) return null;
+
+      return {
+        page: page.page,
+        type: "bouwsteen",
+        typeLabel: "mogelijke bouwsteenkoppeling",
+        code: block.code,
+        label: block.label,
+        confidence: score >= 5 ? "hoog" : score >= 3 ? "middelmatig" : "laag",
+        reason: `Ariadne vond ${score} aanwijzing(en) voor deze bouwsteen.`,
+        excerpt: makeExcerpt(page.text, terms)
+      };
+    }).filter(Boolean);
+  });
+}
+
+function buildBlockKeywords(block) {
+  const extra = {
+    "voorkennis-activeren": ["voorkennis", "wat weet je", "herinner", "denk terug", "instap", "opfrissen"],
+    "heldere-uitleg": ["uitleg", "schema", "stappen", "overzicht", "kern", "definitie"],
+    "voorbeelden": ["voorbeeld", "model", "zoals", "vergelijk", "toon"],
+    "controleren-begrip": ["begrijp", "controleer", "vraag", "antwoord", "leg uit", "verklaar"],
+    "begeleide-inoefening": ["samen", "begeleid", "stap voor stap", "woordgroep", "klassikaal"],
+    "zelfstandige-verwerking": ["zelfstandig", "alleen", "per twee", "in groep", "verwerk"],
+    "gespreid-oefenen": ["herhaal", "opnieuw", "retrieval", "vroeger", "vorige les", "oude woorden"],
+    "feedback": ["feedback", "verbeter", "controleer je antwoord", "bespreek", "fout", "juist"]
+  };
+
+  return buildKeywordSet([
+    block.code,
+    block.label,
+    block.omschrijving,
+    ...(extra[block.code] || [])
+  ]);
+}
+
+function buildKeywordSet(values) {
+  const stopwords = new Set([
+    "de", "het", "een", "en", "of", "in", "op", "met", "van", "voor", "door", "naar",
+    "leerlingen", "leerling", "tekst", "teksten", "wordt", "worden", "kunnen", "aan",
+    "bij", "uit", "als", "dit", "dat", "die", "deze", "hun", "zijn", "haar", "jouw",
+    "latijnse", "griekse", "passende", "relevante"
+  ]);
+
+  return [...new Set(values
+    .filter(Boolean)
+    .flatMap(value => normalizeText(value).split(/[^a-z0-9à-ÿ]+/i))
+    .map(term => term.trim())
+    .filter(term => term.length >= 4 && !stopwords.has(term))
+  )];
+}
+
+function countKeywordHits(text, terms) {
+  return terms.reduce((score, term) => {
+    if (text.includes(term)) return score + 1;
+    return score;
+  }, 0);
+}
+
+function makeExcerpt(text, terms) {
+  if (!text) return "Geen tekstfragment gevonden op deze pagina.";
+
+  const normalized = normalizeText(text);
+  const hit = terms.find(term => normalized.includes(term));
+  if (!hit) return text.slice(0, 260) + (text.length > 260 ? "…" : "");
+
+  const index = normalized.indexOf(hit);
+  const start = Math.max(0, index - 120);
+  const end = Math.min(text.length, index + 220);
+
+  return `${start > 0 ? "…" : ""}${text.slice(start, end)}${end < text.length ? "…" : ""}`;
+}
+
+function normalizeText(value = "") {
+  return String(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function confidenceScore(confidence) {
+  return confidence === "hoog" ? 3 : confidence === "middelmatig" ? 2 : 1;
+}
+
 
 function renderExport(lessons) {
   const content = $("#content");
