@@ -485,7 +485,10 @@ function renderPdfScan(lessons) {
 
         <label class="file-drop" for="pdfInput">
           <div class="upload-visual">
-            <span class="mi" style="font-size:2.8rem;width:2.8rem;height:2.8rem;color:#C8860A;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48" aria-hidden="true">barcode_scanner</span>
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" aria-hidden="true" style="color:#C8860A">
+              <path d="M2 7V4a1 1 0 0 1 1-1h3M2 17v3a1 1 0 0 0 1 1h3M22 7V4a1 1 0 0 0-1-1h-3M22 17v3a1 1 0 0 1-1 1h-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M5 8v8M8 8v8M11 8v8M14 8v4M17 8v8M20 8v8M14 15v1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
             <div>
               <strong>Sleep je PDF hierheen</strong>
               <span>of kies een bestand</span>
@@ -524,7 +527,10 @@ function renderPdfSuggestions() {
       <div class="suggestions-empty">
         <div>
           <div class="icon" aria-hidden="true">
-            <span class="mi" style="font-size:2.4rem;width:2.4rem;height:2.4rem;color:#C8860A;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48" aria-hidden="true">search</span>
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" aria-hidden="true" style="color:#C8860A">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
           </div>
           <h3>Nog geen suggesties</h3>
           <p>Scan een PDF. Mogelijke LPD’s en bouwstenen verschijnen hier overzichtelijk.</p>
