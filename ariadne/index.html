@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -29,12 +30,66 @@
     }
 
     html { scroll-behavior: smooth; }
+
+    /* ── MATERIAL ICONS ── */
+    .mi {
+      font-family: 'Material Symbols Outlined';
+      font-size: 1.1em;
+      line-height: 1;
+      vertical-align: middle;
+      color: var(--orange);
+      font-style: normal;
+      font-weight: normal;
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      user-select: none;
+      /* Verberg de fallback-tekst tot de font geladen is */
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.2em;
+      height: 1.2em;
+    }
+    /* In feature cards groter en gecentreerd */
+    .feature-icon .mi {
+      font-size: 1.5rem;
+      width: auto; height: auto;
+      font-variation-settings: 'FILL' 0, 'wght' 250, 'GRAD' 0, 'opsz' 40;
+    }
+    /* In chips compact */
+    .chip .mi {
+      font-size: 1rem;
+      width: auto; height: auto;
+    }
+    /* check en arrow varianten */
+    .mi--check { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .mi--arrow  { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
     body {
       font-family: 'Inter', sans-serif;
       background: var(--ivory);
       color: var(--ink);
       min-height: 100vh;
       overflow-x: hidden;
+    }
+
+    /* Labyrint als fixed achtergrond over de hele pagina */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url('assets/labyrinth.svg');
+      background-repeat: no-repeat;
+      background-position: center right -5%;
+      background-size: 65vw auto;
+      opacity: 0.045;
+      pointer-events: none;
+    }
+
+    /* Alles boven de fixed achtergrond */
+    .topbar, header.hero, main, footer, section, aside {
+      position: relative;
+      z-index: 1;
     }
 
     /* ── TOPBAR ── */
@@ -46,7 +101,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 3rem;
-      height: 66px;
+      height: 72px;
       background: rgba(253,250,244,0.93);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -56,11 +111,24 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
       text-decoration: none;
     }
-    .brand-logo   { height: 36px; width: auto; display: block; }
-    .brand-wordmark { height: 18px; width: auto; display: block; }
+
+    /* Logo groter, mix-blend-mode zodat witte achtergrond in SVG wegvalt */
+    .brand-logo {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
+
+    /* Wordmark: groter + mix-blend-mode multiply om witte achtergrond weg te branden */
+    .brand-wordmark {
+      height: 26px;
+      width: auto;
+      display: block;
+      mix-blend-mode: multiply;   /* witte SVG-achtergrond wordt transparant op lichte bg */
+    }
 
     .topnav {
       display: flex;
@@ -105,21 +173,7 @@
       align-items: center;
     }
 
-    /* Labyrint: groot, gecentreerd-rechts, heel subtiel */
-    .hero-labyrinth {
-      position: absolute;
-      right: -5%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 65vw;
-      max-width: 820px;
-      height: auto;
-      opacity: 0.055;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    /* Gouden gloed linksboven */
+    /* Gouden gloed in hero */
     .hero::before {
       content: '';
       position: absolute;
@@ -462,6 +516,21 @@
       background: var(--ink);
       padding: 100px 3rem;
       color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Labyrint in goud-tint op donkere achtergrond */
+    .surma-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/labyrinth.svg');
+      background-repeat: no-repeat;
+      background-position: center right -5%;
+      background-size: 65vw auto;
+      opacity: 0.07;
+      filter: invert(1) sepia(1) saturate(2) hue-rotate(5deg);
+      pointer-events: none;
     }
     .surma-section .section-label { color: var(--gold); }
     .surma-section .section-title { color: var(--white); }
@@ -573,9 +642,6 @@
   <!-- HERO -->
   <header class="hero">
 
-    <!-- labyrinth.svg: groot, gecentreerd in rechterhelft, heel subtiel -->
-    <img src="assets/labyrinth.svg" class="hero-labyrinth" alt="" aria-hidden="true">
-
     <div class="hero-inner">
       <div>
         <p class="hero-kicker animate">LPD's · Surma-bouwstenen · Leerstof · Hiaten</p>
@@ -586,10 +652,10 @@
         </p>
 
         <div class="hero-chips animate delay-3">
-          <span class="chip">📚 LPD's</span>
-          <span class="chip">🔗 Surma-bouwstenen</span>
-          <span class="chip">📋 Leerstof</span>
-          <span class="chip">🔍 Hiaten</span>
+          <span class="chip"><span class="mi">shelves</span> LPD's</span>
+          <span class="chip"><span class="mi">bricks</span> Surma-bouwstenen</span>
+          <span class="chip"><span class="mi">assignment</span> Leerstof</span>
+          <span class="chip"><span class="mi">search</span> Hiaten</span>
         </div>
 
         <div class="hero-actions animate delay-4">
@@ -624,32 +690,32 @@
       </div>
       <div class="feature-grid">
         <div class="feature-card">
-          <div class="feature-icon">📚</div>
+          <div class="feature-icon"><span class="mi">shelves</span></div>
           <h3>LPD-dekking</h3>
           <p>Koppel elke les aan de juiste leerplandoelstellingen. Zie onmiddellijk welke LPD's voldoende of te weinig aan bod komen.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🧱</div>
+          <div class="feature-icon"><span class="mi">bricks</span></div>
           <h3>Surma-bouwstenen</h3>
           <p>De 12 didactische bouwblokken van Surma's Wijze Lessen worden automatisch herkend en overzichtelijk weergegeven.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">📋</div>
+          <div class="feature-icon"><span class="mi">assignment</span></div>
           <h3>Leerstofoverzicht</h3>
           <p>Welke auteurs, teksten en begrippen komen aan bod? Ariadne bouwt een gestructureerd overzicht van je leerstof.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔍</div>
+          <div class="feature-icon"><span class="mi">search</span></div>
           <h3>Hiatencheck</h3>
           <p>Welke LPD's of bouwstenen komen nooit voor? Ariadne signaleert lacunes zodat je gericht kunt bijsturen.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">📄</div>
+          <div class="feature-icon"><span class="mi">barcode_scanner</span></div>
           <h3>PDF-scan</h3>
           <p>Upload een digitale PDF en Ariadne scant de tekst op mogelijke LPD's en bouwstenen. Suggesties blijven bewust suggesties.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">📤</div>
+          <div class="feature-icon"><span class="mi">upload_file</span></div>
           <h3>Export</h3>
           <p>Exporteer je curriculum als JSON, CSV of planner-CSV. Klaar om te delen met collega's of te importeren in andere tools.</p>
         </div>
@@ -702,19 +768,19 @@
         </p>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
           <li style="display:flex;gap:10px;align-items:flex-start;font-size:0.86rem;color:var(--ink-muted)">
-            <span style="color:var(--orange);font-weight:700;flex-shrink:0">✓</span>
+            <span class="mi mi--check" style="flex-shrink:0;margin-top:1px">check_circle</span>
             Werkt met digitale tekst-PDF's via PDF.js
           </li>
           <li style="display:flex;gap:10px;align-items:flex-start;font-size:0.86rem;color:var(--ink-muted)">
-            <span style="color:var(--orange);font-weight:700;flex-shrink:0">✓</span>
+            <span class="mi mi--check" style="flex-shrink:0;margin-top:1px">check_circle</span>
             Trefwoordmatching per pagina
           </li>
           <li style="display:flex;gap:10px;align-items:flex-start;font-size:0.86rem;color:var(--ink-muted)">
-            <span style="color:var(--orange);font-weight:700;flex-shrink:0">✓</span>
+            <span class="mi mi--check" style="flex-shrink:0;margin-top:1px">check_circle</span>
             Suggesties per pagina overzichtelijk getoond
           </li>
           <li style="display:flex;gap:10px;align-items:flex-start;font-size:0.86rem;color:var(--ink-muted)">
-            <span style="color:var(--orange);font-weight:700;flex-shrink:0">→</span>
+            <span class="mi mi--arrow" style="flex-shrink:0;margin-top:1px">arrow_forward</span>
             Later: OCR voor scan-PDF's en AI-matching
           </li>
         </ul>
@@ -727,7 +793,7 @@
           <span class="scan-tab">Export</span>
         </div>
         <div class="scan-upload-zone">
-          <span class="scan-upload-icon">📄</span>
+          <span class="scan-upload-icon"><span class="mi" style="font-size:2rem;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48">barcode_scanner</span></span>
           <p>Sleep je PDF hierheen of kies een bestand</p>
           <span class="scan-btn">Kies PDF-bestand</span>
         </div>
@@ -784,8 +850,8 @@
   <!-- FOOTER -->
   <footer>
     <a class="brand" href="#">
-      <img src="assets/Ariadnelogo.svg"     class="brand-logo"     alt="Ariadne" style="height:28px">
-      <img src="assets/Ariadnewordmark.svg" class="brand-wordmark" alt="Ariadne" style="height:14px">
+      <img src="assets/Ariadnelogo.svg"     class="brand-logo"     alt="Ariadne" style="height:40px">
+      <img src="assets/Ariadnewordmark.svg" class="brand-wordmark" alt="Ariadne" style="height:20px; mix-blend-mode:multiply">
     </a>
     <p>v1.8 · curriculumdashboard voor leraren · lokale JSON-data</p>
   </footer>
