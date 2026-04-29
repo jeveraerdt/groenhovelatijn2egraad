@@ -1,0 +1,46 @@
+{
+  "id": "surma-bouwstenen",
+  "naam": "Bouwstenen voor wijze lessen",
+  "bouwstenen": [
+    {
+      "code": "voorkennis-activeren",
+      "label": "Activeer relevante voorkennis",
+      "omschrijving": "Leerlingen halen eerder geleerde kennis of ervaringen op vóór nieuwe leerstof wordt aangeboden."
+    },
+    {
+      "code": "heldere-uitleg",
+      "label": "Geef heldere, gestructureerde uitleg",
+      "omschrijving": "Nieuwe leerstof wordt expliciet en overzichtelijk aangebracht."
+    },
+    {
+      "code": "voorbeelden",
+      "label": "Gebruik voorbeelden",
+      "omschrijving": "Leerlingen krijgen uitgewerkte of herkenbare voorbeelden vóór zelfstandige verwerking."
+    },
+    {
+      "code": "controleren-begrip",
+      "label": "Controleer begrip",
+      "omschrijving": "De les bevat momenten waarop zichtbaar wordt of leerlingen de kern begrijpen."
+    },
+    {
+      "code": "begeleide-inoefening",
+      "label": "Begeleid inoefenen",
+      "omschrijving": "Leerlingen oefenen met ondersteuning, feedback of tussenstappen."
+    },
+    {
+      "code": "zelfstandige-verwerking",
+      "label": "Zelfstandige verwerking",
+      "omschrijving": "Leerlingen passen leerstof zelfstandig toe nadat de basis is opgebouwd."
+    },
+    {
+      "code": "gespreid-oefenen",
+      "label": "Spreid oefening in de tijd",
+      "omschrijving": "Leerstof wordt later opnieuw opgehaald of toegepast."
+    },
+    {
+      "code": "feedback",
+      "label": "Geef feedback",
+      "omschrijving": "Leerlingen krijgen gerichte informatie over hun aanpak, fouten of vooruitgang."
+    }
+  ]
+}

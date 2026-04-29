@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ariadne v1 — curriculumdashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ariadne.css">
+</head>
+<body>
+  <a class="skiplink" href="#app">Spring naar dashboard</a>
+
+  <header class="hero">
+    <div class="hero__thread" aria-hidden="true"></div>
+    <nav class="topbar" aria-label="Ariadne navigatie">
+      <div class="brandmark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" role="img">
+          <path d="M14 45c4-14 13-26 28-28 5-.6 9 2 10 6 2 7-4 11-11 10-11-1-19 4-24 15" />
+          <path d="M22 49c5-7 12-11 22-10" />
+          <circle cx="43" cy="24" r="3.5" />
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">Curriculumlaag</p>
+        <h1>Ariadne</h1>
+      </div>
+    </nav>
+
+    <section class="hero__content">
+      <div>
+        <p class="kicker">LPD’s · Surma-bouwstenen · leerstof · hiaten</p>
+        <h2>De draad door je lessen zichtbaar.</h2>
+        <p>
+          Ariadne v1 verzamelt lesmetadata, koppelt elke les aan de juiste LPD-set,
+          toont waar Surma-bouwstenen voorkomen en genereert overzichten die je kunt hergebruiken.
+        </p>
+      </div>
+
+      <div class="hero-card" aria-label="status">
+        <span class="status-dot"></span>
+        <strong>v1 draait lokaal op JSON-data</strong>
+        <small>Vervang later de voorbeelddata door echte lessen en officiële leerplandoelen.</small>
+      </div>
+    </section>
+  </header>
+
+  <main id="app" class="layout">
+    <aside class="panel filters" aria-label="filters">
+      <div class="panel__head">
+        <h2>Filters</h2>
+        <button class="ghost" id="resetFilters" type="button">Reset</button>
+      </div>
+
+      <label for="siteSelect">Site / richting</label>
+      <select id="siteSelect"></select>
+
+      <label for="themeSelect">Thema</label>
+      <select id="themeSelect"></select>
+
+      <label for="lpdSelect">LPD</label>
+      <select id="lpdSelect"></select>
+
+      <label for="blockSelect">Surma-bouwsteen</label>
+      <select id="blockSelect"></select>
+
+      <label for="searchInput">Zoeken</label>
+      <input id="searchInput" type="search" placeholder="bv. Seneca, woordenschat, toets">
+
+      <div class="mini-help">
+        <strong>V1-principe</strong>
+        <p>AI of scans mogen later suggesties doen, maar bevestigde metadata blijft de bron van waarheid.</p>
+      </div>
+    </aside>
+
+    <section class="dashboard">
+      <section class="stats-grid" aria-label="kerncijfers">
+        <article class="stat">
+          <span id="statLessons">0</span>
+          <p>lessen gevonden</p>
+        </article>
+        <article class="stat">
+          <span id="statLpdLinks">0</span>
+          <p>LPD-koppelingen</p>
+        </article>
+        <article class="stat">
+          <span id="statBlockLinks">0</span>
+          <p>bouwsteen-koppelingen</p>
+        </article>
+        <article class="stat stat--warn">
+          <span id="statGaps">0</span>
+          <p>aandachtspunten</p>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="tabs" role="tablist" aria-label="dashboardweergaven">
+          <button class="tab is-active" data-view="lessons" type="button">Lessen</button>
+          <button class="tab" data-view="lpds" type="button">LPD-dekking</button>
+          <button class="tab" data-view="blocks" type="button">Bouwstenen</button>
+          <button class="tab" data-view="content" type="button">Leerstof</button>
+          <button class="tab" data-view="gaps" type="button">Hiaten</button>
+          <button class="tab" data-view="export" type="button">Export</button>
+        </div>
+
+        <div id="viewTitle" class="view-title"></div>
+        <div id="content" class="content"></div>
+      </section>
+    </section>
+  </main>
+
+  <template id="emptyState">
+    <div class="empty">
+      <h3>Niets gevonden</h3>
+      <p>Pas je filters aan of voeg extra lesmetadata toe.</p>
+    </div>
+  </template>
+
+  <script src="ariadne.js"></script>
+</body>
+</html>
