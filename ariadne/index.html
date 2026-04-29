@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="icon" href="assets/ariadne-logo-user.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/ariadne-favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="ariadne.css">
 </head>
 <body>
@@ -17,17 +17,16 @@
     <div class="hero__thread" aria-hidden="true"></div>
     <nav class="topbar" aria-label="Ariadne navigatie">
       <a class="brand" href="#" aria-label="Ariadne dashboard">
-        <img src="assets/ariadne-logo-user.svg" alt="" class="brand-logo" aria-hidden="true">
-        <img src="assets/ariadne-wordmark-user.svg" alt="Ariadne" class="brand-wordmark">
+        <img src="assets/ariadne-lockup-safe.svg" alt="Ariadne" class="brand-lockup">
       </a>
 
       <div class="topnav" aria-label="Hoofdnavigatie">
-        <a href="#" class="is-active">Dashboard</a>
+        <a class="is-active" href="#">Dashboard</a>
         <a href="#content">Lessen</a>
         <a href="#content">Curriculum</a>
         <a href="#content">Rapporten</a>
         <a href="#content">Help</a>
-        <span class="avatar" aria-label="Gebruiker">AV</span>
+        <span class="avatar-wrap"><span class="avatar" aria-label="Gebruiker">AV</span><span class="avatar-caret">⌄</span></span>
       </div>
     </nav>
 
@@ -50,7 +49,7 @@
 
       <div class="hero-card" aria-label="status">
         <span class="status-dot"></span>
-        <strong>v1.6 draait lokaal op JSON-data</strong>
+        <strong>v1.4 draait lokaal op JSON-data</strong>
         <small>Vervang later de voorbeelddata door echte lessen en officiële leerplandoelen.</small>
       </div>
     </section>
@@ -86,21 +85,21 @@
 
     <section class="dashboard">
       <section class="stats-grid" aria-label="kerncijfers">
-        <article class="stat">
-          <span id="statLessons">0</span>
-          <p>lessen gevonden</p>
+        <article class="stat stat--withicon">
+          <span class="stat-icon stat-icon--lessons" aria-hidden="true"></span>
+          <div class="stat-copy"><span id="statLessons">0</span><p>lessen gevonden</p></div>
         </article>
-        <article class="stat">
-          <span id="statLpdLinks">0</span>
-          <p>LPD-koppelingen</p>
+        <article class="stat stat--withicon">
+          <span class="stat-icon stat-icon--links" aria-hidden="true"></span>
+          <div class="stat-copy"><span id="statLpdLinks">0</span><p>LPD-koppelingen</p></div>
         </article>
-        <article class="stat">
-          <span id="statBlockLinks">0</span>
-          <p>bouwsteen-koppelingen</p>
+        <article class="stat stat--withicon">
+          <span class="stat-icon stat-icon--blocks" aria-hidden="true"></span>
+          <div class="stat-copy"><span id="statBlockLinks">0</span><p>bouwsteen-koppelingen</p></div>
         </article>
-        <article class="stat stat--warn">
-          <span id="statGaps">0</span>
-          <p>aandachtspunten</p>
+        <article class="stat stat--withicon stat--warn">
+          <span class="stat-icon stat-icon--gaps" aria-hidden="true"></span>
+          <div class="stat-copy"><span id="statGaps">0</span><p>aandachtspunten</p></div>
         </article>
       </section>
 

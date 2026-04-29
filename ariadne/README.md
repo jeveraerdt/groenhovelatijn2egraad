@@ -217,14 +217,3 @@ Deze versie ruimt vooral de interface op:
 ```
 
 De header blijft robuust: SVG voor het wolkluwen, HTML/CSS voor het woordmerk.
-
-
-## v1.6 assets geïntegreerd
-
-Geïntegreerd in de interface:
-
-- `assets/ariadne-logo-user.svg`
-- `assets/ariadne-wordmark-user.svg`
-- `assets/ariadne-background-user.svg`
-
-Deze versie gebruikt het aangeleverde woordmerk in de header en de aangeleverde achtergrond als subtiele watermark rechtsboven.
