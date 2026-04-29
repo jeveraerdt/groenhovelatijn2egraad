@@ -1,23 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120">
-  <rect width="160" height="120" fill="transparent"/>
-  <defs>
-    <clipPath id="ballClip">
-      <circle cx="96" cy="54" r="42"/>
-    </clipPath>
-  </defs>
-  <g fill="none" stroke="#D4AF37" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 90 C 20 68, 49 78, 62 92 C 73 103, 91 100, 106 88"/>
-    <circle cx="96" cy="54" r="42"/>
-    <g clip-path="url(#ballClip)">
-      <path d="M51 40 C 76 23, 105 20, 136 29"/>
-      <path d="M50 57 C 75 38, 103 35, 141 43"/>
-      <path d="M51 74 C 77 56, 105 55, 143 61"/>
-      <path d="M61 91 C 83 75, 108 74, 138 78"/>
-      <path d="M64 15 C 58 38, 63 68, 82 102"/>
-      <path d="M82 10 C 76 37, 81 70, 103 107"/>
-      <path d="M103 11 C 92 39, 94 67, 118 102"/>
-      <path d="M45 33 C 59 56, 82 75, 120 87"/>
-      <path d="M49 84 C 60 65, 77 45, 103 21"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 72" role="img" aria-labelledby="title desc">
+  <title id="title">Ariadne wolkluwen</title>
+  <desc id="desc">Een verfijnd gouden wolkluwen met een los draadje.</desc>
+  <g fill="none" stroke="#D4AF37" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 55c7-13 24-10 35 0 8 7 21 7 30-2"/>
+    <circle cx="52" cy="32" r="24"/>
+    <path d="M31 23c12-11 30-14 46-6"/>
+    <path d="M29 34c15-13 33-13 49-8"/>
+    <path d="M33 45c13-8 29-9 43-5"/>
+    <path d="M38 12c-4 14 0 30 11 45"/>
+    <path d="M51 8c-5 16-1 33 13 49"/>
+    <path d="M67 13c-10 12-13 27-8 41"/>
+    <path d="M30 22c10 17 25 28 45 33"/>
   </g>
 </svg>

@@ -1,4 +1,4 @@
-# Ariadne v1.2
+# Ariadne v1.4
 
 Ariadne is een losse curriculumlaag voor je educatieve sites.
 
@@ -177,3 +177,43 @@ Vaste richting:
 ```
 
 De SVG’s gebruiken geen externe fontbestanden. Het woordmerk gebruikt een moderne sans-serif fallback-stack in SVG-tekst, met een handgetekende E-vorm.
+
+
+## v1.3 logo-fix
+
+De header gebruikt nu bewust géén volledige lockup-SVG meer, omdat de apart geplaatste E in sommige browsers fout kon schalen of los kon komen te staan.
+
+Header-opbouw:
+
+```html
+<img src="assets/ariadne-yarn.svg">
+<span class="brand-word">ARIADNE</span>
+```
+
+De E krijgt haar draadeinde via CSS (`.brand-e::after`). Daardoor blijft de R zuiver en kan de E niet meer als los object wegschuiven.
+
+Extra veilige assets:
+
+```text
+assets/ariadne-wordmark-safe.svg
+assets/ariadne-lockup-safe.svg
+```
+
+Deze bevatten geen losse E-gimmick en zijn bedoeld als stabiele fallback/export.
+
+
+## v1.4 clean-up
+
+Deze versie ruimt vooral de interface op:
+
+```text
+- lichter, verfijnder wolkluwen
+- rustiger header
+- minder zware kaarten
+- subtieler labyrint
+- luchtiger PDF-scanblok
+- minder tekst op elkaar
+- zachtere grenzen en schaduwen
+```
+
+De header blijft robuust: SVG voor het wolkluwen, HTML/CSS voor het woordmerk.
