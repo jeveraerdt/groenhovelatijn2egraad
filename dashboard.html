@@ -7,12 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet">
   <link rel="icon" href="assets/Ariadnelogo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="ariadne.css">
   <style>
-    /* Labyrint als fixed achtergrond — achter alles */
-    body::before {
-      content: '';
+    /* Labyrint in hero::after verbergen — zit op voorgrond via ariadne.css */
+    .hero::after { display: none !important; }
+
+    /* Labyrint als echte achtergrond via aparte div */
+    #bg-labyrinth {
       position: fixed;
       inset: 0;
       z-index: -1;
@@ -20,23 +23,42 @@
       background-repeat: no-repeat;
       background-position: center right -5%;
       background-size: 65vw auto;
-      opacity: 0.03;
+      opacity: 0.04;
       pointer-events: none;
     }
-    /* Enkel logo in topbar, geen wordmark (wordmark.svg bevat nu het volledige lockup) */
-    .brand-logo     { height: 36px !important; width: auto !important; }
+
+    /* Wordmark verbergen — ariadne.css zet het op display:block !important */
     .brand-wordmark { display: none !important; }
+
+    /* Logo iets groter dan de 2.55rem uit ariadne.css */
+    .brand-logo {
+      width: 2.8rem !important;
+      height: 2.8rem !important;
+    }
+
+    /* Material Symbols */
+    .mi {
+      font-family: 'Material Symbols Outlined';
+      font-size: 1.1em;
+      line-height: 1;
+      vertical-align: middle;
+      color: #C8860A;
+      font-style: normal;
+      font-weight: normal;
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
+  <div id="bg-labyrinth" aria-hidden="true"></div>
   <a class="skiplink" href="#app">Spring naar dashboard</a>
 
   <header class="hero">
     <div class="hero__thread" aria-hidden="true"></div>
     <nav class="topbar" aria-label="Ariadne navigatie">
       <a class="brand" href="index.html" aria-label="Ariadne home">
-        <img src="assets/Ariadnelogo.svg" alt="" class="brand-logo" aria-hidden="true">
-        <img src="assets/Ariadnewordmark.svg" alt="Ariadne" class="brand-wordmark">
+        <img src="assets/Ariadnelogo.svg" alt="Ariadne" class="brand-logo" style="height:36px;width:auto">
       </a>
 
       <div class="topnav" aria-label="Hoofdnavigatie">
