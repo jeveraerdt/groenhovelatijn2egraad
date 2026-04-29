@@ -11,7 +11,7 @@ const Ariadne = {
     lpd: "all",
     block: "all",
     search: "",
-    view: "lessons",
+    view: "pdfscan",
     pdfScan: {
       fileName: "",
       status: "Nog geen PDF gescand.",
@@ -469,7 +469,7 @@ function renderGaps(lessons) {
 function renderPdfScan(lessons) {
   const content = $("#content");
   const siteWarning = Ariadne.state.site === "all"
-    ? `<div class="pdf-note"><strong>Kies bij voorkeur één site.</strong><br>Zo gebruikt Ariadne de juiste LPD-set.</div>`
+    ? `<div class="pdf-note"><strong>Tip</strong><span>Kies één site voor preciezere LPD-suggesties.</span></div>`
     : "";
 
   content.innerHTML = `
@@ -533,7 +533,7 @@ function renderPdfSuggestions() {
             </svg>
           </div>
           <h3>Nog geen suggesties</h3>
-          <p>Scan een PDF. Mogelijke LPD’s en bouwstenen verschijnen hier overzichtelijk.</p>
+          <p>Scan een PDF; mogelijke LPD’s en bouwstenen verschijnen hier per pagina.</p>
         </div>
       </div>
     `;

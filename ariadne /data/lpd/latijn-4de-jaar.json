@@ -1,0 +1,25 @@
+{
+  "id": "latijn-4de-jaar",
+  "naam": "Voorbeeldset LPD’s Latijn — 4de jaar",
+  "waarschuwing": "Vervang deze voorbeeldset door de officiële LPD-lijst.",
+  "lpds": [
+    {
+      "code": "LAT4-LPD01",
+      "titel": "Literaire tekst begrijpen",
+      "omschrijving": "De leerlingen begrijpen een literaire Latijnse tekst met toenemende zelfstandigheid.",
+      "categorie": "Tekstbegrip"
+    },
+    {
+      "code": "LAT4-LPD02",
+      "titel": "Stijlmiddelen herkennen en duiden",
+      "omschrijving": "De leerlingen herkennen stijlmiddelen en verklaren hun effect binnen de tekst.",
+      "categorie": "Interpretatie"
+    },
+    {
+      "code": "LAT4-LPD03",
+      "titel": "Romeinse wereld kritisch benaderen",
+      "omschrijving": "De leerlingen benaderen de Romeinse cultuur kritisch vanuit historische context en hedendaagse vragen.",
+      "categorie": "Cultuur"
+    }
+  ]
+}

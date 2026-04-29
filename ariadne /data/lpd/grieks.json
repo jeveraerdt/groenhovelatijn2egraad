@@ -1,0 +1,25 @@
+{
+  "id": "grieks",
+  "naam": "Voorbeeldset LPD’s Grieks",
+  "waarschuwing": "Vervang deze voorbeeldset door de officiële LPD-lijst van Grieks.",
+  "lpds": [
+    {
+      "code": "GR-LPD01",
+      "titel": "Griekse tekst begrijpen",
+      "omschrijving": "De leerlingen begrijpen een Griekse tekst met passende ondersteuning.",
+      "categorie": "Tekstbegrip"
+    },
+    {
+      "code": "GR-LPD02",
+      "titel": "Griekse cultuur contextualiseren",
+      "omschrijving": "De leerlingen plaatsen Griekse teksten, beelden of gebruiken in cultuurhistorische context.",
+      "categorie": "Cultuur"
+    },
+    {
+      "code": "GR-LPD03",
+      "titel": "Taalstructuren analyseren",
+      "omschrijving": "De leerlingen analyseren relevante morfologie en syntaxis in functie van tekstbegrip.",
+      "categorie": "Taalbeschouwing"
+    }
+  ]
+}

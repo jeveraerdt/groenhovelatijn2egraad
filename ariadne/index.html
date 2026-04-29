@@ -6,8 +6,8 @@
   <title>Ariadne v1 — curriculumdashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="assets/ariadne-favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/ariadne-logo-user.svg" type="image/svg+xml">
   <link rel="stylesheet" href="ariadne.css">
 </head>
 <body>
@@ -17,14 +17,12 @@
     <div class="hero__thread" aria-hidden="true"></div>
     <nav class="topbar" aria-label="Ariadne navigatie">
       <a class="brand" href="#" aria-label="Ariadne dashboard">
-        <img src="assets/ariadne-yarn.svg" alt="" class="brand-mark" aria-hidden="true">
-        <span class="brand-word" aria-label="Ariadne">
-          <span>A</span><span>R</span><span>I</span><span>A</span><span>D</span><span>N</span><span class="brand-e">E</span>
-        </span>
+        <img src="assets/ariadne-logo-user.svg" alt="" class="brand-logo" aria-hidden="true">
+        <img src="assets/ariadne-wordmark-user.svg" alt="Ariadne" class="brand-wordmark">
       </a>
 
       <div class="topnav" aria-label="Hoofdnavigatie">
-        <a class="is-active" href="#">Dashboard</a>
+        <a href="#" class="is-active">Dashboard</a>
         <a href="#content">Lessen</a>
         <a href="#content">Curriculum</a>
         <a href="#content">Rapporten</a>
@@ -52,7 +50,7 @@
 
       <div class="hero-card" aria-label="status">
         <span class="status-dot"></span>
-        <strong>v1.4 draait lokaal op JSON-data</strong>
+        <strong>v1.6 draait lokaal op JSON-data</strong>
         <small>Vervang later de voorbeelddata door echte lessen en officiële leerplandoelen.</small>
       </div>
     </section>
@@ -108,12 +106,12 @@
 
       <section class="panel">
         <div class="tabs" role="tablist" aria-label="dashboardweergaven">
-          <button class="tab is-active" data-view="lessons" type="button">Lessen</button>
+          <button class="tab" data-view="lessons" type="button">Lessen</button>
           <button class="tab" data-view="lpds" type="button">LPD-dekking</button>
           <button class="tab" data-view="blocks" type="button">Bouwstenen</button>
           <button class="tab" data-view="content" type="button">Leerstof</button>
           <button class="tab" data-view="gaps" type="button">Hiaten</button>
-          <button class="tab" data-view="pdfscan" type="button">PDF-scan</button>
+          <button class="tab is-active" data-view="pdfscan" type="button">PDF-scan</button>
           <button class="tab" data-view="export" type="button">Export</button>
         </div>
 

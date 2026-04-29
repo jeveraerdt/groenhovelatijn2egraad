@@ -1,0 +1,37 @@
+{
+  "id": "latijn-3de-jaar",
+  "naam": "Voorbeeldset LPD’s Latijn — 3de jaar",
+  "waarschuwing": "Vervang deze voorbeeldset door de officiële LPD-lijst van jouw site/richting/graad.",
+  "lpds": [
+    {
+      "code": "LAT3-LPD01",
+      "titel": "Latijnse tekst begrijpen",
+      "omschrijving": "De leerlingen begrijpen de inhoud van een Latijnse tekst met passende ondersteuning.",
+      "categorie": "Tekstbegrip"
+    },
+    {
+      "code": "LAT3-LPD02",
+      "titel": "Taal en vorm analyseren",
+      "omschrijving": "De leerlingen analyseren woordgroepen, grammaticale vormen en zinsstructuren in functie van tekstbegrip.",
+      "categorie": "Taalbeschouwing"
+    },
+    {
+      "code": "LAT3-LPD03",
+      "titel": "Cultuurhistorische context verbinden",
+      "omschrijving": "De leerlingen verbinden een tekst of thema met relevante cultuurhistorische context.",
+      "categorie": "Cultuur"
+    },
+    {
+      "code": "LAT3-LPD04",
+      "titel": "Tekst interpreteren",
+      "omschrijving": "De leerlingen interpreteren inhoud, stijl, intentie en waardenkader van een Latijnse tekst.",
+      "categorie": "Interpretatie"
+    },
+    {
+      "code": "LAT3-LPD05",
+      "titel": "Reflecteren en actualiseren",
+      "omschrijving": "De leerlingen formuleren een onderbouwde reflectie of actualisering bij een klassieke tekst of cultuurinhoud.",
+      "categorie": "Reflectie"
+    }
+  ]
+}
