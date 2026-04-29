@@ -108,35 +108,43 @@
       border-bottom: 1px solid rgba(212,175,55,0.18);
     }
 
-    /* Topbar brand: klein, puur navigatieanker */
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    /* Topbar: enkel tekstnaam als discreet anker */
+    .brand-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
       text-decoration: none;
+      transition: color 0.2s;
     }
-    .brand-logo     { height: 28px; width: auto; display: block; }
-    .brand-wordmark { height: 13px; width: auto; display: block; mix-blend-mode: multiply; }
+    .brand-text:hover { color: var(--orange); }
 
     /* ── HERO BRAND: het merk shinet hier ── */
     .hero-brand {
+      grid-column: 1 / -1;
+      margin-bottom: 52px;
       display: flex;
       align-items: center;
-      gap: 32px;
-      margin-bottom: 56px;
+      /* Gap = helft van logobreedte. Logo is ~vierkant op 220px hoog ≈ 220px breed → gap ≈ 110px */
+      gap: 110px;
     }
     .hero-brand-logo {
-      height: clamp(72px, 10vw, 110px);
+      /* Groot en trots */
+      height: clamp(140px, 18vw, 220px);
       width: auto;
       display: block;
-      filter: drop-shadow(0 4px 24px rgba(212,175,55,0.25));
+      filter: drop-shadow(0 6px 28px rgba(212,175,55,0.22));
       animation: fadeUp 0.7s ease forwards;
+      flex-shrink: 0;
     }
     .hero-brand-wordmark {
-      /* Wordmark zo hoog als de h1 regelhoogte — imposant */
-      height: clamp(36px, 5.5vw, 64px);
+      /* Visueel zelfde hoogte als logo: wordmark is typisch 1/4 van logohoogte in px,
+         dus 4× opschalen zodat de optische hoogte matcht met het logo */
+      height: clamp(44px, 6vw, 72px);
       width: auto;
       display: block;
+      /* Witte achtergrond in SVG wegwerken */
       mix-blend-mode: multiply;
       animation: fadeUp 0.7s 0.1s ease both;
     }
@@ -621,9 +629,9 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       .hero-inner       { grid-template-columns: 1fr; gap: 0; }
-      .hero-brand       { margin-bottom: 40px; }
-      .hero-brand-logo  { height: clamp(60px, 12vw, 80px); }
-      .hero-brand-wordmark { height: clamp(28px, 5vw, 44px); }
+      .hero-brand       { margin-bottom: 40px; gap: 60px; }
+      .hero-brand-logo  { height: clamp(100px, 14vw, 160px); }
+      .hero-brand-wordmark { height: clamp(32px, 4.5vw, 56px); }
       .feature-grid     { grid-template-columns: 1fr 1fr; }
       .steps            { grid-template-columns: 1fr 1fr; }
       .steps::before    { display: none; }
@@ -636,7 +644,9 @@
       .hero, .section, .how-section,
       .highlight-section, .surma-section,
       .cta-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .hero-brand { gap: 20px; }
+      .hero-brand { gap: 32px; flex-wrap: wrap; }
+      .hero-brand-logo { height: clamp(80px, 20vw, 120px); }
+      .hero-brand-wordmark { height: clamp(24px, 7vw, 44px); }
       .feature-grid { grid-template-columns: 1fr; }
       .surma-grid   { grid-template-columns: 1fr; }
       .steps        { grid-template-columns: 1fr; }
@@ -647,10 +657,7 @@
 
   <!-- TOPBAR -->
   <nav class="topbar">
-    <a class="brand" href="#">
-      <img src="assets/Ariadnelogo.svg"     class="brand-logo"     alt="Ariadne logo">
-      <img src="assets/Ariadnewordmark.svg" class="brand-wordmark" alt="Ariadne">
-    </a>
+    <a class="brand-text" href="#">Ariadne</a>
     <div class="topnav">
       <a href="#features">Features</a>
       <a href="#hoe">Hoe werkt het</a>
@@ -876,10 +883,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <a class="brand" href="#">
-      <img src="assets/Ariadnelogo.svg"     class="brand-logo"     alt="Ariadne" style="height:36px">
-      <img src="assets/Ariadnewordmark.svg" class="brand-wordmark" alt="Ariadne" style="height:17px; mix-blend-mode:multiply">
-    </a>
+    <a class="brand-text" href="#">Ariadne</a>
     <p>v1.8 · curriculumdashboard voor leraren · lokale JSON-data</p>
   </footer>
 
