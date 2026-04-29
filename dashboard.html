@@ -1,858 +1,153 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leraarsdashboard — Groenhove Latijn</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ariadne v1.8 — curriculumdashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/Ariadnelogo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="ariadne.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --groen: #006633;
-      --groen-licht: #e8f5ee;
-      --groen-mid: #65b32e;
-      --accent: #FF3B1D;
-      --wit: #f3f1ef;
-      --zwart: #010100;
-      --grijs: #6b7280;
-      --border: #e5e7eb;
-      --font-titel: 'Flanders Art Sans', 'Noto Sans', sans-serif;
-      --font-body: 'Noto Sans', Arial, sans-serif;
+    /* Labyrint als fixed achtergrond — achter alles */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: url('assets/labyrinth.svg');
+      background-repeat: no-repeat;
+      background-position: center right -5%;
+      background-size: 65vw auto;
+      opacity: 0.03;
+      pointer-events: none;
     }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--wit);
-      color: var(--zwart);
-      min-height: 100vh;
-    }
-
-    header {
-      background: var(--groen);
-      color: white;
-      padding: 0 32px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .header-logo-img {
-      height: 34px;
-      width: auto;
-      display: block;
-      flex-shrink: 0;
-    }
-
-    .header-title {
-      font-family: var(--font-titel);
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-
-    .header-sub {
-      font-size: 12px;
-      opacity: 0.75;
-      font-weight: 400;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
-    }
-
-    #auth-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-uitloggen {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.4);
-      color: white;
-      padding: 5px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 12px;
-      font-family: var(--font-body);
-      transition: background 0.2s;
-    }
-
-    .btn-uitloggen:hover { background: rgba(255,255,255,0.25); }
-
-    #login-screen {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 60px);
-      padding: 40px 20px;
-    }
-
-    .login-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.1);
-      padding: 48px;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      border: 1px solid rgba(0,102,51,.08);
-    }
-
-    .login-icon {
-      width: 70px;
-      height: 70px;
-      margin: 0 auto 18px;
-      border-radius: 20px;
-      background: var(--groen-licht);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .login-icon img {
-      height: 42px;
-      width: auto;
-      display: block;
-    }
-
-    .login-card h2 {
-      font-family: var(--font-titel);
-      color: var(--groen);
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .login-card p {
-      color: var(--grijs);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
-
-    .login-form {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      text-align: left;
-    }
-
-    .login-form label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--groen);
-    }
-
-    .login-form input {
-      width: 100%;
-      margin-top: 6px;
-      padding: 11px 12px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-family: var(--font-body);
-      font-size: 14px;
-      background: #fff;
-    }
-
-    .login-form input:focus {
-      outline: none;
-      border-color: var(--groen);
-      box-shadow: 0 0 0 3px rgba(0,102,51,.12);
-    }
-
-    .login-form button {
-      margin-top: 8px;
-      background: var(--groen);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 18px;
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background .15s, transform .15s;
-    }
-
-    .login-form button:hover {
-      background: #00522a;
-      transform: translateY(-1px);
-    }
-
-    .login-form button:disabled {
-      opacity: .6;
-      cursor: default;
-      transform: none;
-    }
-
-    .login-error {
-      color: var(--accent);
-      font-size: 13px;
-      margin-top: 12px;
-      display: none;
-      line-height: 1.4;
-    }
-
-    #dashboard { display: none; padding: 32px; max-width: 1200px; margin: 0 auto; }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px 24px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--grijs);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    .stat-value {
-      font-family: var(--font-titel);
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--groen);
-    }
-
-    .stat-sub { font-size: 12px; color: var(--grijs); margin-top: 2px; }
-
-    .sectie {
-      background: white;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-
-    .sectie-header {
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--groen-licht);
-    }
-
-    .sectie-titel {
-      font-family: var(--font-titel);
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--groen);
-    }
-
-    .badge {
-      background: var(--groen);
-      color: white;
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-weight: 600;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-
-    thead th {
-      padding: 10px 16px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--grijs);
-      background: #fafafa;
-      border-bottom: 1px solid var(--border);
-    }
-
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.1s;
-    }
-
-    tbody tr:hover { background: var(--groen-licht); }
-    tbody tr:last-child { border-bottom: none; }
-
-    td { padding: 10px 16px; }
-
-    .td-email { color: var(--grijs); font-size: 13px; }
-
-    .progress-bar {
-      width: 100%;
-      height: 6px;
-      background: #e5e7eb;
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      border-radius: 99px;
-      background: var(--groen-mid);
-      transition: width 0.5s ease;
-    }
-
-    .progress-fill.hoog { background: var(--groen); }
-    .progress-fill.laag { background: var(--accent); }
-
-    .chip {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .chip-les1 { background: #dbeafe; color: #1d4ed8; }
-    .chip-les2 { background: #fef3c7; color: #92400e; }
-    .chip-geen { background: #f3f4f6; color: var(--grijs); }
-
-    .btn-refresh {
-      background: var(--groen);
-      color: white;
-      border: none;
-      padding: 7px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      font-family: var(--font-body);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.2s;
-    }
-
-    .btn-refresh:hover { background: #00522a; }
-    .btn-refresh:disabled { opacity: 0.5; cursor: default; }
-
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: var(--grijs);
-      font-size: 14px;
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--border);
-      border-top-color: var(--groen);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .laatste-update {
-      font-size: 12px;
-      color: var(--grijs);
-      text-align: right;
-      margin-bottom: 16px;
-    }
-
-    .leeg {
-      text-align: center;
-      padding: 32px;
-      color: var(--grijs);
-      font-size: 14px;
-    }
-
-    @media (max-width: 760px) {
-      header { padding: 0 18px; }
-      #dashboard { padding: 20px 14px; }
-      .login-card { padding: 32px 24px; }
-      .header-sub { display: none; }
-      table { min-width: 720px; }
-      .sectie { overflow-x: auto; }
-    }
+    /* Enkel logo in topbar, geen wordmark (wordmark.svg bevat nu het volledige lockup) */
+    .brand-logo     { height: 36px !important; width: auto !important; }
+    .brand-wordmark { display: none !important; }
   </style>
 </head>
 <body>
+  <a class="skiplink" href="#app">Spring naar dashboard</a>
 
-<header>
-  <div class="header-left">
-    <img class="header-logo-img" src="images/nav/logo_mono_wit.png" alt="Groenhove Latijn">
-    <div>
-      <div class="header-title">Groenhove Latijn</div>
-      <div class="header-sub">Leraarsdashboard</div>
-    </div>
-  </div>
-  <div class="header-right">
-    <div id="auth-status"></div>
-  </div>
-</header>
+  <header class="hero">
+    <div class="hero__thread" aria-hidden="true"></div>
+    <nav class="topbar" aria-label="Ariadne navigatie">
+      <a class="brand" href="index.html" aria-label="Ariadne home">
+        <img src="assets/Ariadnelogo.svg" alt="" class="brand-logo" aria-hidden="true">
+        <img src="assets/Ariadnewordmark.svg" alt="Ariadne" class="brand-wordmark">
+      </a>
 
-<div id="login-screen">
-  <div class="login-card">
-    <div class="login-icon">
-      <img src="images/nav/logo.svg" alt="Groenhove Latijn">
-    </div>
-    <h2>Leraarsdashboard</h2>
-    <p>Log in om het leraarsdashboard te openen.</p>
-
-    <form id="login-form" class="login-form">
-      <label>
-        Loginnaam
-        <input id="login-naam" type="text" autocomplete="username" required>
-      </label>
-
-      <label>
-        Paswoord
-        <input id="login-wachtwoord" type="password" autocomplete="current-password" required>
-      </label>
-
-      <button id="login-submit" type="submit">Inloggen</button>
-    </form>
-
-    <p class="login-error" id="login-error"></p>
-  </div>
-</div>
-
-<div id="dashboard">
-  <div class="stats-grid" id="stats-grid">
-    <div class="stat-card">
-      <div class="stat-label">Leerlingen</div>
-      <div class="stat-value" id="stat-leerlingen">—</div>
-      <div class="stat-sub">ingelogd dit schooljaar</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Les 1 voltooid</div>
-      <div class="stat-value" id="stat-les1">—</div>
-      <div class="stat-sub">leerlingen</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Les 2 voltooid</div>
-      <div class="stat-value" id="stat-les2">—</div>
-      <div class="stat-sub">leerlingen</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Gem. score</div>
-      <div class="stat-value" id="stat-gem">—</div>
-      <div class="stat-sub">over alle lessen</div>
-    </div>
-  </div>
-
-  <p class="laatste-update" id="laatste-update"></p>
-
-  <div class="sectie">
-    <div class="sectie-header">
-      <span class="sectie-titel">Leerlingenoverzicht</span>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <span class="badge" id="badge-leerlingen">0</span>
-        <button class="btn-refresh" id="btn-refresh" onclick="laadData()">
-          ↺ Vernieuwen
-        </button>
+      <div class="topnav" aria-label="Hoofdnavigatie">
+        <a href="index.html">Home</a>
+        <a class="is-active" href="#">Dashboard</a>
+        <a href="#content">Lessen</a>
+        <a href="#content">Curriculum</a>
+        <a href="#content">Rapporten</a>
+        <a href="#content">Help</a>
+        <span class="avatar-wrap"><span class="avatar" aria-label="Gebruiker">AV</span><span class="avatar-caret">⌄</span></span>
       </div>
-    </div>
-    <div id="tabel-leerlingen">
-      <div class="loading"><span class="spinner"></span> Data laden…</div>
-    </div>
-  </div>
+    </nav>
 
-  <div class="sectie">
-    <div class="sectie-header">
-      <span class="sectie-titel">Voortgang per les</span>
-      <span class="badge" id="badge-voortgang">0</span>
-    </div>
-    <div id="tabel-voortgang">
-      <div class="loading"><span class="spinner"></span> Data laden…</div>
-    </div>
-  </div>
+    <section class="hero__content">
+      <div>
+        <p class="kicker">LPD's · Surma-bouwstenen · leerstof · hiaten</p>
+        <h2>De draad door je lessen zichtbaar.</h2>
+        <p>
+          Ariadne verzamelt lesmetadata, koppelt elke les aan de juiste LPD-set,
+          toont waar Surma-bouwstenen voorkomen en genereert overzicht en inzicht.
+        </p>
 
-  <div class="sectie" id="sectie-trainer">
-    <div class="sectie-header">
-      <span class="sectie-titel">Woordjestrainer 3DS — lokale activiteit</span>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <span class="badge" id="badge-trainer">0</span>
-        <button class="btn-refresh" onclick="renderTrainerActiviteit()">↺ Vernieuwen</button>
+        <div class="quicklinks" aria-label="kernfuncties">
+          <span>LPD's</span>
+          <span>Surma-bouwstenen</span>
+          <span>Leerstof</span>
+          <span>Hiaten</span>
+        </div>
       </div>
+
+      <div class="hero-card" aria-label="status">
+        <span class="status-dot"></span>
+        <strong>v1.8 draait lokaal op JSON-data</strong>
+        <small>Vervang later de voorbeelddata door echte lessen en officiële leerplandoelen.</small>
+      </div>
+    </section>
+  </header>
+
+  <main id="app" class="layout">
+    <aside class="panel filters" aria-label="filters">
+      <div class="panel__head">
+        <h2>Filters</h2>
+        <button class="ghost" id="resetFilters" type="button">Reset</button>
+      </div>
+
+      <label for="siteSelect">Site / richting</label>
+      <select id="siteSelect"></select>
+
+      <label for="themeSelect">Thema</label>
+      <select id="themeSelect"></select>
+
+      <label for="lpdSelect">LPD</label>
+      <select id="lpdSelect"></select>
+
+      <label for="blockSelect">Surma-bouwsteen</label>
+      <select id="blockSelect"></select>
+
+      <label for="searchInput">Zoeken</label>
+      <input id="searchInput" type="search" placeholder="bv. Seneca, woordenschat, toets">
+
+      <div class="mini-help">
+        <strong>V1-principe</strong>
+        <p>AI of scans mogen later suggesties doen, maar bevestigde metadata blijft de bron van waarheid.</p>
+      </div>
+    </aside>
+
+    <section class="dashboard">
+      <section class="stats-grid" aria-label="kerncijfers">
+        <article class="stat stat--withicon">
+          <span class="stat-icon stat-icon--lessons" aria-hidden="true"></span>
+          <div class="stat-copy"><span id="statLessons">0</span><p>lessen gevonden</p></div>
+        </article>
+        <article class="stat stat--withicon">
+          <span class="stat-icon stat-icon--links" aria-hidden="true"></span>
+          <div class="stat-copy"><span id="statLpdLinks">0</span><p>LPD-koppelingen</p></div>
+        </article>
+        <article class="stat stat--withicon">
+          <span class="stat-icon stat-icon--blocks" aria-hidden="true"></span>
+          <div class="stat-copy"><span id="statBlockLinks">0</span><p>bouwsteen-koppelingen</p></div>
+        </article>
+        <article class="stat stat--withicon stat--warn">
+          <span class="stat-icon stat-icon--gaps" aria-hidden="true"></span>
+          <div class="stat-copy"><span id="statGaps">0</span><p>aandachtspunten</p></div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="tabs" role="tablist" aria-label="dashboardweergaven">
+          <button class="tab" data-view="lessons" type="button">Lessen</button>
+          <button class="tab" data-view="lpds" type="button">LPD-dekking</button>
+          <button class="tab" data-view="blocks" type="button">Bouwstenen</button>
+          <button class="tab" data-view="content" type="button">Leerstof</button>
+          <button class="tab" data-view="gaps" type="button">Hiaten</button>
+          <button class="tab is-active" data-view="pdfscan" type="button">PDF-scan</button>
+          <button class="tab" data-view="export" type="button">Export</button>
+        </div>
+
+        <div id="viewTitle" class="view-title"></div>
+        <div id="content" class="content"></div>
+      </section>
+    </section>
+  </main>
+
+  <template id="emptyState">
+    <div class="empty">
+      <h3>Niets gevonden</h3>
+      <p>Pas je filters aan of voeg extra lesmetadata toe.</p>
     </div>
-    <p style="padding:0 16px 8px;font-size:12px;color:var(--grijs);">
-      Scores opgeslagen in de browser van dit toestel (localStorage). Persistent leaderboard: vul Google Form config in in de trainer-HTML.
-    </p>
-    <div id="tabel-trainer">
-      <div class="leeg">Geen trainer-activiteit gevonden op dit toestel.</div>
-    </div>
-  </div>
-</div>
+  </template>
 
-<script>
-const CONFIG = {
-appsScriptUrl: 'https://script.google.com/macros/s/AKfycbw5hzoZuYf5aP0ZNaWXY4ZnCxtlcoqMinxktjTMKGywCpXGG5J7YtOodauz2qo1cKUC/exec',  userKey: 'groenhove_dash_user',
-  expiryKey: 'groenhove_dash_expiry',
-};
-
-let huidigGebruiker = null;
-
-window.addEventListener('DOMContentLoaded', () => {
-  if (isSessionGeldig()) {
-    huidigGebruiker = getStoredUser();
-    toonDashboard();
-  } else {
-    const form = document.getElementById('login-form');
-    if (form) form.addEventListener('submit', handleLogin);
-  }
-});
-
-function isSessionGeldig() {
-  const expiry = localStorage.getItem(CONFIG.expiryKey);
-  const user = localStorage.getItem(CONFIG.userKey);
-  return expiry && user && Date.now() < parseInt(expiry, 10);
-}
-
-function getStoredUser() {
-  try {
-    return JSON.parse(localStorage.getItem(CONFIG.userKey));
-  } catch {
-    return null;
-  }
-}
-
-async function handleLogin(e) {
-  e.preventDefault();
-
-  const errorEl = document.getElementById('login-error');
-  const submitBtn = document.getElementById('login-submit');
-  errorEl.style.display = 'none';
-
-  const loginnaam = document.getElementById('login-naam').value.trim();
-  const wachtwoord = document.getElementById('login-wachtwoord').value;
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Controleren…';
-
-  try {
-    const result = await fetch(CONFIG.appsScriptUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        action: 'teacherLogin',
-        loginnaam,
-        wachtwoord
-      }),
-    });
-
-    const data = await result.json();
-
-    if (data.ok) {
-      huidigGebruiker = {
-        naam: data.naam || loginnaam,
-        email: data.email || ''
-      };
-
-      const expiry = Date.now() + 8 * 60 * 60 * 1000;
-      localStorage.setItem(CONFIG.userKey, JSON.stringify(huidigGebruiker));
-      localStorage.setItem(CONFIG.expiryKey, String(expiry));
-
-      toonDashboard();
-    } else {
-      errorEl.textContent = '⚠️ Loginnaam of paswoord is niet correct.';
-      errorEl.style.display = 'block';
-    }
-  } catch (err) {
-    errorEl.textContent = '⚠️ Verbindingsfout. Probeer opnieuw.';
-    errorEl.style.display = 'block';
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Inloggen';
-  }
-}
-
-function uitloggen() {
-  localStorage.removeItem(CONFIG.userKey);
-  localStorage.removeItem(CONFIG.expiryKey);
-  location.reload();
-}
-
-function toonDashboard() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('dashboard').style.display = 'block';
-
-  const naam = huidigGebruiker?.naam || huidigGebruiker?.email?.split('@')[0] || 'Jens';
-  document.getElementById('auth-status').innerHTML = `
-    <span style="opacity:0.85;">${escapeHtml(naam)}</span>
-    <button class="btn-uitloggen" onclick="uitloggen()">Uitloggen</button>
-  `;
-
-  laadData();
-  renderTrainerActiviteit();
-}
-
-async function laadData() {
-  const btn = document.getElementById('btn-refresh');
-  btn.disabled = true;
-  btn.textContent = '↺ Laden…';
-
-  try {
-    const url = CONFIG.appsScriptUrl + '?action=getDashboard&t=' + Date.now();
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (data.ok) {
-      verwerkData(data);
-      document.getElementById('laatste-update').textContent =
-        'Laatste update: ' + new Date().toLocaleTimeString('nl-BE');
-    } else {
-      toonFout('Kon data niet laden: ' + (data.error || ''));
-    }
-  } catch (err) {
-    toonFout('Verbindingsfout: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '↺ Vernieuwen';
-  }
-}
-
-function verwerkData(data) {
-  const leerlingen = Array.isArray(data.leerlingen) ? data.leerlingen : [];
-  const voortgang = Array.isArray(data.voortgang) ? data.voortgang : [];
-
-  document.getElementById('stat-leerlingen').textContent = leerlingen.length;
-  document.getElementById('badge-leerlingen').textContent = leerlingen.length;
-
-  const les1Set = new Set(voortgang.filter(v => v.les === 'les1').map(v => v.email));
-  const les2Set = new Set(voortgang.filter(v => v.les === 'les2').map(v => v.email));
-  document.getElementById('stat-les1').textContent = les1Set.size;
-  document.getElementById('stat-les2').textContent = les2Set.size;
-
-  const scores = voortgang.filter(v => v.procent !== undefined && v.procent !== '').map(v => parseInt(v.procent, 10)).filter(n => !isNaN(n));
-  const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
-  document.getElementById('stat-gem').textContent = gem !== null ? gem + '%' : '—';
-
-  renderLeerlingen(leerlingen, voortgang, les1Set, les2Set);
-  renderVoortgang(voortgang);
-  document.getElementById('badge-voortgang').textContent = voortgang.length;
-}
-
-function renderLeerlingen(leerlingen, voortgang, les1Set, les2Set) {
-  const container = document.getElementById('tabel-leerlingen');
-
-  if (!leerlingen.length) {
-    container.innerHTML = '<div class="leeg">Nog geen leerlingen geregistreerd.</div>';
-    return;
-  }
-
-  const voortgangPerEmail = {};
-  voortgang.forEach(v => {
-    if (!voortgangPerEmail[v.email]) voortgangPerEmail[v.email] = [];
-    voortgangPerEmail[v.email].push(v);
-  });
-
-  const rows = leerlingen.map(l => {
-    const email = l.email || '';
-    const vp = voortgangPerEmail[email] || [];
-    const heeftLes1 = les1Set.has(email);
-    const heeftLes2 = les2Set.has(email);
-    const scores = vp.filter(v => v.procent !== undefined && v.procent !== '').map(v => parseInt(v.procent, 10)).filter(n => !isNaN(n));
-    const gem = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
-    const datum = l.laatsteLogin ? new Date(l.laatsteLogin).toLocaleDateString('nl-BE') : '—';
-
-    return `
-      <tr>
-        <td><strong>${escapeHtml(l.naam || '—')}</strong></td>
-        <td class="td-email">${escapeHtml(email)}</td>
-        <td>
-          ${heeftLes1 ? '<span class="chip chip-les1">Les 1 ✓</span>' : '<span class="chip chip-geen">Les 1</span>'}
-          ${heeftLes2 ? ' <span class="chip chip-les2">Les 2 ✓</span>' : ' <span class="chip chip-geen">Les 2</span>'}
-        </td>
-        <td>
-          ${gem !== null ? `
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-bar" style="width:80px;">
-                <div class="progress-fill ${gem >= 70 ? 'hoog' : gem < 50 ? 'laag' : ''}"
-                     style="width:${gem}%"></div>
-              </div>
-              <span style="font-size:13px;">${gem}%</span>
-            </div>
-          ` : '<span style="color:#9ca3af;font-size:13px;">geen data</span>'}
-        </td>
-        <td style="color:var(--grijs);font-size:13px;">${datum}</td>
-      </tr>
-    `;
-  }).join('');
-
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Naam</th>
-          <th>E-mail</th>
-          <th>Lessen</th>
-          <th>Gem. score</th>
-          <th>Laatste login</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
-}
-
-function renderVoortgang(voortgang) {
-  const container = document.getElementById('tabel-voortgang');
-
-  if (!voortgang.length) {
-    container.innerHTML = '<div class="leeg">Nog geen voortgang geregistreerd.</div>';
-    return;
-  }
-
-  const gesorteerd = [...voortgang].sort((a, b) => new Date(b.datum || 0) - new Date(a.datum || 0));
-
-  const rows = gesorteerd.slice(0, 50).map(v => {
-    const procent = v.procent !== undefined && v.procent !== '' ? parseInt(v.procent, 10) : null;
-    const datum = v.datum ? new Date(v.datum).toLocaleString('nl-BE', {
-      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
-    }) : '—';
-
-    return `
-      <tr>
-        <td class="td-email">${escapeHtml(v.email || '—')}</td>
-        <td><span class="chip ${v.les === 'les1' ? 'chip-les1' : 'chip-les2'}">${escapeHtml(v.les || '—')}</span></td>
-        <td style="font-size:13px;color:var(--grijs);">${escapeHtml(v.onderdeel || '—')}</td>
-        <td>
-          ${procent !== null && !isNaN(procent) ? `
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-bar" style="width:60px;">
-                <div class="progress-fill ${procent >= 70 ? 'hoog' : procent < 50 ? 'laag' : ''}"
-                     style="width:${procent}%"></div>
-              </div>
-              <span style="font-size:13px;">${escapeHtml(v.score || '0')}/${escapeHtml(v.maxScore || '0')} (${procent}%)</span>
-            </div>
-          ` : '—'}
-        </td>
-        <td style="color:var(--grijs);font-size:12px;">${datum}</td>
-      </tr>
-    `;
-  }).join('');
-
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Leerling</th>
-          <th>Les</th>
-          <th>Onderdeel</th>
-          <th>Score</th>
-          <th>Datum</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-    ${gesorteerd.length > 50 ? `<p style="padding:12px 16px;font-size:12px;color:var(--grijs);">Toont laatste 50 van ${gesorteerd.length} registraties.</p>` : ''}
-  `;
-}
-
-function toonFout(bericht) {
-  document.getElementById('tabel-leerlingen').innerHTML =
-    `<div class="leeg" style="color:var(--accent);">⚠️ ${escapeHtml(bericht)}</div>`;
-  document.getElementById('tabel-voortgang').innerHTML = '';
-}
-
-function renderTrainerActiviteit() {
-  const container = document.getElementById('tabel-trainer');
-  const badge = document.getElementById('badge-trainer');
-  let scores = [];
-  try {
-    scores = JSON.parse(localStorage.getItem('latijn_3ds_scores') || '[]');
-  } catch {}
-
-  if (!scores.length) {
-    container.innerHTML = '<div class="leeg">Geen trainer-activiteit gevonden op dit toestel.</div>';
-    badge.textContent = '0';
-    return;
-  }
-
-  const gesorteerd = [...scores].sort((a, b) => new Date(b.datum || 0) - new Date(a.datum || 0));
-  badge.textContent = gesorteerd.length;
-
-  const modusLabel = { leren: 'Leren', flash: 'Flashcard', toets: 'Toets', meerkeuze: 'Meerkeuze', invullen: 'Invullen' };
-
-  const rows = gesorteerd.map(s => {
-    const pct = typeof s.juistheid === 'number' ? Math.round(s.juistheid) : null;
-    const datum = s.datum ? new Date(s.datum).toLocaleString('nl-BE', {
-      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
-    }) : '—';
-    const naam = escapeHtml(s.leerling || s.naam || 'Anoniem');
-    const thema = s.thema ? `Thema ${s.thema}` : 'Alfa';
-    const tekst = s.tekst ? `/ Tekst ${s.tekst}` : '';
-    const modus = modusLabel[s.modus] || escapeHtml(s.modus || '—');
-    return `
-      <tr>
-        <td><strong>${naam}</strong></td>
-        <td><span class="chip chip-les1">${escapeHtml(modus)}</span></td>
-        <td style="font-size:13px;color:var(--grijs);">${escapeHtml(thema)}${escapeHtml(tekst)}</td>
-        <td style="font-size:13px;">${s.goed ?? '—'} goed / ${s.fout ?? '—'} fout (${s.aantalWoorden ?? '?'} woorden)</td>
-        <td>
-          ${pct !== null ? `
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-bar" style="width:60px;">
-                <div class="progress-fill ${pct >= 70 ? 'hoog' : pct < 50 ? 'laag' : ''}" style="width:${Math.min(pct,100)}%"></div>
-              </div>
-              <span style="font-size:13px;">${pct}%</span>
-            </div>
-          ` : '—'}
-        </td>
-        <td style="color:var(--grijs);font-size:12px;">${datum}</td>
-      </tr>
-    `;
-  }).join('');
-
-  container.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Naam</th>
-          <th>Modus</th>
-          <th>Thema/tekst</th>
-          <th>Resultaat</th>
-          <th>Score</th>
-          <th>Datum</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-    ${gesorteerd.length >= 50 ? '<p style="padding:12px 16px;font-size:12px;color:var(--grijs);">Toont laatste 50 sessies (localStorage limiet).</p>' : ''}
-  `;
-}
-
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="ariadne.js"></script>
 </body>
 </html>
