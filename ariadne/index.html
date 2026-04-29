@@ -120,33 +120,19 @@
     }
     .brand-text:hover { color: var(--orange); }
 
-    /* ── HERO BRAND: het merk shinet hier ── */
+    /* ── HERO BRAND: gecombineerd lockup ── */
     .hero-brand {
       grid-column: 1 / -1;
       margin-bottom: 52px;
-      display: flex;
-      align-items: center;
-      /* Gap = helft van logobreedte. Logo is ~vierkant op 220px hoog ≈ 220px breed → gap ≈ 110px */
-      gap: 110px;
     }
-    .hero-brand-logo {
-      /* Groot en trots */
-      height: clamp(140px, 18vw, 220px);
-      width: auto;
+    .hero-brand-lockup {
+      /* SVG is 1200×480px → aspect ratio 2.5:1
+         We tonen hem op max 640px breed zodat hij groot maar niet overdadig is */
+      width: clamp(360px, 52vw, 640px);
+      height: auto;
       display: block;
-      filter: drop-shadow(0 6px 28px rgba(212,175,55,0.22));
+      filter: drop-shadow(0 6px 28px rgba(212,175,55,0.18));
       animation: fadeUp 0.7s ease forwards;
-      flex-shrink: 0;
-    }
-    .hero-brand-wordmark {
-      /* Visueel zelfde hoogte als logo: wordmark is typisch 1/4 van logohoogte in px,
-         dus 4× opschalen zodat de optische hoogte matcht met het logo */
-      height: clamp(44px, 6vw, 72px);
-      width: auto;
-      display: block;
-      /* Witte achtergrond in SVG wegwerken */
-      mix-blend-mode: multiply;
-      animation: fadeUp 0.7s 0.1s ease both;
     }
 
     .topnav {
@@ -628,15 +614,14 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
-      .hero-inner       { grid-template-columns: 1fr; gap: 0; }
-      .hero-brand       { margin-bottom: 40px; gap: 60px; }
-      .hero-brand-logo  { height: clamp(100px, 14vw, 160px); }
-      .hero-brand-wordmark { height: clamp(32px, 4.5vw, 56px); }
-      .feature-grid     { grid-template-columns: 1fr 1fr; }
-      .steps            { grid-template-columns: 1fr 1fr; }
-      .steps::before    { display: none; }
-      .surma-grid       { grid-template-columns: 1fr 1fr; }
-      .highlight-inner  { grid-template-columns: 1fr; }
+      .hero-inner          { grid-template-columns: 1fr; gap: 0; }
+      .hero-brand          { margin-bottom: 40px; }
+      .hero-brand-lockup   { width: clamp(280px, 70vw, 480px); }
+      .feature-grid        { grid-template-columns: 1fr 1fr; }
+      .steps               { grid-template-columns: 1fr 1fr; }
+      .steps::before       { display: none; }
+      .surma-grid          { grid-template-columns: 1fr 1fr; }
+      .highlight-inner     { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
       .topbar { padding: 0 1.5rem; }
@@ -644,9 +629,7 @@
       .hero, .section, .how-section,
       .highlight-section, .surma-section,
       .cta-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .hero-brand { gap: 32px; flex-wrap: wrap; }
-      .hero-brand-logo { height: clamp(80px, 20vw, 120px); }
-      .hero-brand-wordmark { height: clamp(24px, 7vw, 44px); }
+      .hero-brand-lockup   { width: 90vw; }
       .feature-grid { grid-template-columns: 1fr; }
       .surma-grid   { grid-template-columns: 1fr; }
       .steps        { grid-template-columns: 1fr; }
@@ -671,10 +654,9 @@
 
     <div class="hero-inner">
 
-      <!-- MERK: groot en trots -->
+      <!-- MERK: groot en trots — gecombineerd lockup SVG -->
       <div class="hero-brand animate">
-        <img src="assets/Ariadnelogo.svg"     class="hero-brand-logo"     alt="Ariadne logo">
-        <img src="assets/Ariadnewordmark.svg" class="hero-brand-wordmark" alt="Ariadne">
+        <img src="assets/Ariadnewordmark.svg" class="hero-brand-lockup" alt="Ariadne">
       </div>
 
       <div>
