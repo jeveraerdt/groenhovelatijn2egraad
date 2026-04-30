@@ -1,0 +1,630 @@
+{
+  "id": "klassieke-talen-1ste-graad",
+  "naam": "Klassieke talen — 1ste graad",
+  "type": "lpd-set",
+  "status": "officiele-bron-verwerkt",
+  "bron": {
+    "titel": "Leerplan basisoptie klassieke talen met wenken",
+    "leerplannummer": "1A/BASISOPTIES",
+    "basisoptie": "Klassieke Talen / basisoptie 3",
+    "bestand": "Leerplan basisoptie klassieke talen met wenken.pdf",
+    "verwerkingsnotitie": "Omgezet naar Ariadne-v2-register met interpretatieregels. Controleer bij twijfel steeds de officiële PDF."
+  },
+  "scope": {
+    "graad": "1ste graad",
+    "officieleDoelgroep": "2e leerjaar eerste graad, basisoptie Klassieke Talen",
+    "ariadneGebruik": "Gedeelde graadset voor Latijn 1/2 en grotendeels Grieks in de eerste graad.",
+    "vakken": [
+      "Latijn",
+      "Grieks"
+    ],
+    "jaren": [
+      "1ste jaar",
+      "2de jaar"
+    ]
+  },
+  "interpretatieRegels": {
+    "basisregel": "Een koppeling telt pas als bevestigde dekking wanneer ze inhoudelijk voldoet aan het leerplandoel én door de gebruiker bevestigd is.",
+    "pdfAiSuggesties": "PDF/AI-suggesties zijn nooit automatisch dekking. Ze blijven te controleren tot bevestiging.",
+    "bewijsNiveaus": [
+      {
+        "id": "sterk",
+        "label": "bevestigd sterk bewijs",
+        "omschrijving": "De activiteit, opdracht of evaluatie realiseert het leerplandoel expliciet."
+      },
+      {
+        "id": "ondersteunend",
+        "label": "bevestigd ondersteunend bewijs",
+        "omschrijving": "De activiteit ondersteunt het leerplandoel, maar bewijst de realisatie niet volledig."
+      },
+      {
+        "id": "suggestie",
+        "label": "suggestie / te controleren",
+        "omschrijving": "Mogelijke koppeling, nog niet bevestigd."
+      },
+      {
+        "id": "geen",
+        "label": "geen bewijs",
+        "omschrijving": "Geen betrouwbare koppeling met dit leerplandoel."
+      }
+    ]
+  },
+  "lpds": [
+    {
+      "code": "BO1_03.01",
+      "domein": "Taalsystematiek",
+      "categorie": "Woordenschat",
+      "beheersingsniveau": "begrijpen",
+      "titel": "Basiswoordenschat ter ondersteuning van de lectuur",
+      "kern": "Basiswoordenschat",
+      "officieleFormulering": "De leerlingen verwerven een basiswoordenschat ter ondersteuning van de lectuur.",
+      "omschrijving": "Leerlingen verwerven en gebruiken woordenschat om gelezen tekstfragmenten beter te begrijpen. Voor Latijn gaat het om onthoudwoorden uit gelezen tekstfragmenten aangevuld met hoogfrequente woorden; voor Grieks om functionele woordenschat.",
+      "vakken": [
+        "Latijn",
+        "Grieks"
+      ],
+      "afbakening": {
+        "latijn": [
+          "onthoudwoorden uit gelezen tekstfragmenten",
+          "hoogfrequente inhoudswoorden zoals agere, dicere, facere, res, vir, locus, novus, multus, magnus, esse",
+          "structuurwoorden zodra ze voorkomen",
+          "andere inhoudswoorden vooral wanneer ze minstens driemaal in gelezen teksten en lespraktijk voorkomen"
+        ],
+        "grieks": [
+          "functionele woordenschat uit Griekse zinnen, thema, voortleven in moderne talen of alfabettraining"
+        ]
+      },
+      "teltSterkMeeAls": [
+        "woordenschat expliciet verbonden is met een gelezen of te lezen tekstfragment",
+        "leerlingen de woorden nodig hebben om tekstbegrip op te bouwen",
+        "woordenschat in prelectuur, lectuur of geïntegreerde evaluatie wordt ingezet",
+        "woordenlijst onderscheid maakt tussen te kennen onthoudwoorden en ondersteunende woorden"
+      ],
+      "teltOndersteunendMeeAls": [
+        "woorden los worden geoefend maar wel uit een tekstfragment of thema komen",
+        "woorden visueel, meertalig of via voorbeelden worden verduidelijkt",
+        "woordjestrainer of Quizlet gebruikt wordt als voorbereiding op lectuur"
+      ],
+      "teltNietMeeAls": [
+        "woordenschat volledig losstaat van tekstfragmenten of thema",
+        "memoriserende woordjesstudie het einddoel is zonder koppeling aan lectuur",
+        "er enkel een lijst aanwezig is zonder verwerking, toepassing of opvolging"
+      ],
+      "opvolging": [
+        "Evaluatie gebeurt geïntegreerd met woordenschat uit gelezen tekstfragmenten of thema's.",
+        "Mogelijke oefeningen: woorden koppelen aan afbeeldingen, grondwoord afleiden, aanvullende gegevens vragen, thematische woorden aanduiden, woorden in een tekstfragment verklaren."
+      ],
+      "zoektermen": [
+        "woordenschat",
+        "onthoudwoorden",
+        "structuurwoorden",
+        "hoogfrequent",
+        "woordenlijst",
+        "tekstfragment",
+        "lectuur",
+        "basiswoordenschat",
+        "memoriseer",
+        "woordjestrainer",
+        "Quizlet"
+      ]
+    },
+    {
+      "code": "BO1_03.02",
+      "domein": "Taalsystematiek",
+      "categorie": "Woordenschatstrategieën",
+      "beheersingsniveau": "toepassen",
+      "titel": "Woordenschatstrategieën inzetten",
+      "kern": "Woordenschatstrategieën",
+      "officieleFormulering": "De leerlingen zetten woordenschatstrategieën in.",
+      "omschrijving": "Leerlingen gebruiken strategieën zoals woordopbouw, woordverwantschap, woordenlijstgebruik en contextgebruik om betekenis te achterhalen en woordenschat te verwerven.",
+      "vakken": [
+        "Latijn",
+        "Grieks"
+      ],
+      "afbakening": {
+        "algemeen": [
+          "woordopbouw: voorvoegsels, achtervoegsels en samenstellingen",
+          "woordverwantschap: gekende klassieke woorden en moderne talen inzetten",
+          "woordenlijst of ander instrument gebruiken om grondbetekenissen te achterhalen",
+          "directe context gebruiken om betekenis te kiezen of aan te vullen"
+        ]
+      },
+      "teltSterkMeeAls": [
+        "leerlingen zelf strategieën inzetten om betekenis te vinden of te verantwoorden",
+        "opdrachten vragen naar prefix, suffix, samenstelling, stam, verwantschap of contextkeuze",
+        "strategieën expliciet worden aangeleerd én toegepast tijdens de lectuurfase"
+      ],
+      "teltOndersteunendMeeAls": [
+        "de leraar strategieën modelleert zonder dat leerlingen ze zelfstandig toepassen",
+        "leerlingen verwante woorden aanduiden of moderne taalverbanden zoeken",
+        "woordenlijstgebruik geoefend wordt als voorbereiding op lectuur"
+      ],
+      "teltNietMeeAls": [
+        "leerlingen enkel betekenissen reproduceren",
+        "woordenschat wordt getoetst zonder strategie of context",
+        "er alleen een woordenlijst aanwezig is"
+      ],
+      "opvolging": [
+        "Evaluatie ligt in lijn met lesoefeningen: grondwoorden linken, verwante woorden herkennen, voor- en achtervoegsels aanduiden, samenstellingen splitsen, context gebruiken."
+      ],
+      "zoektermen": [
+        "woordopbouw",
+        "woordverwantschap",
+        "voorvoegsel",
+        "achtervoegsel",
+        "samenstelling",
+        "context",
+        "grondwoord",
+        "stam",
+        "verwant",
+        "strategie",
+        "woordenlijst"
+      ]
+    },
+    {
+      "code": "BO1_03.03",
+      "domein": "Taalsystematiek",
+      "categorie": "Morfologie en syntaxis",
+      "beheersingsniveau": "analyseren",
+      "titel": "Morfologie en syntaxis functioneel gebruiken bij lectuur",
+      "kern": "Morfologie & syntaxis",
+      "officieleFormulering": "De leerlingen gebruiken het inzicht in regels en begrippen (morfologie en syntaxis) functioneel bij het lezen van tekstfragmenten.",
+      "omschrijving": "Leerlingen zetten grammaticaal inzicht niet als doel op zich, maar functioneel in om tekstfragmenten te lezen, te begrijpen en hun begrip te controleren.",
+      "vakken": [
+        "Latijn",
+        "Grieks"
+      ],
+      "afbakening": {
+        "algemeen": [
+          "inzicht in morfologie en syntaxis wordt ingezet in de fase voor het lezen, tijdens de lectuurfase en na het lezen",
+          "grammaticale inductie vertrekt vanuit tekstfragmenten"
+        ]
+      },
+      "teltSterkMeeAls": [
+        "grammatica wordt gebruikt om een tekstfragment te begrijpen",
+        "leerlingen keuzes rond vorm/functie verantwoorden vanuit de zin of tekst",
+        "grammaticale inductie vertrekt uit gelezen tekstfragmenten",
+        "summatieve evaluatie grammatica geïntegreerd in tekstbegrip bevraagt"
+      ],
+      "teltOndersteunendMeeAls": [
+        "gerichte determineer- of vormoefeningen grammaticale inzichten voorbereiden",
+        "paradigmata of modelwoorden actief worden ingeoefend als ondersteuning",
+        "grammaticale termen worden opgefrist vóór of na lectuur"
+      ],
+      "teltNietMeeAls": [
+        "losse grammaticaoefeningen volledig losstaan van tekstfragmenten",
+        "vormen enkel mechanisch worden gereproduceerd zonder functie in tekstbegrip",
+        "grammatica als hoofddoel wordt behandeld zonder lectuurcontext"
+      ],
+      "opvolging": [
+        "Formatief kunnen gerichte grammaticale oefeningen voorkomen.",
+        "Summatief moeten leerlingen tonen dat ze grammaticaal inzicht bij tekstfragmenten gebruiken."
+      ],
+      "zoektermen": [
+        "morfologie",
+        "syntaxis",
+        "naamval",
+        "congruentie",
+        "determineer",
+        "woordgroep",
+        "persoonsvorm",
+        "onderwerp",
+        "accusatief",
+        "genitief",
+        "datief",
+        "ablatief",
+        "bijzin",
+        "accusativus cum infinitivo",
+        "alfabet",
+        "inductie",
+        "grammatica"
+      ],
+      "subdoelen": [
+        {
+          "code": "BO1_03.03.01",
+          "vak": "Latijn",
+          "titel": "Latijnse morfologie en syntaxis functioneel gebruiken bij lectuur",
+          "inhoud": {
+            "morfologie": [
+              "substantieven en adjectieven van eerste en tweede klasse",
+              "persoonlijk, bezittelijk, aanwijzend en betrekkelijk voornaamwoord",
+              "regelmatige werkwoorden actief: infinitief praesens; indicatief praesens, imperfectum, perfectum, plusquamperfectum",
+              "esse en posse in dezelfde tijden"
+            ],
+            "syntaxis": [
+              "nominatief als onderwerp en aanvulling bij koppelwerkwoord",
+              "vocatief als aanspreking",
+              "accusatief als lijdend voorwerp en bijwoordelijke bepaling",
+              "genitief als bijvoeglijke bepaling",
+              "datief als meewerkend voorwerp",
+              "ablatief als bijwoordelijke bepaling en na voorzetsel"
+            ],
+            "congruentie": [
+              "adjectief/voornaamwoord met substantief",
+              "persoonsvorm met onderwerp",
+              "betrekkelijk voornaamwoord"
+            ],
+            "samengesteldeZin": [
+              "nevenschikking",
+              "onderschikking: betrekkelijke bijzin, bijzin ingeleid door voegwoord, acc. en inf.",
+              "observeren van indicatief, conjunctief en infinitief in bijzinnen"
+            ]
+          }
+        },
+        {
+          "code": "BO1_03.03.02",
+          "vak": "Grieks",
+          "titel": "Griekse morfologie en syntaxis functioneel gebruiken bij lectuur",
+          "inhoud": {
+            "alfabet": [
+              "24 letters klein en groot lezen en schrijven",
+              "spiritus lenis en asper",
+              "uitspraak van αι, ει, οι, αυ, ευ, ου"
+            ],
+            "morfologie": [
+              "substantieven nominatief en accusatief eerste klasse: οἰκία, μάχη, θεός, τέκνον",
+              "lidwoorden nominatief en accusatief",
+              "werkwoord εἰμί: ἐστί(ν), εἰσί(ν)"
+            ],
+            "syntaxis": [
+              "nominatief als onderwerp en aanvulling bij koppelwerkwoord",
+              "accusatief als lijdend voorwerp of na voorzetsel"
+            ],
+            "congruentie": [
+              "lidwoord met substantief"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "BO1_03.04",
+      "domein": "Literatuur",
+      "categorie": "Lectuurstrategie en hulpmiddelen",
+      "beheersingsniveau": "toepassen",
+      "titel": "Strategieën en hulpmiddelen inzetten bij lectuur",
+      "kern": "Strategieën bij lectuur",
+      "officieleFormulering": "De leerlingen zetten strategieën en hulpmiddelen in ter ondersteuning van de lectuur.",
+      "omschrijving": "Leerlingen gebruiken talige hulpmiddelen, leesstrategieën en woordenschatstrategieën om hun leesproces te ondersteunen.",
+      "vakken": [
+        "Latijn",
+        "Grieks"
+      ],
+      "afbakening": {
+        "taligeHulpmiddelen": [
+          "woordenlijst bij de tekst",
+          "grammaticale hulpfiches",
+          "schrijfkaders",
+          "stappenplan voor leesmethode",
+          "digitale tool zoals Collatinus indien passend"
+        ],
+        "leesstrategieën": [
+          "lineair lezen",
+          "macroniveau bewaken",
+          "voorkennis inzetten",
+          "tussentijds samenvatten",
+          "verwijs- en signaalwoorden gebruiken",
+          "grammatica inzetten ten dienste van tekstbegrip"
+        ],
+        "woordenschatstrategieën": [
+          "zie BO1_03.02"
+        ]
+      },
+      "teltSterkMeeAls": [
+        "leerlingen zichtbaar hulpmiddelen of strategieën gebruiken tijdens lectuur",
+        "leerlingen reflecteren op hun leesproces of vastgelopen begrip herstellen",
+        "tekst wordt in woordgroepen of kleinere gehelen met passende hulpmiddelen gelezen",
+        "schrijfkaders of stappenplannen helpen om inhoud samen te brengen"
+      ],
+      "teltOndersteunendMeeAls": [
+        "hulpfiches of woordenlijst beschikbaar zijn maar gebruik nog vooral door leraar gestuurd is",
+        "de leraar strategieën hardop modelleert",
+        "leerlingen voorbereidende strategie-oefeningen maken"
+      ],
+      "teltNietMeeAls": [
+        "er alleen een woordenlijst of hulpfiche aanwezig is zonder gebruik",
+        "leerlingen enkel vertalen zonder leesstrategie",
+        "lectuurvragen geen aandacht hebben voor proces, hulpmiddelen of strategie"
+      ],
+      "opvolging": [
+        "Tijdens evaluatiemomenten gebruiken leerlingen dezelfde minimale hulpmiddelen als in de les: goede woordenlijst en grammaticale hulpfiches."
+      ],
+      "zoektermen": [
+        "hulpmiddelen",
+        "leesstrategie",
+        "woordenlijst",
+        "hulpfiche",
+        "schrijfkader",
+        "stappenplan",
+        "lineair",
+        "macroniveau",
+        "voorkennis",
+        "samenvatten",
+        "verwijswoord",
+        "signaalwoord",
+        "woordgroep"
+      ]
+    },
+    {
+      "code": "BO1_03.05",
+      "domein": "Literatuur",
+      "categorie": "Tekstbegrip",
+      "beheersingsniveau": "begrijpen",
+      "titel": "Tekst begrijpen via lectuurmethode",
+      "kern": "Tekst begrijpen via lectuurmethode",
+      "officieleFormulering": "De leerlingen tonen aan dat ze een (vereenvoudigde) authentieke tekst, aan de hand van een lectuurmethode, begrijpen.",
+      "omschrijving": "Leerlingen begrijpen tekstmateriaal via een expliciete lectuurmethode. Over de graad wordt thematisch gelezen in minimum zes thema's.",
+      "vakken": [
+        "Latijn",
+        "Grieks"
+      ],
+      "afbakening": {
+        "latijn": [
+          "indien nodig vereenvoudigd tekstmateriaal, zo dicht mogelijk bij de Latijnse tekst, uit de periode waarin Latijn actief werd gebruikt"
+        ],
+        "grieks": [
+          "minimum 15 eenvoudige Griekse zinnen passend bij één of meer behandelde thema's",
+          "Grieks tekstmateriaal in vertaling"
+        ],
+        "lectuurmethodeMinimumcriteria": [
+          "lineair lezen",
+          "aandacht voor macroniveau",
+          "inzetten van voorkennis",
+          "tussentijds samenvatten",
+          "aandacht voor verwijs- en signaalwoorden",
+          "grammatica als ondersteuning en toetsing van tekstbegrip"
+        ],
+        "thematischLezen": [
+          "minimum zes thema's verspreid over de graad",
+          "relevant onderwerp",
+          "divers bronnenmateriaal",
+          "verschillende auteurs",
+          "beperking van thema in de tijd"
+        ]
+      },
+      "teltSterkMeeAls": [
+        "leerlingen aantonen dat ze een tekstfragment begrijpen",
+        "de lectuurmethode zichtbaar wordt toegepast",
+        "er aandacht is voor micro- én macroniveau",
+        "leerlingen inhoud in eigen woorden weergeven of inhoudsvragen beantwoorden",
+        "grammatica tijdens lectuur tekstbegrip ondersteunt en toetst"
+      ],
+      "teltOndersteunendMeeAls": [
+        "voorlectuur of contextopbouw voorbereidt op tekstbegrip",
+        "er korte begripsvragen zijn zonder volledige lectuurmethodische uitwerking",
+        "tekstmateriaal aanwezig is maar verwerking nog beperkt is"
+      ],
+      "teltNietMeeAls": [
+        "er geen tekstfragment of Griekse zinnen centraal staan",
+        "de les vooral cultuurles is zonder lectuurcomponent",
+        "leerlingen enkel vertalen als uitbreiding zonder tekstbegrip te tonen",
+        "er alleen woordenschat of grammatica los van een tekst geoefend wordt"
+      ],
+      "opvolging": [
+        "Summatieve evaluatie stelt vooral inhoudsvragen en vraagt om woordgroepen, zinssnedes of alinea's in eigen woorden weer te geven.",
+        "Vertalen behoort nog niet tot de verwachting en is uitbreiding."
+      ],
+      "zoektermen": [
+        "tekstbegrip",
+        "lectuurmethode",
+        "authentieke tekst",
+        "vereenvoudigd",
+        "lineair",
+        "macroniveau",
+        "voorkennis",
+        "samenvatten",
+        "verwijswoorden",
+        "signaalwoorden",
+        "thematisch",
+        "zes thema",
+        "inhoudsvragen",
+        "eigen woorden",
+        "Griekse zinnen"
+      ]
+    },
+    {
+      "code": "BO1_03.06",
+      "domein": "Cultuurgeschiedenis",
+      "categorie": "Contextualiseren",
+      "beheersingsniveau": "begrijpen",
+      "titel": "Tekstfragmenten en auteurs situeren",
+      "kern": "Contextualiseren in tijd, ruimte en maatschappelijke context",
+      "officieleFormulering": "De leerlingen situeren de gelezen tekstfragmenten en hun auteurs in tijd, ruimte en maatschappelijke context.",
+      "omschrijving": "Leerlingen plaatsen gelezen tekstfragmenten en auteurs in tijd, ruimte en relevante maatschappelijke context om de tekst beter te begrijpen.",
+      "vakken": [
+        "Latijn",
+        "Grieks"
+      ],
+      "afbakening": {
+        "tijd": [
+          "situeren op een tijdlijn met minstens oude nabije oosten, klassieke oudheid en middeleeuwen"
+        ],
+        "ruimte": [
+          "situeren op een relevante kaart"
+        ],
+        "maatschappelijkeContext": [
+          "sociale, culturele, economische en politieke kenmerken voor zover relevant voor tekstbegrip"
+        ]
+      },
+      "teltSterkMeeAls": [
+        "situering direct verbonden is met een gelezen tekstfragment of auteur",
+        "tijd, ruimte of maatschappelijke context nodig is voor tekstbegrip",
+        "leerlingen auteur/werk/context kunnen uitleggen of toepassen bij het tekstfragment"
+      ],
+      "teltOndersteunendMeeAls": [
+        "een tijdlijn, kaart of korte contextfiche een tekst voorbereidt",
+        "realia worden uitgelegd als achtergrond bij een thema met tekst"
+      ],
+      "teltNietMeeAls": [
+        "algemene cultuurgeschiedenis losstaat van gelezen tekstfragmenten of auteurs",
+        "er enkel losse weetjes of beelden zijn zonder situering van tekst/auteur",
+        "de les uitsluitend actualiseert zonder historische situering"
+      ],
+      "opvolging": [
+        "Mogelijke evaluatie: auteur situeren in tijd en ruimte, relevante realia uitleggen, werk benoemen, uitleggen waarom tekstfragment in groter thema past."
+      ],
+      "zoektermen": [
+        "situeren",
+        "auteur",
+        "tekstfragment",
+        "tijdlijn",
+        "kaart",
+        "ruimte",
+        "maatschappelijke context",
+        "realia",
+        "klassieke oudheid",
+        "werk",
+        "historische context"
+      ]
+    },
+    {
+      "code": "BO1_03.07",
+      "domein": "Cultuurgeschiedenis",
+      "categorie": "Cultuuraspecten illustreren",
+      "beheersingsniveau": "begrijpen",
+      "titel": "Aspecten van Griekse en Romeinse cultuur illustreren",
+      "kern": "Cultuuraspecten illustreren",
+      "officieleFormulering": "De leerlingen illustreren aspecten van de taal, cultuur, kunst, waarden, geschiedenis of samenleving van de Grieken en Romeinen.",
+      "omschrijving": "Leerlingen verwerven inzicht in aspecten van de Grieks-Romeinse wereld en kunnen die met voorbeelden illustreren. Dit kan vanuit thema's of in een cultuurles los van lectuur.",
+      "vakken": [
+        "Latijn",
+        "Grieks"
+      ],
+      "afbakening": {
+        "mogelijkeOnderwerpen": [
+          "etymologie",
+          "dagelijks leven",
+          "mythologie",
+          "geloof en bijgeloof",
+          "huwelijk/geboorte/dood",
+          "fabels",
+          "virtus en pietas",
+          "bestuur",
+          "arm en rijk",
+          "wegen",
+          "leger",
+          "bouwkunst",
+          "beeldhouwkunst",
+          "wetenschappen",
+          "pedagogisch-didactische uitstappen"
+        ]
+      },
+      "teltSterkMeeAls": [
+        "leerlingen een cultuurhistorisch aspect kunnen uitleggen en illustreren met voorbeelden",
+        "de les rijk, verzorgd en gevarieerd materiaal aanbiedt",
+        "leerlingen vragen onderzoeken en hun bevindingen samenbrengen met input/feedback van de leraar",
+        "cultuurinhoud expliciet over Grieken en/of Romeinen gaat"
+      ],
+      "teltOndersteunendMeeAls": [
+        "beelden, artefacten of voorbeelden kort worden gebruikt om een cultuurbegrip te verduidelijken",
+        "een uitstap of korte opdracht cultuurinhoud ondersteunt"
+      ],
+      "teltNietMeeAls": [
+        "er alleen een hedendaags onderwerp besproken wordt zonder Grieks-Romeinse inhoud",
+        "leerlingen enkel een onderzoeksproces uitvoeren zonder verworven inhoud",
+        "cultuurinformatie niet verder gaat dan decoratieve achtergrond"
+      ],
+      "opvolging": [
+        "Evaluatie gaat over verworven inhouden, niet over het onderzoeksproces op zich.",
+        "Exit tickets kunnen leerlingen laten noteren wat ze onthouden of zullen navertellen."
+      ],
+      "zoektermen": [
+        "cultuur",
+        "kunst",
+        "waarden",
+        "geschiedenis",
+        "samenleving",
+        "godsdienst",
+        "mythologie",
+        "dagelijks leven",
+        "politiek",
+        "architectuur",
+        "burger",
+        "slaaf",
+        "Romeinen",
+        "Grieken",
+        "polis",
+        "Athene",
+        "Zeus",
+        "Hera"
+      ]
+    },
+    {
+      "code": "BO1_03.08",
+      "domein": "Cultuurgeschiedenis",
+      "categorie": "Vergelijken en actualiseren",
+      "beheersingsniveau": "begrijpen",
+      "titel": "Gelijkenissen en verschillen oud-heden benoemen",
+      "kern": "Vergelijken oud ↔ heden",
+      "officieleFormulering": "De leerlingen benoemen een aantal gelijkenissen en verschillen tussen de Griekse, Romeinse en hedendaagse samenleving.",
+      "omschrijving": "Leerlingen benoemen, illustreren en uitleggen gelijkenissen en verschillen tussen Griekse, Romeinse en hedendaagse samenleving. Het gaat om benoemen en uitleggen, niet om een volledige vergelijkende conclusie.",
+      "vakken": [
+        "Latijn",
+        "Grieks"
+      ],
+      "afbakening": {
+        "mogelijkeOnderwerpen": [
+          "merk- en firmanamen",
+          "opschriften",
+          "spreuken",
+          "graffiti",
+          "epigrammen",
+          "migratie",
+          "arm en rijk",
+          "dagelijks leven",
+          "circus- en gladiatorenspelen versus sport/games",
+          "huwelijk en echtscheiding",
+          "positie van de vrouw",
+          "humor",
+          "geloof en bijgeloof",
+          "onderwijs",
+          "grootstad",
+          "ecologie",
+          "mythologie in reclame",
+          "bestuur",
+          "wegennet en transport",
+          "wetenschappelijke of juridische termen"
+        ]
+      },
+      "teltSterkMeeAls": [
+        "leerlingen expliciet gelijkenissen en verschillen tussen oud en heden benoemen",
+        "Griekse, Romeinse en/of hedendaagse voorbeelden naast elkaar worden gelegd",
+        "actualisering inhoudelijk verbonden is met behandeld thema of cultuurgegeven",
+        "leerlingen voorbeelden uitleggen aan de hand van bronnen, beelden, teksten of artefacten"
+      ],
+      "teltOndersteunendMeeAls": [
+        "een hedendaagse parallel wordt genoemd maar nog weinig uitgewerkt",
+        "leerlingen een klassengesprek voeren over herkenbaarheid van een oud thema"
+      ],
+      "teltNietMeeAls": [
+        "er alleen Grieks-Romeinse cultuur wordt behandeld zonder hedendaagse vergelijking",
+        "er alleen een moderne mening of reflectie is zonder oud-heden-koppeling",
+        "leerlingen een lijstje reproduceren zonder voorbeelden te benoemen of uit te leggen"
+      ],
+      "opvolging": [
+        "Leerlingen geven voorbeelden van gelijkenissen en verschillen, benoemen en leggen deze uit aan de hand van soortgelijke bronnen als in de les."
+      ],
+      "zoektermen": [
+        "gelijkenissen",
+        "verschillen",
+        "heden",
+        "hedendaags",
+        "actualisering",
+        "vergelijk",
+        "vergelijking",
+        "Romeins",
+        "Grieks",
+        "moderne samenleving",
+        "vandaag",
+        "nu",
+        "reclame",
+        "sport",
+        "games",
+        "huwelijk",
+        "vrouw",
+        "onderwijs",
+        "politiek"
+      ]
+    }
+  ]
+}
