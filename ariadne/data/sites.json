@@ -1,6 +1,15 @@
 {
   "sites": [
     {
+      "id": "latijn-1ste-graad",
+      "naam": "Latijn — 1ste graad",
+      "kleur": "#006633",
+      "accent": "#D4AF37",
+      "lpdSet": "klassieke-talen-1ste-graad",
+      "graad": "1ste graad",
+      "prioriteit": "controle-2026-05-20"
+    },
+    {
       "id": "latijn-3de-jaar",
       "naam": "Latijn — 3de jaar",
       "kleur": "#006633",
@@ -16,10 +25,12 @@
     },
     {
       "id": "grieks",
-      "naam": "Grieks",
+      "naam": "Grieks — 1ste graad",
       "kleur": "#13427f",
       "accent": "#D4AF37",
-      "lpdSet": "grieks"
+      "lpdSet": "klassieke-talen-1ste-graad",
+      "graad": "1ste graad",
+      "prioriteit": "controle-2026-05-20"
     }
   ]
 }
