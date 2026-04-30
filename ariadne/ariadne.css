@@ -902,3 +902,150 @@ tr:last-child td { border-bottom: 0; }
   width: 1em;
   height: 1em;
 }
+
+/* v2 functionele laag — geen redesign: enkel status/suggestie-controls zichtbaar maken */
+.scan-controls.scan-controls--v2 {
+  display: grid;
+}
+
+.metadata-state,
+.metadata-group__label,
+.suggestion-status,
+.source-small {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-weight: 900;
+}
+
+.metadata-state {
+  padding: .18rem .5rem;
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.metadata-state--bevestigd {
+  background: rgba(0,102,51,.12);
+  color: var(--ariadne-green);
+}
+
+.metadata-state--te-controleren,
+.metadata-state--concept {
+  background: rgba(255,140,0,.14);
+  color: #8a4600;
+}
+
+.metadata-group {
+  margin-top: .55rem;
+}
+
+.metadata-group + .metadata-group {
+  margin-top: .85rem;
+}
+
+.metadata-group__label {
+  margin-bottom: .35rem;
+  padding: .18rem .5rem;
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.metadata-group--confirmed .metadata-group__label {
+  background: rgba(0,102,51,.1);
+  color: var(--ariadne-green);
+}
+
+.metadata-group--review .metadata-group__label {
+  background: #fff1df;
+  color: #8a4600;
+}
+
+.pill--review {
+  background: #fff1df;
+  color: #8a4600;
+}
+
+.source-small {
+  margin-left: .35rem;
+  padding: .12rem .42rem;
+  background: #f5efe2;
+  color: #74654e;
+  font-size: .68rem;
+  vertical-align: middle;
+}
+
+.v2-note {
+  margin: .15rem 0 1rem;
+  padding: .75rem .85rem;
+  border-radius: var(--radius-md);
+  background: #fbf7ee;
+  color: #665432;
+  line-height: 1.45;
+  font-size: .92rem;
+}
+
+.scan-result-card--bevestigd {
+  border-color: rgba(0,102,51,.24);
+  box-shadow: 0 0 0 1px rgba(0,102,51,.05);
+}
+
+.scan-result-card--verworpen {
+  opacity: .68;
+}
+
+.suggestion-status {
+  margin: .35rem 0 .75rem;
+  padding: .24rem .58rem;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  background: #fff1df;
+  color: #8a4600;
+}
+
+.suggestion-status--bevestigd {
+  background: rgba(0,102,51,.12);
+  color: var(--ariadne-green);
+}
+
+.suggestion-status--verworpen {
+  background: #ece1cf;
+  color: #6b5f50;
+}
+
+.suggestion-editor {
+  display: grid;
+  gap: .5rem;
+  margin-top: .8rem;
+  padding: .85rem;
+  border-radius: var(--radius-md);
+  background: #fffaf1;
+  border: 1px solid rgba(236,225,207,.9);
+}
+
+.suggestion-editor label {
+  color: #72550c;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .68rem;
+  font-weight: 900;
+}
+
+.suggestion-editor textarea {
+  resize: vertical;
+  min-height: 4.7rem;
+}
+
+.suggestion-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin-top: .85rem;
+}
+
+.suggestion-actions button:disabled {
+  cursor: default;
+  opacity: .55;
+}
