@@ -25,9 +25,18 @@
       ],
       "lpds": [
         {
-          "code": "GR-LPD02",
-          "context": "Leerlingen plaatsen de polis Athene in cultuurhistorische context.",
-          "locatie": "#context"
+          "code": "BO1_03.07",
+          "context": "Leerlingen illustreren aspecten van Griekse samenleving en politiek via Athene, polis en burgerschap.",
+          "locatie": "#context",
+          "status": "te-controleren",
+          "evidenceLevel": "ondersteunend"
+        },
+        {
+          "code": "BO1_03.08",
+          "context": "Mogelijke koppeling wanneer de les Athene/democratie expliciet vergelijkt met hedendaagse bestuursvormen of burgerschap.",
+          "locatie": "#vergelijking",
+          "status": "te-controleren",
+          "evidenceLevel": "suggestie"
         }
       ],
       "bouwstenen": [
