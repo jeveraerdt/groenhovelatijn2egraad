@@ -727,7 +727,12 @@
       <div style="padding:14px 16px;border-bottom:1px solid var(--rand);display:flex;align-items:center;gap:8px;">
         <span style="font-family:var(--fv);font-size:16px;color:var(--blauw);">🏆 Hoogste scores</span>
         <span id="lb-bron" style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:8px;"></span>
-        <span style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:auto;">Lokale scores — beste per leerling</span>
+        <span style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:auto;">Verzamelde punten — alleen namen uit dropdown</span>
+      </div>
+      <div style="display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--rand);flex-wrap:wrap;background:#fafafa;">
+        <button class="lb-tab" id="lb-tab-week" onclick="zetLeaderboardPeriode('week')" style="font-family:var(--fv);font-size:12px;padding:7px 13px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;">Deze week</button>
+        <button class="lb-tab" id="lb-tab-maand" onclick="zetLeaderboardPeriode('maand')" style="font-family:var(--fv);font-size:12px;padding:7px 13px;border-radius:99px;border:1px solid var(--rand);background:var(--blauw);color:#fff;cursor:pointer;">Deze maand</button>
+        <button class="lb-tab" id="lb-tab-totaal" onclick="zetLeaderboardPeriode('totaal')" style="font-family:var(--fv);font-size:12px;padding:7px 13px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;">Totaalstand</button>
       </div>
       <div id="lb-tabel"></div>
     </div>
@@ -769,36 +774,148 @@ let lerenSubfase     = {};  // bijhouding per woord in leren-modus
 // ══════════════════════════════════════════════
 
 // ══════════════════════════════════════════════
-// GOOGLE FORM CONFIG — persistente leaderboard-scores
+// CENTRALE SCOREBANK — Apps Script + Google Sheet
 // ══════════════════════════════════════════════
-const SCORE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScSVs_bSRH5wq_VW-jS0aQMbrv-IfkujesW3gAUuZYHUfOsjQ/formResponse';
-const SCORE_FORM_FIELDS = {
-  naam:   'entry.1481564302',
-  modus:  'entry.796940469',
-  thema:  'entry.1714045958',
-  tekst:  'entry.856287731',
-  goed:   'entry.1928322991',
-  fout:   'entry.386037051',
-  pct:    'entry.2011926864',
-  streak: 'entry.1505969841',
-  datum:  'entry.1733253030',
-};
+// Vervang deze URL door je nieuwe Web App URL na deploy van Code.gs.
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw5hzoZuYf5aP0ZNaWXY4ZnCxtlcoqMinxktjTMKGywCpXGG5J7YtOodauz2qo1cKUC/exec';
+const SCORE_LOCAL_KEY = 'latijn_4ds_scores_v2';
+const SCORE_OLD_KEYS = ['latijn_4ds_scores'];
+let mijnCentraleScore = { totaal: 0, week: 0, maand: 0, besteStreak: 0, pogingen: 0 };
+let leaderboardPeriode = 'maand'; // 'week' | 'maand' | 'totaal'
 
-function stuurScoreNaarForm(s) {
-  if (!SCORE_FORM_URL) return;
+function getDropdownNamen() {
+  const sel = document.getElementById('leerling-code');
+  if (!sel) return [];
+  return [...sel.options].map(opt => (opt.value || '').trim()).filter(Boolean);
+}
+
+function isGeldigeLeerlingNaam(naam) {
+  return getDropdownNamen().includes((naam || '').trim());
+}
+
+function getGekozenLeerlingNaam() {
+  const naam = (document.getElementById('leerling-code')?.value || localStorage.getItem('groenhove_leerling_code') || '').trim();
+  return isGeldigeLeerlingNaam(naam) ? naam : '';
+}
+
+function getWeekKey(d = new Date()) {
+  const datum = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const dag = datum.getUTCDay() || 7;
+  datum.setUTCDate(datum.getUTCDate() + 4 - dag);
+  const jaarStart = new Date(Date.UTC(datum.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((datum - jaarStart) / 86400000) + 1) / 7);
+  return `${datum.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
+}
+
+function getMaandKey(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function jsonpFetch(action, params = {}) {
+  return new Promise((resolve, reject) => {
+    if (!APPS_SCRIPT_URL) return reject(new Error('Geen APPS_SCRIPT_URL ingesteld.'));
+    const callback = 'groenhoveCb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    const query = new URLSearchParams({ action, callback, t: Date.now().toString(), ...params });
+    const script = document.createElement('script');
+    const timeout = setTimeout(() => { cleanup(); reject(new Error('Apps Script antwoordde niet op tijd.')); }, 9000);
+    function cleanup() { clearTimeout(timeout); delete window[callback]; script.remove(); }
+    window[callback] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Apps Script kon niet geladen worden.')); };
+    script.src = `${APPS_SCRIPT_URL}?${query.toString()}`;
+    document.body.appendChild(script);
+  });
+}
+
+function stuurScoreNaarBackend(scoreEntry) {
+  if (!APPS_SCRIPT_URL) return;
   try {
-    const fd = new FormData();
-    fd.append(SCORE_FORM_FIELDS.naam,   s.leerling  || 'Anoniem');
-    fd.append(SCORE_FORM_FIELDS.modus,  s.modus     || '');
-    fd.append(SCORE_FORM_FIELDS.thema,  String(s.thema  || ''));
-    fd.append(SCORE_FORM_FIELDS.tekst,  String(s.tekst  || ''));
-    fd.append(SCORE_FORM_FIELDS.goed,   String(s.goed   ?? ''));
-    fd.append(SCORE_FORM_FIELDS.fout,   String(s.fout   ?? ''));
-    fd.append(SCORE_FORM_FIELDS.pct,    String(Math.round(s.juistheid ?? 0)));
-    fd.append(SCORE_FORM_FIELDS.streak, String(s.besteStreak ?? 0));
-    fd.append(SCORE_FORM_FIELDS.datum,  s.datum     || new Date().toISOString());
-    fetch(SCORE_FORM_URL, { method: 'POST', body: fd, mode: 'no-cors' }).catch(() => {});
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'saveScore', score: scoreEntry })
+    }).catch(() => {});
   } catch {}
+}
+
+function bewaarLokaleScore(scoreEntry) {
+  try {
+    const toegelaten = new Set(getDropdownNamen());
+    let scores = JSON.parse(localStorage.getItem(SCORE_LOCAL_KEY) || '[]')
+      .filter(s => toegelaten.has((s.leerling || s.naam || '').trim()));
+    scores.push(scoreEntry);
+    localStorage.setItem(SCORE_LOCAL_KEY, JSON.stringify(scores.slice(-300)));
+    SCORE_OLD_KEYS.forEach(k => localStorage.removeItem(k));
+  } catch {}
+}
+
+function laadLokaleScores() {
+  try {
+    const toegelaten = new Set(getDropdownNamen());
+    return JSON.parse(localStorage.getItem(SCORE_LOCAL_KEY) || '[]')
+      .filter(s => toegelaten.has((s.leerling || s.naam || '').trim()));
+  } catch { return []; }
+}
+
+async function laadMijnScore() {
+  const naam = getGekozenLeerlingNaam();
+  const el = document.getElementById('leerling-score-status');
+  if (!naam) {
+    mijnCentraleScore = { totaal: 0, week: 0, maand: 0, besteStreak: 0, pogingen: 0 };
+    if (el) el.textContent = 'Kies je naam voor het leaderboard';
+    return;
+  }
+  if (el) el.textContent = 'score laden…';
+  try {
+    const data = await jsonpFetch('getLeerlingScore', { naam });
+    if (data && data.ok && data.score) mijnCentraleScore = data.score;
+  } catch {
+    mijnCentraleScore = berekenLokaleScoreVoorLeerling(naam);
+  }
+  updateMijnScoreUI();
+}
+
+function updateMijnScoreUI() {
+  const el = document.getElementById('leerling-score-status');
+  if (!el) return;
+  const s = mijnCentraleScore || {};
+  el.textContent = `Totaal: ${s.totaal || 0} p · deze week: ${s.week || 0} p · deze maand: ${s.maand || 0} p`;
+}
+
+function berekenLokaleScoreVoorLeerling(naam) {
+  const now = new Date();
+  const weekKey = getWeekKey(now);
+  const maandKey = getMaandKey(now);
+  const scores = laadLokaleScores().filter(s => (s.leerling || s.naam) === naam);
+  return scores.reduce((acc, s) => {
+    const punten = Number(s.punten || 0);
+    acc.totaal += punten;
+    if (s.weekKey === weekKey) acc.week += punten;
+    if (s.maandKey === maandKey) acc.maand += punten;
+    acc.besteStreak = Math.max(acc.besteStreak, Number(s.besteStreak || 0));
+    acc.pogingen += 1;
+    return acc;
+  }, { totaal: 0, week: 0, maand: 0, besteStreak: 0, pogingen: 0 });
+}
+
+function berekenLokaleLeaderboard() {
+  const namen = getDropdownNamen();
+  const now = new Date();
+  const weekKey = getWeekKey(now);
+  const maandKey = getMaandKey(now);
+  const perLeerling = Object.fromEntries(namen.map(naam => [naam, { naam, totaal: 0, week: 0, maand: 0, besteStreak: 0, pogingen: 0, laatsteDatum: '' }]));
+  laadLokaleScores().forEach(s => {
+    const naam = (s.leerling || s.naam || '').trim();
+    if (!perLeerling[naam]) return;
+    const punten = Number(s.punten || 0);
+    perLeerling[naam].totaal += punten;
+    if (s.weekKey === weekKey) perLeerling[naam].week += punten;
+    if (s.maandKey === maandKey) perLeerling[naam].maand += punten;
+    perLeerling[naam].besteStreak = Math.max(perLeerling[naam].besteStreak, Number(s.besteStreak || 0));
+    perLeerling[naam].pogingen += 1;
+    if (!perLeerling[naam].laatsteDatum || String(s.datum || '') > perLeerling[naam].laatsteDatum) perLeerling[naam].laatsteDatum = s.datum || '';
+  });
+  return Object.values(perLeerling);
 }
 
 // ══════════════════════════════════════════════
@@ -833,6 +950,7 @@ function init() {
   }
   const lbNaam = document.getElementById('lb-naam');
   if (lbNaam) lbNaam.value = localStorage.getItem('groenhove_leerling_code') || '';
+  laadMijnScore();
 }
 
 function renderThemaKaarten() {
@@ -1088,80 +1206,89 @@ function updateHeaderTeller() {
 // ── LEADERBOARD MODUS ──
 // Vangt de kiesModus-klik op: toont direct leaderboard i.p.v. trainer
 function kiesModus(modus, btn) {
-  gekozenModus = modus;
-  document.querySelectorAll('.modus-knop').forEach(b => b.classList.remove('actief'));
-  btn.classList.add('actief');
   if (modus === 'leaderboard') {
     toonLeaderboardScherm();
+    return;
   }
+  gekozenModus = modus;
+  document.querySelectorAll('.modus-knop').forEach(b => b.classList.remove('actief'));
+  if (btn) btn.classList.add('actief');
 }
 
 async function toonLeaderboardScherm() {
-  if (geselecteerd.size < 1) { alert('Selecteer eerst woorden.'); return; }
   toonScherm('s-leaderboard');
+  await renderLeaderboard();
+}
+
+function zetLeaderboardPeriode(periode) {
+  leaderboardPeriode = periode;
   renderLeaderboard();
 }
 
+function updateLeaderboardTabs() {
+  ['week', 'maand', 'totaal'].forEach(p => {
+    const btn = document.getElementById(`lb-tab-${p}`);
+    if (!btn) return;
+    const actief = p === leaderboardPeriode;
+    btn.style.background = actief ? 'var(--blauw)' : 'transparent';
+    btn.style.color = actief ? '#fff' : 'var(--tekst-zacht)';
+    btn.style.borderColor = actief ? 'var(--blauw)' : 'var(--rand)';
+  });
+}
+
 async function renderLeaderboard() {
-  const naam = localStorage.getItem('groenhove_leerling_code') || 'Anoniem';
+  updateLeaderboardTabs();
+  const naam = getGekozenLeerlingNaam();
   const toon = document.getElementById('lb-naam-toon');
-  if (toon) toon.textContent = naam;
+  if (toon) toon.textContent = naam || '— kies je naam op de startpagina —';
+
   const container = document.getElementById('lb-tabel');
-  let scores = [];
-  // Haal scores op van Google Sheet via Apps Script
+  const bron = document.getElementById('lb-bron');
+  const toegelatenNamen = getDropdownNamen();
+  let rijen = [];
+  if (!container) return;
+  container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Leaderboard laden…</p>';
+
   try {
-    const appsUrl = 'https://script.google.com/macros/s/AKfycbw5hzoZuYf5aP0ZNaWXY4ZnCxtlcoqMinxktjTMKGywCpXGG5J7YtOodauz2qo1cKUC/exec';
-    const resp = await fetch(appsUrl + '?action=getTrainerScores&t=' + Date.now());
-    if (resp.ok) {
-      const data = await resp.json();
-      if (data.ok && Array.isArray(data.scores) && data.scores.length) {
-        scores = data.scores;
-        const bron = document.getElementById('lb-bron');
-        if (bron) bron.textContent = 'Gedeeld leaderboard';
-      }
+    const data = await jsonpFetch('getLeaderboard', { periode: leaderboardPeriode });
+    if (data && data.ok && Array.isArray(data.leaderboard)) {
+      const perNaam = Object.fromEntries(data.leaderboard.map(r => [r.naam, r]));
+      rijen = toegelatenNamen.map(n => perNaam[n] || { naam: n, totaal: 0, week: 0, maand: 0, punten: 0, besteStreak: 0, pogingen: 0, laatsteDatum: '' });
+      if (bron) bron.textContent = 'Gedeeld via Google Sheet';
     }
-  } catch {}
-  // Fallback: lokale scores
-  if (!scores.length) {
-    try { scores = JSON.parse(localStorage.getItem('latijn_4ds_scores') || '[]'); } catch {}
-    const bron = document.getElementById('lb-bron');
-    if (bron) bron.textContent = scores.length ? 'Lokale scores' : '';
+  } catch {
+    rijen = berekenLokaleLeaderboard();
+    if (bron) bron.textContent = 'Lokale fallback';
   }
 
-  if (!scores.length) {
-    container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Nog geen scores opgeslagen. Oefen eerst een reeks.</p>';
+  if (!rijen.length) {
+    container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Geen namen gevonden in het dropdownmenu.</p>';
     return;
   }
 
-  // Groepeer per leerling (leerling-code of 'anoniem'), neem beste score per leerling
-  const perLeerling = {};
-  scores.forEach(s => {
-    const naam = s.leerling || s.naam || 'Anoniem';
-    const pct  = s.juistheid ?? s.procent ?? 0;
-    const streak = s.besteStreak ?? 0;
-    if (!perLeerling[naam] || pct > perLeerling[naam].pct) {
-      perLeerling[naam] = { naam, pct, streak, datum: s.datum, modus: s.modus, woorden: s.aantalWoorden };
-    }
-  });
+  const key = leaderboardPeriode;
+  const titelPeriode = leaderboardPeriode === 'week' ? 'deze week' : leaderboardPeriode === 'maand' ? 'deze maand' : 'totaal';
+  rijen = rijen.map(r => ({ ...r, punten: Number(r[key] ?? r.punten ?? 0) }))
+    .sort((a, b) => (b.punten - a.punten) || String(a.naam).localeCompare(String(b.naam), 'nl'));
 
-  const gesorteerd = Object.values(perLeerling).sort((a,b) => b.pct - a.pct);
   const medailles = ['🥇','🥈','🥉'];
-
-  container.innerHTML = gesorteerd.map((r, i) => `
-    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rand);background:${i===0?'rgba(245,158,11,.07)':'transparent'};">
-      <span style="font-size:22px;width:32px;text-align:center;flex-shrink:0;">${medailles[i] || (i+1)}</span>
-      <div style="flex:1;">
-        <div style="font-family:var(--fv);font-size:15px;color:var(--blauw);">${esc(r.naam)}</div>
-        <div style="font-family:var(--fo);font-size:11px;color:#888;">${r.modus||''} · ${r.woorden||'?'} woorden · ${r.datum ? new Date(r.datum).toLocaleDateString('nl-BE') : ''}</div>
-      </div>
-      <div style="text-align:right;">
-        <div style="font-family:var(--fv);font-size:20px;color:${r.pct>=80?'var(--groen)':r.pct>=50?'var(--blauw)':'var(--rood)'};">${r.pct}%</div>
-        <div style="font-size:11px;color:#f59e0b;">🔥 ${r.streak}</div>
-      </div>
-    </div>`).join('');
+  container.innerHTML = rijen.map((r, i) => {
+    const isIk = naam && r.naam === naam;
+    const datum = r.laatsteDatum ? new Date(r.laatsteDatum).toLocaleDateString('nl-BE') : 'nog geen poging';
+    return `
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rand);background:${isIk?'rgba(0,102,51,.08)':i===0?'rgba(245,158,11,.07)':'transparent'};">
+        <span style="font-size:22px;width:32px;text-align:center;flex-shrink:0;">${medailles[i] || (i+1)}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:var(--fv);font-size:15px;color:var(--blauw);">${esc(r.naam)}${isIk ? ' <span style="font-size:11px;color:#f59e0b;">jij</span>' : ''}</div>
+          <div style="font-family:var(--fo);font-size:11px;color:#888;">${Number(r.pogingen || 0)} poging${Number(r.pogingen || 0)===1?'':'en'} · laatste: ${datum} · 🔥 ${Number(r.besteStreak || 0)}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-family:var(--fv);font-size:22px;color:var(--deep-forest);">${Number(r.punten || 0)}</div>
+          <div style="font-size:11px;color:#888;">punten ${titelPeriode}</div>
+        </div>
+      </div>`;
+  }).join('');
 }
-
-
 
 // ══════════════════════════════════════════════
 // TRAINING STARTEN
@@ -1822,27 +1949,37 @@ function trainFoutenOpnieuw() {
 
 function bewaarScore(pct) {
   try {
-    const key = 'latijn_4ds_scores';
-    const scores = JSON.parse(localStorage.getItem(key) || '[]');
-    const leerlingNaam = (document.getElementById('leerling-code')?.value || '').trim()
-                     || localStorage.getItem('groenhove_leerling_code') || 'Anoniem';
+    const leerlingNaam = getGekozenLeerlingNaam();
+    if (!leerlingNaam) {
+      alert('Je score is niet opgeslagen omdat er geen geldige naam gekozen is.');
+      return;
+    }
+    const nu = new Date();
     const scoreEntry = {
-      datum: new Date().toISOString(),
+      datum: nu.toISOString(),
       leerling: leerlingNaam,
       naam: leerlingNaam,
       modus: gekozenModus,
       goed: aantalGoed,
       fout: aantalFout,
       juistheid: pct,
-      besteStreak,
+      punten: Number(scorePunten || 0),
+      besteStreak: Number(besteStreak || 0),
       aantalWoorden: trainRij.length,
       thema: gekozenThema || '',
-      tekst: gekozenTekst || ''
+      tekst: gekozenTekst || '',
+      weekKey: getWeekKey(nu),
+      maandKey: getMaandKey(nu)
     };
-    scores.push(scoreEntry);
-    localStorage.setItem(key, JSON.stringify(scores.slice(-50)));
-    stuurScoreNaarForm(scoreEntry);
-  } catch {}
+    bewaarLokaleScore(scoreEntry);
+    stuurScoreNaarBackend(scoreEntry);
+    mijnCentraleScore.totaal = Number(mijnCentraleScore.totaal || 0) + scoreEntry.punten;
+    mijnCentraleScore.week   = Number(mijnCentraleScore.week   || 0) + scoreEntry.punten;
+    mijnCentraleScore.maand  = Number(mijnCentraleScore.maand  || 0) + scoreEntry.punten;
+    mijnCentraleScore.besteStreak = Math.max(Number(mijnCentraleScore.besteStreak || 0), scoreEntry.besteStreak);
+    mijnCentraleScore.pogingen = Number(mijnCentraleScore.pogingen || 0) + 1;
+    updateMijnScoreUI();
+  } catch (err) { console.warn('Score kon niet opgeslagen worden:', err); }
 }
 
 // ══════════════════════════════════════════════
@@ -1919,10 +2056,10 @@ function naarMoeilijkeLijst() {
 // ══════════════════════════════════════════════
 function bewaarLeerlingCode() {
   const v = (document.getElementById('leerling-code')?.value || document.getElementById('lb-naam')?.value || '').trim();
-  if (v) localStorage.setItem('groenhove_leerling_code', v);
-  // sync beide velden
+  if (v && isGeldigeLeerlingNaam(v)) localStorage.setItem('groenhove_leerling_code', v);
   const a = document.getElementById('leerling-code'); if (a && v) a.value = v;
   const b = document.getElementById('lb-naam');       if (b && v) b.value = v;
+  laadMijnScore();
 }
 
 init();
