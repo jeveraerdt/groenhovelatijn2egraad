@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De e-verbuiging — Grammatica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Flanders Art Sans';
+    src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root {
+    --jaar-kleur: #006633;
+    --accent: #FF3B1D;
+    --accent-licht: #fbe4de;
+    --achtergrond: #cce0d6;
+    --wit: #f3f1ef;
+    --zwart: #010100;
+    --tekst-zacht: #4a6b5a;
+    --rand: #c0d4c8;
+    --groen-licht: #e8eeeb;
+    --groen-midden: #65b32e;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --ft: 'Flanders Art Sans', Arial, sans-serif;
+    --fb: 'Noto Sans', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--achtergrond); color: var(--zwart); font-family: var(--fb); min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* Groenhove-merklint */
+  .site-header { background: var(--jaar-kleur); color: var(--wit); display: flex; align-items: center; gap: 1rem; padding: .85rem 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .site-header .logo { height: 38px; width: auto; display: block; flex-shrink: 0; }
+  .site-header h1 { font-family: var(--ft); font-weight: 700; font-size: 1.25rem; margin: 0; letter-spacing: .02em; }
+  .site-header .sub { font-family: var(--fb); font-size: .78rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; opacity: .85; margin-left: auto; white-space: nowrap; }
+  .site-header .sub .brand { font-family: var(--ft); font-weight: 700; font-size: inherit; color: inherit; }
+
+  /* Athena-achtige navigatiestructuur, in Groenhove-kleuren */
+  .site-toolbar { background: var(--wit); border-bottom: 1px solid var(--rand); padding: .55rem 1.5rem; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 10; }
+  .toolbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .25rem; }
+  .back-btn, .pill-btn, .mode-btn { font-family: var(--fb); font-size: .82rem; font-weight: 700; color: var(--jaar-kleur); background: transparent; border: 1px solid var(--rand); border-radius: 20px; padding: .32rem .85rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; transition: background .15s, border-color .15s, color .15s; }
+  .back-btn:hover, .pill-btn:hover, .pill-btn.active { background: var(--groen-midden); border-color: var(--groen-midden); color: var(--wit); }
+  .back-btn svg { width: 14px; height: 14px; }
+  .model-switch { display: inline-flex; align-items: center; gap: .25rem; flex-wrap: wrap; }
+  .model-switch-label { font-size: .72rem; color: var(--tekst-zacht); font-weight: 700; margin-right: .15rem; }
+  .mode-btn { font-size: .76rem; padding: .28rem .66rem; }
+  .mode-btn:hover { background: var(--groen-licht); border-color: var(--groen-midden); }
+  .mode-btn.is-active { color: var(--wit); background: var(--jaar-kleur); border-color: var(--jaar-kleur); }
+
+  .inhoud { flex: 1; padding: 2rem 2rem 3rem; max-width: 1100px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem; }
+  .sectie { display: flex; flex-direction: column; gap: .75rem; }
+  .sectie-kop { display: flex; align-items: center; gap: 10px; padding-bottom: .6rem; border-bottom: 1.5px solid var(--rand); }
+  .sectie-icoon { width: 32px; height: 32px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--groen-licht); }
+  .sectie-icoon svg { width: 16px; height: 16px; stroke: var(--jaar-kleur); }
+  .sectie-kop-tekst { font-family: var(--ft); font-size: 16px; font-weight: 700; color: var(--jaar-kleur); }
+  .sectie-kop-label { margin-left: auto; font-size: 11px; font-family: var(--fb); font-weight: 700; color: var(--tekst-zacht); background: var(--groen-licht); border: 1px solid var(--rand); border-radius: 20px; padding: 2px 10px; white-space: nowrap; }
+  .tegel-grid { display: flex; flex-direction: column; gap: .5rem; }
+  .tegel, .tabel-kaart { background: var(--wit); border: .5px solid var(--rand); border-radius: var(--radius-sm); padding: .9rem 1.1rem; color: inherit; }
+  .tegel { display: flex; gap: 12px; align-items: flex-start; }
+  a.tegel { text-decoration: none; position: relative; transition: border-color .15s, transform .15s, box-shadow .15s; }
+  a.tegel:hover { border-color: var(--accent); transform: translateX(3px); box-shadow: 0 2px 10px rgba(0,102,51,.08); }
+  .tegel-badge { display: inline-block; font-size: 10px; font-family: var(--fb); font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--jaar-kleur); background: var(--groen-licht); border-radius: 4px; padding: 2px 7px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .tegel-badge.accent { color: var(--accent); background: var(--accent-licht); }
+  .tegel-tekst { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .tegel-naam { font-family: var(--ft); font-size: 14px; font-weight: 700; color: var(--jaar-kleur); line-height: 1.3; }
+  .tegel-omschrijving { font-family: var(--fb); font-size: 12.5px; color: var(--tekst-zacht); line-height: 1.55; }
+  .tegel-lijst, .regel-lijst { font-family: var(--fb); font-size: 12.5px; color: var(--tekst-zacht); line-height: 1.6; margin: 4px 0 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 2px; }
+  .tegel-lijst a { color: var(--jaar-kleur); font-weight: 700; text-decoration: none; }
+  .tegel-lijst a:hover { color: var(--accent); text-decoration: underline; }
+  .tegel-pijl { font-size: 18px; color: var(--rand); transition: color .15s; flex-shrink: 0; margin-left: auto; padding-left: 8px; margin-top: 1px; }
+  a.tegel:hover .tegel-pijl { color: var(--accent); }
+
+  .tabel-kaart { padding: 1.25rem; overflow-x: auto; }
+  .model-titel { margin: 0 0 .25rem; font-family: var(--ft); font-size: 17px; color: var(--jaar-kleur); }
+  .model-intro { margin: 0 0 1rem; color: var(--tekst-zacht); font-size: 12.5px; line-height: 1.55; }
+  table { border-collapse: collapse; width: 100%; min-width: 500px; font-family: var(--fb); font-size: 13px; }
+  th { background: var(--jaar-kleur); color: var(--wit); font-family: var(--ft); font-weight: 700; text-align: left; padding: 9px 11px; letter-spacing: .02em; white-space: nowrap; }
+  th:first-child { background: #004d28; }
+  td { padding: 8px 11px; border-bottom: 1px solid var(--rand); border-right: 1px solid var(--rand); vertical-align: middle; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  tbody tr:nth-child(even) td { background: #eef4f0; }
+  td.naamval { background: #e4efe8; color: var(--jaar-kleur); font-weight: 700; white-space: nowrap; }
+  td .uitgang { color: var(--accent); font-weight: 700; }
+  td .nl { display: block; color: var(--tekst-zacht); font-size: 11px; margin-top: 1px; white-space: normal; }
+  .tabel-nota { margin: .8rem 0 0; font-size: 12px; color: var(--tekst-zacht); }
+  .onthoud { background: var(--groen-licht); border: 1px solid #a7c6af; }
+  .onthoud .tegel-naam { color: var(--jaar-kleur); }
+  .regel-lijst { color: var(--zwart); margin-top: .5rem; }
+  .regel-lijst li::marker { color: var(--accent); }
+  .voetje { text-align: center; padding: 1rem; font-family: var(--fb); font-size: 12px; color: var(--tekst-zacht); }
+  em { font-style: italic; } strong { font-weight: 700; }
+
+  /* Wisselbare inhoud */
+  [data-mode-content] { display: none; }
+  body[data-model-mode="trad"] [data-mode-content="trad"],
+  body[data-model-mode="pegasus"] [data-mode-content="pegasus"] { display: block; }
+  .mode-note { border-left: 3px solid var(--accent); background: var(--accent-licht); padding: .7rem .85rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: #5b2c20; font-size: 12.5px; line-height: 1.5; margin: .25rem 0 0; }
+
+  @media (max-width: 850px) { .toolbar-divider-mode { display: none; } .model-switch { width: 100%; padding-top: .2rem; } }
+  @media (max-width: 700px) { .site-header { align-items: flex-start; } .site-header .sub { display: none; } }
+  @media (max-width: 500px) { .inhoud { padding: 1.5rem 1rem 2.5rem; } .sectie-kop { align-items: flex-start; } .sectie-kop-label { margin-left: 0; } .site-toolbar { padding: .55rem 1rem; } .pill-btn { font-size: .76rem; padding: .3rem .65rem; } .tabel-kaart { padding: .85rem; } }
+</style>
+</head>
+<body data-model-mode="trad">
+<header class="site-header">
+  <img class="logo" src="../images/nav/logo_mono_wit.png" alt="Groenhove">
+  <h1>Grammatica</h1>
+  <span class="sub"><span class="brand">S.O. Groenhove Waregem</span></span>
+</header>
+<nav class="site-toolbar">
+  <a class="back-btn" href="subst-overzicht.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Overzicht
+  </a>
+  <div class="toolbar-divider"></div>
+  <a class="pill-btn" href="subst-a-verbuiging.html"><span data-nav-label data-trad="silva" data-pegasus="rosa">silva</span></a>
+  <a class="pill-btn" href="subst-o-verbuiging.html"><span data-nav-label data-trad="servus · templum" data-pegasus="avus · donum">servus · templum</span></a>
+  <a class="pill-btn" href="subst-gemengde-verbuiging.html"><span data-nav-label data-trad="rex · corpus" data-pegasus="dux · mater · corpus">rex · corpus</span></a>
+  <a class="pill-btn" href="subst-u-verbuiging.html"><span data-nav-label data-trad="motus" data-pegasus="fructus">motus</span></a>
+  <a class="pill-btn active" href="subst-e-verbuiging.html"><span data-nav-label data-trad="res" data-pegasus="res">res</span></a>
+  <div class="toolbar-divider toolbar-divider-mode"></div>
+  <div class="model-switch" role="group" aria-label="Kies het verbuigingsmodel">
+    <span class="model-switch-label">Modellen</span>
+    <button type="button" class="mode-btn" data-mode-button="trad">Traditioneel</button>
+    <button type="button" class="mode-btn" data-mode-button="pegasus">Pegasus</button>
+  </div>
+</nav>
+<main class="inhoud">
+<div data-mode-content="trad"><section class="sectie">
+  <div class="sectie-kop">
+    <div class="sectie-icoon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+    <span class="sectie-kop-tekst">De e-verbuiging</span>
+    <span class="sectie-kop-label">Substantieven</span>
+  </div>
+  <div class="tegel-grid"><div class="tegel">
+  <span class="tegel-badge">Theorie</span>
+  <div class="tegel-tekst">
+    <div class="tegel-naam">Type <em>res, rei</em> — de zaak</div>
+    <div class="tegel-omschrijving">De vijfde verbuiging herken je aan de genitief enkelvoud op <strong>-ei</strong>.</div>
+    <ul class="tegel-lijst"><li>De genitief en datief enkelvoud eindigen op <strong>-ei</strong>.</li><li>De genitief meervoud eindigt op <strong>-erum</strong>.</li><li>De meeste woorden zijn vrouwelijk.</li></ul>
+  </div>
+</div></div>
+</section>
+<section class="sectie">
+  <div class="sectie-kop">
+    <div class="sectie-icoon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></div>
+    <span class="sectie-kop-tekst">Het model</span>
+    <span class="sectie-kop-label">Overzicht</span>
+  </div>
+  <div class="tabel-kaart">
+  <h2 class="model-titel">res, rei</h2>
+  <p class="model-intro">Traditionele volgorde: <strong>nom. – voc. – gen. – dat. – acc. – abl.</strong>.</p>
+  <table><thead><tr><th>naamval</th><th>enkelvoud</th><th>meervoud</th></tr></thead><tbody><tr><td class="naamval">nominatief</td><td>r<span class="uitgang">es</span></td><td>r<span class="uitgang">es</span></td></tr><tr><td class="naamval">vocatief</td><td>r<span class="uitgang">es</span></td><td>r<span class="uitgang">es</span></td></tr><tr><td class="naamval">genitief</td><td>r<span class="uitgang">ei</span></td><td>r<span class="uitgang">erum</span></td></tr><tr><td class="naamval">datief</td><td>r<span class="uitgang">ei</span></td><td>r<span class="uitgang">ebus</span></td></tr><tr><td class="naamval">accusatief</td><td>r<span class="uitgang">em</span></td><td>r<span class="uitgang">es</span></td></tr><tr><td class="naamval">ablatief</td><td>r<span class="uitgang">e</span></td><td>r<span class="uitgang">ebus</span></td></tr></tbody></table>
+  <p class="tabel-nota">De uitgangen zijn rood aangeduid. Bij de nominatief enkelvoud zoek je altijd de volledige woordenboekvorm op.</p>
+</div>
+</section>
+<section class="sectie">
+  <div class="sectie-kop">
+    <div class="sectie-icoon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.75c.65.48 1 1.23 1 2.05V17h6v-.2c0-.82.35-1.57 1-2.05A7 7 0 0 0 12 2Z"/></svg></div>
+    <span class="sectie-kop-tekst">Onthouden</span>
+    <span class="sectie-kop-label">Essentieel</span>
+  </div>
+  <div class="tegel-grid"><div class="tegel">
+  <span class="tegel-badge">Onthouden</span>
+  <div class="tegel-tekst">
+    <div class="tegel-naam">Herken <em>res</em></div>
+    <div class="tegel-omschrijving">De vijfde verbuiging heeft een klein maar zeer herkenbaar patroon.</div>
+    <ul class="tegel-lijst"><li>Gen. en dat. enk. <strong>-ei</strong>.</li><li>Gen. mv. <strong>-erum</strong>.</li><li>Dat. en abl. mv. zijn gelijk: <strong>-ebus</strong>.</li></ul>
+  </div>
+</div></div>
+</section>
+</div>
+<div data-mode-content="pegasus"><section class="sectie">
+  <div class="sectie-kop">
+    <div class="sectie-icoon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+    <span class="sectie-kop-tekst">De derde klasse</span>
+    <span class="sectie-kop-label">Substantieven</span>
+  </div>
+  <div class="tegel-grid"><div class="tegel">
+  <span class="tegel-badge accent">Pegasus</span>
+  <div class="tegel-tekst">
+    <div class="tegel-naam">Pegasus Novus: type <em>res, rei</em> — de zaak</div>
+    <div class="tegel-omschrijving">Pegasus Novus zet <em>res</em> bij <em>fructus</em> in de <strong>derde klasse</strong>.</div>
+    <ul class="tegel-lijst"><li>Vrouwelijk model: <strong>res, rei</strong>.</li><li>De genitief en datief enkelvoud eindigen op <strong>-ei</strong>.</li><li>De vormenset blijft dezelfde; Pegasus wijzigt enkel de klassering en de naamvalvolgorde.</li></ul>
+  </div>
+</div></div>
+</section>
+<section class="sectie">
+  <div class="sectie-kop">
+    <div class="sectie-icoon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></div>
+    <span class="sectie-kop-tekst">Het model</span>
+    <span class="sectie-kop-label">Overzicht</span>
+  </div>
+  <div class="tabel-kaart">
+  <h2 class="model-titel">res, rei</h2>
+  <p class="model-intro">Pegasus-volgorde: <strong>nom. – acc. – gen. – dat. – abl. – voc.</strong>.</p>
+  <table><thead><tr><th>naamval</th><th>enkelvoud</th><th>meervoud</th></tr></thead><tbody><tr><td class="naamval">nominatief</td><td>r<span class="uitgang">es</span></td><td>r<span class="uitgang">es</span></td></tr><tr><td class="naamval">accusatief</td><td>r<span class="uitgang">em</span></td><td>r<span class="uitgang">es</span></td></tr><tr><td class="naamval">genitief</td><td>r<span class="uitgang">ei</span></td><td>r<span class="uitgang">erum</span></td></tr><tr><td class="naamval">datief</td><td>r<span class="uitgang">ei</span></td><td>r<span class="uitgang">ebus</span></td></tr><tr><td class="naamval">ablatief</td><td>r<span class="uitgang">e</span></td><td>r<span class="uitgang">ebus</span></td></tr><tr><td class="naamval">vocatief</td><td>r<span class="uitgang">es</span></td><td>r<span class="uitgang">es</span></td></tr></tbody></table>
+  <p class="tabel-nota">In Pegasus krijgt <em>res</em> de plaats van vrouwelijk model naast het mannelijke <em>fructus</em>.</p>
+</div>
+</section>
+<section class="sectie">
+  <div class="sectie-kop">
+    <div class="sectie-icoon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.75c.65.48 1 1.23 1 2.05V17h6v-.2c0-.82.35-1.57 1-2.05A7 7 0 0 0 12 2Z"/></svg></div>
+    <span class="sectie-kop-tekst">Onthouden</span>
+    <span class="sectie-kop-label">Essentieel</span>
+  </div>
+  <div class="tegel-grid"><div class="tegel">
+  <span class="tegel-badge accent">Onthouden</span>
+  <div class="tegel-tekst">
+    <div class="tegel-naam">Herken <em>res</em></div>
+    <div class="tegel-omschrijving">Deze vormen zijn voor beide systemen gelijk; alleen de plaats in het schema en de rijvolgorde veranderen.</div>
+    <ul class="tegel-lijst"><li><em>res</em> = vrouwelijk model van de derde klasse.</li><li>Gen./dat. enk. <strong>-ei</strong>.</li><li>Pegasus: nom. – acc. – gen. – dat. – abl. – voc.</li></ul>
+  </div>
+</div></div>
+</section>
+</div>
+</main>
+<p class="voetje">J. Everaerdt &mdash; S.O. Groenhove Waregem</p>
+<script>
+(function () {
+  const storageKey = 'groenhove-verbuigingen-model';
+  const validModes = new Set(['trad', 'pegasus']);
+  let storedMode = null;
+  try { storedMode = localStorage.getItem(storageKey); } catch (e) {}
+  const current = validModes.has(storedMode) ? storedMode : 'trad';
+
+  function setMode(mode) {
+    const chosen = validModes.has(mode) ? mode : 'trad';
+    document.body.dataset.modelMode = chosen;
+    try { localStorage.setItem(storageKey, chosen); } catch (e) {}
+    document.querySelectorAll('[data-mode-button]').forEach(function (button) {
+      const isActive = button.dataset.modeButton === chosen;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+    document.querySelectorAll('[data-nav-label]').forEach(function (label) {
+      label.textContent = chosen === 'pegasus' ? label.dataset.pegasus : label.dataset.trad;
+    });
+  }
+
+  document.querySelectorAll('[data-mode-button]').forEach(function (button) {
+    button.addEventListener('click', function () { setMode(button.dataset.modeButton); });
+  });
+  setMode(current);
+}());
+</script>
+</body>
+</html>
