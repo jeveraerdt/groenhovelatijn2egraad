@@ -913,7 +913,7 @@
 
     <div class="studio-section-head">
       <div class="studio-section-title"><span class="studio-section-no">01</span><h3>Kies je bronmateriaal</h3></div>
-      <p>Zoek rechtstreeks een woord, of kies eerst een thema en daarna een tekst.</p>
+      <p>Zoek naar een woord, een thema of specifieke tekst.</p>
     </div>
 
     <!-- Zoekbalk -->
@@ -931,22 +931,22 @@
     </div>
     <div class="thema-grid" id="thema-grid">
       <div class="thema-kaart is-demo">
-        <div class="thema-kaart-media"><img src="../../../images/woordenschat/cardalfabetisch_3de.png" alt="Alfabetisch"></div>
+        <div class="thema-kaart-media"><img src="../../images/woordenschat/cardalfabetisch_3de.png" alt="Alfabetisch"></div>
         <div class="thema-kaart-body"><div class="thema-kaart-naam">Alfabetisch</div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
         <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
       </div>
       <div class="thema-kaart is-demo">
-        <div class="thema-kaart-media"><img src="../../../images/woordenschat/cardthema1_3de.png" alt="Thema 1: Animo subdolo"></div>
+        <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema1_3de.png" alt="Thema 1: Animo subdolo"></div>
         <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 1 <span>Animo subdolo</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
         <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
       </div>
       <div class="thema-kaart is-demo">
-        <div class="thema-kaart-media"><img src="../../../images/woordenschat/cardthema2_3de.png" alt="Thema 2: Terra Incognita"></div>
+        <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema2_3de.png" alt="Thema 2: Terra Incognita"></div>
         <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 2 <span>Terra Incognita</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
         <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
       </div>
       <div class="thema-kaart is-demo">
-        <div class="thema-kaart-media"><img src="../../../images/woordenschat/cardthema3_3de.png" alt="Thema 3: Mirabilia"></div>
+        <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema3_3de.png" alt="Thema 3: Mirabilia"></div>
         <div class="thema-kaart-body"><div class="thema-kaart-naam">Thema 3 <span>Mirabilia</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
         <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
       </div>
@@ -1348,9 +1348,9 @@ function berekenLokaleLeaderboard() {
 // THEMA-CONFIGURATIE (iconen + namen)
 // ══════════════════════════════════════════════
 const THEMA_CONFIG = {
-  1: { naam: 'Animo subdolo',       afbeelding: '../../../images/woordenschat/cardthema1_3de.png' },
-  2: { naam: 'Terra Incognita',    afbeelding: '../../../images/woordenschat/cardthema2_3de.png' },
-  3: { naam: 'Mirabilia',  afbeelding: '../../../images/woordenschat/cardthema3_3de.png' },
+  1: { naam: 'Animo subdolo',       afbeelding: '../../images/woordenschat/cardthema1_3de.png' },
+  2: { naam: 'Terra Incognita',    afbeelding: '../../images/woordenschat/cardthema2_3de.png' },
+  3: { naam: 'Mirabilia',  afbeelding: '../../images/woordenschat/cardthema3_3de.png' },
 };
 
 // State voor kaart-selectie
@@ -1405,7 +1405,7 @@ function renderThemaKaarten() {
   // Vaste kaart: alfabetische ingang.
   html += `<div class="thema-kaart${gekozenThema==='alfa'?' actief':''}" onclick="kiesThema('alfa')">
     <div class="thema-kaart-check"></div>
-    <div class="thema-kaart-media"><img src="../../../images/woordenschat/cardalfabetisch_3de.png" alt="Alfabetisch woordenoverzicht"></div>
+    <div class="thema-kaart-media"><img src="../../images/woordenschat/cardalfabetisch_3de.png" alt="Alfabetisch woordenoverzicht"></div>
     <div class="thema-kaart-body">
       <div class="thema-kaart-naam">Alfabetisch</div>
       <div class="thema-kaart-meta">Alle ${woordenlijst_3ds.length} woorden</div>
