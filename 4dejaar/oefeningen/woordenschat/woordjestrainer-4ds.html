@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Woordjestrainer 4DS — Latijn Groenhove</title>
+<title>Woordjestrainer 4DS | Latijn Groenhove</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..700,0..1,-50..200&display=swap" rel="stylesheet">
 <style>
   @font-face {
     font-family: 'FlandersArtSans';
@@ -22,10 +25,12 @@
     font-weight: 700;
   }
   :root {
-    --blauw: #65b32e; --roze: #FF3B1D;
-    --vital-green: #65b32e; /* subtitels */
-    --deep-forest: #006633; /* jaar-kleur 4ds */
-    --groen: #006633; --groen-licht: #d4edda; --groen-rand: #8fcc9e;
+    --primary: #65b32e; --primary-rgb: 101,179,46;
+    --secondary: #006633; --secondary-rgb: 0,102,51;
+    --blauw: var(--primary); --roze: #FF3B1D;
+    --vital-green: var(--primary); /* primaire accenten */
+    --deep-forest: var(--secondary); /* secundaire, leesbare inktkleur */
+    --groen: var(--primary); --groen-licht: #d4edda; --groen-rand: #8fcc9e;
     --rood: #dc2626; --rood-licht: #fee2e2; --rood-rand: #fca5a5;
     --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
     --fo: 'NotoSans', Arial, sans-serif;
@@ -33,6 +38,35 @@
     --tekst: #010100; --tekst-zacht: #4a6a3a;
     --radius: 12px; --radius-sm: 8px; --radius-lg: 16px;
     --jaar-kleur: #65b32e; --jaar-kleur-licht: #e0efd5;
+  }
+  /* ── MATERIAL SYMBOLS ROUNDED ───────────────────── */
+  .material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    vertical-align: -0.18em;
+  }
+  .material-symbols-rounded.icon-fill { font-variation-settings: 'FILL' 1, 'wght' 550, 'GRAD' 0, 'opsz' 24; }
+  .material-symbols-rounded.icon-sm { font-size: 16px; }
+  .material-symbols-rounded.icon-lg { font-size: 54px; }
+  .material-symbols-rounded.icon-btn { font-size: 18px; vertical-align: -0.2em; }
+  .verder-btn, .oefen-btn, .modus-start-knop { display: inline-flex; align-items: center; gap: .42rem; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--fv); background: var(--achtergrond); color: var(--tekst); min-height: 100vh; }
@@ -68,7 +102,7 @@
     background-repeat: no-repeat; background-position: right 10px center;
     transition: border-color 0.15s;
   }
-  .filter-select:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(0,102,51,0.12); }
+  .filter-select:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(101,179,46,0.12); }
 
   /* ── THEMAKAARTEN (vervangt dropdowns — Memolingo-logica) ── */
   .thema-zoek-wrap { position: relative; margin-bottom: 1.25rem; }
@@ -79,7 +113,7 @@
     background: var(--kaart); color: var(--tekst); outline: none;
     transition: border-color .15s;
   }
-  .thema-zoek:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(0,102,51,.1); }
+  .thema-zoek:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(101,179,46,.1); }
   .thema-zoek-icoon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--tekst-zacht); pointer-events: none; }
 
   .thema-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
@@ -90,8 +124,8 @@
     display: flex; flex-direction: column; gap: 6px; position: relative;
     user-select: none;
   }
-  .thema-kaart:hover { border-color: var(--blauw); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(101,179,46,.18); }
-  .thema-kaart.actief { border-color: var(--blauw); background: var(--jaar-kleur-licht); box-shadow: 0 0 0 3px rgba(101,179,46,.18); }
+  .thema-kaart:hover { border-color: var(--blauw); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(101,179,46,.12); }
+  .thema-kaart.actief { border-color: var(--blauw); background: var(--jaar-kleur-licht); box-shadow: 0 0 0 3px rgba(101,179,46,.12); }
   .thema-kaart-icoon { font-size: 28px; line-height: 1; margin-bottom: 2px; }
   .thema-kaart-naam { font-family: var(--fv); font-size: 13px; color: var(--blauw); line-height: 1.2; }
   .thema-kaart-meta { font-family: var(--fo); font-size: 11px; color: var(--tekst-zacht); }
@@ -120,7 +154,7 @@
   .thema-placeholder:hover { transform: none !important; box-shadow: none !important; border-color: var(--rand) !important; }
 
   /* Voortgangsbalkje per themakaart */
-  .thema-voortgang { height: 4px; border-radius: 99px; background: rgba(101,179,46,.18); overflow: hidden; margin-top: 2px; }
+  .thema-voortgang { height: 4px; border-radius: 99px; background: rgba(101,179,46,.12); overflow: hidden; margin-top: 2px; }
   .thema-voortgang-inner { height: 100%; border-radius: 99px; background: var(--blauw); transition: width .3s ease; }
 
   /* Filter-basiswoorden (blijft als toggle) */
@@ -136,14 +170,14 @@
     color: var(--tekst); outline: none; text-align: center;
     transition: border-color 0.15s;
   }
-  .bereik-input:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(0,102,51,0.12); }
+  .bereik-input:focus { border-color: var(--blauw); box-shadow: 0 0 0 2px rgba(101,179,46,0.12); }
   .bereik-sep { font-size: 13px; color: var(--tekst-zacht); font-family: var(--fo); }
   .bereik-btn {
     font-family: var(--fv); font-size: 13px; font-weight: 700;
     padding: 9px 16px; border-radius: 99px;
     white-space: nowrap; outline: none;
   }
-  .bereik-btn:focus { box-shadow: 0 0 0 2px rgba(0,102,51,.25); }
+  .bereik-btn:focus { box-shadow: 0 0 0 2px rgba(101,179,46,.25); }
 
   /* Actiebalk boven lijst */
   .actie-balk { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; flex-wrap: wrap; }
@@ -181,6 +215,8 @@
   }
   .ster-knop:hover { color: #f59e0b; transform: scale(1.2); }
   .ster-knop.moeilijk { color: #f59e0b; }
+  .ster-knop .material-symbols-rounded { font-size: 18px; vertical-align: 0; }
+  .ster-knop.moeilijk .material-symbols-rounded { font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24; }
 
   /* Moeilijke woorden teller in header */
   .moeilijk-teller {
@@ -189,6 +225,7 @@
     background: none; border: none; padding: 0;
   }
   .moeilijk-teller:hover { opacity: 0.8; }
+  .moeilijk-teller .material-symbols-rounded { color: #f59e0b; font-size: 18px; vertical-align: -0.16em; }
 
   /* Voeg-toe-knop in feedback */
   .voeg-moeilijk-btn {
@@ -304,6 +341,9 @@
   .feedback-icoon.goed { background: var(--groen); }
   .feedback-icoon.fout { background: var(--rood); }
   .feedback-icoon svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.5; }
+  .feedback-icoon .material-symbols-rounded { color: #fff; font-size: 20px; vertical-align: 0; }
+  .goed-badge .material-symbols-rounded, .fout-badge .material-symbols-rounded { font-size: 18px; vertical-align: -0.16em; }
+  .streak-badge .material-symbols-rounded { color: currentColor; font-size: 18px; vertical-align: -0.16em; }
   .feedback-tekst { flex: 1; }
   .feedback-label { font-family: var(--fo); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--tekst-zacht); }
   .feedback-antwoord { font-family: var(--fv); font-size: 15px; font-weight: 600; color: var(--tekst); margin-top: 2px; }
@@ -324,7 +364,8 @@
      SCHERM 3: RESULTAAT
   ══════════════════════════════════════════════════ */
   #s-resultaat .inhoud { max-width: 600px; margin: 0 auto; width: 100%; padding: 3rem 2rem; flex: 1; text-align: center; }
-  .resultaat-emoji { font-size: 56px; margin-bottom: 1rem; }
+  .resultaat-emoji { height: 64px; margin-bottom: 1rem; display: grid; place-items: center; color: var(--deep-forest); }
+  .resultaat-emoji .material-symbols-rounded { font-size: 56px; vertical-align: 0; }
   .resultaat-titel { font-size: 28px; font-weight: 600; color: var(--blauw); margin-bottom: 0.5rem; }
   .resultaat-sub { font-family: var(--fo); font-size: 15px; color: var(--tekst-zacht); margin-bottom: 2rem; }
   .resultaat-stats { display: flex; gap: 2rem; justify-content: center; margin-bottom: 2.5rem; }
@@ -347,20 +388,20 @@
     content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
     background:
       radial-gradient(circle at 12% 10%, rgba(255,59,29,0.08), transparent 24%),
-      radial-gradient(circle at 88% 18%, rgba(0,102,51,0.13), transparent 22%),
+      radial-gradient(circle at 88% 18%, rgba(101,179,46,0.13), transparent 22%),
       linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
   }
   .trainer-header { box-shadow: 0 8px 22px rgba(0,0,0,0.04); }
-  .voortgang-balk-wrap { height: 11px; background: rgba(0,102,51,0.11); border: 1px solid rgba(0,102,51,0.12); }
+  .voortgang-balk-wrap { height: 11px; background: rgba(101,179,46,0.11); border: 1px solid rgba(101,179,46,0.12); }
   .voortgang-balk-inner { position: relative; overflow: hidden; }
   .voortgang-balk-inner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.38), transparent); transform: translateX(-100%); animation: progressShine 1.6s ease-in-out infinite; }
   @keyframes progressShine { 0% { transform: translateX(-100%); } 70%,100% { transform: translateX(100%); } }
   .trainer-stage { position: relative; }
   .trainer-stage::before { content: 'ANIMO • MEMORIA • VICTORIA'; position: absolute; top: 1rem; left: 50%; transform: translateX(-50%); font-family: var(--fo); font-size: 10px; letter-spacing: 2px; color: rgba(74,106,58,0.45); white-space: nowrap; }
-  .trainer-kaart { border: 1px solid rgba(0,102,51,0.14); box-shadow: 0 18px 44px rgba(0,102,51,0.13), 0 2px 10px rgba(0,0,0,0.05); animation: cardIn 0.24s ease both; position: relative; }
+  .trainer-kaart { border: 1px solid rgba(101,179,46,0.14); box-shadow: 0 18px 44px rgba(101,179,46,0.13), 0 2px 10px rgba(0,0,0,0.05); animation: cardIn 0.24s ease both; position: relative; }
   .trainer-kaart::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 5px; background: linear-gradient(90deg, var(--blauw), var(--roze), var(--blauw)); opacity: .9; }
   @keyframes cardIn { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
-  .flashcard-label { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 99px; background: rgba(0,102,51,0.08); color: var(--blauw); }
+  .flashcard-label { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 99px; background: rgba(101,179,46,0.08); color: var(--blauw); }
   .flashcard-latijn { font-size: clamp(28px, 6vw, 54px); letter-spacing: -1px; line-height: 1.04; }
   .flashcard-aanv { margin-top: .55rem; }
   .flashcard-nl { font-size: clamp(22px, 4vw, 34px); line-height: 1.15; }
@@ -369,18 +410,18 @@
   .mk-optie.goed, .mk-optie.fout { animation: answerPop .26s ease; }
   @keyframes answerPop { 50% { transform: scale(1.018); } }
   .inv-input { font-size: 22px; padding: 16px 0; }
-  .controleer-btn, .verder-btn, .res-btn, .oefen-btn, .modus-start-knop { box-shadow: 0 8px 18px rgba(0,102,51,0.16); }
-  .combo-toast { position: fixed; left: 50%; top: 82px; transform: translateX(-50%) translateY(-8px); z-index: 50; padding: 10px 16px; border-radius: 99px; background: var(--kaart); border: 1px solid var(--rand); color: var(--roze); font-family: var(--fv); font-size: 14px; box-shadow: 0 12px 26px rgba(0,0,0,0.12); animation: toastInOut 1.05s ease forwards; pointer-events: none; }
+  .controleer-btn, .verder-btn, .res-btn, .oefen-btn, .modus-start-knop { box-shadow: 0 8px 18px rgba(101,179,46,0.16); }
+  .combo-toast { position: fixed; left: 50%; top: 82px; display: flex; align-items: center; gap: 7px; transform: translateX(-50%) translateY(-8px); z-index: 50; padding: 10px 16px; border-radius: 99px; background: var(--kaart); border: 1px solid var(--rand); color: var(--roze); font-family: var(--fv); font-size: 14px; box-shadow: 0 12px 26px rgba(0,0,0,0.12); animation: toastInOut 1.05s ease forwards; pointer-events: none; }
   @keyframes toastInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(.96); } 18%,75% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } 100% { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(.96); } }
-  .trainer-stage.flash-good .trainer-kaart { box-shadow: 0 18px 44px rgba(0,102,51,0.22), 0 0 0 4px rgba(0,102,51,0.08); }
+  .trainer-stage.flash-good .trainer-kaart { box-shadow: 0 18px 44px rgba(101,179,46,0.22), 0 0 0 4px rgba(101,179,46,0.08); }
   .trainer-stage.flash-bad .trainer-kaart { animation: shakeBad .22s ease both; box-shadow: 0 18px 44px rgba(220,38,38,0.16), 0 0 0 4px rgba(220,38,38,0.06); }
   @keyframes shakeBad { 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-3px); } }
   .score-pill { font-family: var(--fo); font-size: 12px; color: var(--tekst-zacht); border: 1px solid var(--rand); background: rgba(243,241,239,.72); padding: 6px 10px; border-radius: 99px; white-space: nowrap; }
-  .resultaat-card { background: var(--kaart); border: 1px solid var(--rand); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: 0 16px 38px rgba(0,102,51,0.11); margin: 0 auto 1.5rem; max-width: 520px; }
-  .resultaat-meter { height: 12px; border-radius: 99px; background: rgba(0,102,51,0.12); overflow: hidden; margin-top: 1rem; }
+  .resultaat-card { background: var(--kaart); border: 1px solid var(--rand); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: 0 16px 38px rgba(101,179,46,0.11); margin: 0 auto 1.5rem; max-width: 520px; }
+  .resultaat-meter { height: 12px; border-radius: 99px; background: rgba(101,179,46,0.12); overflow: hidden; margin-top: 1rem; }
   .resultaat-meter-inner { height: 100%; background: linear-gradient(90deg, var(--blauw), var(--roze)); border-radius: 99px; transition: width .8s ease; }
   .resultaat-rang { display: inline-flex; margin-bottom: .75rem; font-family: var(--fv); font-size: 12px; color: #fff; background: var(--deep-forest); border: 1px solid var(--deep-forest); padding: 6px 12px; border-radius: 99px; letter-spacing: .03em; }
-  .stat-blok { background: rgba(224,239,213,0.62); border: 1px solid rgba(0,102,51,0.10); border-radius: var(--radius); padding: .9rem 1rem; min-width: 92px; }
+  .stat-blok { background: rgba(224,239,213,0.62); border: 1px solid rgba(101,179,46,0.10); border-radius: var(--radius); padding: .9rem 1rem; min-width: 92px; }
   .resultaat-stats { align-items: stretch; gap: .75rem; flex-wrap: wrap; }
 
   /* ── Responsive ── */
@@ -395,8 +436,8 @@
   /* ══════════════════════════════════════════
      TYPOGRAFIE-CORRECTIES (huisstijl)
      - Noto Sans: 2pt kleiner dan Arial-equivalent
-     - Titels: Flanders Art Sans Bold, Vital Green (#65b32e)
-     - Subtitels: Flanders Art Sans Bold, Vital Green (#65b32e)
+     - Titels: Flanders Art Sans Bold, secundair Deep Forest (#006633)
+     - Primaire accenten en acties: Vital Green (#65b32e)
   ══════════════════════════════════════════ */
 
   /* Noto Sans body-tekst 2pt kleiner dan Arial-equivalent */
@@ -439,8 +480,8 @@
 
   /* ══════════════════════════════════════════════════
      KNOPPEN — huisstijl (definitief, geen conflicten)
-     Outline-stijl: Deep Forest tekst + rand, hover = Deep Forest achtergrond + wit
-     Primair-gevuld: altijd Deep Forest achtergrond + wit
+     Outline-stijl: primaire jaarkleur als rand en hover
+     Primair-gevuld: altijd Vital Green (#65b32e)
   ══════════════════════════════════════════════════ */
 
   /* Basis-reset voor alle knoppen */
@@ -504,6 +545,456 @@
 
   /* Voortgang-labels klein houden */
   .te-gaan-badge, .score-pill { font-family: var(--fo); font-size: 12px; }
+
+
+  /* ══════════════════════════════════════════════════
+     V5: STUDIO-LAY-OUT
+     Alleen presentatie. Alle bestaande data, selectie,
+     score- en leaderboardlogica blijven onaangeraakt.
+  ══════════════════════════════════════════════════ */
+  #s-selectie .inhoud { max-width: 1220px; padding: 2rem; }
+
+  /* Lichte introductie: functioneel, rustig en bewust geen hero-muur. */
+  .studio-intro {
+    position: relative;
+    display: block;
+    margin: .2rem 0 1.5rem;
+    padding: clamp(1.2rem, 2.7vw, 1.7rem) clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--rand);
+    border-radius: 18px;
+    background: linear-gradient(110deg, rgba(243,241,239,.96), rgba(224,239,213,.78));
+    box-shadow: 0 9px 24px rgba(101,179,46,.07);
+  }
+  .studio-intro::before {
+    content: ''; position: absolute; inset: 0 auto 0 0;
+    width: 5px; border-radius: 18px 0 0 18px; background: var(--roze);
+  }
+  .studio-intro::after { content: none; }
+  .studio-eyebrow, .studio-kicker {
+    display: inline-flex; align-items: center; gap: .48rem;
+    font-family: var(--fv); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .studio-eyebrow { color: var(--vital-green); }
+  .studio-eyebrow::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--roze); box-shadow: none;
+  }
+  .studio-intro h2 {
+    margin: .55rem 0 .4rem; font-family: var(--fv); color: var(--deep-forest);
+    font-size: clamp(1.85rem, 3.2vw, 2.45rem); line-height: 1; letter-spacing: -.035em;
+  }
+  .studio-intro p {
+    max-width: 650px; font-family: var(--fo); color: var(--tekst-zacht);
+    font-size: 13px; line-height: 1.55;
+  }
+  .studio-intro-stats, .studio-hero-stat { display: none; }
+
+  .studio-layout { display: grid; grid-template-columns: minmax(0, 1fr) 285px; gap: 1.5rem; align-items: start; }
+  .studio-main { min-width: 0; }
+  .studio-aside { position: sticky; top: 1.25rem; overflow: hidden; border: 1px solid var(--rand); border-radius: 18px; background: var(--kaart); box-shadow: 0 15px 35px rgba(101,179,46,.10); }
+  .studio-aside-top { padding: 1.2rem 1.15rem 1rem; background: linear-gradient(160deg, rgba(101,179,46,.11), rgba(224,239,213,.65)); border-bottom: 1px solid var(--rand); }
+  .studio-aside h3 { margin: .35rem 0 0; font-family: var(--fv); color: var(--deep-forest); font-size: 21px; letter-spacing: -.03em; }
+  .studio-kicker { color: var(--vital-green); }
+  .studio-summary { margin: 0; padding: .35rem 1.15rem 1.15rem; }
+  .studio-summary-row { display: grid; grid-template-columns: 26px 1fr; gap: .75rem; padding: .95rem 0; border-bottom: 1px solid rgba(101,179,46,.11); }
+  .studio-summary-row:last-child { border-bottom: 0; }
+  .studio-summary-nr { display: grid; place-items: center; align-self: start; width: 26px; height: 26px; border-radius: 50%; background: var(--jaar-kleur-licht); color: var(--deep-forest); font-family: var(--fv); font-size: 11px; }
+  .studio-summary-label { display: block; margin-bottom: .18rem; font-family: var(--fo); font-size: 10px; color: var(--tekst-zacht); letter-spacing: .07em; text-transform: uppercase; }
+  .studio-summary-value { display: block; font-family: var(--fv); font-size: 13px; line-height: 1.25; color: var(--tekst); }
+  .studio-aside-bottom { padding: 1rem 1.15rem 1.15rem; border-top: 1px solid var(--rand); background: rgba(224,239,213,.35); }
+  .studio-start { width: 100%; display: inline-flex; align-items: center; gap: .42rem; justify-content: center; font-family: var(--fv); font-size: 14px; padding: .86rem 1rem; border: 0; border-radius: 999px; cursor: pointer; background: var(--deep-forest); color: #fff; box-shadow: 0 9px 18px rgba(101,179,46,.18); transition: transform .16s ease, opacity .16s ease, box-shadow .16s ease; }
+  .studio-start:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 13px 22px rgba(101,179,46,.24); }
+  .studio-start:disabled { opacity: .36; cursor: not-allowed; box-shadow: none; }
+  .studio-aside-tip { margin: .8rem 0 0; font-family: var(--fo); color: var(--tekst-zacht); font-size: 11px; line-height: 1.45; text-align: center; }
+
+  .leerling-paneel { position: relative; margin-bottom: 1.25rem !important; padding: .95rem 1rem !important; border-radius: 14px !important; box-shadow: 0 5px 13px rgba(101,179,46,.05); }
+  .studio-section-head { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin: 1.75rem 0 .8rem; }
+  .studio-section-head:first-of-type { margin-top: 0; }
+  .studio-section-title { display: flex; align-items: baseline; gap: .7rem; }
+  .studio-section-no { color: var(--roze); font-family: var(--fv); font-size: 13px; letter-spacing: .06em; }
+  .studio-section-head h3 { font-family: var(--fv); color: var(--deep-forest); font-size: 20px; letter-spacing: -.03em; }
+  .studio-section-head p { max-width: 330px; font-family: var(--fo); font-size: 11px; color: var(--tekst-zacht); line-height: 1.4; text-align: right; }
+  .studio-search-label { display: block; margin-bottom: .48rem; color: var(--vital-green); font-family: var(--fv); text-transform: uppercase; letter-spacing: .08em; font-size: 10px; }
+  .thema-zoek-wrap { margin-bottom: 1rem; }
+  .thema-zoek { min-height: 47px; border-width: 1.5px; border-radius: 12px; box-shadow: 0 4px 12px rgba(101,179,46,.04); }
+
+  .thema-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 1.15rem; }
+  .thema-kaart { min-height: 150px; padding: 1rem 1rem .9rem; border-radius: 16px; border-width: 1px; box-shadow: 0 4px 10px rgba(101,179,46,.035); }
+  .thema-kaart::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; border-radius: 16px 0 0 16px; background: var(--vital-green); opacity: 0; transition: opacity .16s ease; }
+  .thema-kaart:hover::before, .thema-kaart.actief::before { opacity: 1; }
+  .thema-kaart-icoon { font-size: 30px; }
+  .thema-kaart-naam { font-size: 14px; line-height: 1.25; }
+  .thema-kaart-meta { margin-top: auto; }
+  .thema-kaart.actief { background: linear-gradient(150deg, var(--jaar-kleur-licht), rgba(243,241,239,.9)); }
+  .tekst-nav { padding: .72rem; border: 1px solid var(--rand); background: rgba(243,241,239,.76); border-radius: 12px; }
+  .tekst-pill { font-size: 12px; }
+
+  .studio-options-wrap { padding: 1rem; border: 1px solid var(--rand); border-radius: 16px; background: rgba(243,241,239,.62); }
+  .studio-options-wrap > div { margin-bottom: 0 !important; }
+  .studio-options-wrap .filter-groep { min-width: 280px; }
+  .studio-options-wrap .bereik-btn { padding: 9px 12px; }
+  .start-balk { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: .9rem; }
+  .start-balk .modus-knop { width: 100%; min-height: 48px; justify-content: center; padding: .68rem .7rem; border-radius: 12px; font-size: 12px; }
+  .start-balk .oefen-btn { display: none; }
+  .actie-balk { min-height: 32px; margin: 0 0 .65rem; padding: 0 .15rem; }
+  .selecteer-alle-btn { font-family: var(--fv); font-size: 12px; }
+  .geselecteerd-teller { display: inline-flex; align-items: center; min-height: 28px; padding: 0 .65rem; border-radius: 999px; background: var(--jaar-kleur-licht); color: var(--deep-forest); font-family: var(--fv); font-size: 11px; }
+  .selectie-kop { display: grid; grid-template-columns: 40px 24px minmax(120px, 1fr) minmax(120px, 1fr) minmax(130px, 1.35fr) 28px; gap: 14px; padding: .7rem 1rem; border: 1px solid var(--rand); border-bottom: 0; border-radius: 14px 14px 0 0; background: var(--deep-forest); color: #fff; }
+  .selectie-kop span { font-family: var(--fo); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; opacity: .78; }
+  .selectie-kop span:nth-child(1), .selectie-kop span:nth-child(2), .selectie-kop span:last-child { opacity: 0; }
+  .selectie-lijst { border-radius: 0 0 14px 14px; box-shadow: 0 7px 20px rgba(101,179,46,.06); }
+  .selectie-item { display: grid; grid-template-columns: 28px 18px minmax(120px,1fr) minmax(120px,1fr) minmax(130px,1.35fr) 24px; gap: 14px; padding: .78rem 1rem; }
+  .selectie-item:hover { background: rgba(224,239,213,.82); }
+  .selectie-item.geselecteerd { background: linear-gradient(90deg, rgba(197,227,200,.95), rgba(243,241,239,.4)); }
+  .selectie-num { width: auto; }
+  .selectie-latijn, .selectie-aanv, .selectie-nl { min-width: 0; }
+  .selectie-aanv, .selectie-nl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Trainer: dezelfde inhoud, maar met meer focus en ruimtelijke hiërarchie. */
+  #s-trainer { background: radial-gradient(circle at 90% 8%, rgba(255,59,29,.08), transparent 22%), var(--achtergrond); }
+  .trainer-header { gap: 12px; padding: .85rem clamp(1rem, 3vw, 2rem); border-bottom: 2px solid var(--deep-forest); background: rgba(243,241,239,.94); backdrop-filter: blur(10px); }
+  .trainer-context { min-width: 126px; padding-right: .7rem; border-right: 1px solid var(--rand); }
+  .trainer-context-kicker { display: block; color: var(--vital-green); font-family: var(--fv); font-size: 9px; letter-spacing: .09em; text-transform: uppercase; }
+  .trainer-context-title { display: block; margin-top: 2px; color: var(--deep-forest); font-family: var(--fv); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px; }
+  .trainer-stage { padding: clamp(2.5rem, 7vh, 4.5rem) 1.25rem 2rem; }
+  .trainer-stage::before { top: 1.05rem; }
+  .trainer-kaart { max-width: 770px; border-radius: 20px; }
+  .mk-boven, .inv-boven, .flashcard-boven { padding-top: clamp(2.7rem, 7vw, 4rem); }
+  .mk-opties { padding: 0 clamp(1rem, 4vw, 2rem) clamp(1.25rem, 3vw, 1.75rem); }
+  .mk-optie { padding: 15px 20px; border-radius: 14px; }
+  .inv-midden { padding: 0 clamp(1rem, 4vw, 2rem) 1.75rem; }
+  .inv-onder, .flashcard-actie { padding: 1.1rem clamp(1rem, 4vw, 2rem); }
+
+  /* Resultaat en leaderboard krijgen dezelfde kaderlogica. */
+  #s-resultaat .inhoud { max-width: 720px; padding-top: 3.5rem; }
+  .resultaat-card { border-radius: 20px; }
+  #s-leaderboard > div { max-width: 780px !important; }
+
+  @keyframes studioRise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .studio-intro { animation: studioRise .42s cubic-bezier(.2,.8,.2,1) both; }
+  .studio-main { animation: studioRise .44s .08s cubic-bezier(.2,.8,.2,1) both; }
+  .studio-aside { animation: studioRise .44s .15s cubic-bezier(.2,.8,.2,1) both; }
+
+  @media (max-width: 980px) {
+    .studio-layout { grid-template-columns: 1fr; }
+    .studio-aside { position: static; display: grid; grid-template-columns: 1fr 1.1fr; }
+    .studio-aside-top { border-bottom: 0; border-right: 1px solid var(--rand); }
+    .studio-summary { padding: .35rem 1.15rem .65rem; }
+    .studio-aside-bottom { grid-column: 1 / -1; }
+  }
+  @media (max-width: 740px) {
+    #s-selectie .inhoud { padding: 1.1rem; }
+    .studio-intro { grid-template-columns: 1fr; gap: 1.3rem; border-radius: 18px; }
+    .studio-intro-stats { max-width: 360px; }
+    .thema-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .studio-section-head { align-items: start; flex-direction: column; gap: .35rem; }
+    .studio-section-head p { text-align: left; }
+    .selectie-kop { display: none; }
+    .selectie-lijst { border-radius: 14px; }
+    .selectie-item { grid-template-columns: 24px 18px minmax(0,1fr) 28px; gap: 10px; padding: .8rem .75rem; }
+    .selectie-aanv, .selectie-nl { grid-column: 3 / 4; white-space: normal; overflow: visible; text-overflow: clip; font-size: 11px; }
+    .selectie-aanv { margin-top: -.5rem; }
+    .selectie-nl { margin-top: -.15rem; }
+    .ster-knop { grid-column: 4; grid-row: 1; }
+    .studio-aside { display: block; }
+    .studio-aside-top { border-right: 0; border-bottom: 1px solid var(--rand); }
+    .trainer-context { display: none; }
+    .trainer-header { gap: 8px; }
+    .te-gaan-badge { display: none; }
+    .voortgang-balk-wrap { min-width: 80px; }
+  }
+  @media (max-width: 430px) {
+    .thema-grid { grid-template-columns: 1fr; }
+    .start-balk { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .start-balk .modus-knop:last-of-type { grid-column: span 2; }
+    .studio-options-wrap .filter-groep { min-width: 0; width: 100%; }
+    .bereik-rij { flex-wrap: wrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
+  }
+
+  /* Veiligheidsnet voor losse previews: de kaartzone blijft zichtbaar,
+     ook wanneer de externe woordenlijst nog niet naast dit html-bestand staat. */
+  .woordenlijst-melding {
+    display: none; align-items: flex-start; gap: .7rem; margin: 0 0 1rem;
+    padding: .85rem 1rem; border: 1px solid rgba(255,59,29,.34); border-radius: 12px;
+    background: rgba(255,59,29,.07); color: var(--tekst); font-family: var(--fo); font-size: 12px; line-height: 1.45;
+  }
+  .woordenlijst-melding.zichtbaar { display: flex; }
+  .woordenlijst-melding strong { display: block; margin-bottom: .12rem; font-family: var(--fv); color: var(--deep-forest); font-size: 12px; }
+  .thema-kaart.is-demo { cursor: default; opacity: .76; }
+  .thema-kaart.is-demo:hover { transform: none; box-shadow: 0 4px 10px rgba(101,179,46,.035); border-color: var(--rand); }
+  .thema-kaart.is-demo::after { content: 'woordenlijst ontbreekt'; position: absolute; right: .7rem; bottom: .65rem; font-family: var(--fo); font-size: 9px; color: var(--roze); }
+
+
+  /* ══════════════════════════════════════════════════
+     KAARTKEUZE — vier brede themakaarten met illustraties
+     De zoekbalk en de kaartzone delen dezelfde kolom en dus exact dezelfde breedte.
+  ══════════════════════════════════════════════════ */
+  .thema-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 1.15rem;
+  }
+  .thema-kaart {
+    display: grid;
+    grid-template-columns: 152px minmax(0, 1fr) auto;
+    grid-template-rows: minmax(0, 1fr) 5px;
+    align-items: stretch;
+    min-height: 118px;
+    padding: 0 !important;
+    overflow: hidden;
+    border-radius: 16px;
+    isolation: isolate;
+  }
+  .thema-kaart::before {
+    z-index: 3;
+    width: 5px;
+    border-radius: 16px 0 0 16px;
+  }
+  .thema-kaart-media {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 100%;
+    overflow: hidden;
+    background: var(--jaar-kleur-licht);
+    border-right: 1px solid rgba(101,179,46,.11);
+  }
+  .thema-kaart-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(101,179,46,.02), rgba(101,179,46,.14));
+    pointer-events: none;
+  }
+  .thema-kaart-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 118px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform .32s ease, filter .24s ease;
+  }
+  .thema-kaart:hover .thema-kaart-media img { transform: scale(1.045); }
+  .thema-kaart.actief .thema-kaart-media img { filter: saturate(1.08) contrast(1.03); }
+  .thema-kaart-body {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: .45rem;
+    padding: 1.1rem 1.25rem 1rem;
+    min-width: 0;
+  }
+  .thema-kaart-naam {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .52rem;
+    font-size: 17px !important;
+    line-height: 1.1;
+    color: var(--deep-forest);
+  }
+  .thema-kaart-naam span {
+    color: var(--vital-green) !important;
+    font-family: var(--fv);
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+  }
+  .thema-kaart-meta {
+    margin-top: 0 !important;
+    font-size: 12px !important;
+    color: var(--tekst-zacht);
+  }
+  .thema-kaart-check {
+    z-index: 5;
+    top: 12px;
+    right: 12px;
+    box-shadow: 0 2px 8px rgba(101,179,46,.20);
+  }
+  .thema-voortgang {
+    grid-column: 2 / 4;
+    grid-row: 2;
+    height: 5px;
+    margin: 0;
+    border-radius: 0;
+    background: rgba(101,179,46,.10);
+  }
+  .thema-voortgang-inner { border-radius: 0 99px 99px 0; }
+  .thema-status-binnenkort {
+    color: var(--roze);
+    font-family: var(--fv);
+    font-size: 11px;
+  }
+  .thema-kaart.is-demo { opacity: .9; }
+  .thema-kaart.is-demo::after { display: none; }
+  .thema-kaart.is-demo .thema-kaart-media img { filter: grayscale(.08); }
+  .lb-rank {
+    display: grid; place-items: center; width: 30px; height: 30px; flex-shrink: 0;
+    border: 1px solid var(--rand); border-radius: 50%; background: var(--kaart);
+    color: var(--tekst-zacht); font-family: var(--fv); font-size: 13px;
+  }
+  .lb-rank.lb-rank-top { background: var(--deep-forest); border-color: var(--deep-forest); color: #fff; }
+  @media (max-width: 560px) {
+    .thema-kaart { grid-template-columns: 106px minmax(0, 1fr) auto; min-height: 104px; }
+    .thema-kaart-media img { min-height: 104px; }
+    .thema-kaart-body { padding: .85rem .95rem .75rem; gap: .3rem; }
+    .thema-kaart-naam { font-size: 15px !important; gap: .3rem; }
+    .thema-kaart-naam span { display: block; width: 100%; font-size: 11px !important; }
+    .thema-kaart-meta { font-size: 11px !important; }
+    .thema-kaart-check { top: 9px; right: 9px; }
+  }
+
+
+
+  /* ══════════════════════════════════════════════════
+     4DS THEMAKAARTEN — kleurhiërarchie
+     Thema 1 / 2 / 3 draagt de dominante jaarkleur (#65b32e).
+     De inhoudelijke themanaam blijft ondersteunend in Deep Forest (#006633).
+  ══════════════════════════════════════════════════ */
+  .thema-kaart:hover,
+  .thema-kaart.actief {
+    border-color: var(--blauw);
+    box-shadow: 0 8px 22px rgba(101,179,46,.18);
+  }
+  .thema-kaart-media {
+    border-right-color: rgba(101,179,46,.18);
+  }
+  .thema-kaart-media::after {
+    background: linear-gradient(90deg, rgba(101,179,46,.025), rgba(101,179,46,.16));
+  }
+  .thema-kaart-check {
+    background: var(--blauw);
+    box-shadow: 0 2px 9px rgba(101,179,46,.30);
+  }
+  .thema-kaart .thema-kaart-naam .thema-kaart-label {
+    color: var(--blauw) !important;
+    font-family: var(--fv);
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    letter-spacing: .01em;
+  }
+  .thema-kaart .thema-kaart-naam .thema-kaart-titel {
+    color: var(--deep-forest) !important;
+    font-family: var(--fv);
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+  }
+  .thema-kaart-naam:not(:has(.thema-kaart-label)) {
+    color: var(--deep-forest) !important;
+  }
+
+
+
+  /* ══════════════════════════════════════════════════
+     V7: 4DS — VITAL GREEN ALS PRIMAIRE UI-KLEUR
+     #65b32e stuurt alle actieve, interactieve en
+     voortgangscomponenten. #006633 blijft uitsluitend
+     de secundaire lees-/structuurkleur. Achtergronden
+     blijven ongewijzigd.
+  ══════════════════════════════════════════════════ */
+  .filter-select:focus,
+  .thema-zoek:focus,
+  .bereik-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), .16);
+  }
+
+  .thema-kaart:hover,
+  .thema-kaart.actief,
+  .tekst-pill:hover,
+  .tekst-pill.actief {
+    border-color: var(--primary);
+  }
+  .thema-kaart:hover,
+  .thema-kaart.actief { box-shadow: 0 8px 22px rgba(var(--primary-rgb), .20); }
+  .thema-kaart-check,
+  .thema-voortgang-inner,
+  .voortgang-balk-inner { background: var(--primary); }
+  .thema-kaart-check { box-shadow: 0 2px 9px rgba(var(--primary-rgb), .30); }
+  .thema-voortgang { background: rgba(var(--primary-rgb), .12); }
+  .thema-kaart-media { border-right-color: rgba(var(--primary-rgb), .18); }
+  .thema-kaart-media::after { background: linear-gradient(90deg, rgba(var(--primary-rgb), .025), rgba(var(--primary-rgb), .16)); }
+  .thema-kaart::before { background: var(--primary); }
+
+  .res-btn-secundair,
+  .modus-knop,
+  .bereik-btn {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .res-btn-secundair:hover,
+  .modus-knop:hover,
+  .bereik-btn:hover,
+  .modus-knop.actief {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border-color: var(--primary) !important;
+  }
+  .res-btn-primair,
+  .oefen-btn,
+  .verder-btn,
+  .controleer-btn,
+  .modus-start-knop,
+  .studio-start {
+    background: var(--primary);
+    color: #fff !important;
+  }
+  .studio-start { box-shadow: 0 9px 18px rgba(var(--primary-rgb), .22); }
+  .studio-start:hover:not(:disabled) { box-shadow: 0 13px 22px rgba(var(--primary-rgb), .30); }
+
+  .basis-toggle input { accent-color: var(--primary); }
+  .selecteer-alle-btn,
+  .selectie-item.geselecteerd .selectie-check,
+  .flashcard-label,
+  .flashcard-nl,
+  .resultaat-titel,
+  .stat-getal,
+  .resultaat-emoji,
+  .studio-eyebrow,
+  .studio-kicker,
+  .studio-search-label,
+  .trainer-context-kicker,
+  .thema-kaart .thema-kaart-naam .thema-kaart-label,
+  .header h1 {
+    color: var(--primary);
+  }
+  .selectie-item.geselecteerd .selectie-check { background: var(--primary); border-color: var(--primary); }
+  .geselecteerd-teller { color: var(--primary); }
+
+  .selectie-kop,
+  .resultaat-rang,
+  .lb-rank.lb-rank-top { background: var(--primary); border-color: var(--primary); }
+  .trainer-header { border-bottom-color: var(--primary); }
+  .resultaat-meter { background: rgba(var(--primary-rgb), .12); }
+  .resultaat-meter-inner { background: linear-gradient(90deg, var(--primary), var(--roze)); }
+  .trainer-kaart,
+  .resultaat-card,
+  .studio-aside,
+  .leerling-paneel { box-shadow: 0 15px 35px rgba(var(--primary-rgb), .10); }
+  .trainer-kaart { border-color: rgba(var(--primary-rgb), .16); }
+  .trainer-stage.flash-good .trainer-kaart { box-shadow: 0 18px 44px rgba(var(--primary-rgb), .24), 0 0 0 4px rgba(var(--primary-rgb), .10); }
+  .studio-aside-top { background: linear-gradient(160deg, rgba(var(--primary-rgb), .13), rgba(224,239,213,.65)); }
+  .studio-summary-row { border-bottom-color: rgba(var(--primary-rgb), .14); }
+
+  .goed-badge,
+  .feedback-icoon.goed,
+  .mk-optie.goed { color: var(--primary); }
+  .feedback-icoon.goed { background: var(--primary); }
+  .mk-optie.goed { border-color: var(--primary); }
+  .mk-optie:hover:not(:disabled),
+  .accent-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* Deliberately retain --secondary for heading ink, long-form text and content labels. */
+
 </style>
 </head>
 <body>
@@ -514,7 +1005,7 @@
 <div id="s-selectie" class="scherm actief">
 
   <!-- Merklint laag 1 -->
-  <header style="background:#65b32e;color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+  <header style="background:var(--jaar-kleur);color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
     <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
     <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Woordjestrainer 4DS</span>
     <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;white-space:nowrap;">S.O. Groenhove Waregem</span>
@@ -522,47 +1013,87 @@
   <!-- Merklint laag 2 -->
   <nav style="background:var(--achtergrond);border-bottom:1px solid var(--rand);padding:.5rem 1.5rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
     <a href="../oefeningen-4de.html" style="font-family:var(--fo);font-size:.8rem;color:var(--tekst);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.28rem .75rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="material-symbols-rounded icon-sm" aria-hidden="true">arrow_back</span>
       Terug
     </a>
     <div style="width:1px;height:20px;background:var(--rand);margin:0 .2rem;"></div>
     <span id="header-teller" style="font-size:12px;color:var(--tekst-zacht);font-family:var(--fo);">laden…</span>
     <button class="moeilijk-teller" id="moeilijk-teller" onclick="naarMoeilijkeLijst()" title="Ga naar mijn moeilijke woorden" style="display:none">
-      ⭐ <span id="moeilijk-aantal">0</span>
+      <span class="material-symbols-rounded icon-fill" aria-hidden="true">star</span><span id="moeilijk-aantal">0</span>
     </button>
     <a href="../../../dashboard.html" style="margin-left:auto;font-family:var(--fo);font-size:.8rem;color:var(--blauw);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.28rem .75rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:all .15s;">
-      📊 Dashboard
+      <span class="material-symbols-rounded icon-sm" aria-hidden="true">space_dashboard</span> Dashboard
     </a>
   </nav>
 
   <div class="inhoud">
 
+    <section class="studio-intro" aria-labelledby="studio-title">
+      <span class="studio-eyebrow">Latijn · vierde jaar</span>
+      <h2 id="studio-title">Oefen je woorden</h2>
+      <p>Kies een thema, selecteer woorden en oefen op jouw tempo. Je ziet meteen wat al lukt en welke woorden nog aandacht vragen.</p>
+    </section>
+
+    <div class="studio-layout">
+      <main class="studio-main">
+
     <!-- Naam invoeren (logische plek: vóór de oefening begint) -->
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;background:var(--kaart);border:1px solid var(--rand);border-radius:var(--radius);padding:.85rem 1rem;flex-wrap:wrap;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tekst-zacht)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <div class="leerling-paneel" style="display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;background:var(--kaart);border:1px solid var(--rand);border-radius:var(--radius);padding:.85rem 1rem;flex-wrap:wrap;">
+      <span class="material-symbols-rounded icon-sm" aria-hidden="true" style="color:var(--tekst-zacht)">person</span>
       <label for="leerling-code" style="font-family:var(--fv);font-size:13px;color:var(--blauw);white-space:nowrap;">Jouw naam:</label>
       <select id="leerling-code"
         style="font-family:var(--fo);font-size:13px;padding:7px 11px;border:1px solid var(--rand);border-radius:8px;background:#fff;outline:none;flex:1;min-width:140px;transition:border-color .15s;cursor:pointer;"
         onchange="bewaarLeerlingCode()"
         onfocus="this.style.borderColor='var(--blauw)'" onblur="this.style.borderColor='var(--rand)'">
         <option value="">— Kies je naam —</option>
-        <option value="Morijn Claeys">Morijn Claeys</option>
-        <option value="Leandro Deglas">Leandro Deglas</option>
+        <option value="Viktor Devriendt">Viktor Devriendt</option>
+        <option value="Lien Duytschaevers">Lien Duytschaevers</option>
+        <option value="Matteo Vanherzeele">Matteo Vanherzeele</option>
         <option value="Jens Everaerdt">Jens Everaerdt</option>
         <option value="test">test</option>
       </select>
-      <span style="font-family:var(--fo);font-size:11px;color:#aaa;white-space:nowrap;">Kies je naam voor het leaderboard</span>
+      <span id="leerling-score-status" style="font-family:var(--fo);font-size:11px;color:#777;white-space:nowrap;">Kies je naam voor het leaderboard</span>
+    </div>
+
+    <div class="studio-section-head">
+      <div class="studio-section-title"><span class="studio-section-no">01</span><h3>Kies je bronmateriaal</h3></div>
+      <p>Zoek naar een woord, een thema of specifieke tekst.</p>
     </div>
 
     <!-- Zoekbalk -->
+    <label class="studio-search-label" for="zoek-input">Snel zoeken</label>
     <div class="thema-zoek-wrap">
-      <svg class="thema-zoek-icoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span class="material-symbols-rounded thema-zoek-icoon" aria-hidden="true">search</span>
       <input class="thema-zoek" type="text" id="zoek-input" placeholder="Zoek een woord…" oninput="filterOpZoekterm()">
     </div>
 
     <!-- Themakaarten -->
+    <div class="woordenlijst-melding" id="woordenlijst-melding" role="status" aria-live="polite">
+      <span aria-hidden="true">!</span>
+      <div><strong>De woordenlijstdataset werd niet geladen.</strong>
+      Plaats <code>woordenlijst_4ds_volledig.js</code> in dezelfde map als dit html-bestand. De vormgeving werkt al, maar de kaarten krijgen pas hun echte aantallen en inhoud zodra de bestaande woordenlijst mee staat.</div>
+    </div>
     <div class="thema-grid" id="thema-grid">
-      <!-- dynamisch gevuld door renderThemaKaarten() -->
+      <div class="thema-kaart is-demo">
+        <div class="thema-kaart-media"><img src="../../images/woordenschat/cardalfabetisch_4de.png" alt="Alfabetisch"></div>
+        <div class="thema-kaart-body"><div class="thema-kaart-naam">Alfabetisch</div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
+        <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
+      </div>
+      <div class="thema-kaart is-demo">
+        <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema1_4de.png" alt="Thema 1: Animo subdolo"></div>
+        <div class="thema-kaart-body"><div class="thema-kaart-naam"><span class="thema-kaart-label">Thema 1</span><span class="thema-kaart-titel">Animo subdolo</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
+        <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
+      </div>
+      <div class="thema-kaart is-demo">
+        <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema2_4de.png" alt="Thema 2: Fama et facta"></div>
+        <div class="thema-kaart-body"><div class="thema-kaart-naam"><span class="thema-kaart-label">Thema 2</span><span class="thema-kaart-titel">Fama et facta</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
+        <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
+      </div>
+      <div class="thema-kaart is-demo">
+        <div class="thema-kaart-media"><img src="../../images/woordenschat/cardthema3_4de.png" alt="Thema 3: Mirabilia"></div>
+        <div class="thema-kaart-body"><div class="thema-kaart-naam"><span class="thema-kaart-label">Thema 3</span><span class="thema-kaart-titel">Mirabilia</span></div><div class="thema-kaart-meta">woordenlijst laden…</div></div>
+        <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
+      </div>
     </div>
 
     <!-- Tekst-pills (verschijnen na thema-keuze) -->
@@ -573,6 +1104,7 @@
     </div>
 
     <!-- Filter basiswoorden + bereik -->
+    <div class="studio-options-wrap">
     <div style="display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:1rem;">
       <label class="basis-toggle">
         <input type="checkbox" id="filter-basis" onchange="laadWoorden()">
@@ -589,37 +1121,48 @@
         </div>
       </div>
     </div>
+    </div>
+
+    <div class="studio-section-head">
+      <div class="studio-section-title"><span class="studio-section-no">02</span><h3>Kies je oefenmodus</h3></div>
+      <p>Je keuze verandert de oefenvorm, niet je selectie.</p>
+    </div>
 
     <!-- Start (toetsmogelijkheden — boven de woordenlijst) -->
     <div class="start-balk">
       <button class="modus-knop actief" id="btn-leren" onclick="kiesModus('leren', this)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        <span class="material-symbols-rounded icon-btn" aria-hidden="true">autorenew</span>
         Leren
       </button>
       <button class="modus-knop" id="btn-flash" onclick="kiesModus('flash', this)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span class="material-symbols-rounded icon-btn" aria-hidden="true">style</span>
         Flashcard
       </button>
       <button class="modus-knop" id="btn-toets" onclick="kiesModus('toets', this)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span class="material-symbols-rounded icon-btn" aria-hidden="true">edit_note</span>
         Toets
       </button>
       <button class="modus-knop" id="btn-meerkeuze" onclick="kiesModus('meerkeuze', this)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        <span class="material-symbols-rounded icon-btn" aria-hidden="true">check_circle</span>
         Meerkeuze
       </button>
       <button class="modus-knop" id="btn-invullen" onclick="kiesModus('invullen', this)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+        <span class="material-symbols-rounded icon-btn" aria-hidden="true">keyboard</span>
         Invullen
       </button>
       <button class="modus-knop" id="btn-leaderboard" onclick="kiesModus('leaderboard', this)" style="border-color:#f59e0b;color:#f59e0b;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span class="material-symbols-rounded icon-btn" aria-hidden="true">leaderboard</span>
         Leaderboard
       </button>
       <button class="oefen-btn" id="oefen-btn" onclick="startTraining()" disabled>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span class="material-symbols-rounded icon-btn" aria-hidden="true">play_arrow</span>
         Oefen selectie
       </button>
+    </div>
+
+    <div class="studio-section-head">
+      <div class="studio-section-title"><span class="studio-section-no">03</span><h3>Stel je woordenlijst samen</h3></div>
+      <p>Klik woorden aan, kies een bereik of neem de hele lijst mee.</p>
     </div>
 
     <!-- Actiebalk -->
@@ -629,8 +1172,27 @@
     </div>
 
     <!-- Lijst -->
+    <div class="selectie-kop" aria-hidden="true"><span>#</span><span><span class="material-symbols-rounded icon-sm">done</span></span><span>Latijn</span><span>Aanvullingen</span><span>Nederlands</span><span><span class="material-symbols-rounded icon-sm">star</span></span></div>
     <div class="selectie-lijst" id="selectie-lijst">
       <div class="geen-woorden">Kies eerst een Thema en Tekst om woorden te laden.</div>
+    </div>
+      </main>
+
+      <aside class="studio-aside" aria-label="Overzicht van je sessie">
+        <div class="studio-aside-top">
+          <span class="studio-kicker">Jouw oefensessie</span>
+          <h3>Klaarzetten</h3>
+        </div>
+        <div class="studio-summary">
+          <div class="studio-summary-row"><span class="studio-summary-nr">01</span><div><span class="studio-summary-label">Bronmateriaal</span><strong class="studio-summary-value" id="studio-source">Kies een thema</strong></div></div>
+          <div class="studio-summary-row"><span class="studio-summary-nr">02</span><div><span class="studio-summary-label">Oefenvorm</span><strong class="studio-summary-value" id="studio-mode">Leren</strong></div></div>
+          <div class="studio-summary-row"><span class="studio-summary-nr">03</span><div><span class="studio-summary-label">Selectie</span><strong class="studio-summary-value" id="studio-selection">0 woorden gekozen</strong></div></div>
+        </div>
+        <div class="studio-aside-bottom">
+          <button class="studio-start" id="studio-start-btn" type="button" onclick="startTraining()" disabled><span class="material-symbols-rounded icon-btn" aria-hidden="true">play_arrow</span> Start mijn sessie</button>
+          <p class="studio-aside-tip">Je score wordt bij jouw naam bewaard. Je kunt fout beantwoorde woorden daarna meteen opnieuw trainen.</p>
+        </div>
+      </aside>
     </div>
   </div>
   <p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
@@ -641,19 +1203,20 @@
 ══════════════════════════════════════════════ -->
 <div id="s-trainer" class="scherm">
   <div class="trainer-header">
-    <button class="trainer-terug" onclick="naarSelectie()" title="Terug naar selectie">&#8592;</button>
+    <button class="trainer-terug" onclick="naarSelectie()" title="Terug naar selectie" aria-label="Terug naar selectie"><span class="material-symbols-rounded" aria-hidden="true">arrow_back</span></button>
+    <div class="trainer-context"><span class="trainer-context-kicker">Woordensessie</span><strong class="trainer-context-title" id="trainer-context-title">Latijn</strong></div>
     <div class="voortgang-balk-wrap">
       <div class="voortgang-balk-inner" id="voortgang-balk" style="width:0%"></div>
     </div>
     <span class="te-gaan-badge" id="te-gaan-badge">0 te gaan</span>
-    <div class="streak-badge" id="streak-badge" title="Combo: juiste antwoorden op rij">🔥 <span id="streak-teller">0</span></div>
+    <div class="streak-badge" id="streak-badge" title="Combo: juiste antwoorden op rij"><span class="material-symbols-rounded icon-fill" aria-hidden="true">local_fire_department</span><span id="streak-teller">0</span></div>
     <div class="score-pill" id="score-pill">0 punten</div>
     <div class="goed-badge" id="goed-badge">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span class="material-symbols-rounded icon-fill" aria-hidden="true">check_circle</span>
       <span id="goed-teller">0</span>
     </div>
     <div class="fout-badge" id="fout-badge" style="display:none">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <span class="material-symbols-rounded icon-fill" aria-hidden="true">cancel</span>
       <span id="fout-teller">0</span>
     </div>
   </div>
@@ -673,7 +1236,7 @@
   <div class="inhoud">
     <div class="resultaat-card">
       <div class="resultaat-rang" id="res-rang">Novus discipulus</div>
-      <div class="resultaat-emoji" id="res-emoji">🎉</div>
+      <div class="resultaat-emoji" id="res-emoji" aria-hidden="true"><span class="material-symbols-rounded icon-fill icon-lg">emoji_events</span></div>
       <div class="resultaat-titel" id="res-titel">Goed gedaan!</div>
       <div class="resultaat-sub" id="res-sub">Je hebt de training afgerond.</div>
       <div class="resultaat-meter"><div class="resultaat-meter-inner" id="res-meter" style="width:0%"></div></div>
@@ -709,7 +1272,7 @@
      SCHERM 4: LEADERBOARD
 ══════════════════════════════════════════════ -->
 <div id="s-leaderboard" class="scherm">
-  <header style="background:#65b32e;color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+  <header style="background:var(--jaar-kleur);color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
     <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
     <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Leaderboard</span>
     <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;">S.O. Groenhove Waregem</span>
@@ -719,13 +1282,13 @@
     <div style="background:#fff;border:1px solid var(--rand);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <span style="font-family:var(--fv);font-size:14px;color:var(--blauw);" id="lb-naam-toon">—</span>
       <span style="font-family:var(--fo);font-size:11px;color:#aaa;">Wijzig je naam op de startpagina</span>
-      <button onclick="renderLeaderboard()" style="font-family:var(--fv);font-size:13px;padding:8px 16px;border-radius:99px;border:none;background:var(--blauw);color:#fff;cursor:pointer;margin-left:auto;">↺ Vernieuwen</button>
-      <button onclick="naarSelectie()" style="font-family:var(--fo);font-size:13px;padding:8px 16px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;">← Terug</button>
+      <button onclick="renderLeaderboard()" style="font-family:var(--fv);font-size:13px;padding:8px 16px;border-radius:99px;border:none;background:var(--blauw);color:#fff;cursor:pointer;margin-left:auto;"><span class="material-symbols-rounded icon-sm" aria-hidden="true">refresh</span> Vernieuwen</button>
+      <button onclick="naarSelectie()" style="font-family:var(--fo);font-size:13px;padding:8px 16px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;"><span class="material-symbols-rounded icon-sm" aria-hidden="true">arrow_back</span> Terug</button>
     </div>
     <!-- Ranglijst -->
     <div style="background:#fff;border:1px solid var(--rand);border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06);">
       <div style="padding:14px 16px;border-bottom:1px solid var(--rand);display:flex;align-items:center;gap:8px;">
-        <span style="font-family:var(--fv);font-size:16px;color:var(--blauw);">🏆 Hoogste scores</span>
+        <span style="font-family:var(--fv);font-size:16px;color:var(--blauw);"><span class="material-symbols-rounded icon-btn" aria-hidden="true">leaderboard</span> Hoogste scores</span>
         <span id="lb-bron" style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:8px;"></span>
         <span style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:auto;">Verzamelde punten — alleen namen uit dropdown</span>
       </div>
@@ -741,6 +1304,13 @@
 </div>
 
 <script src="woordenlijst_4ds_volledig.js"></script>
+<script>
+  /* De live site laadt de bestaande woordenlijst hierboven. De sandbox/losse download
+     heeft dat bestand niet automatisch; deze lege fallback voorkomt dan dat de interface crasht. */
+  if (typeof woordenlijst_4ds === 'undefined') {
+    window.woordenlijst_4ds = [];
+  }
+</script>
 <script>
 // ══════════════════════════════════════════════
 // DATA & STATE
@@ -922,10 +1492,9 @@ function berekenLokaleLeaderboard() {
 // THEMA-CONFIGURATIE (iconen + namen)
 // ══════════════════════════════════════════════
 const THEMA_CONFIG = {
-  1: { naam: 'Superbia',            icoon: '👑', kleur: '#e0f5eb' },
-  2: { naam: 'Historiografie',     icoon: '📜', kleur: '#fff3e0' },
-  3: { naam: 'Amantes sunt amentes', icoon: '💘', kleur: '#fce4ec' },
-  4: { naam: 'Thema 4',             icoon: '⚔️', kleur: '#fce4ec' },
+  1: { naam: 'Superbia', afbeelding: '../../images/woordenschat/cardthema1_4de.png' },
+  2: { naam: 'Fama et facta', afbeelding: '../../images/woordenschat/cardthema2_4de.png' },
+  3: { naam: 'Amantes sunt amentes', afbeelding: '../../images/woordenschat/cardthema3_4de.png' },
 };
 
 // State voor kaart-selectie
@@ -937,20 +1506,25 @@ let zoekterm       = '';
 // INIT — bouw themakaarten
 // ══════════════════════════════════════════════
 function init() {
+  const woordenlijstGeladen = Array.isArray(woordenlijst_4ds) && woordenlijst_4ds.length > 0;
+  const melding = document.getElementById('woordenlijst-melding');
+  if (melding) melding.classList.toggle('zichtbaar', !woordenlijstGeladen);
+
   renderThemaKaarten();
   updateMoeilijkTeller();
-  updateLokaleActiviteit();
+  if (typeof updateLokaleActiviteit === 'function') updateLokaleActiviteit();
   const leerlingInput = document.getElementById('leerling-code');
   if (leerlingInput) {
     const opgeslagen = localStorage.getItem('groenhove_leerling_code') || '';
     const opties = leerlingInput.querySelectorAll('option');
+    let gevonden = false;
     for (const opt of opties) {
-      if (opt.value === opgeslagen) { opt.selected = true; break; }
+      if (opt.value === opgeslagen) { opt.selected = true; gevonden = true; break; }
     }
+    if (opgeslagen && !gevonden) localStorage.removeItem('groenhove_leerling_code');
   }
-  const lbNaam = document.getElementById('lb-naam');
-  if (lbNaam) lbNaam.value = localStorage.getItem('groenhove_leerling_code') || '';
   laadMijnScore();
+  updateStudioSamenvatting();
 }
 
 function renderThemaKaarten() {
@@ -963,45 +1537,41 @@ function renderThemaKaarten() {
     if (w.thema) tellers[w.thema] = (tellers[w.thema] || 0) + 1;
   });
 
-  // Unieke thema's — altijd ook thema 3 tonen als placeholder (ook als woordenlijst nog leeg)
-  const themaSetRaw = new Set(woordenlijst_4ds.map(w => w.thema).filter(Boolean));
-  themaSetRaw.add(3); // Amantes sunt amentes — placeholder tot woordenlijst.js wordt aangevuld
-  const themas = [...themaSetRaw].sort((a,b)=>a-b);
-  const moeilijkN = laadMoeilijkeWoorden().size;
+  // De drie bestaande themapaden blijven ook in een losse preview zichtbaar.
+  // Met de echte woordenlijst worden aantallen en klikgedrag automatisch hersteld.
+  const woordenlijstGeladen = Array.isArray(woordenlijst_4ds) && woordenlijst_4ds.length > 0;
+  // Bewust vier vaste ingangen: alfabetisch en de drie cursus-thema's.
+  // Moeilijke woorden blijven bereikbaar via de sterknop in het merklint.
+  const themas = [1, 2, 3];
 
   let html = '';
 
-  // Vaste kaarten: Alfabetisch + Moeilijk
+  // Vaste kaart: alfabetische ingang.
   html += `<div class="thema-kaart${gekozenThema==='alfa'?' actief':''}" onclick="kiesThema('alfa')">
     <div class="thema-kaart-check"></div>
-    <div class="thema-kaart-icoon">📖</div>
-    <div class="thema-kaart-naam">Alfabetisch</div>
-    <div class="thema-kaart-meta">Alle ${woordenlijst_4ds.length} woorden</div>
+    <div class="thema-kaart-media"><img src="../../images/woordenschat/cardalfabetisch_4de.png" alt="Alfabetisch woordenoverzicht"></div>
+    <div class="thema-kaart-body">
+      <div class="thema-kaart-naam">Alfabetisch</div>
+      <div class="thema-kaart-meta">Alle ${woordenlijst_4ds.length} woorden</div>
+    </div>
     <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
   </div>`;
 
-  if (moeilijkN > 0) {
-    html += `<div class="thema-kaart${gekozenThema==='moei'?' actief':''}" onclick="kiesThema('moei')">
-      <div class="thema-kaart-check"></div>
-      <div class="thema-kaart-icoon">⭐</div>
-      <div class="thema-kaart-naam">Moeilijke woorden</div>
-      <div class="thema-kaart-meta">${moeilijkN} woord${moeilijkN===1?'':'en'}</div>
-      <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:0%"></div></div>
-    </div>`;
-  }
-
-  // Themakaarten
+  // Themakaarten: drie vaste cursus-ingangen met hun eigen illustratie.
   themas.forEach(t => {
-    const cfg = THEMA_CONFIG[t] || { naam:`Thema ${t}`, icoon:'📚', kleur:'#f5f5f5' };
+    const cfg = THEMA_CONFIG[t];
     const n = tellers[t] || 0;
     const actief = gekozenThema === String(t);
-    const placeholder = n === 0;
-    html += `<div class="thema-kaart${actief?' actief':''}${placeholder?' thema-placeholder':''}" onclick="${placeholder?'':'kiesThema(\''+t+'\')'}">
+    const placeholder = woordenlijstGeladen && n === 0;
+    const demo = !woordenlijstGeladen;
+    html += `<div class="thema-kaart${actief?' actief':''}${placeholder?' thema-placeholder':''}${demo?' is-demo':''}" onclick="${(placeholder || demo)?'':'kiesThema(\''+t+'\')'}">
       <div class="thema-kaart-check"></div>
-      <div class="thema-kaart-icoon">${cfg.icoon}</div>
-      <div class="thema-kaart-naam">Thema ${t}<br><span style="font-weight:400;font-size:11px;opacity:.8">${cfg.naam}</span></div>
-      <div class="thema-kaart-meta">${n > 0 ? n+' woorden' : '<span style="color:#f59e0b;font-size:10px;">⏳ Binnenkort</span>'}</div>
-      <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:${scoreVoorThema(t)}%"></div></div>
+      <div class="thema-kaart-media"><img src="${cfg.afbeelding}" alt="Thema ${t}: ${cfg.naam}"></div>
+      <div class="thema-kaart-body">
+        <div class="thema-kaart-naam"><span class="thema-kaart-label">Thema ${t}</span><span class="thema-kaart-titel">${cfg.naam}</span></div>
+        <div class="thema-kaart-meta">${n > 0 ? n+' woorden' : (woordenlijstGeladen ? '<span class=\'thema-status-binnenkort\'>Binnenkort</span>' : 'woordenlijst laden…')}</div>
+      </div>
+      <div class="thema-voortgang"><div class="thema-voortgang-inner" style="width:${woordenlijstGeladen ? scoreVoorThema(t) : 0}%"></div></div>
     </div>`;
   });
 
@@ -1152,7 +1722,7 @@ function renderLijst() {
       <span class="selectie-aanv">${esc(w.aanvullingen)}</span>
       <span class="selectie-nl">${esc(w.vertaling)}</span>
       <button class="ster-knop${isMoeilijk ? ' moeilijk' : ''}" title="${isMoeilijk ? 'Verwijder uit moeilijke woorden' : 'Voeg toe aan moeilijke woorden'}"
-        onclick="event.stopPropagation(); toggleMoeilijk('${esc(w.grondvorm)}')">${isMoeilijk ? '⭐' : '☆'}</button>
+        onclick="event.stopPropagation(); toggleMoeilijk('${esc(w.grondvorm)}')"><span class="material-symbols-rounded${isMoeilijk ? ' icon-fill' : ''}" aria-hidden="true">star</span><span class="sr-only">${isMoeilijk ? 'Verwijder uit moeilijke woorden' : 'Voeg toe aan moeilijke woorden'}</span></button>
     </div>`;
   }).join('');
 
@@ -1186,21 +1756,59 @@ function selecteerBereik() {
   renderLijst();
 }
 
+function updateStudioSamenvatting() {
+  const bron = document.getElementById('studio-source');
+  const modus = document.getElementById('studio-mode');
+  const selectie = document.getElementById('studio-selection');
+  const start = document.getElementById('studio-start-btn');
+  const modusInfo = MODUS_INFO?.[gekozenModus];
+  let bronTekst = 'Kies een thema';
+  if (zoekterm) bronTekst = `Zoeken: ${zoekterm}`;
+  else if (gekozenThema === 'alfa') bronTekst = 'Alfabetische lijst';
+  else if (gekozenThema === 'moei') bronTekst = 'Moeilijke woorden';
+  else if (gekozenThema) {
+    const cfg = THEMA_CONFIG[gekozenThema] || THEMA_CONFIG[Number(gekozenThema)];
+    bronTekst = `Thema ${gekozenThema}${cfg ? ' · ' + cfg.naam : ''}${gekozenTekst && gekozenTekst !== 'alle' ? ' · tekst ' + gekozenTekst : ''}`;
+  }
+  if (bron) bron.textContent = bronTekst;
+  if (modus) modus.textContent = modusInfo?.titel || gekozenModus || 'Leren';
+  if (selectie) selectie.textContent = `${geselecteerd.size} woord${geselecteerd.size === 1 ? '' : 'en'} gekozen`;
+  if (start) start.disabled = geselecteerd.size < 1;
+}
+
+function updateTrainerContext() {
+  const el = document.getElementById('trainer-context-title');
+  if (!el) return;
+  const cfg = THEMA_CONFIG[gekozenThema] || THEMA_CONFIG[Number(gekozenThema)];
+  const bron = cfg ? cfg.naam : (gekozenThema === 'moei' ? 'Moeilijke woorden' : gekozenThema === 'alfa' ? 'Alfabetische lijst' : 'Latijn');
+  const mode = MODUS_INFO?.[gekozenModus]?.titel || gekozenModus;
+  el.textContent = `${bron} · ${mode}`;
+}
+
 function updateTeller() {
   document.getElementById('sel-teller').textContent = `${geselecteerd.size} geselecteerd`;
+  updateStudioSamenvatting();
 }
 
 function updateOefenBtn() {
   // Eén woord oefenen moet ook kunnen; meerkeuze vult afleiders aan uit de volledige lijst.
-  document.getElementById('oefen-btn').disabled = geselecteerd.size < 1;
-  document.getElementById('oefen-btn').textContent = geselecteerd.size >= 1
-    ? `▶  Oefen selectie (${geselecteerd.size})`
-    : '▶  Oefen selectie';
+  const heeftSelectie = geselecteerd.size >= 1;
+  const standaardBtn = document.getElementById('oefen-btn');
+  if (standaardBtn) {
+    standaardBtn.disabled = !heeftSelectie;
+    standaardBtn.innerHTML = heeftSelectie
+      ? `<span class="material-symbols-rounded icon-btn" aria-hidden="true">play_arrow</span> Oefen selectie (${geselecteerd.size})`
+      : '<span class="material-symbols-rounded icon-btn" aria-hidden="true">play_arrow</span> Oefen selectie';
+  }
+  const studioBtn = document.getElementById('studio-start-btn');
+  if (studioBtn) studioBtn.disabled = !heeftSelectie;
+  updateStudioSamenvatting();
 }
 
 function updateHeaderTeller() {
   document.getElementById('header-teller').textContent =
     huidigeWoorden.length > 0 ? `${huidigeWoorden.length} woorden` : '';
+  updateStudioSamenvatting();
 }
 
 // ── LEADERBOARD MODUS ──
@@ -1213,6 +1821,7 @@ function kiesModus(modus, btn) {
   gekozenModus = modus;
   document.querySelectorAll('.modus-knop').forEach(b => b.classList.remove('actief'));
   if (btn) btn.classList.add('actief');
+  updateStudioSamenvatting();
 }
 
 async function toonLeaderboardScherm() {
@@ -1271,16 +1880,15 @@ async function renderLeaderboard() {
   rijen = rijen.map(r => ({ ...r, punten: Number(r[key] ?? r.punten ?? 0) }))
     .sort((a, b) => (b.punten - a.punten) || String(a.naam).localeCompare(String(b.naam), 'nl'));
 
-  const medailles = ['🥇','🥈','🥉'];
   container.innerHTML = rijen.map((r, i) => {
     const isIk = naam && r.naam === naam;
     const datum = r.laatsteDatum ? new Date(r.laatsteDatum).toLocaleDateString('nl-BE') : 'nog geen poging';
     return `
-      <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rand);background:${isIk?'rgba(0,102,51,.08)':i===0?'rgba(245,158,11,.07)':'transparent'};">
-        <span style="font-size:22px;width:32px;text-align:center;flex-shrink:0;">${medailles[i] || (i+1)}</span>
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rand);background:${isIk?'rgba(101,179,46,.08)':i===0?'rgba(245,158,11,.07)':'transparent'};">
+        <span class="lb-rank${i < 3 ? ' lb-rank-top' : ''}" aria-label="Plaats ${i + 1}">${i + 1}</span>
         <div style="flex:1;min-width:0;">
           <div style="font-family:var(--fv);font-size:15px;color:var(--blauw);">${esc(r.naam)}${isIk ? ' <span style="font-size:11px;color:#f59e0b;">jij</span>' : ''}</div>
-          <div style="font-family:var(--fo);font-size:11px;color:#888;">${Number(r.pogingen || 0)} poging${Number(r.pogingen || 0)===1?'':'en'} · laatste: ${datum} · 🔥 ${Number(r.besteStreak || 0)}</div>
+          <div style="font-family:var(--fo);font-size:11px;color:#888;">${Number(r.pogingen || 0)} poging${Number(r.pogingen || 0)===1?'':'en'} · laatste: ${datum} · <span class="material-symbols-rounded icon-sm" aria-hidden="true">local_fire_department</span> ${Number(r.besteStreak || 0)}</div>
         </div>
         <div style="text-align:right;flex-shrink:0;">
           <div style="font-family:var(--fv);font-size:22px;color:var(--deep-forest);">${Number(r.punten || 0)}</div>
@@ -1297,6 +1905,16 @@ async function renderLeaderboard() {
 const startschermGezien = { leren: false, flash: false, toets: false, meerkeuze: false, invullen: false };
 
 function startTraining() {
+  const leerlingNaam = getGekozenLeerlingNaam();
+  if (!leerlingNaam) {
+    alert('Kies eerst je naam in het dropdownmenu. Zo komt je score bij de juiste leerling terecht.');
+    document.getElementById('leerling-code')?.focus();
+    return;
+  }
+  if (geselecteerd.size < 1) {
+    alert('Selecteer eerst minstens één woord.');
+    return;
+  }
   trainRij = [...geselecteerd].map(i => ({ ...huidigeWoorden[i], _idx: i }));
   // Schud
   for (let i = trainRij.length - 1; i > 0; i--) {
@@ -1307,6 +1925,7 @@ function startTraining() {
   lerenSubfase = {};
   trainRij.forEach((_, i) => { lerenSubfase[i] = 0; });
 
+  updateTrainerContext();
   toonScherm('s-trainer');
 
   // Fout-badge alleen tonen in toets-modus
@@ -1350,7 +1969,7 @@ const MODUS_INFO = {
     kleur: '#e0efd5',
     accentkleur: 'var(--blauw)',
     svg: `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="40" r="38" fill="#e0efd5" stroke="#65b32e" stroke-width="2"/>
+      <circle cx="40" cy="40" r="38" fill="#e0efd5" stroke="#65b32e" stroke-width="2.2"/>
       <rect x="18" y="24" width="44" height="32" rx="4" fill="white" stroke="#65b32e" stroke-width="2"/>
       <line x1="26" y1="36" x2="54" y2="36" stroke="#65b32e" stroke-width="2" stroke-linecap="round"/>
       <line x1="26" y1="44" x2="44" y2="44" stroke="#65b32e" stroke-width="2" stroke-linecap="round"/>
@@ -1370,7 +1989,7 @@ const MODUS_INFO = {
       <line x1="27" y1="38" x2="53" y2="38" stroke="#e2e6ed" stroke-width="1.5"/>
       <line x1="27" y1="46" x2="53" y2="46" stroke="#e2e6ed" stroke-width="1.5"/>
       <rect x="27" y="23" width="26" height="5" rx="2" fill="#ffe5e0"/>
-      <text x="40" y="27.5" text-anchor="middle" font-size="5" fill="#FF3B1D" font-family="sans-serif" font-weight="bold">LATIJN → NL</text>
+      <text x="40" y="27.5" text-anchor="middle" font-size="5" fill="#FF3B1D" font-family="sans-serif" font-weight="bold">LATIJN / NL</text>
       <path d="M27 52 Q32 48 37 52 Q42 56 47 52 Q50 49 53 52" stroke="#FF3B1D" stroke-width="2" fill="none" stroke-linecap="round"/>
     </svg>`
   },
@@ -1414,7 +2033,7 @@ function toonModusStart() {
       <div class="modus-start-titel">${info.titel}</div>
       <div class="modus-start-sub">${info.sub}</div>
       <button class="modus-start-knop" onclick="startVanuitStartscherm()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span class="material-symbols-rounded icon-btn" aria-hidden="true">play_arrow</span>
         Start
       </button>
       <label class="modus-start-check">
@@ -1451,9 +2070,9 @@ function registreerAntwoord(isGoed) {
     const comboBonus = huidigeStreak >= 3 ? Math.min(20, huidigeStreak * 2) : 0;
     scorePunten += 10 + comboBonus;
     toonFeedbackEffect(true);
-    if (huidigeStreak === 3) toonComboToast('🔥 Combo x3');
-    if (huidigeStreak === 5) toonComboToast('⚡ Combo x5');
-    if (huidigeStreak > 5 && huidigeStreak % 5 === 0) toonComboToast(`🏛️ Combo x${huidigeStreak}`);
+    if (huidigeStreak === 3) toonComboToast('local_fire_department', 'Combo x3', true);
+    if (huidigeStreak === 5) toonComboToast('bolt', 'Combo x5', true);
+    if (huidigeStreak > 5 && huidigeStreak % 5 === 0) toonComboToast('military_tech', `Combo x${huidigeStreak}`, true);
   } else {
     aantalFout++;
     huidigeStreak = 0;
@@ -1496,12 +2115,12 @@ function updateVoortgang() {
 }
 
 
-function toonComboToast(tekst) {
+function toonComboToast(icoon, tekst, gevuld = false) {
   const oud = document.querySelector('.combo-toast');
   if (oud) oud.remove();
   const el = document.createElement('div');
   el.className = 'combo-toast';
-  el.textContent = tekst;
+  el.innerHTML = `<span class="material-symbols-rounded${gevuld ? ' icon-fill' : ''}" aria-hidden="true">${icoon}</span><span>${tekst}</span>`;
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1150);
 }
@@ -1550,8 +2169,8 @@ function toonFlashcardEnkel(w) {
         <div class="flashcard-label">Flashcard · ${trainIndex + 1}/${trainRij.length} · voorkant</div>
         <div class="flashcard-latijn" style="margin-top:.5rem;">${esc(w.grondvorm)}</div>
       </div>
-      <div id="fc-antwoord-zone" style="cursor:pointer;padding:1.25rem 2rem;text-align:center;border-top:0.5px solid var(--rand);background:rgba(0,102,51,.03);">
-        <span style="font-family:var(--fo);font-size:12px;color:var(--tekst-zacht);">↩ Tik om om te draaien</span>
+      <div id="fc-antwoord-zone" style="cursor:pointer;padding:1.25rem 2rem;text-align:center;border-top:0.5px solid var(--rand);background:rgba(101,179,46,.03);">
+        <span style="font-family:var(--fo);font-size:12px;color:var(--tekst-zacht);"><span class="material-symbols-rounded icon-sm" aria-hidden="true">flip</span> Tik om om te draaien</span>
       </div>
     </div>`;
   document.getElementById('fc-antwoord-zone').addEventListener('click', () => {
@@ -1563,7 +2182,7 @@ function toonFlashcardEnkel(w) {
           <span class="flashcard-label">ommezijde</span>
         </div>
         <!-- Aanvullingen / woordsoort / geslacht -->
-        ${w.aanvullingen ? `<div style="padding:.5rem 2rem;text-align:center;font-family:var(--fo);font-size:14px;color:var(--tekst-zacht);border-bottom:0.5px solid rgba(0,102,51,.08);">
+        ${w.aanvullingen ? `<div style="padding:.5rem 2rem;text-align:center;font-family:var(--fo);font-size:14px;color:var(--tekst-zacht);border-bottom:0.5px solid rgba(101,179,46,.08);">
           <span style="font-size:10px;font-family:var(--fv);color:var(--vital-green);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:3px;">Aanvullingen / woordsoort</span>
           ${esc(w.aanvullingen)}
         </div>` : ''}
@@ -1574,8 +2193,8 @@ function toonFlashcardEnkel(w) {
         </div>
         <!-- Knoppen -->
         <div style="display:flex;gap:10px;justify-content:center;padding:0 2rem 1.5rem;">
-          <button class="verder-btn" style="background:#dc2626;color:#fff;" onclick="flashEnkelNee()">✕ Wist ik niet</button>
-          <button class="verder-btn" style="color:#fff;" onclick="flashEnkelJa()">✓ Wist ik wel</button>
+          <button class="verder-btn" style="background:#dc2626;color:#fff;" onclick="flashEnkelNee()"><span class="material-symbols-rounded icon-btn" aria-hidden="true">close</span> Wist ik niet</button>
+          <button class="verder-btn" style="color:#fff;" onclick="flashEnkelJa()"><span class="material-symbols-rounded icon-btn" aria-hidden="true">done</span> Wist ik wel</button>
         </div>
       </div>`;
   }, { once: true });
@@ -1596,7 +2215,7 @@ function toonFlashcard(w) {
         <div class="flashcard-nl">${esc(w.vertaling)}</div>
       </div>
       <div class="flashcard-actie">
-        <button class="verder-btn" onclick="flashcardVerder()">Verder →</button>
+        <button class="verder-btn" onclick="flashcardVerder()">Verder <span class="material-symbols-rounded icon-btn" aria-hidden="true">arrow_forward</span></button>
       </div>
     </div>`;
 }
@@ -1686,7 +2305,7 @@ function toonToets(w) {
         <div class="flashcard-latijn">${esc(w.grondvorm)}${w.aanvullingen ? ` <span style="font-weight:400;font-size:16px;color:var(--tekst-zacht)">${esc(w.aanvullingen)}</span>` : ''}</div>
       </div>
       <div class="inv-midden">
-        <div class="inv-taal-label">🇳🇱 Nederlands</div>
+        <div class="inv-taal-label"><span class="material-symbols-rounded icon-sm" aria-hidden="true">translate</span> Nederlands</div>
         <input class="inv-input" type="text" id="inv-antwoord" autocomplete="off" autocorrect="off" spellcheck="false"
           placeholder="Typ je vertaling…"
           onkeydown="if(event.key==='Enter') controleerToets('${esc(w.vertaling).replace(/'/g,"\\'")}')">
@@ -1718,27 +2337,27 @@ function controleerToets(juistAntwoord) {
     registreerAntwoord(true);
     onderDiv.outerHTML = `
       <div class="inv-feedback feedback-goed">
-        <div class="feedback-icoon goed"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="feedback-icoon goed"><span class="material-symbols-rounded icon-fill" aria-hidden="true">check_circle</span></div>
         <div class="feedback-tekst">
           <div class="feedback-label">Juist!</div>
           <div class="feedback-antwoord">${esc(juistAntwoord)}</div>
         </div>
         <button class="voeg-moeilijk-btn" id="moeilijk-feedback-btn"
-          onclick="toggleMoeilijkTraining(this)">☆ Moeilijk</button>
-        <button class="verder-btn" onclick="volgend()">Verder →</button>
+          onclick="toggleMoeilijkTraining(this)"><span class="material-symbols-rounded" aria-hidden="true">star</span> Moeilijk</button>
+        <button class="verder-btn" onclick="volgend()">Verder <span class="material-symbols-rounded icon-btn" aria-hidden="true">arrow_forward</span></button>
       </div>`;
   } else {
     registreerAntwoord(false);
     onderDiv.outerHTML = `
       <div class="inv-feedback feedback-fout">
-        <div class="feedback-icoon fout"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+        <div class="feedback-icoon fout"><span class="material-symbols-rounded icon-fill" aria-hidden="true">cancel</span></div>
         <div class="feedback-tekst">
           <div class="feedback-label">Goed antwoord</div>
           <div class="feedback-antwoord">${esc(juistAntwoord)}</div>
         </div>
         <button class="voeg-moeilijk-btn" id="moeilijk-feedback-btn"
-          onclick="toggleMoeilijkTraining(this)">☆ Moeilijk</button>
-        <button class="verder-btn" style="background:var(--rood)" onclick="volgend()">Verder →</button>
+          onclick="toggleMoeilijkTraining(this)"><span class="material-symbols-rounded" aria-hidden="true">star</span> Moeilijk</button>
+        <button class="verder-btn" style="background:var(--rood)" onclick="volgend()">Verder <span class="material-symbols-rounded icon-btn" aria-hidden="true">arrow_forward</span></button>
       </div>`;
   }
   updateVoortgang();
@@ -1811,7 +2430,7 @@ function toonInvullen(w) {
         <div class="inv-hint">${hint}</div>
       </div>
       <div class="inv-midden">
-        <div class="inv-taal-label">🇳🇱 Nederlands</div>
+        <div class="inv-taal-label"><span class="material-symbols-rounded icon-sm" aria-hidden="true">translate</span> Nederlands</div>
         <input class="inv-input" type="text" id="inv-antwoord" autocomplete="off" autocorrect="off" spellcheck="false"
           placeholder="Typ hier je antwoord…"
           onkeydown="if(event.key==='Enter') controleer('${esc(w.vertaling).replace(/'/g,"\\'")}')">
@@ -1860,27 +2479,27 @@ function controleer(juistAntwoord) {
     registreerAntwoord(true);
     onderDiv.outerHTML = `
       <div class="inv-feedback feedback-goed">
-        <div class="feedback-icoon goed"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="feedback-icoon goed"><span class="material-symbols-rounded icon-fill" aria-hidden="true">check_circle</span></div>
         <div class="feedback-tekst">
           <div class="feedback-label">Juist!</div>
           <div class="feedback-antwoord">${esc(juistAntwoord)}</div>
         </div>
         <button class="voeg-moeilijk-btn" id="moeilijk-feedback-btn"
-          onclick="toggleMoeilijkTraining(this)">☆ Moeilijk</button>
-        <button class="verder-btn" onclick="volgend()">Verder →</button>
+          onclick="toggleMoeilijkTraining(this)"><span class="material-symbols-rounded" aria-hidden="true">star</span> Moeilijk</button>
+        <button class="verder-btn" onclick="volgend()">Verder <span class="material-symbols-rounded icon-btn" aria-hidden="true">arrow_forward</span></button>
       </div>`;
   } else {
     registreerAntwoord(false);
     onderDiv.outerHTML = `
       <div class="inv-feedback feedback-fout">
-        <div class="feedback-icoon fout"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+        <div class="feedback-icoon fout"><span class="material-symbols-rounded icon-fill" aria-hidden="true">cancel</span></div>
         <div class="feedback-tekst">
           <div class="feedback-label">Goed antwoord</div>
           <div class="feedback-antwoord">${esc(juistAntwoord)}</div>
         </div>
         <button class="voeg-moeilijk-btn" id="moeilijk-feedback-btn"
-          onclick="toggleMoeilijkTraining(this)">☆ Moeilijk</button>
-        <button class="verder-btn" style="background:var(--rood)" onclick="volgend()">Verder →</button>
+          onclick="toggleMoeilijkTraining(this)"><span class="material-symbols-rounded" aria-hidden="true">star</span> Moeilijk</button>
+        <button class="verder-btn" style="background:var(--rood)" onclick="volgend()">Verder <span class="material-symbols-rounded icon-btn" aria-hidden="true">arrow_forward</span></button>
       </div>`;
   }
   updateVoortgang();
@@ -1918,7 +2537,11 @@ function toonResultaat() {
   const rang = pct >= 90 ? 'Magister memoriae' : pct >= 75 ? 'Victor verborum' : pct >= 50 ? 'Miles in training' : 'Novus discipulus';
   const resRang = document.getElementById('res-rang'); if (resRang) resRang.textContent = rang;
   const meter = document.getElementById('res-meter'); if (meter) { meter.style.width = '0%'; setTimeout(() => { meter.style.width = pct + '%'; }, 80); }
-  document.getElementById('res-emoji').textContent  = pct >= 80 ? '🎉' : pct >= 50 ? '💪' : '📖';
+  document.getElementById('res-emoji').innerHTML = pct >= 80
+    ? '<span class="material-symbols-rounded icon-fill icon-lg">emoji_events</span>'
+    : pct >= 50
+      ? '<span class="material-symbols-rounded icon-fill icon-lg">trending_up</span>'
+      : '<span class="material-symbols-rounded icon-lg">menu_book</span>';
   document.getElementById('res-titel').textContent  = pct >= 80 ? 'Uitstekend!' : pct >= 50 ? 'Goed bezig!' : 'Blijf oefenen!';
   document.getElementById('res-sub').textContent    = `Je scoorde ${pct}% — ${scorePunten} punten. Beste combo: ${besteStreak}.`;
   const foutenBtn = document.getElementById('train-fouten-btn');
@@ -2026,11 +2649,11 @@ function toggleMoeilijkTraining(btn) {
   const set = laadMoeilijkeWoorden();
   if (set.has(grondvorm)) {
     set.delete(grondvorm);
-    btn.textContent = '☆ Moeilijk';
+    btn.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">star</span> Moeilijk';
     btn.classList.remove('toegevoegd');
   } else {
     set.add(grondvorm);
-    btn.textContent = '⭐ Moeilijk';
+    btn.innerHTML = '<span class="material-symbols-rounded icon-fill" aria-hidden="true">star</span> Moeilijk';
     btn.classList.add('toegevoegd');
   }
   slaaMoeilijkeWoordenOp(set);
@@ -2055,10 +2678,9 @@ function naarMoeilijkeLijst() {
 // START
 // ══════════════════════════════════════════════
 function bewaarLeerlingCode() {
-  const v = (document.getElementById('leerling-code')?.value || document.getElementById('lb-naam')?.value || '').trim();
+  const v = (document.getElementById('leerling-code')?.value || '').trim();
   if (v && isGeldigeLeerlingNaam(v)) localStorage.setItem('groenhove_leerling_code', v);
-  const a = document.getElementById('leerling-code'); if (a && v) a.value = v;
-  const b = document.getElementById('lb-naam');       if (b && v) b.value = v;
+  else localStorage.removeItem('groenhove_leerling_code');
   laadMijnScore();
 }
 
