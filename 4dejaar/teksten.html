@@ -110,17 +110,17 @@
   .content-wrap {
     flex: 1;
     padding: 2rem 1.5rem 3rem;
-    max-width: 1100px;
+    max-width: 1640px;
     width: 100%;
     margin: 0 auto;
   }
 
-  .thema-sectie { margin-bottom: 2.5rem; }
+  .thema-sectie { margin-bottom: 3rem; }
   .thema-header {
     display: flex;
     align-items: baseline;
     gap: .75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.15rem;
     padding-bottom: .6rem;
     border-bottom: 1.5px solid var(--rand);
   }
@@ -139,21 +139,24 @@
     font-style: italic;
   }
 
+  /* Vier kaarten op een brede desktop, zoals de themakaarten. */
   .tekst-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
   }
   .tekst-kaart {
     background: var(--wit);
-    border: 0.5px solid var(--rand);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.1rem 1rem;
+    border: .5px solid var(--rand);
+    border-radius: 22px;
+    min-height: 330px;
+    padding: 1.75rem 1.65rem 1.35rem;
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: .55rem;
     transition: border-color .15s, transform .15s, box-shadow .15s;
     position: relative;
     overflow: hidden;
@@ -163,42 +166,60 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 18px rgba(255,234,61,.18);
   }
-  .tekst-kaart.coming-soon { opacity: .55; pointer-events: none; cursor: default; }
+  .tekst-kaart.coming-soon {
+    opacity: .62;
+    pointer-events: none;
+    cursor: default;
+  }
   .kaart-meta {
     font-family: var(--fb);
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 1px;
+    min-height: 1.25rem;
+    margin-bottom: .25rem;
   }
   .kaart-titel {
     font-family: var(--ft);
     font-weight: 700;
-    font-size: 16px;
+    font-size: clamp(1.15rem, 1.45vw, 1.55rem);
     color: var(--jaar-kleur);
-    line-height: 1.3;
+    line-height: 1.28;
+    min-height: calc(3 * 1.28em);
+  }
+  .kaart-bron {
+    display: grid;
+    gap: .15rem;
   }
   .kaart-auteur {
     font-family: var(--fb);
-    font-size: 12px;
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--tekst-zacht);
+    line-height: 1.35;
+  }
+  .kaart-vindplaats {
+    font-family: var(--fb);
+    font-size: .88rem;
     color: var(--tekst-zacht);
     font-style: italic;
-    line-height: 1.4;
+    line-height: 1.48;
   }
   .kaart-pijl {
     margin-top: auto;
-    font-size: 18px;
+    font-size: 2rem;
+    line-height: 1;
     color: var(--rand);
     transition: color .15s;
-    padding-top: 2px;
+    padding-top: .65rem;
   }
   .tekst-kaart:hover .kaart-pijl { color: var(--accent); }
   .kaart-badge {
     position: absolute;
-    top: .7rem;
-    right: .75rem;
+    top: 1.45rem;
+    right: 1.45rem;
     font-family: var(--fb);
     font-size: 9.5px;
     font-weight: 700;
@@ -208,6 +229,28 @@
     color: #919a8a;
     padding: .2rem .5rem;
     border-radius: 20px;
+  }
+
+  @media (max-width: 1180px) {
+    .tekst-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    /* Superbia blijft vier breed: teksten 1–4 vormen de eerste rij. */
+    #thema-1 .tekst-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  @media (max-width: 1050px) {
+    #thema-1 .tekst-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 860px) {
+    .tekst-grid,
+    #thema-1 .tekst-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tekst-kaart { min-height: 285px; }
+  }
+  @media (max-width: 560px) {
+    .site-header { padding: .75rem 1rem; }
+    .site-header .sub { display: none; }
+    .site-toolbar { padding: .55rem 1rem; }
+    .content-wrap { padding: 1.4rem 1rem 2.5rem; }
+    .tekst-grid { grid-template-columns: 1fr; }
+    .tekst-kaart { min-height: 250px; border-radius: 18px; padding: 1.4rem 1.25rem 1.15rem; }
   }
 
   .voet {
@@ -240,121 +283,175 @@
   </div>
 </div>
 
-<div class="content-wrap">
+<main class="content-wrap">
 
-  <div class="thema-sectie" id="thema-1">
+  <section class="thema-sectie" id="thema-1">
     <div class="thema-header">
       <span class="thema-titel">Thema 1</span>
       <span class="thema-sub">Superbia</span>
     </div>
     <div class="tekst-grid">
-      <a class="tekst-kaart coming-soon" href="#">
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 1 — Break On Through to the Other Side — binnenkort beschikbaar">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 1</div>
-        <div class="kaart-titel">&mdash;</div>
-        <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-titel">Break On Through to the Other Side</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">P. Ovidius Naso</div>
+          <div class="kaart-vindplaats"><em>Metamorphoses</em> VIII, vv. 183–192</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-      <a class="tekst-kaart coming-soon" href="#">
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 2 — The End is Always Near — binnenkort beschikbaar">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 2</div>
-        <div class="kaart-titel">&mdash;</div>
-        <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-titel">The End is Always Near</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">P. Ovidius Naso</div>
+          <div class="kaart-vindplaats"><em>Metamorphoses</em> VIII, vv. 193–202</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-      <a class="tekst-kaart coming-soon" href="#">
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 3 — The Days Are Bright and Filled with Pain — binnenkort beschikbaar">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 3</div>
-        <div class="kaart-titel">&mdash;</div>
-        <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-titel">The Days Are Bright and Filled with Pain</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">P. Ovidius Naso</div>
+          <div class="kaart-vindplaats"><em>Metamorphoses</em> VIII, vv. 227–235</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 4 — We want the World and we want it now — binnenkort beschikbaar">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 4</div>
+        <div class="kaart-titel">We want the World and we want it now</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">Gualterus de Castellione</div>
+          <div class="kaart-vindplaats"><em>Alexandreis</em> VIII, 375–390</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 5 — I Can do Anything — binnenkort beschikbaar">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 5</div>
+        <div class="kaart-titel">I Can do Anything</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">Gualterus de Castellione</div>
+          <div class="kaart-vindplaats"><em>Alexandreis</em> IX, 554–575</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 6 — They Got the Guns, but We Got the Numbers — binnenkort beschikbaar">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 6</div>
+        <div class="kaart-titel">They Got the Guns, but We Got the Numbers</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">T. Livius</div>
+          <div class="kaart-vindplaats"><em>Ab urbe condita</em> II, 34.7–10</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
+      </a>
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 7 — The World on You Depends — binnenkort beschikbaar">
+        <span class="kaart-badge">Binnenkort</span>
+        <div class="kaart-meta">Tekst 7</div>
+        <div class="kaart-titel">The World on You Depends</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">C. Sallustius Crispus</div>
+          <div class="kaart-vindplaats"><em>Bellum Catilinae</em> 54.1–6</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
     </div>
-  </div>
+  </section>
 
-  <div class="thema-sectie" id="thema-2">
+  <section class="thema-sectie" id="thema-2">
     <div class="thema-header">
       <span class="thema-titel">Thema 2</span>
-      <span class="thema-sub">Historiografie</span>
+      <span class="thema-sub">Fama et facta</span>
     </div>
     <div class="tekst-grid">
-      <a class="tekst-kaart coming-soon" href="#">
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 1 — binnenkort beschikbaar">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 1</div>
         <div class="kaart-titel">&mdash;</div>
-        <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron" aria-hidden="true"></div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-      <a class="tekst-kaart coming-soon" href="#">
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 2 — binnenkort beschikbaar">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 2</div>
         <div class="kaart-titel">&mdash;</div>
-        <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron" aria-hidden="true"></div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-      <a class="tekst-kaart coming-soon" href="#">
+      <a class="tekst-kaart coming-soon" href="#" aria-label="Tekst 3 — binnenkort beschikbaar">
         <span class="kaart-badge">Binnenkort</span>
         <div class="kaart-meta">Tekst 3</div>
         <div class="kaart-titel">&mdash;</div>
-        <div class="kaart-auteur"></div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron" aria-hidden="true"></div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-      <!-- TEKST 4 — ACTIEF -->
       <a class="tekst-kaart" href="teksten/tekst4-thema2-4de.html">
         <div class="kaart-meta">Tekst 4</div>
         <div class="kaart-titel">Het complot</div>
-        <div class="kaart-auteur">Galbert van Brugge</div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">Galbert van Brugge</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-      </a>
-      <!-- TEKST 5 — ACTIEF -->
       <a class="tekst-kaart" href="teksten/tekst5-thema2-4de.html">
         <div class="kaart-meta">Tekst 5</div>
         <div class="kaart-titel">De aanslag</div>
-        <div class="kaart-auteur">Galbert van Brugge</div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">Galbert van Brugge</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
     </div>
-  </div>
+  </section>
 
-  <div class="thema-sectie" id="thema-3">
+  <section class="thema-sectie" id="thema-3">
     <div class="thema-header">
       <span class="thema-titel">Thema 3</span>
       <span class="thema-sub">Amantes sunt amentes</span>
     </div>
     <div class="tekst-grid">
-      <!-- TEKST 1 — ACTIEF -->
       <a class="tekst-kaart" href="teksten/tekst1-thema3-4de.html">
         <div class="kaart-meta">Tekst 1</div>
         <div class="kaart-titel">SSSluipmoord</div>
-        <div class="kaart-auteur">Publius Vergilius Maro</div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">Publius Vergilius Maro</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-    <!-- TEKST 2 — ACTIEF -->
       <a class="tekst-kaart" href="teksten/tekst2-thema3-4de.html">
         <div class="kaart-meta">Tekst 2</div>
         <div class="kaart-titel">Ad Inferos</div>
-        <div class="kaart-auteur">Publius Vergilius Maro</div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">Publius Vergilius Maro</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-      <!-- TEKST 3 — ACTIEF -->
       <a class="tekst-kaart" href="teksten/tekst3-thema3-4de.html">
         <div class="kaart-meta">Tekst 3</div>
         <div class="kaart-titel">It's Over Too Soon</div>
-        <div class="kaart-auteur">Publius Vergilius Maro</div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">Publius Vergilius Maro</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
-       <!-- TEKST 4 — ACTIEF -->
       <a class="tekst-kaart" href="teksten/tekst4-thema3-4de.html">
         <div class="kaart-meta">Tekst 4</div>
         <div class="kaart-titel">Love Will Tear Us Apart</div>
-        <div class="kaart-auteur">Publius Vergilius Maro</div>
-        <div class="kaart-pijl">&#8250;</div>
+        <div class="kaart-bron">
+          <div class="kaart-auteur">Publius Vergilius Maro</div>
+        </div>
+        <div class="kaart-pijl" aria-hidden="true">&#8250;</div>
       </a>
     </div>
-  </div>
+  </section>
 
-</div>
+</main>
 
 <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem</p>
 </body>
