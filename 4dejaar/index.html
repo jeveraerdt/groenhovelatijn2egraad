@@ -5,23 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Latijn 4de jaar</title>
 <style>
-  /* Lokale huisstijlfonts. Bestand staat in 4dejaar/index.html. */
+  /* Zelfde lokale fonts en namen als de 4DS-woordjestrainer.
+     Deze pagina staat in /4dejaar/index.html. */
   @font-face {
-    font-family: 'Flanders Art Sans';
+    font-family: 'FlandersArtSans';
     src: url('../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
-    font-family: 'Noto Sans';
+    font-family: 'NotoSans';
     src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
-    font-family: 'Noto Sans';
+    font-family: 'NotoSans';
     src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
@@ -29,53 +30,66 @@
   }
 
   :root {
-    --vital-green: #65b32e;
-    --deep-forest: #006633;
+    --primary: #65b32e;          /* 4DS: Vital Green */
+    --secondary: #006633;        /* Deep Forest */
     --balanced-yellow: #ffea3d;
-    --achtergrond: #f7f8fa;
+    --achtergrond: #f7f8fa;      /* gedeelde lichte achtergrond */
     --kaart: #f3f1ef;
     --tekst: #010100;
     --tekst-zacht: #4a6a3a;
     --accent-red: #FF3B1D;
-    --rand: #d8dce2;
+    --rand: #c8dbb8;
+    --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
+    --fo: 'NotoSans', Arial, sans-serif;
   }
 
   * { box-sizing: border-box; }
   html { overflow-x: hidden; }
   body {
     margin: 0;
+    min-height: 100vh;
     background: var(--achtergrond);
     color: var(--tekst);
-    font-family: 'Noto Sans', Arial, sans-serif;
+    font-family: var(--fo);
     font-size: 13px;
   }
 
-  /* Alleen titels: Flanders Art Sans Bold. Alle lees- en navigatietekst: Noto Sans. */
-  h1, h2, h3, .numeral, .ribbon-title {
-    font-family: 'Flanders Art Sans', 'Arial Black', Arial, sans-serif;
+  /* Flanders uitsluitend voor titels. */
+  h1, h2, h3, .numeral, .site-title {
+    font-family: var(--fv);
     font-weight: 700;
   }
 
-  /* Merklint 4DS: Vital Green met Balanced Yellow streep. */
-  .ribbon {
+  /* Exacte 4DS-merklintlogica: Vital Green + Balanced Yellow. */
+  .site-header {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: .85rem 1.5rem;
-    background: var(--vital-green);
+    background: var(--primary);
     border-bottom: 3px solid var(--balanced-yellow);
-    color: #fff;
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    color: #fff;
   }
-  .ribbon img { height: 30px; width: auto; display: block; flex-shrink: 0; }
-  .ribbon-title { font-size: 1.05rem; color: #fff; }
-  .ribbon-sub {
+  .site-header .logo {
+    height: 30px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+  }
+  .site-title {
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+  .site-sub {
     margin-left: auto;
     color: #fff;
-    font-family: 'Noto Sans', Arial, sans-serif;
+    font-family: var(--fo);
     font-size: .68rem;
     font-weight: 700;
     letter-spacing: .1em;
+    line-height: 1;
     text-transform: uppercase;
     opacity: .88;
     white-space: nowrap;
@@ -84,55 +98,56 @@
   .toolbar {
     display: flex;
     align-items: center;
-    min-height: 48px;
+    min-height: 47px;
     padding: .5rem 1.5rem;
-    border-bottom: 1px solid var(--rand);
     background: var(--achtergrond);
+    border-bottom: 1px solid var(--rand);
   }
   .toolbar a {
     display: inline-flex;
     align-items: center;
     gap: .35rem;
-    padding: .3rem .78rem;
+    padding: .28rem .75rem;
     border: 1px solid var(--rand);
     border-radius: 20px;
+    background: transparent;
     color: var(--tekst);
-    font-family: 'Noto Sans', Arial, sans-serif;
-    font-size: .82rem;
+    font-family: var(--fo);
+    font-size: .8rem;
     font-weight: 700;
+    line-height: 1.2;
     text-decoration: none;
     transition: background .15s, border-color .15s, color .15s;
   }
   .toolbar a:hover {
     background: var(--balanced-yellow);
     border-color: var(--balanced-yellow);
-    color: var(--deep-forest);
+    color: var(--secondary);
   }
 
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 440px);
+    grid-template-columns: minmax(0, 1fr) minmax(290px, 430px);
     align-items: center;
     gap: 2rem;
-    max-width: 1240px;
+    width: 100%;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 3.15rem 2.5rem 2.6rem;
-    background: var(--achtergrond);
-    overflow: hidden;
+    padding: 3.1rem 2.5rem 2.55rem;
   }
   .hero-copy { min-width: 0; }
   .hero h1 {
     margin: 0;
-    color: var(--deep-forest);
-    font-size: clamp(2.3rem, 5vw, 3.45rem);
+    color: var(--primary);
+    font-size: clamp(2.35rem, 5vw, 3.55rem);
     line-height: 1;
     letter-spacing: -.035em;
   }
   .hero .subtitle {
-    max-width: 38rem;
+    max-width: 37rem;
     margin: .8rem 0 0;
     color: var(--tekst-zacht);
-    font-family: 'Noto Sans', Arial, sans-serif;
+    font-family: var(--fo);
     font-size: .96rem;
     font-weight: 400;
     line-height: 1.5;
@@ -152,60 +167,68 @@
   }
 
   .content {
-    max-width: 1240px;
+    width: 100%;
+    max-width: 1180px;
     margin: 0 auto;
     padding: 0 2.5rem 1rem;
   }
   .rule {
     height: 2px;
     margin-bottom: 1.65rem;
-    background: var(--vital-green);
+    background: var(--primary);
   }
-  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
   .col { padding: 0 2rem; }
   .col:first-child { padding-left: 0; }
   .col:last-child { padding-right: 0; }
   .col:not(:last-child) { border-right: 1px solid var(--rand); }
   .numeral {
     display: block;
-    color: var(--vital-green);
+    color: var(--primary);
     font-size: 1.65rem;
     line-height: 1;
   }
   .col h3 {
     margin: .8rem 0 .45rem;
-    color: var(--deep-forest);
+    color: var(--secondary);
     font-size: 1.12rem;
     line-height: 1.15;
   }
   .col p {
     margin: 0 0 1rem;
     color: var(--tekst-zacht);
-    font-family: 'Noto Sans', Arial, sans-serif;
+    font-family: var(--fo);
     font-size: .85rem;
     line-height: 1.55;
   }
   .col a {
     color: var(--accent-red);
-    font-family: 'Noto Sans', Arial, sans-serif;
+    font-family: var(--fo);
     font-size: .85rem;
     font-weight: 700;
     text-decoration: none;
   }
-  .col a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .col a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
 
   footer {
     padding: 2rem 1.5rem;
     color: #718078;
-    font-family: 'Noto Sans', Arial, sans-serif;
+    font-family: var(--fo);
     font-size: .75rem;
     text-align: center;
   }
 
   @media (max-width: 760px) {
-    .ribbon, .toolbar { padding-left: 1rem; padding-right: 1rem; }
-    .ribbon-sub { display: none; }
-    .hero { grid-template-columns: 1fr; gap: 1.15rem; padding: 2.3rem 1.25rem 1.75rem; }
+    .site-header, .toolbar { padding-left: 1rem; padding-right: 1rem; }
+    .site-sub { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 1.15rem; padding: 2.25rem 1.25rem 1.75rem; }
     .hero-media { min-height: 0; justify-content: flex-start; }
     .hero-media img { width: min(100%, 320px); max-height: 220px; }
     .content { padding: 0 1.25rem; }
@@ -217,10 +240,10 @@
 </head>
 <body>
 
-  <header class="ribbon">
-    <img src="../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
-    <span class="ribbon-title">Latijn 4DS</span>
-    <span class="ribbon-sub">S.O. Groenhove Waregem</span>
+  <header class="site-header">
+    <img class="logo" src="../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="site-title">Latijn 4DS</span>
+    <span class="site-sub">S.O. Groenhove Waregem</span>
   </header>
 
   <nav class="toolbar" aria-label="Paginanavigatie">
