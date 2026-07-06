@@ -34,7 +34,7 @@
     --rood: #dc2626; --rood-licht: #fee2e2; --rood-rand: #fca5a5;
     --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
     --fo: 'NotoSans', Arial, sans-serif;
-    --achtergrond: #e0efd5; --kaart: #f3f1ef; --rand: #c8dbb8;
+    --achtergrond: #f7f8fa; --kaart: #f3f1ef; --rand: #c8dbb8;
     --tekst: #010100; --tekst-zacht: #4a6a3a;
     --radius: 12px; --radius-sm: 8px; --radius-lg: 16px;
     --jaar-kleur: #65b32e; --jaar-kleur-licht: #e0efd5;
@@ -388,7 +388,7 @@
     content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
     background:
       radial-gradient(circle at 12% 10%, rgba(255,59,29,0.08), transparent 24%),
-      radial-gradient(circle at 88% 18%, rgba(101,179,46,0.13), transparent 22%),
+      radial-gradient(circle at 88% 18%, rgba(255,255,255,0.42), transparent 22%),
       linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
   }
   .trainer-header { box-shadow: 0 8px 22px rgba(0,0,0,0.04); }
@@ -995,6 +995,135 @@
 
   /* Deliberately retain --secondary for heading ink, long-form text and content labels. */
 
+
+
+  /* ══════════════════════════════════════════════════
+     LEADERBOARD — dezelfde presentatie als 3DS
+     - top drie met vaste Material Symbols-placeholders
+     - namen en scores blijven dynamisch
+     - scorebollen herhalen de vier Groenhove-kleuren
+  ══════════════════════════════════════════════════ */
+  #s-leaderboard { background: var(--achtergrond); }
+  .lb-site-header {
+    background: var(--jaar-kleur); color: #fff; display: flex; align-items: center; gap: 1rem;
+    padding: .85rem 1.5rem; border-bottom: 3px solid #ffea3d;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .lb-site-header img { height: 30px; width: auto; display: block; flex-shrink: 0; }
+  .lb-site-title { font-family: var(--fv); font-size: 1.05rem; color: #fff; }
+  .lb-site-sub { margin-left: auto; font-family: var(--fv); font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .8; color: #fff; }
+  .lb-page { width: 100%; max-width: 760px; margin: 0 auto; padding: 2rem 1.5rem 2.8rem; flex: 1; }
+  .lb-toolbar {
+    display: flex; align-items: center; gap: .9rem; margin-bottom: 1.1rem; padding: 1rem 1.1rem;
+    border: 1px solid var(--rand); border-radius: 16px; background: var(--kaart);
+    box-shadow: 0 8px 20px rgba(var(--primary-rgb), .07); flex-wrap: wrap;
+  }
+  .lb-user-block { min-width: 0; }
+  .lb-user-kicker { display: block; margin-bottom: .12rem; font-family: var(--fo); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--tekst-zacht); }
+  .lb-user-name { display: block; font-family: var(--fv); font-size: 15px; color: var(--deep-forest); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 310px; }
+  .lb-toolbar-actions { display: flex; gap: .5rem; margin-left: auto; }
+  .lb-tool-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .4rem; cursor: pointer;
+    padding: .58rem .78rem; border: 1px solid var(--rand); border-radius: 999px;
+    background: transparent; color: var(--tekst-zacht); font-family: var(--fo); font-size: 12px;
+    transition: transform .15s, background .15s, border-color .15s, color .15s;
+  }
+  .lb-tool-btn:hover { transform: translateY(-1px); border-color: var(--deep-forest); color: var(--deep-forest); background: rgba(224,239,213,.56); }
+  .lb-tool-btn.is-primary { background: var(--deep-forest); border-color: var(--deep-forest); color: #fff; font-family: var(--fv); }
+  .lb-tool-btn.is-primary:hover { background: var(--deep-forest); color: #fff; opacity: .9; }
+  .lb-tool-btn .material-symbols-rounded { font-size: 17px; vertical-align: 0; }
+
+  .lb-card {
+    overflow: hidden; border: 1px solid var(--rand); border-radius: 18px; background: var(--kaart);
+    box-shadow: 0 13px 30px rgba(var(--primary-rgb), .09);
+  }
+  .lb-card-head { display: flex; align-items: center; gap: .7rem; padding: 1rem 1.1rem .8rem; }
+  .lb-card-title { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--fv); font-size: 20px; color: var(--deep-forest); }
+  .lb-card-title .material-symbols-rounded { color: var(--primary); font-size: 23px; }
+  .lb-source { margin-left: auto; font-family: var(--fo); font-size: 10px; color: var(--tekst-zacht); text-align: right; }
+  .lb-periods { display: flex; gap: .45rem; padding: 0 1.1rem 1rem; border-bottom: 1px solid var(--rand); flex-wrap: wrap; }
+  .lb-tab {
+    font-family: var(--fv); font-size: 12px; padding: 7px 13px; border-radius: 999px;
+    border: 1px solid var(--rand); background: transparent; color: var(--tekst-zacht); cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+
+  .lb-podium {
+    display: flex; align-items: flex-end; justify-content: center; gap: 1.1rem;
+    padding: 1.35rem 1rem 1.05rem; border-bottom: 1px solid var(--rand);
+    background: linear-gradient(180deg, rgba(224,239,213,.50), rgba(243,241,239,.15));
+  }
+  .lb-podium-item { min-width: 0; text-align: center; }
+  .lb-podium-item[data-rank="1"] { order: 2; }
+  .lb-podium-item[data-rank="2"] { order: 1; padding-bottom: .65rem; }
+  .lb-podium-item[data-rank="3"] { order: 3; padding-bottom: .65rem; }
+  .lb-portrait-wrap { position: relative; display: grid; place-items: center; width: 86px; height: 86px; margin: 0 auto .65rem; }
+  .lb-podium-item[data-rank="1"] .lb-portrait-wrap { width: 104px; height: 104px; }
+  .lb-portrait {
+    display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%;
+    border: 3px solid rgba(243,241,239,.95); color: var(--deep-forest);
+    box-shadow: 0 7px 16px rgba(0,0,0,.12);
+  }
+  .lb-podium-item[data-rank="1"] .lb-portrait { background: linear-gradient(135deg, rgba(255,234,61,.65), rgba(255,59,29,.22)); }
+  .lb-podium-item[data-rank="2"] .lb-portrait { background: linear-gradient(135deg, rgba(101,179,46,.36), rgba(224,239,213,.92)); }
+  .lb-podium-item[data-rank="3"] .lb-portrait { background: linear-gradient(135deg, rgba(255,59,29,.23), rgba(243,241,237,.98)); }
+  .lb-portrait .material-symbols-rounded { font-size: 38px; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 42; }
+  .lb-podium-item[data-rank="1"] .lb-portrait .material-symbols-rounded { font-size: 47px; }
+  .lb-podium-rank {
+    position: absolute; right: -2px; bottom: -2px; display: grid; place-items: center; width: 28px; height: 28px;
+    border: 2px solid var(--kaart); border-radius: 50%; background: var(--deep-forest); color: #fff;
+    font-family: var(--fv); font-size: 11px; box-shadow: 0 3px 8px rgba(0,0,0,.12);
+  }
+  .lb-podium-item[data-rank="1"] .lb-podium-rank { width: 32px; height: 32px; background: var(--roze); font-size: 13px; }
+  .lb-podium-name { display: block; min-height: 1.25em; font-family: var(--fv); font-size: 14px; line-height: 1.18; color: var(--deep-forest); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lb-podium-score { display: block; margin-top: .18rem; font-family: var(--fo); font-size: 11px; color: var(--tekst-zacht); }
+
+  .lb-list-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1.1rem .65rem; }
+  .lb-list-label { font-family: var(--fv); font-size: 12px; color: var(--primary); letter-spacing: .075em; text-transform: uppercase; }
+  .lb-list-hint { font-family: var(--fo); font-size: 10px; color: var(--tekst-zacht); text-align: right; }
+  .lb-tabel { padding: 0 .75rem .75rem; }
+  .lb-row {
+    display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; align-items: center; gap: .75rem;
+    padding: .66rem .45rem; border-bottom: 1px solid rgba(0,102,51,.08); transition: background .15s;
+  }
+  .lb-row:last-child { border-bottom: 0; }
+  .lb-row:hover { background: rgba(224,239,213,.5); }
+  .lb-row.is-me { margin: 0 -.1rem; padding-left: .7rem; padding-right: .7rem; border: 1px solid rgba(0,102,51,.22); border-radius: 13px; background: rgba(224,239,213,.68); }
+  .lb-row-rank { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,102,51,.08); color: var(--deep-forest); font-family: var(--fv); font-size: 12px; }
+  .lb-row-main { min-width: 0; }
+  .lb-row-name { display: flex; align-items: center; gap: .35rem; min-width: 0; font-family: var(--fv); font-size: 15px; color: var(--deep-forest); }
+  .lb-row-name-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lb-row-you { flex-shrink: 0; padding: .16rem .42rem; border-radius: 999px; background: var(--deep-forest); color: #fff; font-family: var(--fv); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
+  .lb-row-meta { margin-top: .15rem; font-family: var(--fo); font-size: 10.5px; color: var(--tekst-zacht); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lb-score-bubble { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; font-family: var(--fv); font-size: 13px; line-height: 1; box-shadow: 0 4px 9px rgba(0,0,0,.1); }
+  .lb-score-bubble.lb-tone-0 { background: var(--deep-forest); color: #fff; }
+  .lb-score-bubble.lb-tone-1 { background: var(--primary); color: #fff; }
+  .lb-score-bubble.lb-tone-2 { background: var(--roze); color: #fff; }
+  .lb-score-bubble.lb-tone-3 { background: #ffea3d; color: var(--deep-forest); }
+
+  @media (max-width: 560px) {
+    .lb-site-header { padding: .8rem 1rem; }
+    .lb-site-sub { display: none; }
+    .lb-page { padding: 1.1rem .85rem 2rem; }
+    .lb-toolbar { align-items: flex-start; }
+    .lb-toolbar-actions { width: 100%; margin-left: 0; }
+    .lb-tool-btn { flex: 1; }
+    .lb-source { display: none; }
+    .lb-podium { gap: .35rem; padding: 1.05rem .65rem 1rem; }
+    .lb-portrait-wrap { width: 70px; height: 70px; }
+    .lb-podium-item[data-rank="1"] .lb-portrait-wrap { width: 84px; height: 84px; }
+    .lb-portrait .material-symbols-rounded { font-size: 31px; }
+    .lb-podium-item[data-rank="1"] .lb-portrait .material-symbols-rounded { font-size: 38px; }
+    .lb-podium-name { font-size: 12px; }
+    .lb-podium-score { font-size: 10px; }
+    .lb-list-head { padding-left: .7rem; padding-right: .7rem; }
+    .lb-list-hint { display: none; }
+    .lb-tabel { padding-left: .45rem; padding-right: .45rem; }
+    .lb-row { gap: .55rem; grid-template-columns: 30px minmax(0, 1fr) auto; padding-left: .3rem; padding-right: .3rem; }
+    .lb-row.is-me { padding-left: .45rem; padding-right: .45rem; }
+    .lb-score-bubble { width: 38px; height: 38px; font-size: 12px; }
+  }
+
 </style>
 </head>
 <body>
@@ -1005,7 +1134,7 @@
 <div id="s-selectie" class="scherm actief">
 
   <!-- Merklint laag 1 -->
-  <header style="background:var(--jaar-kleur);color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+  <header style="background:var(--jaar-kleur);color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;border-bottom:3px solid #ffea3d;box-shadow:0 2px 8px rgba(0,0,0,.08);">
     <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
     <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Woordjestrainer 4DS</span>
     <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;white-space:nowrap;">S.O. Groenhove Waregem</span>
@@ -1272,34 +1401,80 @@
      SCHERM 4: LEADERBOARD
 ══════════════════════════════════════════════ -->
 <div id="s-leaderboard" class="scherm">
-  <header style="background:var(--jaar-kleur);color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);">
-    <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
-    <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Leaderboard</span>
-    <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;">S.O. Groenhove Waregem</span>
+  <header class="lb-site-header">
+    <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="lb-site-title">Leaderboard</span>
+    <span class="lb-site-sub">S.O. Groenhove Waregem</span>
   </header>
-  <div style="max-width:700px;margin:2rem auto;padding:0 1.5rem;flex:1;">
-    <!-- Naam weergeven + knoppen -->
-    <div style="background:#fff;border:1px solid var(--rand);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-      <span style="font-family:var(--fv);font-size:14px;color:var(--blauw);" id="lb-naam-toon">—</span>
-      <span style="font-family:var(--fo);font-size:11px;color:#aaa;">Wijzig je naam op de startpagina</span>
-      <button onclick="renderLeaderboard()" style="font-family:var(--fv);font-size:13px;padding:8px 16px;border-radius:99px;border:none;background:var(--blauw);color:#fff;cursor:pointer;margin-left:auto;"><span class="material-symbols-rounded icon-sm" aria-hidden="true">refresh</span> Vernieuwen</button>
-      <button onclick="naarSelectie()" style="font-family:var(--fo);font-size:13px;padding:8px 16px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;"><span class="material-symbols-rounded icon-sm" aria-hidden="true">arrow_back</span> Terug</button>
-    </div>
-    <!-- Ranglijst -->
-    <div style="background:#fff;border:1px solid var(--rand);border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06);">
-      <div style="padding:14px 16px;border-bottom:1px solid var(--rand);display:flex;align-items:center;gap:8px;">
-        <span style="font-family:var(--fv);font-size:16px;color:var(--blauw);"><span class="material-symbols-rounded icon-btn" aria-hidden="true">leaderboard</span> Hoogste scores</span>
-        <span id="lb-bron" style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:8px;"></span>
-        <span style="font-family:var(--fo);font-size:11px;color:#aaa;margin-left:auto;">Verzamelde punten — alleen namen uit dropdown</span>
+
+  <main class="lb-page">
+    <section class="lb-toolbar" aria-label="Leaderboardbediening">
+      <div class="lb-user-block">
+        <span class="lb-user-kicker">Jouw scoreprofiel</span>
+        <span class="lb-user-name" id="lb-naam-toon">—</span>
       </div>
-      <div style="display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--rand);flex-wrap:wrap;background:#fafafa;">
-        <button class="lb-tab" id="lb-tab-week" onclick="zetLeaderboardPeriode('week')" style="font-family:var(--fv);font-size:12px;padding:7px 13px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;">Deze week</button>
-        <button class="lb-tab" id="lb-tab-maand" onclick="zetLeaderboardPeriode('maand')" style="font-family:var(--fv);font-size:12px;padding:7px 13px;border-radius:99px;border:1px solid var(--rand);background:var(--blauw);color:#fff;cursor:pointer;">Deze maand</button>
-        <button class="lb-tab" id="lb-tab-totaal" onclick="zetLeaderboardPeriode('totaal')" style="font-family:var(--fv);font-size:12px;padding:7px 13px;border-radius:99px;border:1px solid var(--rand);background:transparent;color:var(--tekst-zacht);cursor:pointer;">Totaalstand</button>
+      <div class="lb-toolbar-actions">
+        <button class="lb-tool-btn is-primary" type="button" onclick="renderLeaderboard()">
+          <span class="material-symbols-rounded icon-sm" aria-hidden="true">refresh</span>
+          Vernieuwen
+        </button>
+        <button class="lb-tool-btn" type="button" onclick="naarSelectie()">
+          <span class="material-symbols-rounded icon-sm" aria-hidden="true">arrow_back</span>
+          Terug
+        </button>
       </div>
-      <div id="lb-tabel"></div>
-    </div>
-  </div>
+    </section>
+
+    <section class="lb-card" aria-labelledby="lb-titel">
+      <div class="lb-card-head">
+        <h2 class="lb-card-title" id="lb-titel">
+          <span class="material-symbols-rounded" aria-hidden="true">leaderboard</span>
+          Hoogste scores
+        </h2>
+        <span class="lb-source" id="lb-bron"></span>
+      </div>
+
+      <div class="lb-periods" aria-label="Kies een periode">
+        <button class="lb-tab" id="lb-tab-week" type="button" onclick="zetLeaderboardPeriode('week')">Deze week</button>
+        <button class="lb-tab" id="lb-tab-maand" type="button" onclick="zetLeaderboardPeriode('maand')">Deze maand</button>
+        <button class="lb-tab" id="lb-tab-totaal" type="button" onclick="zetLeaderboardPeriode('totaal')">Totaalstand</button>
+      </div>
+
+      <div class="lb-podium" aria-label="Top drie">
+        <article class="lb-podium-item" data-rank="2">
+          <div class="lb-portrait-wrap">
+            <div class="lb-portrait" aria-hidden="true"><span class="material-symbols-rounded">person</span></div>
+            <span class="lb-podium-rank">2</span>
+          </div>
+          <span class="lb-podium-name" id="lb-podium-naam-2">—</span>
+          <span class="lb-podium-score" id="lb-podium-score-2">0 punten</span>
+        </article>
+        <article class="lb-podium-item" data-rank="1">
+          <div class="lb-portrait-wrap">
+            <div class="lb-portrait" aria-hidden="true"><span class="material-symbols-rounded">person</span></div>
+            <span class="lb-podium-rank">1</span>
+          </div>
+          <span class="lb-podium-name" id="lb-podium-naam-1">—</span>
+          <span class="lb-podium-score" id="lb-podium-score-1">0 punten</span>
+        </article>
+        <article class="lb-podium-item" data-rank="3">
+          <div class="lb-portrait-wrap">
+            <div class="lb-portrait" aria-hidden="true"><span class="material-symbols-rounded">person</span></div>
+            <span class="lb-podium-rank">3</span>
+          </div>
+          <span class="lb-podium-name" id="lb-podium-naam-3">—</span>
+          <span class="lb-podium-score" id="lb-podium-score-3">0 punten</span>
+        </article>
+      </div>
+
+      <div class="lb-list-head">
+        <span class="lb-list-label">Volledige ranglijst</span>
+        <span class="lb-list-hint">Punten in de gekozen periode</span>
+      </div>
+      <div class="lb-tabel" id="lb-tabel"></div>
+    </section>
+  </main>
+
   <p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
 </div>
 
@@ -1839,9 +2014,19 @@ function updateLeaderboardTabs() {
     const btn = document.getElementById(`lb-tab-${p}`);
     if (!btn) return;
     const actief = p === leaderboardPeriode;
-    btn.style.background = actief ? 'var(--blauw)' : 'transparent';
+    btn.style.background = actief ? 'var(--deep-forest)' : 'transparent';
     btn.style.color = actief ? '#fff' : 'var(--tekst-zacht)';
-    btn.style.borderColor = actief ? 'var(--blauw)' : 'var(--rand)';
+    btn.style.borderColor = actief ? 'var(--deep-forest)' : 'var(--rand)';
+  });
+}
+
+function updateLeaderboardPodium(rijen) {
+  [1, 2, 3].forEach(rang => {
+    const rij = rijen[rang - 1];
+    const naamEl = document.getElementById(`lb-podium-naam-${rang}`);
+    const scoreEl = document.getElementById(`lb-podium-score-${rang}`);
+    if (naamEl) naamEl.textContent = rij ? rij.naam : '—';
+    if (scoreEl) scoreEl.textContent = rij ? `${Number(rij.punten || 0)} punten` : '0 punten';
   });
 }
 
@@ -1856,7 +2041,7 @@ async function renderLeaderboard() {
   const toegelatenNamen = getDropdownNamen();
   let rijen = [];
   if (!container) return;
-  container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Leaderboard laden…</p>';
+  container.innerHTML = '<p style="text-align:center;padding:2rem;color:var(--tekst-zacht);font-family:var(--fo);font-size:13px;">Leaderboard laden…</p>';
 
   try {
     const data = await jsonpFetch('getLeaderboard', { periode: leaderboardPeriode });
@@ -1871,29 +2056,32 @@ async function renderLeaderboard() {
   }
 
   if (!rijen.length) {
-    container.innerHTML = '<p style="text-align:center;padding:2rem;color:#888;font-family:var(--fo);font-size:14px;">Geen namen gevonden in het dropdownmenu.</p>';
+    updateLeaderboardPodium([]);
+    container.innerHTML = '<p style="text-align:center;padding:2rem;color:var(--tekst-zacht);font-family:var(--fo);font-size:13px;">Geen namen gevonden in het dropdownmenu.</p>';
     return;
   }
 
   const key = leaderboardPeriode;
-  const titelPeriode = leaderboardPeriode === 'week' ? 'deze week' : leaderboardPeriode === 'maand' ? 'deze maand' : 'totaal';
   rijen = rijen.map(r => ({ ...r, punten: Number(r[key] ?? r.punten ?? 0) }))
     .sort((a, b) => (b.punten - a.punten) || String(a.naam).localeCompare(String(b.naam), 'nl'));
 
+  updateLeaderboardPodium(rijen);
+
   container.innerHTML = rijen.map((r, i) => {
     const isIk = naam && r.naam === naam;
-    const datum = r.laatsteDatum ? new Date(r.laatsteDatum).toLocaleDateString('nl-BE') : 'nog geen poging';
+    const pogingen = Number(r.pogingen || 0);
+    const streak = Number(r.besteStreak || 0);
     return `
-      <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rand);background:${isIk?'rgba(101,179,46,.08)':i===0?'rgba(245,158,11,.07)':'transparent'};">
-        <span class="lb-rank${i < 3 ? ' lb-rank-top' : ''}" aria-label="Plaats ${i + 1}">${i + 1}</span>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:var(--fv);font-size:15px;color:var(--blauw);">${esc(r.naam)}${isIk ? ' <span style="font-size:11px;color:#f59e0b;">jij</span>' : ''}</div>
-          <div style="font-family:var(--fo);font-size:11px;color:#888;">${Number(r.pogingen || 0)} poging${Number(r.pogingen || 0)===1?'':'en'} · laatste: ${datum} · <span class="material-symbols-rounded icon-sm" aria-hidden="true">local_fire_department</span> ${Number(r.besteStreak || 0)}</div>
+      <div class="lb-row${isIk ? ' is-me' : ''}">
+        <span class="lb-row-rank" aria-label="Plaats ${i + 1}">${i + 1}</span>
+        <div class="lb-row-main">
+          <div class="lb-row-name">
+            <span class="lb-row-name-text">${esc(r.naam)}</span>
+            ${isIk ? '<span class="lb-row-you">jij</span>' : ''}
+          </div>
+          <div class="lb-row-meta">${pogingen} poging${pogingen === 1 ? '' : 'en'} · beste reeks: ${streak}</div>
         </div>
-        <div style="text-align:right;flex-shrink:0;">
-          <div style="font-family:var(--fv);font-size:22px;color:var(--deep-forest);">${Number(r.punten || 0)}</div>
-          <div style="font-size:11px;color:#888;">punten ${titelPeriode}</div>
-        </div>
+        <span class="lb-score-bubble lb-tone-${i % 4}" aria-label="${Number(r.punten || 0)} punten">${Number(r.punten || 0)}</span>
       </div>`;
   }).join('');
 }
