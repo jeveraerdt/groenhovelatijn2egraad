@@ -1,302 +1,217 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Latijn — 4de jaar</title>
+<meta charset="UTF-8">
+<title>Latijn 4de jaar</title>
+<style>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  /* Lokale fonts — pas bestandsnaam/pad aan indien anders in repo.
+     Pad hier: 4dejaar/latijn-4de.html -> root fonts/ is one level up (../fonts/) */
+  @font-face {
+    font-family: 'Flanders Art Sans Bold';
+    src: url('../fonts/FLANDERSARTSANS-BOLD.OTF') format('opentype');
+    font-weight: 700;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Noto Sans';
+    src: url('../fonts/NotoSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Noto Sans';
+    src: url('../fonts/NotoSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+  }
 
-  <style>
-    @font-face {
-      font-family: 'Flanders Art Sans';
-      src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.woff2') format('woff2'),
-           url('../fonts/flanders-art-sans/FlandersArtSans-Bold.woff') format('woff');
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
+  :root{
+    --deep-forest:#006633;   /* 3de jaar primair */
+    --vital-green:#65b32e;   /* 4de jaar primair / 3de jaar accent */
+    --white:#f3f1ef;
+    --black:#010100;
+    --bg-tint:#e0efd5;       /* Vital Green @ 20% op wit: basis*0.2 + wit*0.8 */
+    --accent-red:#FF3B1D;
+    --hover-yellow:#ffea3d;
+    --rule-grey:#d8d5cd;
+    --body-grey:#5f5e5a;
+  }
 
-    :root {
-      --deep-forest: #006633;
-      --vital-green: #65b32e;
-      --accent: #FF3B1D;
+  *{box-sizing:border-box;}
+  html{overflow-x:hidden;}
+  body{
+    margin:0;
+    font-family:'Noto Sans', Arial, sans-serif;
+    font-size:13px;
+    color:var(--black);
+    background:var(--white);
+  }
+  h1,h2,h3,.numeral{
+    font-family:'Flanders Art Sans Bold', Arial Black, sans-serif;
+    font-weight:700;
+  }
 
-      --fv: 'Flanders Art Sans', sans-serif;
-      --fo: 'Noto Sans', sans-serif;
+  /* Merklint — placeholder, vervang door bestaande component bij integratie */
+  .ribbon{
+    background:var(--deep-forest);
+    padding:14px 32px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .ribbon img{height:26px;display:block;}
+  .ribbon span{
+    color:var(--white);
+    font-size:14px;
+    letter-spacing:2px;
+    font-family:'Flanders Art Sans Bold', sans-serif;
+  }
+  .toolbar{
+    background:var(--white);
+    padding:10px 32px;
+    font-size:13px;
+  }
+  .toolbar a{color:var(--black);text-decoration:none;}
 
-      --achtergrond: #e0efd5;
-      --kaart: #fcfcfb;
-      --rand: #d4e8db;
-      --tekst: #010100;
-      --tekst-zacht: #6b7280;
+  /* Hero */
+  .hero{
+    background:var(--bg-tint);
+    padding:52px 40px 44px;
+    position:relative;
+    overflow:hidden;
+  }
+  .lyre{
+    position:absolute;
+    top:10px;
+    right:40px;
+    opacity:0.35;
+  }
+  .lyre path, .lyre line{
+    stroke:var(--vital-green);
+    stroke-width:3;
+    stroke-linecap:round;
+    fill:none;
+  }
+  .lyre rect{ fill:var(--vital-green); stroke:none; }
 
-      --radius: 12px;
-      --radius-sm: 8px;
-    }
+  .hero h1{
+    margin:0;
+    font-size:42px;
+    color:var(--vital-green);
+    letter-spacing:0.5px;
+  }
+  .hero .subtitle{
+    margin:10px 0 0;
+    font-family:'Noto Sans', Arial, sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--black);
+  }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  /* Content grid */
+  .content{
+    padding:28px 40px 8px;
+  }
+  .rule{
+    height:2px;
+    background:var(--vital-green);
+    margin-bottom:24px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+  }
+  .col{
+    padding:0 28px;
+  }
+  .col:first-child{padding-left:0;}
+  .col:not(:last-child){border-right:0.5px solid var(--rule-grey);}
+  .numeral{
+    font-size:26px;
+    color:var(--vital-green);
+    display:block;
+  }
+  .col h3{
+    margin:12px 0 8px;
+    font-size:17px;
+    color:var(--black);
+  }
+  .col p{
+    margin:0 0 14px;
+    font-size:13px;
+    color:var(--body-grey);
+    line-height:1.55;
+  }
+  .col a{
+    font-family:'Noto Sans', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--accent-red);
+    text-decoration:none;
+    transition:background .15s;
+  }
+  .col a:hover{ background:var(--hover-yellow); }
 
-    body {
-      font-family: var(--fo);
-      background: var(--achtergrond);
-      color: var(--tekst);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .hero {
-      width: 100%;
-      position: relative;
-      flex-shrink: 0;
-      background: transparent;
-    }
-
-    .hero-inhoud {
-      position: relative;
-      z-index: 1;
-      padding: 3.5rem 2rem 3rem;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-family: var(--fv);
-      font-size: 38px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1.2;
-      margin-bottom: 5px;
-    }
-
-    .hero h1 .latijn {
-      color: var(--vital-green);
-    }
-
-    .hero h1 .jaar {
-      color: rgba(101, 179, 46, 0.6);
-    }
-
-    .hero .ondertitel {
-      font-size: 13px;
-      color: var(--tekst-zacht);
-      font-family: var(--fo);
-      letter-spacing: 0.3px;
-    }
-
-    .school-logo {
-      width: 44px;
-      height: auto;
-      margin-top: 10px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .terug-wrap {
-      padding: 1.25rem 2rem 0;
-      max-width: 1100px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .terug-link {
-      font-size: 12px;
-      color: var(--tekst-zacht);
-      text-decoration: none;
-      font-family: var(--fo);
-      transition: color 0.15s ease;
-    }
-
-    .terug-link:hover {
-      color: var(--deep-forest);
-    }
-
-    .nav-wrap {
-      flex: 1;
-      padding: 1.5rem 2rem 3rem;
-      max-width: 1100px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .nav-tegel {
-      background: var(--kaart);
-      border: 0.5px solid var(--rand);
-      border-radius: var(--radius);
-      padding: 2rem 1.5rem;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    }
-
-    .nav-tegel:hover {
-      border-color: var(--deep-forest);
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0, 102, 51, 0.12);
-    }
-
-    .nav-tegel-icoon {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .nav-tegel-icoon svg {
-      width: 26px;
-      height: 26px;
-    }
-
-    .icoon-groen {
-      background: #dff0e6;
-      color: var(--vital-green);
-    }
-
-    .icoon-accent {
-      background: #e0f5eb;
-      color: #0d7946;
-    }
-
-    .icoon-blauw {
-      background: #e6f0fb;
-      color: #13427f;
-    }
-
-    .nav-tegel-naam {
-      font-family: var(--fv);
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--vital-green);
-    }
-
-    .nav-tegel-omschrijving {
-      font-family: var(--fo);
-      font-size: 13px;
-      color: var(--tekst-zacht);
-      line-height: 1.6;
-    }
-
-    .nav-tegel-pijl {
-      margin-top: auto;
-      font-size: 20px;
-      color: var(--accent);
-      font-weight: 500;
-      transition: transform 0.15s ease;
-    }
-
-    .nav-tegel:hover .nav-tegel-pijl {
-      transform: translateX(4px);
-    }
-
-    .voet {
-      text-align: center;
-      padding: 1.5rem;
-      font-family: var(--fo);
-      font-size: 12px;
-      color: var(--tekst-zacht);
-    }
-
-    @media (max-width: 640px) {
-      .hero-inhoud {
-        padding: 3rem 1.25rem 2.5rem;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .nav-wrap,
-      .terug-wrap {
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-      }
-
-      .nav-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:#888780;
+    padding:24px;
+  }
+</style>
 </head>
 <body>
 
+  <div class="ribbon">
+    <img src="../images/nav/logo_mono_wit.png" alt="Groenhove logo">
+    <span>S.O. GROENHOVE — LATIJN</span>
+  </div>
+  <div class="toolbar">
+    <a href="../index.html">&larr; terug naar home</a>
+  </div>
+
   <div class="hero">
-    <div class="hero-inhoud">
-      <h1><span class="latijn">Latijn</span> <span class="jaar">4de jaar</span></h1>
-      <p class="ondertitel">S.O. Groenhove campus Atheneum</p>
-      <img class="school-logo" src="../images/nav/logo.svg" alt="Groenhove">
+    <svg class="lyre" width="170" height="190" viewBox="0 0 180 200">
+      <path class="draw" d="M40 180 L40 60 Q40 20 90 20 Q140 20 140 60 L140 180"/>
+      <path class="draw" d="M40 180 Q40 160 55 160 Q70 160 70 180"/>
+      <path class="draw" d="M150 180 Q150 160 135 160 Q120 160 120 180" transform="translate(-10,0)"/>
+      <line class="draw" x1="55" y1="70" x2="55" y2="175"/>
+      <line class="draw" x1="75" y1="55" x2="75" y2="175"/>
+      <line class="draw" x1="95" y1="45" x2="95" y2="175"/>
+      <line class="draw" x1="115" y1="55" x2="115" y2="175"/>
+      <line class="draw" x1="135" y1="70" x2="135" y2="175"/>
+      <rect x="30" y="178" width="120" height="10" rx="2"/>
+    </svg>
+    <h1>Latijn vierde jaar</h1>
+    <p class="subtitle">S.O. Groenhove campus Atheneum Waregem</p>
+  </div>
+
+  <div class="content">
+    <div class="rule"></div>
+    <div class="grid">
+      <div class="col">
+        <span class="numeral">I</span>
+        <h3>Thema's</h3>
+        <p>Thematische aanpak van grammatica en cultuur.</p>
+        <a href="themas.html">bekijken &rarr;</a>
+      </div>
+      <div class="col">
+        <span class="numeral">II</span>
+        <h3>Taalfiches</h3>
+        <p>Overzichtelijke samenvattingen per onderwerp.</p>
+        <a href="taalfiches-4de.html">bekijken &rarr;</a>
+      </div>
+      <div class="col">
+        <span class="numeral">III</span>
+        <h3>Oefeningen</h3>
+        <p>Interactieve oefeningen, voortgang bijgehouden.</p>
+        <a href="oefeningen/oefeningen-4de.html">bekijken &rarr;</a>
+      </div>
     </div>
   </div>
 
-  <div class="terug-wrap">
-    <a class="terug-link" href="../index.html">&#8592; Terug naar home</a>
-  </div>
-
-  <div class="nav-wrap">
-    <div class="nav-grid">
-
-      <a class="nav-tegel" href="themas.html">
-        <div class="nav-tegel-icoon icoon-groen">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-        </div>
-        <div class="nav-tegel-naam">Thema's</div>
-        <div class="nav-tegel-omschrijving">Thematische aanpak van Latijnse grammatica en cultuur.</div>
-        <div class="nav-tegel-pijl">›</div>
-      </a>
-
-      <a class="nav-tegel" href="taalfiches-4de.html">
-        <div class="nav-tegel-icoon icoon-accent">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="12" y1="13" x2="8" y2="13"></line>
-            <line x1="12" y1="17" x2="8" y2="17"></line>
-            <line x1="10" y1="9" x2="8" y2="9"></line>
-          </svg>
-        </div>
-        <div class="nav-tegel-naam">Taalfiches</div>
-        <div class="nav-tegel-omschrijving">Overzichtelijke samenvattingen van grammaticaonderwerpen.</div>
-        <div class="nav-tegel-pijl">›</div>
-      </a>
-
-      <a class="nav-tegel" href="oefeningen/oefeningen-4de.html">
-        <div class="nav-tegel-icoon icoon-blauw">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 11 12 14 22 4"></polyline>
-            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-          </svg>
-        </div>
-        <div class="nav-tegel-naam">Oefeningen</div>
-        <div class="nav-tegel-omschrijving">Interactieve oefeningen per onderwerp. Voortgang wordt bijgehouden.</div>
-        <div class="nav-tegel-pijl">›</div>
-      </a>
-
-    </div>
-  </div>
-
-  <p class="voet">J. Everaerdt — S.O. Groenhove campus Atheneum</p>
+  <footer>J. Everaerdt — S.O. Groenhove campus Atheneum Waregem</footer>
 
 </body>
 </html>
