@@ -2,214 +2,266 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Latijn 4de jaar</title>
 <style>
-
-  /* Lokale fonts — pas bestandsnaam/pad aan indien anders in repo.
-     Pad hier: 4dejaar/latijn-4de.html -> root fonts/ is one level up (../fonts/) */
+  /* Lokale huisstijlfonts. Bestand staat in 4dejaar/index.html. */
   @font-face {
-    font-family: 'Flanders Art Sans Bold';
-    src: url('../fonts/FLANDERSARTSANS-BOLD.OTF') format('opentype');
+    font-family: 'Flanders Art Sans';
+    src: url('../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
     font-weight: 700;
+    font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'Noto Sans';
-    src: url('../fonts/NotoSans-Regular.woff2') format('woff2');
+    src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
     font-weight: 400;
+    font-style: normal;
     font-display: swap;
   }
   @font-face {
     font-family: 'Noto Sans';
-    src: url('../fonts/NotoSans-Bold.woff2') format('woff2');
+    src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
+    font-style: normal;
     font-display: swap;
   }
 
-  :root{
-    --deep-forest:#006633;   /* 3de jaar primair */
-    --vital-green:#65b32e;   /* 4de jaar primair / 3de jaar accent */
-    --white:#f3f1ef;
-    --black:#010100;
-    --bg-tint:#e0efd5;       /* Vital Green @ 20% op wit: basis*0.2 + wit*0.8 */
-    --accent-red:#FF3B1D;
-    --hover-yellow:#ffea3d;
-    --rule-grey:#d8d5cd;
-    --body-grey:#5f5e5a;
+  :root {
+    --vital-green: #65b32e;
+    --deep-forest: #006633;
+    --balanced-yellow: #ffea3d;
+    --achtergrond: #f7f8fa;
+    --kaart: #f3f1ef;
+    --tekst: #010100;
+    --tekst-zacht: #4a6a3a;
+    --accent-red: #FF3B1D;
+    --rand: #d8dce2;
   }
 
-  *{box-sizing:border-box;}
-  html{overflow-x:hidden;}
-  body{
-    margin:0;
-    font-family:'Noto Sans', Arial, sans-serif;
-    font-size:13px;
-    color:var(--black);
-    background:var(--white);
-  }
-  h1,h2,h3,.numeral{
-    font-family:'Flanders Art Sans Bold', Arial Black, sans-serif;
-    font-weight:700;
+  * { box-sizing: border-box; }
+  html { overflow-x: hidden; }
+  body {
+    margin: 0;
+    background: var(--achtergrond);
+    color: var(--tekst);
+    font-family: 'Noto Sans', Arial, sans-serif;
+    font-size: 13px;
   }
 
-  /* Merklint — placeholder, vervang door bestaande component bij integratie */
-  .ribbon{
-    background:var(--deep-forest);
-    padding:14px 32px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-  .ribbon img{height:26px;display:block;}
-  .ribbon span{
-    color:var(--white);
-    font-size:14px;
-    letter-spacing:2px;
-    font-family:'Flanders Art Sans Bold', sans-serif;
-  }
-  .toolbar{
-    background:var(--white);
-    padding:10px 32px;
-    font-size:13px;
-  }
-  .toolbar a{color:var(--black);text-decoration:none;}
-
-  /* Hero */
-  .hero{
-    background:var(--bg-tint);
-    padding:52px 40px 44px;
-    position:relative;
-    overflow:hidden;
-  }
-  .lyre{
-    position:absolute;
-    top:10px;
-    right:40px;
-    opacity:0.35;
-  }
-  .lyre path, .lyre line{
-    stroke:var(--vital-green);
-    stroke-width:3;
-    stroke-linecap:round;
-    fill:none;
-  }
-  .lyre rect{ fill:var(--vital-green); stroke:none; }
-
-  .hero h1{
-    margin:0;
-    font-size:42px;
-    color:var(--vital-green);
-    letter-spacing:0.5px;
-  }
-  .hero .subtitle{
-    margin:10px 0 0;
-    font-family:'Noto Sans', Arial, sans-serif;
-    font-weight:700;
-    font-size:14px;
-    color:var(--black);
+  /* Alleen titels: Flanders Art Sans Bold. Alle lees- en navigatietekst: Noto Sans. */
+  h1, h2, h3, .numeral, .ribbon-title {
+    font-family: 'Flanders Art Sans', 'Arial Black', Arial, sans-serif;
+    font-weight: 700;
   }
 
-  /* Content grid */
-  .content{
-    padding:28px 40px 8px;
+  /* Merklint 4DS: Vital Green met Balanced Yellow streep. */
+  .ribbon {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .85rem 1.5rem;
+    background: var(--vital-green);
+    border-bottom: 3px solid var(--balanced-yellow);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
   }
-  .rule{
-    height:2px;
-    background:var(--vital-green);
-    margin-bottom:24px;
+  .ribbon img { height: 30px; width: auto; display: block; flex-shrink: 0; }
+  .ribbon-title { font-size: 1.05rem; color: #fff; }
+  .ribbon-sub {
+    margin-left: auto;
+    color: #fff;
+    font-family: 'Noto Sans', Arial, sans-serif;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .88;
+    white-space: nowrap;
   }
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-  }
-  .col{
-    padding:0 28px;
-  }
-  .col:first-child{padding-left:0;}
-  .col:not(:last-child){border-right:0.5px solid var(--rule-grey);}
-  .numeral{
-    font-size:26px;
-    color:var(--vital-green);
-    display:block;
-  }
-  .col h3{
-    margin:12px 0 8px;
-    font-size:17px;
-    color:var(--black);
-  }
-  .col p{
-    margin:0 0 14px;
-    font-size:13px;
-    color:var(--body-grey);
-    line-height:1.55;
-  }
-  .col a{
-    font-family:'Noto Sans', sans-serif;
-    font-weight:700;
-    font-size:13px;
-    color:var(--accent-red);
-    text-decoration:none;
-    transition:background .15s;
-  }
-  .col a:hover{ background:var(--hover-yellow); }
 
-  footer{
-    text-align:center;
-    font-size:12px;
-    color:#888780;
-    padding:24px;
+  .toolbar {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: .5rem 1.5rem;
+    border-bottom: 1px solid var(--rand);
+    background: var(--achtergrond);
+  }
+  .toolbar a {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .3rem .78rem;
+    border: 1px solid var(--rand);
+    border-radius: 20px;
+    color: var(--tekst);
+    font-family: 'Noto Sans', Arial, sans-serif;
+    font-size: .82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .toolbar a:hover {
+    background: var(--balanced-yellow);
+    border-color: var(--balanced-yellow);
+    color: var(--deep-forest);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 440px);
+    align-items: center;
+    gap: 2rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 3.15rem 2.5rem 2.6rem;
+    background: var(--achtergrond);
+    overflow: hidden;
+  }
+  .hero-copy { min-width: 0; }
+  .hero h1 {
+    margin: 0;
+    color: var(--deep-forest);
+    font-size: clamp(2.3rem, 5vw, 3.45rem);
+    line-height: 1;
+    letter-spacing: -.035em;
+  }
+  .hero .subtitle {
+    max-width: 38rem;
+    margin: .8rem 0 0;
+    color: var(--tekst-zacht);
+    font-family: 'Noto Sans', Arial, sans-serif;
+    font-size: .96rem;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .hero-media {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    min-height: 210px;
+  }
+  .hero-media img {
+    display: block;
+    width: min(100%, 400px);
+    max-height: 270px;
+    object-fit: contain;
+    object-position: right bottom;
+  }
+
+  .content {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 2.5rem 1rem;
+  }
+  .rule {
+    height: 2px;
+    margin-bottom: 1.65rem;
+    background: var(--vital-green);
+  }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .col { padding: 0 2rem; }
+  .col:first-child { padding-left: 0; }
+  .col:last-child { padding-right: 0; }
+  .col:not(:last-child) { border-right: 1px solid var(--rand); }
+  .numeral {
+    display: block;
+    color: var(--vital-green);
+    font-size: 1.65rem;
+    line-height: 1;
+  }
+  .col h3 {
+    margin: .8rem 0 .45rem;
+    color: var(--deep-forest);
+    font-size: 1.12rem;
+    line-height: 1.15;
+  }
+  .col p {
+    margin: 0 0 1rem;
+    color: var(--tekst-zacht);
+    font-family: 'Noto Sans', Arial, sans-serif;
+    font-size: .85rem;
+    line-height: 1.55;
+  }
+  .col a {
+    color: var(--accent-red);
+    font-family: 'Noto Sans', Arial, sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .col a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+  footer {
+    padding: 2rem 1.5rem;
+    color: #718078;
+    font-family: 'Noto Sans', Arial, sans-serif;
+    font-size: .75rem;
+    text-align: center;
+  }
+
+  @media (max-width: 760px) {
+    .ribbon, .toolbar { padding-left: 1rem; padding-right: 1rem; }
+    .ribbon-sub { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 1.15rem; padding: 2.3rem 1.25rem 1.75rem; }
+    .hero-media { min-height: 0; justify-content: flex-start; }
+    .hero-media img { width: min(100%, 320px); max-height: 220px; }
+    .content { padding: 0 1.25rem; }
+    .grid { grid-template-columns: 1fr; }
+    .col, .col:first-child, .col:last-child { padding: 1.25rem 0; }
+    .col:not(:last-child) { border-right: 0; border-bottom: 1px solid var(--rand); }
   }
 </style>
 </head>
 <body>
 
-  <div class="ribbon">
-    <img src="../images/nav/logo_mono_wit.png" alt="Groenhove logo">
-    <span>S.O. GROENHOVE — LATIJN</span>
-  </div>
-  <div class="toolbar">
-    <a href="../index.html">&larr; terug naar home</a>
-  </div>
+  <header class="ribbon">
+    <img src="../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="ribbon-title">Latijn 4DS</span>
+    <span class="ribbon-sub">S.O. Groenhove Waregem</span>
+  </header>
 
-  <div class="hero">
-    <svg class="lyre" width="170" height="190" viewBox="0 0 180 200">
-      <path class="draw" d="M40 180 L40 60 Q40 20 90 20 Q140 20 140 60 L140 180"/>
-      <path class="draw" d="M40 180 Q40 160 55 160 Q70 160 70 180"/>
-      <path class="draw" d="M150 180 Q150 160 135 160 Q120 160 120 180" transform="translate(-10,0)"/>
-      <line class="draw" x1="55" y1="70" x2="55" y2="175"/>
-      <line class="draw" x1="75" y1="55" x2="75" y2="175"/>
-      <line class="draw" x1="95" y1="45" x2="95" y2="175"/>
-      <line class="draw" x1="115" y1="55" x2="115" y2="175"/>
-      <line class="draw" x1="135" y1="70" x2="135" y2="175"/>
-      <rect x="30" y="178" width="120" height="10" rx="2"/>
-    </svg>
-    <h1>Latijn vierde jaar</h1>
-    <p class="subtitle">S.O. Groenhove campus Atheneum Waregem</p>
-  </div>
+  <nav class="toolbar" aria-label="Paginanavigatie">
+    <a href="../index.html">← Terug naar home</a>
+  </nav>
 
-  <div class="content">
-    <div class="rule"></div>
-    <div class="grid">
-      <div class="col">
-        <span class="numeral">I</span>
-        <h3>Thema's</h3>
-        <p>Thematische aanpak van grammatica en cultuur.</p>
-        <a href="themas.html">bekijken &rarr;</a>
+  <main>
+    <section class="hero" aria-labelledby="pagina-titel">
+      <div class="hero-copy">
+        <h1 id="pagina-titel">Latijn vierde jaar</h1>
+        <p class="subtitle">S.O. Groenhove campus Atheneum Waregem</p>
       </div>
-      <div class="col">
-        <span class="numeral">II</span>
-        <h3>Taalfiches</h3>
-        <p>Overzichtelijke samenvattingen per onderwerp.</p>
-        <a href="taalfiches-4de.html">bekijken &rarr;</a>
+      <div class="hero-media">
+        <img src="images/hero/indexhero4ds.png" alt="Illustratie voor Latijn vierde jaar">
       </div>
-      <div class="col">
-        <span class="numeral">III</span>
-        <h3>Oefeningen</h3>
-        <p>Interactieve oefeningen, voortgang bijgehouden.</p>
-        <a href="oefeningen/oefeningen-4de.html">bekijken &rarr;</a>
+    </section>
+
+    <section class="content" aria-label="Overzicht">
+      <div class="rule"></div>
+      <div class="grid">
+        <article class="col">
+          <span class="numeral">I</span>
+          <h3>Thema's</h3>
+          <p>Thematische aanpak van grammatica en cultuur.</p>
+          <a href="themas.html">bekijken →</a>
+        </article>
+        <article class="col">
+          <span class="numeral">II</span>
+          <h3>Taalfiches</h3>
+          <p>Overzichtelijke samenvattingen per onderwerp.</p>
+          <a href="taalfiches-4de.html">bekijken →</a>
+        </article>
+        <article class="col">
+          <span class="numeral">III</span>
+          <h3>Oefeningen</h3>
+          <p>Interactieve oefeningen, voortgang bijgehouden.</p>
+          <a href="oefeningen/oefeningen-4de.html">bekijken →</a>
+        </article>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <footer>J. Everaerdt — S.O. Groenhove campus Atheneum Waregem</footer>
 
