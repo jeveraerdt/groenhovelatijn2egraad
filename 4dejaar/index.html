@@ -47,6 +47,7 @@
     --radius-lg: 22px;
     --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
     --fo: 'NotoSans', Arial, sans-serif;
+    --container-pad: clamp(1rem, 3vw, 2rem);
   }
 
   * { box-sizing: border-box; }
@@ -120,9 +121,10 @@
   }
 
   .utility-row {
-    width: min(1180px, calc(100% - 3rem));
-    margin: 0 auto;
-    padding: 1rem 0 .15rem;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0;
+    padding: 1rem var(--container-pad) .15rem;
   }
   .back-link {
     display: inline-flex;
@@ -142,16 +144,35 @@
 
   main { overflow: hidden; }
   .hero {
-    width: min(1180px, calc(100% - 3rem));
+    width: 100%;
+    max-width: 1180px;
     min-height: 390px;
-    margin: 0 auto;
-    padding: clamp(2.1rem, 5.1vw, 4.6rem) clamp(.15rem, 2vw, 1.5rem) clamp(2.7rem, 5.2vw, 4rem);
+    margin: 0;
+    padding: clamp(2.1rem, 5.1vw, 4.6rem) var(--container-pad) clamp(2.7rem, 5.2vw, 4rem);
     display: grid;
     grid-template-columns: minmax(0, .92fr) minmax(340px, .88fr);
     align-items: center;
     gap: clamp(2rem, 5vw, 5.5rem);
   }
   .hero-copy { position: relative; z-index: 1; }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0 0 .6rem;
+    color: var(--deep-forest);
+    font-family: var(--fv);
+    font-size: .85rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .kicker::before {
+    content: '';
+    width: 22px;
+    height: 3px;
+    background: var(--balanced-yellow);
+    border-radius: 2px;
+  }
   .hero h1 {
     max-width: 11ch;
     margin: 0;
@@ -160,7 +181,6 @@
     line-height: .92;
     letter-spacing: -.055em;
   }
-  .hero h1 span { display: block; }
   .hero-intro {
     max-width: 33rem;
     margin: 1.75rem 0 0;
@@ -196,18 +216,19 @@
   }
 
   .navigation-section {
-    width: min(1100px, calc(100% - 3rem));
-    margin: 0 auto;
-    padding: 1rem 0 3.2rem;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0;
+    padding: 1rem var(--container-pad) 3.2rem;
   }
   .navigation-heading {
-    margin: 0 0 1.35rem;
-    color: var(--vital-green);
+    margin: 0 0 1.1rem;
+    color: var(--deep-forest);
     font-family: var(--fv);
-    font-size: clamp(1.75rem, 3vw, 2.55rem);
-    letter-spacing: -.04em;
+    font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+    letter-spacing: -.02em;
     line-height: 1;
-    text-align: center;
+    text-align: left;
   }
   .navigation-grid {
     display: grid;
@@ -224,10 +245,10 @@
     box-shadow: 0 5px 14px rgba(0, 52, 25, .035);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: .68rem;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
   }
@@ -318,7 +339,7 @@
     .hero-media { min-height: 240px; justify-content: flex-start; }
     .hero-media img { width: min(100%, 375px); }
     .hero-media::before { width: 280px; height: 280px; }
-    .navigation-grid { grid-template-columns: 1fr; max-width: 510px; margin: 0 auto; }
+    .navigation-grid { grid-template-columns: 1fr; }
     .nav-card { min-height: 225px; }
   }
   @media (max-width: 600px) {
@@ -327,9 +348,8 @@
     .site-sub { display: none; }
     .utility-row,
     .hero,
-    .navigation-section { width: min(100% - 2rem, 1180px); }
+    .navigation-section { padding-left: 1rem; padding-right: 1rem; }
     .utility-row { padding-top: .85rem; }
-    .hero { padding-inline: 0; }
     .hero h1 { font-size: clamp(3rem, 17vw, 4.6rem); }
     .hero-intro { margin-top: 1.3rem; }
     .hero-media { min-height: 205px; }
@@ -355,7 +375,8 @@
 
     <section class="hero" aria-labelledby="pagina-titel">
       <div class="hero-copy">
-        <h1 id="pagina-titel"><span>Latijn</span><span>4de jaar</span></h1>
+        <p class="kicker">4de jaar</p>
+        <h1 id="pagina-titel">Latijn</h1>
         <p class="hero-intro">Je start hier met de thema’s, taalfiches en oefeningen voor Latijn in het vierde jaar.</p>
       </div>
       <div class="hero-media">
