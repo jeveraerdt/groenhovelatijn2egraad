@@ -35,6 +35,7 @@
     --vital-green: #65b32e;
     --deep-forest: #006633;
     --balanced-yellow: #ffea3d;
+    --waregem-red-pulse: #FF3B1D;
     --cool-background: #f7f8fa;
     --card: #f3f1ef;
     --white: #ffffff;
@@ -86,30 +87,55 @@
     font-variation-settings: 'FILL' 0, 'wght' 520, 'GRAD' 0, 'opsz' 24;
   }
 
-  /* 4DS-merklint: Vital Green met Balanced Yellow streep. */
+  /* 4DS-merklint: Vital Green balk, centraal logo, halve streep Balanced Yellow + halve streep Deep Forest. */
   .site-header {
-    display: flex;
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    gap: 1rem;
-    min-height: 64px;
-    padding: .85rem clamp(1rem, 3vw, 2rem);
+    min-height: 86px;
+    padding: 0 clamp(1.1rem, 3vw, 2.25rem);
     background: var(--vital-green);
-    border-bottom: 4px solid var(--balanced-yellow);
+    border-bottom: 0;
     color: var(--white);
+    isolation: isolate;
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+      to right,
+      var(--balanced-yellow) 0 50%,
+      var(--deep-forest) 50% 100%
+    );
   }
   .site-header .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
     width: auto;
-    height: 31px;
+    height: 44px;
     display: block;
-    flex: 0 0 auto;
+    transform: translate(-50%, -50%);
+    z-index: 1;
   }
   .site-title {
+    grid-column: 1;
+    justify-self: start;
     color: var(--white);
-    font-size: 1.16rem;
-    letter-spacing: -.02em;
+    font-size: .98rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
   .site-sub {
-    margin-left: auto;
+    grid-column: 3;
+    justify-self: end;
+    margin-left: 0;
     color: var(--white);
     font-family: var(--fo);
     font-size: .72rem;
@@ -320,10 +346,10 @@
   .nav-card--vital:hover .nav-icon { background: rgba(255,255,255,.45); color: var(--deep-forest); }
   .nav-card--vital:hover p { color: rgba(0,102,51,.9); }
 
-  .nav-card--yellow:hover { background: var(--balanced-yellow); border-color: var(--balanced-yellow); color: var(--ink); }
+  .nav-card--yellow:hover { background: var(--balanced-yellow); border-color: var(--balanced-yellow); color: var(--waregem-red-pulse); }
   .nav-card--yellow:hover .nav-number,
-  .nav-card--yellow:hover .nav-icon { background: rgba(255,255,255,.64); color: var(--ink); }
-  .nav-card--yellow:hover p { color: rgba(1,1,0,.76); }
+  .nav-card--yellow:hover .nav-icon { background: rgba(255,255,255,.64); color: var(--waregem-red-pulse); }
+  .nav-card--yellow:hover p { color: var(--waregem-red-pulse); }
 
   footer {
     padding: 1.2rem 1.5rem 2.2rem;
@@ -343,8 +369,9 @@
     .nav-card { min-height: 225px; }
   }
   @media (max-width: 600px) {
-    .site-header { min-height: 58px; padding-inline: 1rem; }
-    .site-header .logo { height: 27px; }
+    .site-header { min-height: 72px; padding-inline: 1rem; }
+    .site-header .logo { height: 38px; }
+    .site-title { font-size: .78rem; letter-spacing: .06em; }
     .site-sub { display: none; }
     .utility-row,
     .hero,
