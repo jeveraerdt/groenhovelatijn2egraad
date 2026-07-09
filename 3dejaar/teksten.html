@@ -3,252 +3,430 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teksten - Thema's — Latijn 3de jaar</title>
+<meta name="color-scheme" content="light">
+<title>Teksten | Latijn 3de jaar | S.O. Groenhove</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/_theme.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..700,0..1,-50..200&display=swap" rel="stylesheet">
 <style>
   @font-face {
-    font-family: 'Flanders Art Sans';
-    src: url('fonts/FlandersArtSans-Bold.otf') format('opentype');
+    font-family: 'FlandersArtSans';
+    src: url('../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
   }
 
   :root {
-    /* Jaarkleur + achtergrond */
-    --jaar-kleur: #006633;            /* Deep Forest — 3de jaar */
-    --accent: #FF3B1D;                /* Waregem Pulse Red */
-    --achtergrond: #cce0d6;           /* Deep Forest @ 20% op wit */
-    --wit: #f3f1ef;
-    --zwart: #010100;
-    --tekst-zacht: #4a6b5a;
-    --rand: #c0d4c8;
-    --radius: 12px;
-
-    --ft: 'Flanders Art Sans', Arial, sans-serif;   /* titels */
-    --fb: 'Noto Sans', Arial, sans-serif;           /* body */
+    --deep-forest: #006633;
+    --vital-green: #65b32e;
+    --balanced-yellow: #ffea3d;
+    --waregem-red-pulse: #FF3B1D;
+    --cool-background: #f7f8fa;
+    --card: #f3f1ef;
+    --white: #ffffff;
+    --ink: #010100;
+    --body: #526052;
+    --muted: #657067;
+    --line: #dbe1e5;
+    --soft-green: #eef6e8;
+    --shadow: 0 14px 30px rgba(0, 42, 21, .07);
+    --radius-xl: 28px;
+    --radius-lg: 22px;
+    --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
+    --fo: 'NotoSans', Arial, sans-serif;
+    --container-pad: clamp(1rem, 3vw, 2rem);
+    --header-pad: clamp(1.1rem, 3vw, 2.25rem);
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { overflow-x: hidden; scroll-behavior: smooth; }
   body {
     margin: 0;
-    font-family: var(--fb);
-    background: var(--achtergrond);
-    color: var(--zwart);
     min-height: 100vh;
+    background: var(--cool-background);
+    color: var(--ink);
+    font-family: var(--fo);
+    font-size: 15px;
+    line-height: 1.5;
     display: flex;
     flex-direction: column;
   }
 
-  /* ══════════════════════════════════ MERKLINT ══════════════════════════════════ */
-  .site-header {
-    background: var(--jaar-kleur);
-    color: var(--wit);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: .85rem 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
-  }
-  .site-header .logo { height: 38px; width: auto; display: block; }
-  .site-header h1 {
-    font-family: var(--ft);
+  h1, h2, h3, .site-title, .thema-titel, .kaart-titel {
+    font-family: var(--fv);
     font-weight: 700;
-    font-size: 1.25rem;
-    margin: 0;
-    letter-spacing: .02em;
-  }
-  .site-header .sub {
-    font-family: var(--fb);
-    font-size: .78rem;
-    font-weight: 400;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    opacity: .85;
-    margin-left: auto;
-  }
-  .site-header .sub .brand {
-    font-family: var(--ft);
-    font-weight: 700;
-    font-size: inherit;
-    color: inherit;
   }
 
-  /* ══════════════════════════════════ TOOLBAR ══════════════════════════════════ */
-  .site-toolbar {
-    background: var(--wit);
-    border-bottom: 1px solid var(--rand);
-    padding: .6rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  .toolbar-left { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
-  .back-btn, .ctrl-btn {
-    font-family: var(--fb);
-    font-size: .85rem;
-    color: var(--zwart);
-    background: transparent;
-    border: 1px solid var(--rand);
-    border-radius: 20px;
-    padding: .35rem .85rem;
-    cursor: pointer;
-    text-decoration: none;
+  .material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
     display: inline-flex;
     align-items: center;
-    gap: .35rem;
-    transition: background .15s, border-color .15s, color .15s;
+    justify-content: center;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 520, 'GRAD' 0, 'opsz' 24;
   }
-  .back-btn:hover, .ctrl-btn:hover {
-    background: #65b32e;              /* Vital Green — hover-accent 3de jaar */
-    color: var(--wit);
-    border-color: #65b32e;
-  }
-  .back-btn svg { width: 14px; height: 14px; }
-  .topbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .4rem; }
 
-  /* ══════════════════════════════════ CONTENT ══════════════════════════════════ */
-  .content-wrap {
-    flex: 1;
-    padding: 2rem 1.5rem 3rem;
-    max-width: 1100px;
+  /* 3de jaar: Deep Forest balk, centraal logo, halve streep Balanced Yellow + halve streep Vital Green. */
+  .site-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    min-height: 86px;
+    padding: 0 var(--header-pad);
+    background: var(--deep-forest);
+    color: var(--white);
+    isolation: isolate;
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+      to right,
+      var(--balanced-yellow) 0 50%,
+      var(--vital-green) 50% 100%
+    );
+  }
+  .site-header .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    height: 64px;
+    display: block;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  .site-title {
+    grid-column: 1;
+    justify-self: start;
+    color: var(--white);
+    font-size: .98rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .site-sub {
+    grid-column: 3;
+    justify-self: end;
+    color: var(--white);
+    font-family: var(--fo);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .085em;
+    text-transform: uppercase;
+    opacity: .92;
+    white-space: nowrap;
+  }
+
+  .site-toolbar {
     width: 100%;
-    margin: 0 auto;
+    margin: 0;
+    padding: 1rem var(--header-pad) .15rem;
+  }
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    flex-wrap: wrap;
+  }
+  .back-btn,
+  .ctrl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .35rem;
+    min-height: 34px;
+    padding: .38rem .88rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: #5e6763;
+    font-family: var(--fo);
+    font-size: .86rem;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
+  }
+  .back-btn .material-symbols-rounded { font-size: 18px; }
+  .back-btn:hover,
+  .ctrl-btn:hover {
+    background: var(--deep-forest);
+    border-color: var(--deep-forest);
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+  .back-btn:focus-visible,
+  .ctrl-btn:focus-visible,
+  .tekst-kaart:focus-visible {
+    outline: 3px solid var(--balanced-yellow);
+    outline-offset: 4px;
+  }
+  .topbar-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--line);
+    margin: 0 .25rem;
   }
 
-  .thema-sectie { margin-bottom: 2.5rem; }
+  main {
+    flex: 1;
+    width: 100%;
+  }
+  .page-intro {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(2.15rem, 4.4vw, 4rem) var(--container-pad) clamp(1.4rem, 2.8vw, 2.2rem);
+  }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0 0 .6rem;
+    color: var(--deep-forest);
+    font-family: var(--fv);
+    font-size: .85rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .kicker::before {
+    content: '';
+    width: 22px;
+    height: 3px;
+    background: var(--balanced-yellow);
+    border-radius: 2px;
+  }
+  .page-intro h1 {
+    max-width: 12ch;
+    margin: 0;
+    color: var(--deep-forest);
+    font-family: var(--fv);
+    font-size: clamp(3.1rem, 6.3vw, 5.6rem);
+    line-height: .92;
+    letter-spacing: -.055em;
+  }
+  .page-intro p {
+    max-width: 42rem;
+    margin: 1.35rem 0 0;
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: clamp(.98rem, 1.25vw, 1.09rem);
+    line-height: 1.65;
+  }
+
+  .content-wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: .75rem var(--container-pad) 3.25rem;
+  }
+
+  .thema-sectie {
+    margin-bottom: clamp(2.1rem, 4vw, 3.1rem);
+  }
   .thema-header {
     display: flex;
     align-items: baseline;
-    gap: .75rem;
+    gap: .7rem;
     margin-bottom: 1rem;
-    padding-bottom: .6rem;
-    border-bottom: 1.5px solid var(--rand);
+    padding-bottom: .7rem;
+    border-bottom: 1px solid var(--line);
   }
   .thema-titel {
-    font-family: var(--ft);
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: .1em;
+    color: var(--deep-forest);
+    font-size: .9rem;
+    letter-spacing: .11em;
+    line-height: 1;
     text-transform: uppercase;
-    color: var(--jaar-kleur);
   }
   .thema-sub {
-    font-family: var(--fb);
-    font-size: 13px;
-    color: var(--tekst-zacht);
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: .92rem;
     font-style: italic;
   }
 
   .tekst-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
+    gap: clamp(.85rem, 1.65vw, 1.25rem);
+    align-items: stretch;
   }
   .tekst-kaart {
-    background: var(--wit);
-    border: 0.5px solid var(--rand);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.1rem 1rem;
-    text-decoration: none;
+    position: relative;
+    min-height: 155px;
+    padding: 1.25rem 1.15rem 1.05rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
     color: inherit;
+    box-shadow: 0 5px 14px rgba(0, 52, 25, .035);
     display: flex;
     flex-direction: column;
-    gap: 7px;
-    transition: border-color .15s, transform .15s, box-shadow .15s;
-    position: relative;
+    gap: .42rem;
     overflow: hidden;
+    text-decoration: none;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  .tekst-kaart::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--deep-forest);
+    opacity: .08;
+    transition: opacity .18s ease, background .18s ease;
   }
   .tekst-kaart:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(101,179,46,.12);
+    transform: translateY(-5px);
+    border-color: rgba(0, 102, 51, .22);
+    box-shadow: var(--shadow);
   }
-  .tekst-kaart.coming-soon { opacity: .55; pointer-events: none; cursor: default; }
+  .tekst-kaart:hover::before {
+    background: var(--vital-green);
+    opacity: 1;
+  }
+  .tekst-kaart.coming-soon {
+    opacity: .56;
+    pointer-events: none;
+    cursor: default;
+  }
   .kaart-meta {
-    font-family: var(--fb);
-    font-size: 10.5px;
+    color: var(--waregem-red-pulse);
+    font-family: var(--fo);
+    font-size: .66rem;
     font-weight: 700;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1px;
   }
   .kaart-titel {
-    font-family: var(--ft);
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--jaar-kleur);
-    line-height: 1.3;
+    color: var(--deep-forest);
+    font-size: 1.05rem;
+    letter-spacing: -.025em;
+    line-height: 1.18;
   }
   .kaart-auteur {
-    font-family: var(--fb);
-    font-size: 12px;
-    color: var(--tekst-zacht);
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: .8rem;
     font-style: italic;
-    line-height: 1.4;
+    line-height: 1.35;
   }
   .kaart-pijl {
     margin-top: auto;
-    font-size: 18px;
-    color: var(--rand);
-    transition: color .15s;
-    padding-top: 2px;
+    color: var(--deep-forest);
+    font-size: 1.35rem;
+    line-height: 1;
+    opacity: .42;
+    transition: color .18s ease, opacity .18s ease, transform .18s ease;
   }
-  .tekst-kaart:hover .kaart-pijl { color: var(--accent); }
+  .tekst-kaart:hover .kaart-pijl {
+    color: var(--waregem-red-pulse);
+    opacity: 1;
+    transform: translateX(4px);
+  }
   .kaart-badge {
     position: absolute;
-    top: .7rem;
-    right: .75rem;
-    font-family: var(--fb);
-    font-size: 9.5px;
+    top: .78rem;
+    right: .78rem;
+    z-index: 1;
+    padding: .22rem .52rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .72);
+    color: #7a8580;
+    font-family: var(--fo);
+    font-size: .6rem;
     font-weight: 700;
     letter-spacing: .07em;
     text-transform: uppercase;
-    background: #e8eeeb;
-    color: #8a9a91;
-    padding: .2rem .5rem;
-    border-radius: 20px;
   }
 
   .voet {
+    padding: 1.2rem 1.5rem 2.2rem;
+    color: #7a8580;
+    font-family: var(--fo);
+    font-size: .76rem;
     text-align: center;
-    padding: 1rem;
-    font-family: var(--fb);
-    font-size: 12px;
-    color: var(--tekst-zacht);
+  }
+
+  @media (max-width: 720px) {
+    .topbar-divider { display: none; }
+    .page-intro { padding-top: 2.35rem; }
+    .page-intro h1 { font-size: clamp(3rem, 17vw, 4.6rem); }
+  }
+  @media (max-width: 600px) {
+    .site-header { min-height: 72px; padding-inline: 1rem; }
+    .site-header .logo { height: 52px; }
+    .site-title { font-size: .78rem; letter-spacing: .06em; }
+    .site-sub { display: none; }
+    .site-toolbar { padding-left: 1rem; padding-right: 1rem; padding-top: .85rem; }
+    .page-intro,
+    .content-wrap { padding-left: 1rem; padding-right: 1rem; }
+    .tekst-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
+  <header class="site-header">
+    <img class="logo" src="../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="site-title">Latijn 3de jaar</span>
+    <span class="site-sub">S.O. Groenhove Waregem</span>
+  </header>
 
-<header class="site-header">
-  <img class="logo" src="../images/nav/logo_mono_wit.png" alt="Groenhove">
-  <h1>Teksten</h1>
-  <span class="sub"><span class="brand">S.O. Groenhove Waregem</span>
-</header>
-
-<div class="site-toolbar">
-  <div class="toolbar-left">
-    <button class="back-btn" onclick="history.back()">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
-      Terug
-    </button>
-    <div class="topbar-divider"></div>
-    <a class="ctrl-btn" href="#thema-1">Thema 1</a>
-    <a class="ctrl-btn" href="#thema-2">Thema 2</a>
-    <a class="ctrl-btn" href="#thema-3">Thema 3</a>
+  <div class="site-toolbar">
+    <div class="toolbar-left">
+      <button class="back-btn" onclick="history.back()">
+        <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+        <span>Terug</span>
+      </button>
+      <div class="topbar-divider"></div>
+      <a class="ctrl-btn" href="#thema-1">Thema 1</a>
+      <a class="ctrl-btn" href="#thema-2">Thema 2</a>
+      <a class="ctrl-btn" href="#thema-3">Thema 3</a>
+    </div>
   </div>
-</div>
 
-<div class="content-wrap">
+  <main>
+    <section class="page-intro" aria-labelledby="pagina-titel">
+      <p class="kicker">3de jaar</p>
+      <h1 id="pagina-titel">Teksten</h1>
+      <p>Vind de Latijnse teksten per thema, met plaats voor vertaling, noten en woordenlijst waar de tekst al actief is.</p>
+    </section>
+
+    <div class="content-wrap">
 
   <div class="thema-sectie" id="thema-1">
     <div class="thema-header">
@@ -376,7 +554,8 @@
   </div>
 
 </div>
+  </main>
 
-<p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem</p>
+  <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem</p>
 </body>
 </html>
