@@ -98,8 +98,9 @@
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     min-height: 86px;
-    padding: 0 var(--header-pad);
+    padding: 0 clamp(1.1rem, 3vw, 2.25rem);
     background: var(--deep-forest);
+    border-bottom: 0;
     color: var(--white);
     isolation: isolate;
   }
@@ -138,6 +139,7 @@
   .site-sub {
     grid-column: 3;
     justify-self: end;
+    margin-left: 0;
     color: var(--white);
     font-family: var(--fo);
     font-size: .72rem;
@@ -228,11 +230,10 @@
     border-radius: 2px;
   }
   .page-intro h1 {
-    max-width: 12ch;
+    max-width: 11ch;
     margin: 0;
     color: var(--deep-forest);
-    font-family: var(--fv);
-    font-size: clamp(3.1rem, 6.3vw, 5.6rem);
+    font-size: clamp(3.1rem, 6.7vw, 6.15rem);
     line-height: .92;
     letter-spacing: -.055em;
   }
