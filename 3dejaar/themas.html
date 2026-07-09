@@ -3,15 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thema's — Latijn 3de jaar</title>
+<meta name="color-scheme" content="light">
+<title>Thema’s — Latijn 3de jaar | S.O. Groenhove</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..700,0..1,-50..200&display=swap" rel="stylesheet">
 <style>
   @font-face {
-    font-family: 'Flanders Art Sans';
-    src: url('../fonts/flanders-art-sans/FlandersArtSans-Bold.woff2') format('woff2'),
-         url('../fonts/flanders-art-sans/FlandersArtSans-Bold.woff') format('woff');
+    font-family: 'FlandersArtSans';
+    src: url('../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -20,255 +34,347 @@
   :root {
     --deep-forest: #006633;
     --vital-green: #65b32e;
-    --accent: #FF3B1D;
-
-    --fv: 'Flanders Art Sans', sans-serif;
-    --fo: 'Noto Sans', sans-serif;
-
-    --achtergrond: #e0efd5;
-    --kaart: #fcfcfb;
-    --rand: #d4e8db;
-    --tekst: #010100;
-    --tekst-zacht: #6b7280;
-    --radius: 12px;
-    --radius-sm: 8px;
+    --balanced-yellow: #ffea3d;
+    --waregem-red-pulse: #FF3B1D;
+    --cool-background: #f7f8fa;
+    --card: #f3f1ef;
+    --white: #ffffff;
+    --ink: #010100;
+    --body: #526052;
+    --line: #dbe1e5;
+    --soft-green: #eef6e8;
+    --shadow: 0 14px 30px rgba(0, 42, 21, .07);
+    --radius-xl: 28px;
+    --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
+    --fo: 'NotoSans', Arial, sans-serif;
+    --container-pad: clamp(1rem, 3vw, 2rem);
+    --header-pad: clamp(1.1rem, 3vw, 2.25rem);
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
+  * { box-sizing: border-box; }
+  html { overflow-x: hidden; }
   body {
-    font-family: var(--fo);
-    background: var(--achtergrond);
-    color: var(--tekst);
+    margin: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background: var(--cool-background);
+    color: var(--ink);
+    font-family: var(--fo);
+    font-size: 15px;
+    line-height: 1.5;
   }
 
-  .hero {
-    width: 100%;
-    position: relative;
-    min-height: auto;
-    background: transparent;
-    flex-shrink: 0;
-  }
-
-  .hero-inhoud {
-    position: relative;
-    z-index: 1;
-    padding: 3.5rem 2rem 3rem;
-    text-align: center;
-  }
-
-  .hero h1 {
+  h1, h2, h3, .site-title, .nav-number {
     font-family: var(--fv);
-    font-size: 38px;
     font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-    margin-bottom: 5px;
   }
 
-  .hero h1 .latijn {
-    color: var(--deep-forest);
-  }
-
-  .hero .ondertitel {
-    font-size: 12px;
-    color: var(--tekst-zacht);
-    font-family: var(--fo);
-  }
-
-  .school-logo {
-    width: 44px;
-    height: auto;
-    margin-top: 10px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .terug-wrap {
-    padding: 1.25rem 2rem 0;
-    max-width: 1100px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .terug-link {
-    font-size: 12px;
-    color: var(--tekst-zacht);
-    text-decoration: none;
-    font-family: var(--fo);
-  }
-
-  .terug-link:hover {
-    color: var(--vital-green);
-  }
-
-  .nav-wrap {
-    flex: 1;
-    padding: 1.5rem 2rem 3rem;
-    max-width: 1100px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .nav-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    align-items: stretch;
-  }
-
-  .nav-tegel {
-    background: var(--kaart);
-    border: 0.5px solid var(--rand);
-    border-radius: var(--radius);
-    padding: 1.75rem 1.5rem 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-
-  .nav-tegel:hover {
-    border-color: var(--vital-green);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(101, 179, 46, 0.12);
-  }
-
-  .nav-tegel-icoon {
-    width: 56px;
-    height: 56px;
-    border-radius: 10px;
-    background: #d4e8db;
-    color: var(--deep-forest);
-    display: flex;
+  .material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 520, 'GRAD' 0, 'opsz' 24;
   }
 
-  .nav-tegel-icoon svg {
-    width: 28px;
-    height: 28px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  /* 3de jaar: Deep Forest balk, centraal logo, halve streep Balanced Yellow + halve streep Vital Green. */
+  .site-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    min-height: 86px;
+    padding: 0 var(--header-pad);
+    background: var(--deep-forest);
+    color: var(--white);
+    isolation: isolate;
   }
-
-  .nav-tegel-naam {
-    font-family: var(--fv);
-    font-size: 20px;
+  .site-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+      to right,
+      var(--balanced-yellow) 0 50%,
+      var(--vital-green) 50% 100%
+    );
+  }
+  .site-header .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    height: 64px;
+    display: block;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  .site-title {
+    grid-column: 1;
+    justify-self: start;
+    color: var(--white);
+    font-size: .98rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .site-sub {
+    grid-column: 3;
+    justify-self: end;
+    margin-left: 0;
+    color: var(--white);
+    font-family: var(--fo);
+    font-size: .72rem;
     font-weight: 700;
+    letter-spacing: .085em;
+    text-transform: uppercase;
+    opacity: .92;
+    white-space: nowrap;
+  }
+
+  .utility-row {
+    width: 100%;
+    margin: 0;
+    padding: 1rem var(--header-pad) .15rem;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .38rem;
+    color: #5e6763;
+    font-family: var(--fo);
+    font-size: .88rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color .16s ease;
+  }
+  .back-link .material-symbols-rounded { font-size: 18px; }
+  .back-link:hover { color: var(--deep-forest); }
+  .back-link:focus-visible,
+  .nav-card:focus-visible { outline: 3px solid var(--balanced-yellow); outline-offset: 4px; }
+
+  main { overflow: hidden; }
+
+  .page-intro {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(2.2rem, 5vw, 4.2rem) var(--container-pad) clamp(1.4rem, 3vw, 2.2rem);
+  }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0 0 .65rem;
     color: var(--deep-forest);
+    font-family: var(--fv);
+    font-size: .85rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
   }
-
-  .nav-tegel-omschrijving {
+  .kicker::before {
+    content: '';
+    width: 22px;
+    height: 3px;
+    background: var(--balanced-yellow);
+    border-radius: 2px;
+  }
+  .page-intro h1 {
+    max-width: 12ch;
+    margin: 0;
+    color: var(--deep-forest);
+    font-size: clamp(3.1rem, 6.4vw, 5.8rem);
+    line-height: .92;
+    letter-spacing: -.055em;
+  }
+  .page-intro p {
+    max-width: 38rem;
+    margin: 1.45rem 0 0;
+    color: var(--body);
     font-family: var(--fo);
-    font-size: 14px;
-    color: var(--tekst-zacht);
-    line-height: 1.45;
-    flex-grow: 1;
+    font-size: clamp(.98rem, 1.35vw, 1.12rem);
+    line-height: 1.65;
   }
 
-  .nav-tegel-pijl {
-    margin-top: auto;
-    font-size: 20px;
-    color: var(--accent);
-    font-weight: 500;
+  .navigation-section {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: .75rem var(--container-pad) 3.2rem;
+  }
+  .navigation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.55rem);
+  }
+  .nav-card {
+    min-height: 245px;
+    padding: clamp(1.25rem, 2.3vw, 1.8rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--card);
+    color: var(--deep-forest);
+    box-shadow: 0 5px 14px rgba(0, 52, 25, .035);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .68rem;
+    text-align: left;
+    text-decoration: none;
+    transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  .nav-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
+  }
+  .nav-number {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--deep-forest);
+    font-size: .84rem;
     line-height: 1;
-    transition: transform 0.15s;
+    transition: background .18s ease, color .18s ease;
   }
-
-  .nav-tegel:hover .nav-tegel-pijl {
-    transform: translateX(4px);
+  .nav-icon {
+    width: 66px;
+    height: 66px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--deep-forest);
+    transition: background .18s ease, color .18s ease;
   }
-
-  .voet {
-    text-align: center;
-    padding: 1.5rem;
+  .nav-icon .material-symbols-rounded {
+    font-size: 34px;
+    font-variation-settings: 'FILL' 0, 'wght' 560, 'GRAD' 0, 'opsz' 32;
+  }
+  .nav-card h2 {
+    margin: .08rem 0 0;
+    color: currentColor;
+    font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+    letter-spacing: -.035em;
+    line-height: 1;
+  }
+  .nav-card p {
+    max-width: 27ch;
+    margin: 0;
+    color: #657067;
     font-family: var(--fo);
-    font-size: 12px;
-    color: var(--tekst-zacht);
+    font-size: .88rem;
+    line-height: 1.48;
+    transition: color .18s ease;
+  }
+  .nav-card .card-link-label {
+    display: inline-flex;
+    align-items: center;
+    gap: .22rem;
+    margin-top: .15rem;
+    color: currentColor;
+    font-family: var(--fo);
+    font-size: .8rem;
+    font-weight: 700;
+  }
+  .nav-card .card-link-label .material-symbols-rounded { font-size: 17px; }
+
+  .nav-card--forest:hover { background: var(--deep-forest); border-color: var(--deep-forest); color: var(--white); }
+  .nav-card--forest:hover .nav-number,
+  .nav-card--forest:hover .nav-icon { background: rgba(255,255,255,.16); color: var(--white); }
+  .nav-card--forest:hover p { color: rgba(255,255,255,.83); }
+
+  .nav-card--vital:hover { background: var(--vital-green); border-color: var(--vital-green); color: var(--deep-forest); }
+  .nav-card--vital:hover .nav-number,
+  .nav-card--vital:hover .nav-icon { background: rgba(255,255,255,.45); color: var(--deep-forest); }
+  .nav-card--vital:hover p { color: rgba(0,102,51,.9); }
+
+  footer {
+    padding: 1.2rem 1.5rem 2.2rem;
+    color: #7a8580;
+    font-family: var(--fo);
+    font-size: .76rem;
+    text-align: center;
   }
 
-  @media (max-width: 640px) {
-    .hero-inhoud {
-      padding: 3rem 1.25rem 2.5rem;
-    }
-
-    .hero h1 {
-      font-size: 32px;
-    }
-
-    .nav-wrap,
-    .terug-wrap {
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-    }
-
-    .nav-grid {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 820px) {
+    .navigation-grid { grid-template-columns: 1fr; }
+    .nav-card { min-height: 225px; }
+  }
+  @media (max-width: 600px) {
+    .site-header { min-height: 72px; padding-inline: 1rem; }
+    .site-header .logo { height: 52px; }
+    .site-title { font-size: .78rem; letter-spacing: .06em; }
+    .site-sub { display: none; }
+    .utility-row,
+    .page-intro,
+    .navigation-section { padding-left: 1rem; padding-right: 1rem; }
+    .utility-row { padding-top: .85rem; }
+    .page-intro { padding-top: 2.4rem; }
+    .page-intro h1 { font-size: clamp(3rem, 17vw, 4.6rem); }
+    .page-intro p { margin-top: 1.3rem; }
+    .navigation-section { padding-bottom: 2.25rem; }
   }
 </style>
 </head>
 <body>
+  <header class="site-header">
+    <img class="logo" src="../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="site-title">Latijn 3de jaar</span>
+    <span class="site-sub">S.O. Groenhove Waregem</span>
+  </header>
 
-<div class="hero">
-  <div class="hero-inhoud">
-    <h1><span class="latijn">Thema's</span></h1>
-    <p class="ondertitel">S.O. Groenhove campus Atheneum</p>
-    <img class="school-logo" src="../images/nav/logo.svg" alt="Groenhove" />
-  </div>
-</div>
+  <main>
+    <div class="utility-row">
+      <a class="back-link" href="index.html">
+        <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+        <span>Terug naar 3de jaar</span>
+      </a>
+    </div>
 
-<div class="terug-wrap">
-  <a class="terug-link" href="index.html">&#8592; Terug naar 3de jaar</a>
-</div>
+    <section class="page-intro" aria-labelledby="pagina-titel">
+      <p class="kicker">3de jaar</p>
+      <h1 id="pagina-titel">Thema’s</h1>
+      <p>Kies hier tussen de cultuurlessen en de Latijnse teksten die bij de thema’s van het derde jaar horen.</p>
+    </section>
 
-<div class="nav-wrap">
-  <div class="nav-grid">
+    <section class="navigation-section" aria-label="Thematische onderdelen">
+      <div class="navigation-grid">
+        <a class="nav-card nav-card--forest" href="cultuur.html">
+          <span class="nav-number">I</span>
+          <span class="nav-icon" aria-hidden="true"><span class="material-symbols-rounded">account_balance</span></span>
+          <h2>Cultuur</h2>
+          <p>De cultuurlessen per thema.</p>
+          <span class="card-link-label">Openen <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></span>
+        </a>
 
-    <a class="nav-tegel" href="cultuur.html">
-      <div class="nav-tegel-icoon">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 7h18M3 12h18M3 17h12"/>
-          <circle cx="20" cy="17" r="2"/>
-        </svg>
+        <a class="nav-card nav-card--vital" href="teksten.html">
+          <span class="nav-number">II</span>
+          <span class="nav-icon" aria-hidden="true"><span class="material-symbols-rounded">auto_stories</span></span>
+          <h2>Teksten</h2>
+          <p>De gelezen Latijnse teksten per thema, met vertaling, noten en woordenlijst.</p>
+          <span class="card-link-label">Openen <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></span>
+        </a>
       </div>
-      <div class="nav-tegel-naam">Cultuur</div>
-      <div class="nav-tegel-omschrijving">De cultuurlessen per thema</div>
-      <div class="nav-tegel-pijl">›</div>
-    </a>
+    </section>
+  </main>
 
-    <a class="nav-tegel" href="teksten.html">
-      <div class="nav-tegel-icoon">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
-          <path d="M14 3v6h6M9 13h6M9 17h4"/>
-        </svg>
-      </div>
-      <div class="nav-tegel-naam">Teksten</div>
-      <div class="nav-tegel-omschrijving">De gelezen Latijnse teksten per thema, met vertaling, noten en woordenlijst.</div>
-      <div class="nav-tegel-pijl">›</div>
-    </a>
-
-  </div>
-</div>
-
-<p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum</p>
+  <footer>J. Everaerdt — S.O. Groenhove campus Atheneum Waregem</footer>
 </body>
 </html>
