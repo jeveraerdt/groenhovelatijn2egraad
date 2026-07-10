@@ -3,278 +3,420 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oefeningen — 3de jaar Latijn</title>
+<meta name="color-scheme" content="light">
+<title>Oefeningen — Latijn 3de jaar | S.O. Groenhove</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..700,0..1,-50..200&display=swap" rel="stylesheet">
 <style>
   @font-face {
-    font-family: 'Flanders Art Sans';
+    font-family: 'FlandersArtSans';
     src: url('../../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
   }
   @font-face {
-    font-family: 'Noto Sans';
+    font-family: 'NotoSans';
     src: url('../../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
   }
   @font-face {
-    font-family: 'Noto Sans';
+    font-family: 'NotoSans';
     src: url('../../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
   }
 
   :root {
-    --jaar-kleur:     #006633; /* Deep Forest — 3de jaar primair */
-    --jaar-licht:     #e0f0e9; /* Deep Forest 15% op wit */
-    --accent:         #FF3B1D;
-    --wit:            #f3f1ef;
-    --zwart:          #010100;
-    --kaart:          #ffffff;
-    --rand:           #d8d5d1;
-    --tekst-zacht:    #5a5754;
-    --radius:         12px;
-    --radius-sm:      8px;
-    --ff-titel:       'Flanders Art Sans', Arial, sans-serif;
-    --ff-body:        'Noto Sans', Arial, sans-serif;
+    --deep-forest: #006633;
+    --vital-green: #65b32e;
+    --balanced-yellow: #ffea3d;
+    --waregem-red-pulse: #FF3B1D;
+    --cool-background: #f7f8fa;
+    --card: #f3f1ef;
+    --white: #ffffff;
+    --ink: #010100;
+    --body: #526052;
+    --line: #dbe1e5;
+    --shadow: 0 14px 30px rgba(0, 42, 21, .07);
+    --radius-xl: 28px;
+    --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
+    --fo: 'NotoSans', Arial, sans-serif;
+    --container-pad: clamp(1rem, 3vw, 2rem);
+    --header-pad: clamp(1.1rem, 3vw, 2.25rem);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
+  * { box-sizing: border-box; }
+  html { overflow-x: hidden; }
   body {
-    font-family: var(--ff-body);
-    background: var(--wit);
-    color: var(--zwart);
+    margin: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background: var(--cool-background);
+    color: var(--ink);
+    font-family: var(--fo);
+    font-size: 15px;
+    line-height: 1.5;
   }
 
-  /* ── MERKLINT (2 lagen) ── */
-  .site-header {
-    background: var(--jaar-kleur);
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.85rem 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .site-header .logo {
-    height: 34px;
-    width: auto;
-    display: block;
-    flex-shrink: 0;
-  }
-  .site-header h1 {
-    font-family: var(--ff-titel);
+  h1, h2, h3, .site-title, .nav-number {
+    font-family: var(--fv);
     font-weight: 700;
-    font-size: 1.2rem;
-    margin: 0;
-    letter-spacing: .02em;
-    white-space: nowrap;
   }
-  .site-header .school-naam {
-    font-family: var(--ff-titel);
-    font-size: .72rem;
-    font-weight: 700;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    opacity: .85;
-    margin-left: auto;
-    white-space: nowrap;
-    padding-left: .5rem;
-  }
-  /* Secondaire balk */
-  .site-toolbar {
-    background: var(--wit);
-    border-bottom: 1px solid var(--rand);
-    padding: 0.6rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .toolbar-divider {
-    width: 1px;
-    height: 22px;
-    background: var(--rand);
-    margin: 0 0.25rem;
-  }
-  .back-btn, .pill-btn {
-    font-family: var(--ff-body);
-    font-size: .85rem;
-    color: var(--zwart);
-    background: transparent;
-    border: 1px solid var(--rand);
-    border-radius: 20px;
-    padding: .35rem .85rem;
-    cursor: pointer;
-    text-decoration: none;
+
+  .material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
     display: inline-flex;
     align-items: center;
-    gap: .35rem;
-    transition: background .15s, border-color .15s, color .15s;
-  }
-  .back-btn:hover, .pill-btn:hover {
-    background: var(--jaar-licht);
-    border-color: var(--jaar-kleur);
-    color: var(--jaar-kleur);
-  }
-  .back-btn svg { width: 14px; height: 14px; }
-
-  /* ── NAV WRAP ── */
-  .nav-wrap {
-    flex: 1;
-    padding: 1.5rem 2rem 3rem;
-    max-width: 1100px;
-    width: 100%;
-    margin: 0 auto;
+    justify-content: center;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 520, 'GRAD' 0, 'opsz' 24;
   }
 
-  .sectie-titel {
-    font-family: var(--ff-body);
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--tekst-zacht);
-    text-transform: uppercase;
-    letter-spacing: 0.9px;
-    margin-bottom: 1rem;
-  }
-
-  .nav-grid {
+  /* 3de jaar: Deep Forest balk, centraal logo, halve streep Balanced Yellow + halve streep Vital Green. */
+  .site-header {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    min-height: 86px;
+    padding: 0 var(--header-pad);
+    background: var(--deep-forest);
+    border-bottom: 0;
+    color: var(--white);
+    isolation: isolate;
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+      to right,
+      var(--balanced-yellow) 0 50%,
+      var(--vital-green) 50% 100%
+    );
+  }
+  .site-header .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    height: 64px;
+    display: block;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  .site-title {
+    grid-column: 1;
+    justify-self: start;
+    color: var(--white);
+    font-size: .98rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .site-sub {
+    grid-column: 3;
+    justify-self: end;
+    margin-left: 0;
+    color: var(--white);
+    font-family: var(--fo);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .085em;
+    text-transform: uppercase;
+    opacity: .92;
+    white-space: nowrap;
   }
 
-  .nav-tegel {
-    background: var(--kaart);
-    border: 1px solid var(--rand);
-    border-radius: var(--radius);
-    padding: 1.5rem 1.25rem;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
-  }
-  .nav-tegel:hover {
-    border-color: var(--jaar-kleur);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,102,51,0.12);
-  }
-
-  .nav-tegel-icoon {
-    width: 42px;
-    height: 42px;
-    border-radius: var(--radius-sm);
-    background: var(--jaar-licht);
+  .utility-row {
+    width: 100%;
+    margin: 0;
+    padding: 1rem var(--header-pad) .15rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    gap: .6rem;
+    flex-wrap: wrap;
   }
-  .nav-tegel-icoon svg {
-    width: 22px;
-    height: 22px;
+  .back-link,
+  .quick-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .38rem;
+    color: #5e6763;
+    font-family: var(--fo);
+    font-size: .88rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: background .16s ease, border-color .16s ease, color .16s ease;
   }
-  /* accent-variant voor tweede kaart */
-  .icoon-accent {
-    background: #fff0ee;
+  .back-link .material-symbols-rounded { font-size: 18px; }
+  .back-link:hover { color: var(--deep-forest); }
+  .utility-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--line);
+    margin: 0 .1rem;
   }
-
-  .nav-tegel-naam {
-    font-family: var(--ff-titel);
-    font-size: 15px;
+  .quick-link {
+    min-height: 30px;
+    padding: .24rem .75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255,255,255,.36);
+    color: var(--deep-forest);
+    font-size: .82rem;
     font-weight: 700;
-    color: var(--jaar-kleur);
+  }
+  .quick-link:hover {
+    background: var(--deep-forest);
+    border-color: var(--deep-forest);
+    color: var(--white);
+  }
+  .back-link:focus-visible,
+  .quick-link:focus-visible,
+  .nav-card:focus-visible { outline: 3px solid var(--balanced-yellow); outline-offset: 4px; }
+
+  main { overflow: hidden; }
+
+  .page-intro {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(2.2rem, 5vw, 4.2rem) var(--container-pad) clamp(1.4rem, 3vw, 2.2rem);
+  }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0 0 .6rem;
+    color: var(--deep-forest);
+    font-family: var(--fv);
+    font-size: .85rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .kicker::before {
+    content: '';
+    width: 22px;
+    height: 3px;
+    background: var(--balanced-yellow);
+    border-radius: 2px;
+  }
+  .page-intro h1 {
+    max-width: 11ch;
+    margin: 0;
+    color: var(--deep-forest);
+    font-size: clamp(3.1rem, 6.7vw, 6.15rem);
+    line-height: .92;
+    letter-spacing: -.055em;
+  }
+  .page-intro p:not(.kicker) {
+    max-width: 40rem;
+    margin: 1.45rem 0 0;
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: clamp(.98rem, 1.35vw, 1.12rem);
+    line-height: 1.65;
   }
 
-  .nav-tegel-omschrijving {
-    font-family: var(--ff-body);
-    font-size: 13px;
-    color: var(--tekst-zacht);
-    line-height: 1.55;
+  .navigation-section {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: .75rem var(--container-pad) 3.2rem;
   }
-
-  .nav-tegel-pijl {
-    margin-top: auto;
-    font-size: 18px;
-    color: var(--rand);
-    transition: color 0.15s;
+  .navigation-heading {
+    margin: 0 0 1.1rem;
+    color: var(--deep-forest);
+    font-family: var(--fv);
+    font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+    letter-spacing: -.02em;
+    line-height: 1;
+    text-align: left;
   }
-  .nav-tegel:hover .nav-tegel-pijl { color: var(--jaar-kleur); }
+  .navigation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.55rem);
+  }
+  .nav-card {
+    min-height: 245px;
+    padding: clamp(1.25rem, 2.3vw, 1.8rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--card);
+    color: var(--deep-forest);
+    box-shadow: 0 5px 14px rgba(0, 52, 25, .035);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .68rem;
+    text-align: left;
+    text-decoration: none;
+    transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  .nav-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
+  }
+  .nav-number {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--deep-forest);
+    font-size: .84rem;
+    line-height: 1;
+    transition: background .18s ease, color .18s ease;
+  }
+  .nav-icon {
+    width: 66px;
+    height: 66px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--deep-forest);
+    transition: background .18s ease, color .18s ease;
+  }
+  .nav-icon .material-symbols-rounded {
+    font-size: 34px;
+    font-variation-settings: 'FILL' 0, 'wght' 560, 'GRAD' 0, 'opsz' 32;
+  }
+  .nav-card h2 {
+    margin: .08rem 0 0;
+    color: currentColor;
+    font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+    letter-spacing: -.035em;
+    line-height: 1;
+  }
+  .nav-card p {
+    max-width: 28ch;
+    margin: 0;
+    color: #657067;
+    font-family: var(--fo);
+    font-size: .88rem;
+    line-height: 1.48;
+    transition: color .18s ease;
+  }
+  .nav-card .card-link-label {
+    display: inline-flex;
+    align-items: center;
+    gap: .22rem;
+    margin-top: .15rem;
+    color: currentColor;
+    font-family: var(--fo);
+    font-size: .8rem;
+    font-weight: 700;
+  }
+  .nav-card .card-link-label .material-symbols-rounded { font-size: 17px; }
 
-  /* ── VOET ── */
-  .voet {
+  .nav-card--forest:hover { background: var(--deep-forest); border-color: var(--deep-forest); color: var(--white); }
+  .nav-card--forest:hover .nav-number,
+  .nav-card--forest:hover .nav-icon { background: rgba(255,255,255,.16); color: var(--white); }
+  .nav-card--forest:hover p { color: rgba(255,255,255,.83); }
+
+  .nav-card--yellow:hover { background: var(--balanced-yellow); border-color: var(--balanced-yellow); color: var(--waregem-red-pulse); }
+  .nav-card--yellow:hover .nav-number,
+  .nav-card--yellow:hover .nav-icon { background: rgba(255,255,255,.64); color: var(--waregem-red-pulse); }
+  .nav-card--yellow:hover p { color: var(--waregem-red-pulse); }
+
+  footer {
+    padding: 1.2rem 1.5rem 2.2rem;
+    color: #7a8580;
+    font-family: var(--fo);
+    font-size: .76rem;
     text-align: center;
-    padding: 1rem;
-    font-family: var(--ff-body);
-    font-size: 11px;
-    color: #b0ada9;
-    border-top: 1px solid var(--rand);
+  }
+
+  @media (max-width: 820px) {
+    .navigation-grid { grid-template-columns: 1fr; }
+    .nav-card { min-height: 225px; }
+  }
+  @media (max-width: 600px) {
+    .site-header { min-height: 72px; padding-inline: 1rem; }
+    .site-header .logo { height: 52px; }
+    .site-title { font-size: .78rem; letter-spacing: .06em; }
+    .site-sub { display: none; }
+    .utility-row,
+    .page-intro,
+    .navigation-section { padding-left: 1rem; padding-right: 1rem; }
+    .utility-row { padding-top: .85rem; }
+    .utility-divider,
+    .quick-link { display: none; }
+    .page-intro { padding-top: 2.4rem; }
+    .page-intro h1 { font-size: clamp(3rem, 17vw, 4.6rem); }
+    .page-intro p:not(.kicker) { margin-top: 1.3rem; }
+    .navigation-section { padding-bottom: 2.25rem; }
   }
 </style>
 </head>
 <body>
+  <header class="site-header">
+    <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="site-title">Latijn 3de jaar</span>
+    <span class="site-sub">S.O. Groenhove Waregem</span>
+  </header>
 
-<!-- MERKLINT laag 1 -->
-<header class="site-header">
-  <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
-  <h1>Oefeningen</h1>
-  <span class="school-naam">S.O. Groenhove Waregem</span>
-</header>
+  <main>
+    <div class="utility-row">
+      <a class="back-link" href="../index.html">
+        <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+        <span>Terug naar 3de jaar</span>
+      </a>
+      <span class="utility-divider" aria-hidden="true"></span>
+      <a class="quick-link" href="grammatica-keuze.html">Grammatica</a>
+      <a class="quick-link" href="woordenschat/woordjestrainer-3ds.html">Woordenschat</a>
+    </div>
 
-<!-- MERKLINT laag 2: toolbar -->
-<nav class="site-toolbar">
-  <a class="back-btn" href="../index.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-         stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="15 18 9 12 15 6"/>
-    </svg>
-    Terug
-  </a>
-  <div class="toolbar-divider"></div>
-  <a class="pill-btn" href="grammatica-keuze.html">Grammatica</a>
-  <a class="pill-btn" href="woordenschat/woordjestrainer-3ds.html">Woordenschat</a>
-</nav>
+    <section class="page-intro" aria-labelledby="pagina-titel">
+      <p class="kicker">3de jaar</p>
+      <h1 id="pagina-titel">Oefeningen</h1>
+      <p>Kies hier tussen grammatica en woordenschat. De oefeningen sluiten aan bij de thema’s en houden je voortgang bij.</p>
+    </section>
 
-<!-- TEGELS -->
-<div class="nav-wrap">
-  <p class="sectie-titel">Oefeningen</p>
-  <div class="nav-grid">
+    <section class="navigation-section" aria-labelledby="navigatie-titel">
+      <h2 id="navigatie-titel" class="navigation-heading">Wat wil je oefenen?</h2>
+      <div class="navigation-grid">
+        <a class="nav-card nav-card--forest" href="grammatica-keuze.html">
+          <span class="nav-number">I</span>
+          <span class="nav-icon" aria-hidden="true"><span class="material-symbols-rounded">rule</span></span>
+          <h2>Grammatica</h2>
+          <p>Oefen verbuigingen, vervoegingen en andere grammaticaonderwerpen.</p>
+          <span class="card-link-label">Openen <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></span>
+        </a>
 
-    <a class="nav-tegel" href="grammatica-keuze.html">
-      <div class="nav-tegel-icoon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#006633" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 6h16M4 12h16M4 18h10"/>
-        </svg>
+        <a class="nav-card nav-card--yellow" href="woordenschat/woordjestrainer-3ds.html">
+          <span class="nav-number">II</span>
+          <span class="nav-icon" aria-hidden="true"><span class="material-symbols-rounded">edit_note</span></span>
+          <h2>Woordenschat</h2>
+          <p>Train de woorden uit je cursus met de woordjestrainer van het derde jaar.</p>
+          <span class="card-link-label">Openen <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></span>
+        </a>
       </div>
-      <div class="nav-tegel-naam">Grammatica</div>
-      <div class="nav-tegel-omschrijving">Oefen verbuigingen, vervoegingen en andere grammaticaonderwerpen.</div>
-      <div class="nav-tegel-pijl">›</div>
-    </a>
+    </section>
+  </main>
 
-    <a class="nav-tegel" href="woordenschat/woordjestrainer-3ds.html">
-      <div class="nav-tegel-icoon icoon-accent">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#FF3B1D" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 20h9"/>
-          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-        </svg>
-      </div>
-      <div class="nav-tegel-naam">Woordenschat</div>
-      <div class="nav-tegel-omschrijving">Latijnse woorden inoefenen via de woordenlijst van de cursus.</div>
-      <div class="nav-tegel-pijl">›</div>
-    </a>
-
-  </div>
-</div>
-
-<p class="voet">J. Everaerdt &mdash; S.O. Groenhove campus Atheneum Waregem</p>
+  <footer>J. Everaerdt — S.O. Groenhove campus Atheneum Waregem</footer>
 </body>
 </html>
