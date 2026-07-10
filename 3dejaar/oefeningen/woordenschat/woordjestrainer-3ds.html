@@ -26,6 +26,8 @@
   }
   :root {
     --blauw: #006633; --roze: #FF3B1D;
+    --balanced-yellow: #ffea3d;
+    --white: #ffffff;
     --vital-green: #65b32e; /* subtitels */
     --deep-forest: #006633; /* titels */
     --groen: #006633; --groen-licht: #d4edda; --groen-rand: #8fcc9e;
@@ -1037,6 +1039,91 @@
     .lb-score-bubble { width: 38px; height: 38px; font-size: 12px; }
   }
 
+  /* ══════════════════════════════════════════════════
+     3DEJAARS-MERKLINT — afgestemd op index 3de jaar
+     Minimale ingreep: enkel de bovenbalken en subtiele hoveraccenten.
+  ══════════════════════════════════════════════════ */
+  .site-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    min-height: 86px;
+    padding: 0 clamp(1.1rem, 3vw, 2.25rem);
+    background: var(--deep-forest);
+    border-bottom: 0;
+    color: var(--white);
+    isolation: isolate;
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+      to right,
+      var(--balanced-yellow) 0 50%,
+      var(--vital-green) 50% 100%
+    );
+  }
+  .site-header .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    height: 64px;
+    display: block;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  .site-title {
+    grid-column: 1;
+    justify-self: start;
+    color: var(--white);
+    font-family: var(--fv);
+    font-size: .98rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .site-sub {
+    grid-column: 3;
+    justify-self: end;
+    margin-left: 0;
+    color: var(--white);
+    font-family: var(--fo);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .085em;
+    text-transform: uppercase;
+    opacity: .92;
+    white-space: nowrap;
+  }
+
+  /* Subtiele index-hoverkleuren op de drie themakaarten; alfabetisch blijft neutraal. */
+  #thema-grid .thema-kaart:nth-child(2)::before { background: var(--deep-forest); }
+  #thema-grid .thema-kaart:nth-child(3)::before { background: var(--vital-green); }
+  #thema-grid .thema-kaart:nth-child(4)::before { background: var(--balanced-yellow); }
+
+  #thema-grid .thema-kaart:nth-child(2):hover { border-color: var(--deep-forest); box-shadow: 0 8px 20px rgba(0,102,51,.14); }
+  #thema-grid .thema-kaart:nth-child(3):hover { border-color: var(--vital-green); box-shadow: 0 8px 20px rgba(101,179,46,.16); }
+  #thema-grid .thema-kaart:nth-child(4):hover { border-color: var(--balanced-yellow); box-shadow: 0 8px 20px rgba(255,234,61,.22); }
+
+  #thema-grid .thema-kaart:nth-child(4):hover .thema-kaart-naam,
+  #thema-grid .thema-kaart:nth-child(4):hover .thema-kaart-naam span,
+  #thema-grid .thema-kaart:nth-child(4):hover .thema-kaart-meta {
+    color: var(--roze) !important;
+  }
+
+  @media (max-width: 600px) {
+    .site-header { min-height: 72px; padding-inline: 1rem; }
+    .site-header .logo { height: 52px; }
+    .site-title { font-size: .78rem; letter-spacing: .06em; }
+    .site-sub { display: none; }
+  }
+
 </style>
 </head>
 <body>
@@ -1047,10 +1134,10 @@
 <div id="s-selectie" class="scherm actief">
 
   <!-- Merklint laag 1 -->
-  <header style="background:#006633;color:#fff;display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;border-bottom:3px solid var(--vital-green);box-shadow:0 2px 8px rgba(0,0,0,.08);">
-    <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove" style="height:30px;width:auto;display:block;flex-shrink:0;">
-    <span style="font-family:var(--fv);font-size:1.05rem;color:#fff;">Woordjestrainer 3DS</span>
-    <span style="font-family:var(--fv);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-left:auto;color:#fff;white-space:nowrap;">S.O. Groenhove Waregem</span>
+  <header class="site-header">
+    <img class="logo" src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="site-title">Latijn 3de jaar</span>
+    <span class="site-sub">S.O. Groenhove Waregem</span>
   </header>
   <!-- Merklint laag 2 -->
   <nav style="background:var(--achtergrond);border-bottom:1px solid var(--rand);padding:.5rem 1.5rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
@@ -1324,10 +1411,10 @@
      SCHERM 4: LEADERBOARD
 ══════════════════════════════════════════════ -->
 <div id="s-leaderboard" class="scherm">
-  <header class="lb-site-header">
-    <img src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
-    <span class="lb-site-title">Leaderboard</span>
-    <span class="lb-site-sub">S.O. Groenhove Waregem</span>
+  <header class="site-header">
+    <img class="logo" src="../../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="site-title">Latijn 3de jaar</span>
+    <span class="site-sub">S.O. Groenhove Waregem</span>
   </header>
 
   <main class="lb-page">
