@@ -77,31 +77,53 @@
     place-items: center;
     padding: clamp(2rem, 5vh, 4rem) clamp(1rem, 3vw, 2rem);
   }
+@media (max-width: 900px) {
+}
+@media (max-width: 620px) {
+}
 
 
-.statue-bg {
+.statue-layer {
   position: fixed;
-  right: 0;
-  bottom: 0;
-  width: min(46vw, 720px);
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.statue-bg {
+  position: absolute;
+  right: -1.5vw;
+  bottom: -2vh;
+  width: min(43vw, 690px);
+  height: auto;
   max-height: 92vh;
   object-fit: contain;
   object-position: right bottom;
-  opacity: .72;
-  pointer-events: none;
-  z-index: 0;
+  opacity: .82;
+  filter: contrast(1.04);
   user-select: none;
 }
-@media (max-width: 900px) {
+.statue-fallback {
+  display: none;
+}
+.content {
+  z-index: 2;
+}
+.hero-curve {
+  z-index: 0;
+}
+@media (max-width: 920px) {
   .statue-bg {
-    width: 58vw;
-    opacity: .45;
+    width: 62vw;
+    opacity: .46;
+    right: -10vw;
   }
 }
 @media (max-width: 620px) {
   .statue-bg {
-    width: 78vw;
-    opacity: .26;
+    width: 86vw;
+    opacity: .28;
+    right: -22vw;
   }
 }
 
@@ -341,14 +363,16 @@
 </head>
 <body>
   <img class="hero-curve" src="images/heroes/curvedhero.png" alt="" aria-hidden="true">
+  <div class="statue-layer" aria-hidden="true">
+    <img class="statue-bg statue-primary" src="images/heroes/statue-bg.png" alt=""
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <img class="statue-bg statue-fallback" src="images/heroes/index2e-statue-bg.png" alt=""
+         onerror="this.style.display='none';">
+  </div>
 
   <div class="hero-brand" aria-hidden="true">
     <img src="images/nav/logo_mono_wit.png" alt="">
   </div>
-
-  <img class="statue-bg" src="images/heroes/statue-bg.png" alt="" aria-hidden="true">
-
-
 <main class="page">
     <div class="content">
 <div class="gold-rule" aria-hidden="true"><span></span></div>
