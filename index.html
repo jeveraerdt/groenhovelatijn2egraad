@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <title>Latijn 2e graad — S.O. Groenhove Waregem</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,174 +16,397 @@
     font-style: normal;
     font-display: swap;
   }
+
   :root {
     --deep-forest: #006633;
     --vital-green: #65b32e;
-    --achtergrond: #e0efd5;
-    --kaart: #ffffff;
-    --rand: #e2e6ed;
-    --tekst: #1a1a1a;
-    --tekst-zacht: #9aa5a0;
+    --balanced-yellow: #ffea3d;
+    --red-pulse: #FF3B1D;
+    --background: #f7f8fa;
+    --card: #ffffff;
+    --ink: #010100;
+    --muted: #78837d;
+    --line: #dbe1e5;
     --ft: 'Flanders Art Sans', Arial, sans-serif;
     --fb: 'Noto Sans', Arial, sans-serif;
-    --radius: 14px;
+    --radius: 22px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { min-height: 100vh; }
+
+  * { box-sizing: border-box; }
+  html, body { min-height: 100%; }
   body {
-    font-family: var(--fb);
-    background: var(--achtergrond);
-    color: var(--tekst);
+    margin: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-    position: relative;
     overflow-x: hidden;
+    background: var(--background);
+    color: var(--ink);
+    font-family: var(--fb);
   }
+
+  /* Bestaande curved hero blijft het vaste merkelement. */
   .hero-curve {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0 auto 0 0;
     height: 100vh;
     width: auto;
     pointer-events: none;
-    z-index: 0;
     user-select: none;
+    z-index: 0;
   }
-  .content {
+
+  .hero-brand {
+    position: fixed;
+    left: clamp(2rem, 5vw, 5.5rem);
+    bottom: clamp(2.4rem, 6vh, 4.8rem);
+    z-index: 2;
+    width: clamp(128px, 10vw, 176px);
+    opacity: 0;
+    animation: brandIn .9s .15s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .hero-brand img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .page {
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .logo-wrap { margin-bottom: 1.5rem; text-align: center; }
-  .school-logo { width: 72px; height: auto; display: block; margin: 0 auto 0.75rem; }
-  .site-titel { font-family: var(--fb); font-size: 13px; color: var(--tekst-zacht); letter-spacing: 0.3px; font-weight: 400; }
-
-  .keuze-titel {
-    font-family: var(--ft);
-    font-size: 38px;
-    font-weight: 700;
-    color: var(--deep-forest);
-    text-align: center;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.5px;
-  }
-  .keuze-subtitel {
-    font-family: var(--fb);
-    font-size: 13px;
-    color: var(--tekst-zacht);
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .jaar-grid {
+    min-height: 100vh;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 2rem;
-    align-items: stretch;
+    place-items: center;
+    padding: clamp(2rem, 5vh, 4rem) clamp(1rem, 3vw, 2rem);
   }
 
-  .jaar-kaart {
-    background: var(--kaart);
-    border: 0.5px solid var(--rand);
-    border-radius: var(--radius);
-    padding: 2rem 1.5rem;
-    text-decoration: none;
-    color: inherit;
+  .statue-bg {
+    position: fixed;
+    right: -1rem;
+    bottom: 0;
+    width: min(34vw, 470px);
+    max-height: 82vh;
+    object-fit: contain;
+    object-position: right bottom;
+    opacity: .33;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    filter: saturate(.45) sepia(.08);
+    animation: statueIn 1.2s .25s ease both;
+  }
+
+  .content {
+    width: min(790px, 100%);
+    margin-left: clamp(7rem, 15vw, 17rem);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
     text-align: center;
-    transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 16px rgba(0, 50, 25, 0.04);
   }
-  .jaar-kaart.derde:hover { border-color: var(--deep-forest); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0, 102, 51, 0.12); }
-  .jaar-kaart.vierde:hover { border-color: var(--vital-green); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(101, 179, 46, 0.12); }
 
-  .jaar-icoon {
-    width: 100%;
-    height: 100px;
+  .logo-wrap {
+    margin-bottom: 1.05rem;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: riseIn .7s .08s ease forwards;
+  }
+  .school-logo {
+    width: 66px;
+    height: auto;
+    display: block;
+    margin: 0 auto .7rem;
+  }
+  .site-title {
+    margin: 0;
+    color: #8a958f;
+    font-size: .82rem;
+    letter-spacing: .04em;
+  }
+
+  .gold-rule {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    gap: .65rem;
+    width: min(290px, 56vw);
+    margin: 0 auto 1rem;
+    opacity: 0;
+    animation: lineIn .85s .2s ease forwards;
   }
-  .jaar-icoon img {
-    max-width: 110px;
-    max-height: 100px;
+  .gold-rule::before,
+  .gold-rule::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent, #c9ad49);
+  }
+  .gold-rule::after { background: linear-gradient(90deg, #c9ad49, transparent); }
+  .gold-rule span {
+    width: 7px;
+    height: 7px;
+    border: 1px solid #c9ad49;
+    transform: rotate(45deg);
+  }
+
+  .choice-title {
+    margin: 0;
+    color: var(--deep-forest);
+    font-family: var(--ft);
+    font-size: clamp(2.5rem, 5vw, 4.45rem);
+    line-height: .95;
+    letter-spacing: -.045em;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: riseIn .75s .3s ease forwards;
+  }
+  .choice-subtitle {
+    margin: .95rem 0 2rem;
+    color: var(--muted);
+    font-size: clamp(.9rem, 1.3vw, 1.02rem);
+    opacity: 0;
+    animation: fadeIn .7s .42s ease forwards;
+  }
+
+  .year-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.45rem);
+    align-items: stretch;
+  }
+
+  .year-card {
+    --card-accent: var(--deep-forest);
+    position: relative;
+    min-height: 390px;
+    overflow: hidden;
+    border: 1px solid rgba(0,102,51,.09);
+    border-radius: var(--radius);
+    background: var(--card);
+    box-shadow: 0 16px 35px rgba(0,47,24,.09);
+    color: inherit;
+    text-decoration: none;
+    display: grid;
+    grid-template-rows: 145px 1fr;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  }
+  .year-card.third { animation: cardIn .78s .5s cubic-bezier(.2,.8,.2,1) forwards; }
+  .year-card.fourth {
+    --card-accent: var(--vital-green);
+    animation: cardIn .78s .62s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .year-card:hover {
+    transform: translateY(-9px);
+    border-color: color-mix(in srgb, var(--card-accent) 52%, white);
+    box-shadow: 0 24px 48px color-mix(in srgb, var(--card-accent) 20%, transparent);
+  }
+
+  .card-top {
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: var(--card-accent);
+    color: white;
+  }
+  .card-top::after {
+    content: '';
+    position: absolute;
+    left: -4%;
+    right: -4%;
+    bottom: -24px;
+    height: 58px;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    background: var(--card);
+    transform: rotate(-1.5deg);
+  }
+  .year-card.fourth .card-top::after { transform: rotate(1.4deg); }
+
+  .card-illustration {
+    position: relative;
+    z-index: 1;
+    width: 128px;
+    height: 98px;
+    display: grid;
+    place-items: center;
+  }
+  .card-illustration img {
+    display: block;
+    max-width: 124px;
+    max-height: 94px;
     width: auto;
     height: auto;
-    display: block;
-    object-fit: contain;
+    filter: brightness(0) invert(1);
+    transition: transform .28s ease;
   }
+  .year-card:hover .card-illustration img { transform: translateY(-4px) scale(1.045); }
 
-  .jaar-naam {
+  .card-body {
+    position: relative;
+    z-index: 2;
+    padding: 2.6rem 1.5rem 1.45rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .year-name {
+    margin: 0;
+    color: var(--card-accent);
     font-family: var(--ft);
-    font-size: 22px;
-    font-weight: 700;
+    font-size: clamp(1.65rem, 2.5vw, 2rem);
+    line-height: 1;
   }
-  .jaar-kaart.derde .jaar-naam { color: var(--deep-forest); }
-  .jaar-kaart.vierde .jaar-naam { color: var(--vital-green); }
+  .year-description {
+    max-width: 22ch;
+    margin: 1rem 0 1.4rem;
+    color: var(--muted);
+    font-size: .89rem;
+    line-height: 1.55;
+  }
+  .year-arrow {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    margin-top: auto;
+    border-radius: 50%;
+    background: var(--red-pulse);
+    color: #fff;
+    font-size: 1.45rem;
+    line-height: 1;
+    box-shadow: 0 8px 18px rgba(255,59,29,.22);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .year-card:hover .year-arrow {
+    transform: translateX(4px) scale(1.06);
+    box-shadow: 0 11px 23px rgba(255,59,29,.28);
+  }
 
-  .jaar-omschrijving { font-family: var(--fb); font-size: 13px; color: var(--tekst-zacht); line-height: 1.5; flex-grow: 1; }
-  .jaar-pijl { font-size: 20px; color: #FF3B1D; transition: color 0.15s; }
-  .jaar-kaart.derde:hover .jaar-pijl { color: var(--deep-forest); }
-  .jaar-kaart.vierde:hover .jaar-pijl { color: var(--vital-green); }
+  .footer-wrap {
+    width: min(610px, 92vw);
+    margin-top: 2rem;
+    opacity: 0;
+    animation: fadeIn .7s .78s ease forwards;
+  }
+  .footer-rule { margin-bottom: .85rem; }
+  .footer {
+    margin: 0;
+    color: #8b9690;
+    font-size: .75rem;
+    letter-spacing: .01em;
+  }
 
-  .voet { font-family: var(--fb); font-size: 12px; color: var(--tekst-zacht); text-align: center; margin-top: 1rem; }
+  .spark {
+    position: fixed;
+    z-index: 1;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--balanced-yellow);
+    box-shadow: 0 0 0 7px rgba(255,234,61,.08), 0 0 18px rgba(255,234,61,.58);
+    pointer-events: none;
+    animation: floatSpark 5.4s ease-in-out infinite;
+  }
+  .spark.one { left: 24vw; top: 18vh; }
+  .spark.two { right: 14vw; top: 22vh; animation-delay: -2.1s; transform: scale(.72); }
+  .spark.three { right: 10vw; bottom: 18vh; animation-delay: -3.8s; transform: scale(.55); background: var(--vital-green); }
+
+  @keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes lineIn { from { opacity: 0; transform: scaleX(.65); } to { opacity: 1; transform: scaleX(1); } }
+  @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
+  @keyframes statueIn { from { opacity: 0; transform: translateX(24px); } to { opacity: .33; transform: translateX(0); } }
+  @keyframes brandIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes floatSpark {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+
+  @media (max-width: 980px) {
+    .content { margin-left: clamp(4rem, 12vw, 8rem); width: min(720px, 100%); }
+    .statue-bg { opacity: .2; width: 42vw; }
+  }
 
   @media (max-width: 720px) {
-    .keuze-titel { font-size: 30px; }
-    .hero-curve { height: 100vh; }
+    .page { align-items: start; padding-top: 2.2rem; }
+    .hero-curve { opacity: .34; height: 100vh; }
+    .hero-brand { display: none; }
+    .statue-bg { opacity: .12; width: 68vw; }
+    .content { margin-left: 0; }
+    .school-logo { width: 58px; }
+    .year-grid { grid-template-columns: 1fr; max-width: 390px; }
+    .year-card { min-height: 350px; }
+    .spark { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .001ms !important;
+    }
   }
 </style>
 </head>
 <body>
-
   <img class="hero-curve" src="images/heroes/curvedhero.png" alt="" aria-hidden="true">
 
-  <div class="content">
-
-    <div class="logo-wrap">
-      <img class="school-logo" src="images/nav/logo.svg" alt="Groenhove" />
-      <p class="site-titel">S.O. Groenhove Waregem</p>
-    </div>
-
-    <h1 class="keuze-titel">Latijn 2e graad</h1>
-    <p class="keuze-subtitel">Kies het jaar om verder te gaan.</p>
-
-    <div class="jaar-grid">
-
-      <a class="jaar-kaart derde" href="3dejaar/index.html">
-        <div class="jaar-icoon"><img src="images/cards/tegel-3dejaar.svg" alt="3de jaar" /></div>
-        <div class="jaar-naam">3de jaar</div>
-        <div class="jaar-omschrijving">Grammatica, teksten, vocabularium en oefeningen.</div>
-        <div class="jaar-pijl">›</div>
-      </a>
-
-      <a class="jaar-kaart vierde" href="4dejaar/index.html">
-        <div class="jaar-icoon"><img src="images/cards/tegel-4dejaar.svg" alt="4de jaar" /></div>
-        <div class="jaar-naam">4de jaar</div>
-        <div class="jaar-omschrijving">Grammatica, vocabularium en oefeningen.</div>
-        <div class="jaar-pijl">›</div>
-      </a>
-
-    </div>
-
-    <p class="voet">J. Everaerdt &mdash; S.O. Groenhove Waregem campus Atheneum</p>
-
+  <div class="hero-brand" aria-hidden="true">
+    <img src="images/nav/logo_mono_wit.png" alt="">
   </div>
 
+  <img class="statue-bg" src="index2e-statue-bg.png" alt="" aria-hidden="true">
+
+  <span class="spark one" aria-hidden="true"></span>
+  <span class="spark two" aria-hidden="true"></span>
+  <span class="spark three" aria-hidden="true"></span>
+
+  <main class="page">
+    <div class="content">
+      <div class="logo-wrap">
+        <img class="school-logo" src="images/nav/logo.svg" alt="Groenhove">
+        <p class="site-title">S.O. Groenhove Waregem</p>
+      </div>
+
+      <div class="gold-rule" aria-hidden="true"><span></span></div>
+
+      <h1 class="choice-title">Latijn 2e graad</h1>
+      <p class="choice-subtitle">Kies het jaar om verder te gaan.</p>
+
+      <div class="year-grid">
+        <a class="year-card third" href="3dejaar/index.html">
+          <div class="card-top">
+            <div class="card-illustration">
+              <img src="images/cards/tegel-3dejaar.svg" alt="">
+            </div>
+          </div>
+          <div class="card-body">
+            <h2 class="year-name">3de jaar</h2>
+            <p class="year-description">Grammatica, teksten, vocabularium en oefeningen.</p>
+            <span class="year-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="year-card fourth" href="4dejaar/index.html">
+          <div class="card-top">
+            <div class="card-illustration">
+              <img src="images/cards/tegel-4dejaar.svg" alt="">
+            </div>
+          </div>
+          <div class="card-body">
+            <h2 class="year-name">4de jaar</h2>
+            <p class="year-description">Grammatica, vocabularium en oefeningen.</p>
+            <span class="year-arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="footer-wrap">
+        <div class="gold-rule footer-rule" aria-hidden="true"><span></span></div>
+        <p class="footer">J. Everaerdt — S.O. Groenhove Waregem campus Atheneum</p>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
