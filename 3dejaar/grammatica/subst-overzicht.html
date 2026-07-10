@@ -3,160 +3,732 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verbuigingen van de substantieven — Grammatica</title>
+<meta name="color-scheme" content="light">
+<title>Naamwoorden | Latijn 3de jaar | S.O. Groenhove</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..700,0..1,-50..200&display=swap" rel="stylesheet">
 <style>
   @font-face {
-    font-family: 'Flanders Art Sans';
-    src: url('../fonts/FlandersArtSans-Bold.otf') format('opentype');
+    font-family: 'FlandersArtSans';
+    src: url('../../fonts/flanders-art-sans/FLANDERSARTSANS-BOLD.OTF') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
   }
-  :root {
-    --jaar-kleur: #006633;
-    --accent: #FF3B1D;
-    --accent-licht: #fbe4de;
-    --achtergrond: #cce0d6;
-    --wit: #f3f1ef;
-    --zwart: #010100;
-    --tekst-zacht: #4a6b5a;
-    --rand: #c0d4c8;
-    --groen-licht: #e8eeeb;
-    --groen-midden: #65b32e;
-    --radius: 12px;
-    --radius-sm: 8px;
-    --ft: 'Flanders Art Sans', Arial, sans-serif;
-    --fb: 'Noto Sans', Arial, sans-serif;
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('../../fonts/noto-sans/NotoSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
   }
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('../../fonts/noto-sans/NotoSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --deep-forest: #006633;
+    --vital-green: #65b32e;
+    --balanced-yellow: #ffea3d;
+    --waregem-red-pulse: #FF3B1D;
+    --red-soft: #fbe4de;
+    --cool-background: #f7f8fa;
+    --card: #f3f1ef;
+    --white: #ffffff;
+    --ink: #010100;
+    --body: #526052;
+    --muted: #657067;
+    --line: #dbe1e5;
+    --soft-green: #eef6e8;
+    --shadow: 0 14px 30px rgba(0, 42, 21, .07);
+    --radius-xl: 28px;
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --fv: 'FlandersArtSans', 'Arial Black', Arial, sans-serif;
+    --fo: 'NotoSans', Arial, sans-serif;
+    --container-pad: clamp(1rem, 3vw, 2rem);
+    --header-pad: clamp(1.1rem, 3vw, 2.25rem);
+  }
+
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--achtergrond); color: var(--zwart); font-family: var(--fb); min-height: 100vh; display: flex; flex-direction: column; }
+  html { overflow-x: hidden; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--cool-background);
+    color: var(--ink);
+    font-family: var(--fo);
+    font-size: 15px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+  }
 
-  /* Groenhove-merklint */
-  .site-header { background: var(--jaar-kleur); color: var(--wit); display: flex; align-items: center; gap: 1rem; padding: .85rem 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
-  .site-header .logo { height: 38px; width: auto; display: block; flex-shrink: 0; }
-  .site-header h1 { font-family: var(--ft); font-weight: 700; font-size: 1.25rem; margin: 0; letter-spacing: .02em; }
-  .site-header .sub { font-family: var(--fb); font-size: .78rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; opacity: .85; margin-left: auto; white-space: nowrap; }
-  .site-header .sub .brand { font-family: var(--ft); font-weight: 700; font-size: inherit; color: inherit; }
+  h1, h2, h3, .site-title, .sectie-kop-tekst, .tegel-naam, .model-titel {
+    font-family: var(--fv);
+    font-weight: 700;
+  }
 
-  /* Athena-achtige navigatiestructuur, in Groenhove-kleuren */
-  .site-toolbar { background: var(--wit); border-bottom: 1px solid var(--rand); padding: .55rem 1.5rem; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 10; }
-  .toolbar-divider { width: 1px; height: 22px; background: var(--rand); margin: 0 .25rem; }
-  .back-btn, .pill-btn, .mode-btn { font-family: var(--fb); font-size: .82rem; font-weight: 700; color: var(--jaar-kleur); background: transparent; border: 1px solid var(--rand); border-radius: 20px; padding: .32rem .85rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; transition: background .15s, border-color .15s, color .15s; }
-  .back-btn:hover, .pill-btn:hover, .pill-btn.active { background: var(--groen-midden); border-color: var(--groen-midden); color: var(--wit); }
-  .back-btn svg { width: 14px; height: 14px; }
-  .model-switch { display: inline-flex; align-items: center; gap: .25rem; flex-wrap: wrap; }
-  .model-switch-label { font-size: .72rem; color: var(--tekst-zacht); font-weight: 700; margin-right: .15rem; }
-  .mode-btn { font-size: .76rem; padding: .28rem .66rem; }
-  .mode-btn:hover { background: var(--groen-licht); border-color: var(--groen-midden); }
-  .mode-btn.is-active { color: var(--wit); background: var(--jaar-kleur); border-color: var(--jaar-kleur); }
+  .material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 520, 'GRAD' 0, 'opsz' 24;
+  }
 
-  .inhoud { flex: 1; padding: 2rem 2rem 3rem; max-width: 1100px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem; }
-  .sectie { display: flex; flex-direction: column; gap: .75rem; }
-  .sectie-kop { display: flex; align-items: center; gap: 10px; padding-bottom: .6rem; border-bottom: 1.5px solid var(--rand); }
-  .sectie-icoon { width: 32px; height: 32px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--groen-licht); }
-  .sectie-icoon svg { width: 16px; height: 16px; stroke: var(--jaar-kleur); }
-  .sectie-kop-tekst { font-family: var(--ft); font-size: 16px; font-weight: 700; color: var(--jaar-kleur); }
-  .sectie-kop-label { margin-left: auto; font-size: 11px; font-family: var(--fb); font-weight: 700; color: var(--tekst-zacht); background: var(--groen-licht); border: 1px solid var(--rand); border-radius: 20px; padding: 2px 10px; white-space: nowrap; }
-  .tegel-grid { display: flex; flex-direction: column; gap: .5rem; }
-  .tegel, .tabel-kaart { background: var(--wit); border: .5px solid var(--rand); border-radius: var(--radius-sm); padding: .9rem 1.1rem; color: inherit; }
-  .tegel { display: flex; gap: 12px; align-items: flex-start; }
-  a.tegel { text-decoration: none; position: relative; transition: border-color .15s, transform .15s, box-shadow .15s; }
-  a.tegel:hover { border-color: var(--accent); transform: translateX(3px); box-shadow: 0 2px 10px rgba(0,102,51,.08); }
-  .tegel-badge { display: inline-block; font-size: 10px; font-family: var(--fb); font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--jaar-kleur); background: var(--groen-licht); border-radius: 4px; padding: 2px 7px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-  .tegel-badge.accent { color: var(--accent); background: var(--accent-licht); }
-  .tegel-tekst { display: flex; flex-direction: column; gap: 4px; flex: 1; }
-  .tegel-naam { font-family: var(--ft); font-size: 14px; font-weight: 700; color: var(--jaar-kleur); line-height: 1.3; }
-  .tegel-omschrijving { font-family: var(--fb); font-size: 12.5px; color: var(--tekst-zacht); line-height: 1.55; }
-  .tegel-lijst, .regel-lijst { font-family: var(--fb); font-size: 12.5px; color: var(--tekst-zacht); line-height: 1.6; margin: 4px 0 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 2px; }
-  .tegel-lijst a { color: var(--jaar-kleur); font-weight: 700; text-decoration: none; }
-  .tegel-lijst a:hover { color: var(--accent); text-decoration: underline; }
-  .tegel-pijl { font-size: 18px; color: var(--rand); transition: color .15s; flex-shrink: 0; margin-left: auto; padding-left: 8px; margin-top: 1px; }
-  a.tegel:hover .tegel-pijl { color: var(--accent); }
+  /* 3de jaar: Deep Forest balk, centraal logo, halve streep Balanced Yellow + halve streep Vital Green. */
+  .site-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    min-height: 86px;
+    padding: 0 var(--header-pad);
+    background: var(--deep-forest);
+    border-bottom: 0;
+    color: var(--white);
+    isolation: isolate;
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+      to right,
+      var(--balanced-yellow) 0 50%,
+      var(--vital-green) 50% 100%
+    );
+  }
+  .site-header .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    height: 64px;
+    display: block;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  .site-title {
+    grid-column: 1;
+    justify-self: start;
+    color: var(--white);
+    font-size: .98rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .site-sub {
+    grid-column: 3;
+    justify-self: end;
+    margin-left: 0;
+    color: var(--white);
+    font-family: var(--fo);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .085em;
+    text-transform: uppercase;
+    opacity: .92;
+    white-space: nowrap;
+  }
 
-  .tabel-kaart { padding: 1.25rem; overflow-x: auto; }
-  .model-titel { margin: 0 0 .25rem; font-family: var(--ft); font-size: 17px; color: var(--jaar-kleur); }
-  .model-intro { margin: 0 0 1rem; color: var(--tekst-zacht); font-size: 12.5px; line-height: 1.55; }
-  table { border-collapse: collapse; width: 100%; min-width: 500px; font-family: var(--fb); font-size: 13px; }
-  th { background: var(--jaar-kleur); color: var(--wit); font-family: var(--ft); font-weight: 700; text-align: left; padding: 9px 11px; letter-spacing: .02em; white-space: nowrap; }
+  .site-toolbar {
+    width: 100%;
+    margin: 0;
+    padding: 1rem var(--header-pad) .15rem;
+  }
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    flex-wrap: wrap;
+  }
+  .back-btn,
+  .pill-btn,
+  .mode-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .35rem;
+    min-height: 34px;
+    padding: .38rem .88rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: #5e6763;
+    font-family: var(--fo);
+    font-size: .86rem;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
+  }
+  .mode-btn { font-size: .8rem; padding-inline: .82rem; }
+  .back-btn .material-symbols-rounded { font-size: 18px; }
+  .back-btn:hover,
+  .pill-btn:hover,
+  .mode-btn:hover {
+    background: var(--deep-forest);
+    border-color: var(--deep-forest);
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+  .mode-btn.is-active {
+    background: var(--deep-forest);
+    border-color: var(--deep-forest);
+    color: var(--white);
+  }
+  .back-btn:focus-visible,
+  .pill-btn:focus-visible,
+  .mode-btn:focus-visible,
+  a.tegel:focus-visible {
+    outline: 3px solid var(--balanced-yellow);
+    outline-offset: 4px;
+  }
+  .toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--line);
+    margin: 0 .25rem;
+  }
+  .model-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    flex-wrap: wrap;
+  }
+  .model-switch-label {
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+
+  main {
+    flex: 1;
+    width: 100%;
+  }
+  .page-intro {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(2.15rem, 4.4vw, 4rem) var(--container-pad) clamp(1.4rem, 2.8vw, 2.2rem);
+  }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0 0 .6rem;
+    color: var(--deep-forest);
+    font-family: var(--fv);
+    font-size: .85rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .kicker::before {
+    content: '';
+    width: 22px;
+    height: 3px;
+    background: var(--balanced-yellow);
+    border-radius: 2px;
+  }
+  .page-intro h1 {
+    max-width: 11ch;
+    margin: 0;
+    color: var(--deep-forest);
+    font-size: clamp(3.1rem, 6.7vw, 6.15rem);
+    line-height: .92;
+    letter-spacing: -.055em;
+  }
+  .page-intro .intro-text {
+    max-width: 42rem;
+    margin: 1.35rem 0 0;
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: clamp(.98rem, 1.25vw, 1.09rem);
+    line-height: 1.65;
+  }
+
+  .inhoud {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: .75rem var(--container-pad) 3.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.1rem, 4vw, 3.1rem);
+  }
+  .sectie {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .sectie-kop {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding-bottom: .7rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .sectie-icoon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--deep-forest);
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .sectie-icoon .material-symbols-rounded {
+    font-size: 21px;
+    font-variation-settings: 'FILL' 0, 'wght' 560, 'GRAD' 0, 'opsz' 24;
+  }
+  .sectie-kop-tekst {
+    color: var(--deep-forest);
+    font-size: .95rem;
+    letter-spacing: .11em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .sectie-kop-label {
+    margin-left: auto;
+    padding: .24rem .58rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .72);
+    color: #7a8580;
+    border: 1px solid var(--line);
+    font-family: var(--fo);
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .tegel-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(.85rem, 1.65vw, 1.25rem);
+  }
+  .tegel,
+  .tabel-kaart {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    color: inherit;
+    box-shadow: 0 5px 14px rgba(0, 52, 25, .035);
+    overflow: hidden;
+  }
+  .tegel {
+    min-height: 96px;
+    padding: 1.2rem 1.15rem 1.05rem;
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    text-decoration: none;
+    transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  .tegel::before,
+  .tabel-kaart::before,
+  .onthoud::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--deep-forest);
+    opacity: .08;
+    transition: opacity .18s ease, background .18s ease;
+  }
+  .tegel:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 102, 51, .22);
+    box-shadow: var(--shadow);
+  }
+  .tegel:hover::before {
+    background: var(--vital-green);
+    opacity: 1;
+  }
+
+  .tegel--forest:hover {
+    background: var(--deep-forest);
+    border-color: var(--deep-forest);
+    color: var(--white);
+  }
+  .tegel--forest:hover::before { background: var(--balanced-yellow); opacity: 1; }
+  .tegel--forest:hover .tegel-badge { background: rgba(255,255,255,.16); color: var(--white); }
+  .tegel--forest:hover .tegel-naam,
+  .tegel--forest:hover .tegel-omschrijving,
+  .tegel--forest:hover .tegel-lijst,
+  .tegel--forest:hover .tegel-lijst a,
+  .tegel--forest:hover .tegel-pijl { color: var(--white); }
+  .tegel--forest:hover .tegel-omschrijving,
+  .tegel--forest:hover .tegel-lijst { color: rgba(255,255,255,.83); }
+
+  .tegel--vital:hover {
+    background: var(--vital-green);
+    border-color: var(--vital-green);
+    color: var(--deep-forest);
+  }
+  .tegel--vital:hover::before { background: var(--balanced-yellow); opacity: 1; }
+  .tegel--vital:hover .tegel-badge { background: rgba(255,255,255,.45); color: var(--deep-forest); }
+  .tegel--vital:hover .tegel-naam,
+  .tegel--vital:hover .tegel-omschrijving,
+  .tegel--vital:hover .tegel-lijst,
+  .tegel--vital:hover .tegel-lijst a,
+  .tegel--vital:hover .tegel-pijl { color: var(--deep-forest); }
+  .tegel--vital:hover .tegel-omschrijving,
+  .tegel--vital:hover .tegel-lijst { color: rgba(0,102,51,.9); }
+
+  .tegel--yellow:hover {
+    background: var(--balanced-yellow);
+    border-color: var(--balanced-yellow);
+    color: var(--waregem-red-pulse);
+  }
+  .tegel--yellow:hover::before { background: var(--waregem-red-pulse); opacity: 1; }
+  .tegel--yellow:hover .tegel-badge { background: rgba(255,255,255,.64); color: var(--waregem-red-pulse); }
+  .tegel--yellow:hover .tegel-naam,
+  .tegel--yellow:hover .tegel-omschrijving,
+  .tegel--yellow:hover .tegel-lijst,
+  .tegel--yellow:hover .tegel-lijst a,
+  .tegel--yellow:hover .tegel-pijl { color: var(--waregem-red-pulse); }
+  .tegel-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 76px;
+    padding: .26rem .55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .72);
+    color: var(--deep-forest);
+    font-family: var(--fo);
+    font-size: .66rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: .1rem;
+  }
+  .tegel-badge.accent {
+    color: var(--waregem-red-pulse);
+    background: var(--red-soft);
+  }
+  .tegel-tekst {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .tegel-naam {
+    color: var(--deep-forest);
+    font-size: 1.05rem;
+    letter-spacing: -.025em;
+    line-height: 1.18;
+  }
+  .tegel-omschrijving {
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: .86rem;
+    line-height: 1.55;
+  }
+  .tegel-lijst,
+  .regel-lijst {
+    margin: .45rem 0 0;
+    padding-left: 1.15rem;
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: .86rem;
+    line-height: 1.6;
+  }
+  .tegel-lijst a {
+    color: var(--deep-forest);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .tegel-lijst a:hover {
+    color: var(--waregem-red-pulse);
+    text-decoration: underline;
+  }
+  .tegel-pijl {
+    margin-left: auto;
+    padding-left: .5rem;
+    color: var(--deep-forest);
+    font-size: 1.35rem;
+    line-height: 1;
+    opacity: .42;
+    transition: color .18s ease, opacity .18s ease, transform .18s ease;
+  }
+  .tegel:hover .tegel-pijl {
+    color: var(--waregem-red-pulse);
+    opacity: 1;
+    transform: translateX(4px);
+  }
+  .onthoud {
+    background: linear-gradient(180deg, var(--soft-green), var(--card));
+  }
+  .onthoud::before {
+    background: var(--balanced-yellow);
+    opacity: 1;
+  }
+
+  .tabel-kaart {
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+  .model-titel {
+    margin: .15rem 0 .25rem;
+    color: var(--deep-forest);
+    font-size: 1.1rem;
+    letter-spacing: -.025em;
+  }
+  .model-intro {
+    margin: 0 0 1rem;
+    color: var(--body);
+    font-family: var(--fo);
+    font-size: .86rem;
+    line-height: 1.55;
+  }
+  table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+    font-family: var(--fo);
+    font-size: .88rem;
+  }
+  th {
+    padding: .6rem .75rem;
+    background: var(--deep-forest);
+    color: var(--white);
+    font-family: var(--fv);
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: .02em;
+    white-space: nowrap;
+  }
   th:first-child { background: #004d28; }
-  td { padding: 8px 11px; border-bottom: 1px solid var(--rand); border-right: 1px solid var(--rand); vertical-align: middle; white-space: nowrap; }
+  td {
+    padding: .55rem .75rem;
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    vertical-align: middle;
+    white-space: nowrap;
+  }
   tr:last-child td { border-bottom: 0; }
-  tbody tr:nth-child(even) td { background: #eef4f0; }
-  td.naamval { background: #e4efe8; color: var(--jaar-kleur); font-weight: 700; white-space: nowrap; }
-  td .uitgang { color: var(--accent); font-weight: 700; }
-  td .nl { display: block; color: var(--tekst-zacht); font-size: 11px; margin-top: 1px; white-space: normal; }
-  .tabel-nota { margin: .8rem 0 0; font-size: 12px; color: var(--tekst-zacht); }
-  .onthoud { background: var(--groen-licht); border: 1px solid #a7c6af; }
-  .onthoud .tegel-naam { color: var(--jaar-kleur); }
-  .regel-lijst { color: var(--zwart); margin-top: .5rem; }
-  .regel-lijst li::marker { color: var(--accent); }
-  .voetje { text-align: center; padding: 1rem; font-family: var(--fb); font-size: 12px; color: var(--tekst-zacht); }
-  em { font-style: italic; } strong { font-weight: 700; }
+  tbody tr:nth-child(even) td { background: var(--soft-green); }
+  td.naamval {
+    background: #e4efe8;
+    color: var(--deep-forest);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  td .uitgang { color: var(--waregem-red-pulse); font-weight: 700; }
+  td .nl {
+    display: block;
+    color: var(--body);
+    font-size: .75rem;
+    margin-top: 1px;
+    white-space: normal;
+  }
+  .tabel-nota {
+    margin: .8rem 0 0;
+    color: var(--body);
+    font-size: .82rem;
+  }
+  .regel-lijst { color: var(--ink); }
+  .regel-lijst li::marker { color: var(--waregem-red-pulse); }
+  .mode-note {
+    margin: .35rem 0 0;
+    padding: .75rem .9rem;
+    border-left: 4px solid var(--waregem-red-pulse);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    background: var(--red-soft);
+    color: #5b2c20;
+    font-size: .86rem;
+    line-height: 1.55;
+  }
 
-  /* Wisselbare inhoud */
+  .voetje {
+    padding: 1.2rem 1.5rem 2.2rem;
+    color: #7a8580;
+    font-family: var(--fo);
+    font-size: .76rem;
+    text-align: center;
+  }
+  em { font-style: italic; }
+  strong { font-weight: 700; }
+
   [data-mode-content] { display: none; }
   body[data-model-mode="trad"] [data-mode-content="trad"],
   body[data-model-mode="pegasus"] [data-mode-content="pegasus"] { display: block; }
-  .mode-note { border-left: 3px solid var(--accent); background: var(--accent-licht); padding: .7rem .85rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: #5b2c20; font-size: 12.5px; line-height: 1.5; margin: .25rem 0 0; }
 
-  @media (max-width: 850px) { .toolbar-divider-mode { display: none; } .model-switch { width: 100%; padding-top: .2rem; } }
-  @media (max-width: 700px) { .site-header { align-items: flex-start; } .site-header .sub { display: none; } }
-  @media (max-width: 500px) { .inhoud { padding: 1.5rem 1rem 2.5rem; } .sectie-kop { align-items: flex-start; } .sectie-kop-label { margin-left: 0; } .site-toolbar { padding: .55rem 1rem; } .pill-btn { font-size: .76rem; padding: .3rem .65rem; } .tabel-kaart { padding: .85rem; } }
+  @media (max-width: 720px) {
+    .toolbar-divider { display: none; }
+    .model-switch { width: 100%; padding-top: .15rem; }
+    .page-intro { padding-top: 2.35rem; }
+    .page-intro h1 { font-size: clamp(3rem, 17vw, 4.6rem); }
+  }
+  @media (max-width: 600px) {
+    .site-header { min-height: 72px; padding-inline: 1rem; }
+    .site-header .logo { height: 52px; }
+    .site-title { font-size: .78rem; letter-spacing: .06em; }
+    .site-sub { display: none; }
+    .site-toolbar { padding-left: 1rem; padding-right: 1rem; padding-top: .85rem; }
+    .page-intro,
+    .inhoud { padding-left: 1rem; padding-right: 1rem; }
+    .sectie-kop { align-items: flex-start; }
+    .sectie-kop-label { margin-left: 0; }
+    .tegel { flex-direction: column; }
+    .tegel-badge { min-width: 0; align-self: flex-start; }
+    .tegel-pijl { margin-left: 0; padding-left: 0; }
+  }
 </style>
 </head>
 <body data-model-mode="trad">
-<header class="site-header">
-  <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="Groenhove">
-  <h1>Grammatica</h1>
-  <span class="sub"><span class="brand">S.O. Groenhove Waregem</span></span>
-</header>
-<nav class="site-toolbar">
-  <a class="back-btn" href="../index.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    Terug naar 3de jaar
-  </a>
-  <div class="toolbar-divider"></div>
-  <div class="model-switch" role="group" aria-label="Kies het verbuigingsmodel">
-    <span class="model-switch-label">Modellen</span>
-    <button type="button" class="mode-btn" data-mode-button="trad">Traditioneel</button>
-    <button type="button" class="mode-btn" data-mode-button="pegasus">Pegasus</button>
-  </div>
-</nav>
-<main class="inhoud">
-<div data-mode-content="trad"><section class="sectie">
-  <div class="sectie-kop"><div class="sectie-icoon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><span class="sectie-kop-tekst">Naamwoorden</span><span class="sectie-kop-label">Nomina</span></div>
-  <div class="tegel-grid">
-    <div class="tegel"><span class="tegel-badge">Theorie</span><div class="tegel-tekst"><div class="tegel-naam">De traditionele modellen</div><div class="tegel-omschrijving">Werk in de volgorde <strong>nominatief – vocatief – genitief – datief – accusatief – ablatief</strong>.</div><ul class="tegel-lijst">
-      <li><a href="subst-a-verbuiging.html">de a-verbuiging (type <em>silva</em>)</a></li>
-      <li><a href="subst-o-verbuiging.html">de o-verbuiging (types <em>servus</em> en <em>templum</em>)</a></li>
-      <li><a href="subst-gemengde-verbuiging.html">de gemengde verbuiging (types <em>rex</em> en <em>corpus</em>)</a></li>
-      <li><a href="subst-u-verbuiging.html">de u-verbuiging (type <em>motus</em>)</a></li>
-      <li><a href="subst-e-verbuiging.html">de e-verbuiging (type <em>res</em>)</a></li>
-    </ul></div></div>
-    <div class="tegel onthoud"><span class="tegel-badge accent">Houvast</span><div class="tegel-tekst"><div class="tegel-naam">Zo gebruik je een model</div><div class="tegel-omschrijving">Zoek de <strong>nominatief</strong>, de <strong>genitief</strong> en het <strong>geslacht</strong> op. Bepaal dan stam en uitgang.</div></div></div>
-  </div>
-</section></div>
-<div data-mode-content="pegasus"><section class="sectie">
-  <div class="sectie-kop"><div class="sectie-icoon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><span class="sectie-kop-tekst">Naamwoorden</span><span class="sectie-kop-label">Pegasus Novus</span></div>
-  <div class="tegel-grid">
-    <div class="tegel"><span class="tegel-badge accent">1e klasse</span><div class="tegel-tekst"><div class="tegel-naam">De eerste klasse</div><div class="tegel-omschrijving">Pegasus bundelt de traditionele a- en o-verbuiging in één klasse. Volgorde: <strong>nom. – acc. – gen. – dat. – abl. – voc.</strong>.</div><ul class="tegel-lijst">
-      <li><a href="subst-a-verbuiging.html">vrouwelijk model: <em>rosa, rosae</em></a></li>
-      <li><a href="subst-o-verbuiging.html">mannelijk en onzijdig: <em>avus, avi</em> en <em>donum, doni</em></a></li>
-    </ul></div></div>
-    <div class="tegel"><span class="tegel-badge accent">2e klasse</span><div class="tegel-tekst"><div class="tegel-naam">De tweede klasse</div><div class="tegel-omschrijving">Mannelijk, vrouwelijk en onzijdig krijgen elk een afzonderlijk model.</div><ul class="tegel-lijst"><li><a href="subst-gemengde-verbuiging.html"><em>dux, ducis</em> · <em>mater, matris</em> · <em>corpus, corporis</em></a></li></ul></div></div>
-    <div class="tegel"><span class="tegel-badge accent">3e klasse</span><div class="tegel-tekst"><div class="tegel-naam">De derde klasse</div><div class="tegel-omschrijving">Pegasus zet de traditionele u- en e-verbuiging samen.</div><ul class="tegel-lijst">
-      <li><a href="subst-u-verbuiging.html">mannelijk model: <em>fructus, fructus</em></a></li>
-      <li><a href="subst-e-verbuiging.html">vrouwelijk model: <em>res, rei</em></a></li>
-    </ul></div></div>
-    <div class="tegel onthoud"><span class="tegel-badge accent">Houvast</span><div class="tegel-tekst"><div class="tegel-naam">Overstappen vanuit Pegasus</div><div class="tegel-omschrijving">De vormen veranderen niet. Wat verandert, zijn vooral het <strong>modelwoord</strong>, de <strong>indeling in klassen</strong> en de <strong>volgorde van de naamvallen</strong>.</div></div></div>
-  </div>
-</section></div>
-</main>
-<p class="voetje">J. Everaerdt &mdash; S.O. Groenhove Waregem</p>
+  <header class="site-header">
+    <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="S.O. Groenhove">
+    <span class="site-title">Latijn 3de jaar</span>
+    <span class="site-sub">S.O. Groenhove Waregem</span>
+  </header>
+
+  <nav class="site-toolbar" aria-label="Pagina-navigatie">
+    <div class="toolbar-left">
+      <a class="back-btn" href="../index.html">
+        <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+        <span>Terug naar 3de jaar</span>
+      </a>
+      <div class="toolbar-divider"></div>
+      <div class="model-switch" role="group" aria-label="Kies het verbuigingsmodel">
+        <span class="model-switch-label">Modellen</span>
+        <button type="button" class="mode-btn" data-mode-button="trad">Groenhove</button>
+        <button type="button" class="mode-btn" data-mode-button="pegasus">Pegasus</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="page-intro" aria-labelledby="pagina-titel">
+      <p class="kicker">3de jaar</p>
+      <h1 id="pagina-titel">Naamwoorden</h1>
+      <p class="intro-text">Herhaal de verbuigingen van de substantieven. Gebruik de Groenhove-indeling of schakel over naar Pegasus Novus wanneer je vanuit dat model werkt.</p>
+    </section>
+
+    <div class="inhoud">
+      <div data-mode-content="trad">
+        <section class="sectie">
+          <div class="sectie-kop">
+            <div class="sectie-icoon" aria-hidden="true"><span class="material-symbols-rounded">view_list</span></div>
+            <span class="sectie-kop-tekst">Naamwoorden</span>
+            <span class="sectie-kop-label">Nomina</span>
+          </div>
+          <div class="tegel-grid">
+            <div class="tegel tegel--forest">
+              <span class="tegel-badge">Theorie</span>
+              <div class="tegel-tekst">
+                <div class="tegel-naam">De modellen</div>
+                <div class="tegel-omschrijving">Werk in de volgorde <strong>nominatief – vocatief – genitief – datief – accusatief – ablatief</strong>.</div>
+                <ul class="tegel-lijst">
+                  <li><a href="subst-a-verbuiging.html">de a-verbuiging (type <em>silva</em>)</a></li>
+                  <li><a href="subst-o-verbuiging.html">de o-verbuiging (types <em>servus</em> en <em>templum</em>)</a></li>
+                  <li><a href="subst-gemengde-verbuiging.html">de gemengde verbuiging (types <em>rex</em> en <em>corpus</em>)</a></li>
+                  <li><a href="subst-u-verbuiging.html">de u-verbuiging (type <em>motus</em>)</a></li>
+                  <li><a href="subst-e-verbuiging.html">de e-verbuiging (type <em>res</em>)</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="tegel onthoud tegel--yellow">
+              <span class="tegel-badge accent">Houvast</span>
+              <div class="tegel-tekst">
+                <div class="tegel-naam">Zo gebruik je een model</div>
+                <div class="tegel-omschrijving">Zoek de <strong>nominatief</strong>, de <strong>genitief</strong> en het <strong>geslacht</strong> op. Bepaal dan stam en uitgang.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div data-mode-content="pegasus">
+        <section class="sectie">
+          <div class="sectie-kop">
+            <div class="sectie-icoon" aria-hidden="true"><span class="material-symbols-rounded">view_list</span></div>
+            <span class="sectie-kop-tekst">Naamwoorden</span>
+            <span class="sectie-kop-label">Pegasus Novus</span>
+          </div>
+          <div class="tegel-grid">
+            <div class="tegel tegel--forest">
+              <span class="tegel-badge accent">1e klasse</span>
+              <div class="tegel-tekst">
+                <div class="tegel-naam">De eerste klasse</div>
+                <div class="tegel-omschrijving">Pegasus bundelt de a- en o-verbuiging in één klasse. Volgorde: <strong>nom. – acc. – gen. – dat. – abl. – voc.</strong>.</div>
+                <ul class="tegel-lijst">
+                  <li><a href="subst-a-verbuiging.html">vrouwelijk model: <em>rosa, rosae</em></a></li>
+                  <li><a href="subst-o-verbuiging.html">mannelijk en onzijdig: <em>avus, avi</em> en <em>donum, doni</em></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="tegel tegel--vital">
+              <span class="tegel-badge accent">2e klasse</span>
+              <div class="tegel-tekst">
+                <div class="tegel-naam">De tweede klasse</div>
+                <div class="tegel-omschrijving">Mannelijk, vrouwelijk en onzijdig krijgen elk een afzonderlijk model.</div>
+                <ul class="tegel-lijst">
+                  <li><a href="subst-gemengde-verbuiging.html"><em>dux, ducis</em> · <em>mater, matris</em> · <em>corpus, corporis</em></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="tegel tegel--yellow">
+              <span class="tegel-badge accent">3e klasse</span>
+              <div class="tegel-tekst">
+                <div class="tegel-naam">De derde klasse</div>
+                <div class="tegel-omschrijving">Pegasus zet de u- en e-verbuiging samen.</div>
+                <ul class="tegel-lijst">
+                  <li><a href="subst-u-verbuiging.html">mannelijk model: <em>fructus, fructus</em></a></li>
+                  <li><a href="subst-e-verbuiging.html">vrouwelijk model: <em>res, rei</em></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="tegel onthoud tegel--vital">
+              <span class="tegel-badge accent">Houvast</span>
+              <div class="tegel-tekst">
+                <div class="tegel-naam">Overstappen vanuit Pegasus</div>
+                <div class="tegel-omschrijving">De vormen veranderen niet. Wat verandert, zijn vooral het <strong>modelwoord</strong>, de <strong>indeling in klassen</strong> en de <strong>volgorde van de naamvallen</strong>.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <p class="voetje">J. Everaerdt &mdash; S.O. Groenhove Waregem</p>
+
 <script>
 (function () {
   const storageKey = 'groenhove-verbuigingen-model';
