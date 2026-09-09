@@ -1,242 +1,800 @@
 <!DOCTYPE html>
-
 <html lang="nl">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Break On Through to the Other Side – Thema 1 T1 · 4de jaar</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Break On Through to the Other Side – Thema 1 Tekst 1 · 4de jaar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
 <style>
-:root{
-  --blue:#65b32e;--blue-mid:#4a8a22;--magenta:#65b32e;
-  --paper:#f3f1ef;--page:#e0efd5;--rule:rgba(101,179,46,.25);
-  --ink:#010100;--ink-mid:#3a4a2a;--ink-light:#5a6b4a;
-  --jaar-kleur:#65b32e;--accent:#FF3B1D;--achtergrond:#e0efd5;--wit:#f3f1ef;--rand:#c8d4c0;--radius:12px;
-  --ft:'Flanders Art Sans',Arial,sans-serif;--fb:'Noto Sans',Arial,sans-serif;--latin:'EB Garamond',Georgia,serif;
-  --green:#2d7a3a;--green-bg:#e8f5eb;--orange:#c05a00;--orange-bg:#fff0e0;--purple:#6a1a8a;--purple-bg:#f3e8fb;
-  --hl:#fff3c4;--hl-b:#e8c840;--lh:2.35;--fs:1.25rem;
+:root {
+  --blue:#65b32e;
+  --blue-mid:#4a8a22;
+  --magenta:#65b32e;
+  --accent:#FF3B1D;
+  --yellow:#ffea3d;
+  --paper:#f3f1ef;
+  --page:#e0efd5;
+  --rule:rgba(101,179,46,.26);
+  --ink:#010100;
+  --ink-mid:#334128;
+  --ink-light:#5c6b52;
+  --rand:#c8d4c0;
+  --radius:12px;
+  --ft:'Flanders Art Sans', Arial, sans-serif;
+  --fb:'Noto Sans', Arial, sans-serif;
+  --latin:'EB Garamond', Georgia, serif;
+  --green:#2d7a3a; --green-bg:#e8f5eb;
+  --orange:#c05a00; --orange-bg:#fff0e0;
+  --purple:#6a1a8a; --purple-bg:#f3e8fb;
+  --hl:#fff3c4; --hl-b:#e8c840;
+  --lh:2.12; --fs:1.18rem;
 }
 @font-face{font-family:'Flanders Art Sans';src:url('../../fonts/FlandersArtSans-Bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap;}
-*{box-sizing:border-box}html{overflow-x:hidden;scroll-behavior:smooth}body{margin:0;background:var(--achtergrond);color:var(--ink);font-family:var(--fb);overflow-x:hidden}.ink-canvas{position:fixed;inset:0;z-index:640;pointer-events:none;touch-action:none}.ink-canvas.on{pointer-events:auto}body.ink-on{cursor:crosshair}
-.site-header{background:var(--jaar-kleur);color:var(--wit);display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);width:100%;min-height:62px;position:relative;z-index:210}.site-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#ffea3d}.site-header .logo{height:38px;width:auto;display:block;flex-shrink:0}.site-header h1{font-family:var(--ft);font-weight:700;font-size:1.25rem;margin:0;letter-spacing:.02em;white-space:nowrap}.site-header .sub{font-family:var(--ft);font-size:.78rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;opacity:.88;margin-left:auto;white-space:nowrap;padding-left:.5rem;color:#fff}
-.site-toolbar{background:var(--wit);border-bottom:1px solid var(--rand);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;min-height:56px}.toolbar-left,.toolbar-right{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}.topbar-label{font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);opacity:.72}.topbar-divider{width:1px;height:22px;background:var(--rand);margin:0 .4rem}.back-btn,.ctrl-btn{font-family:var(--fb);font-size:.85rem;color:var(--ink);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.35rem .85rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:background .15s,border-color .15s,color .15s}.back-btn:hover,.ctrl-btn:hover{background:#ffea3d;color:#006633;border-color:#ffea3d}.back-btn.active,.ctrl-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}.back-btn svg,.ctrl-btn svg{width:14px;height:14px;stroke:currentColor;fill:none}
-.weergave-wrap{position:relative}.weergave-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1.5px solid rgba(101,179,46,.25);border-radius:12px;box-shadow:0 6px 24px rgba(0,102,51,.13);z-index:400;min-width:190px;padding:.35rem 0;overflow:hidden}.weergave-menu.open{display:block;animation:fadeUp .12s ease both}.weergave-item{display:flex;align-items:center;gap:.45rem;width:100%;background:none;border:none;padding:.48rem .9rem;font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);cursor:pointer;transition:background .12s,color .12s;white-space:nowrap}.weergave-item:hover{background:#eef8ea}.weergave-item.active{color:var(--blue)}.weergave-item svg{width:12px;height:12px;flex-shrink:0;stroke:currentColor;fill:none}.weergave-chevron{transition:transform .18s}#btnWeergave.open .weergave-chevron{transform:rotate(180deg)}.menu-divider{height:1px;background:var(--rand);margin:.3rem 0}.menu-section{font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);padding:.3rem .9rem .1rem}
-.outer{max-width:1200px;margin:0 auto;padding:0 1.5rem}.main-col{max-width:760px;margin:0 auto;padding:3rem 0 9rem}body.twocol .outer{display:grid;grid-template-columns:var(--col-split,60%) 12px 1fr;gap:0;align-items:start}body.twocol .main-col{max-width:none;padding:3rem 2rem 9rem 0}.side-panel{display:none}body.twocol .side-panel{display:flex!important;flex-direction:column;gap:1rem;padding:3rem 0 9rem 1.5rem;border-left:1px solid var(--rule);position:sticky;top:108px;max-height:calc(100vh - 108px);overflow-y:auto}.col-resizer{display:none;width:12px;cursor:col-resize;align-self:stretch;position:relative;z-index:10;flex-shrink:0}body.twocol .col-resizer{display:flex;align-items:center;justify-content:center}.col-resizer-handle{width:4px;height:48px;border-radius:4px;background:var(--rule);transition:background .15s,height .15s;position:sticky;top:calc(50vh - 24px)}.col-resizer:hover .col-resizer-handle,.col-resizer.dragging .col-resizer-handle{background:var(--blue);height:64px}
-.hero-wrapper{position:relative;border-radius:12px;overflow:hidden;margin-bottom:2rem;min-height:320px;background:linear-gradient(135deg,#122312,#0e170e 58%,#284a20);animation:fadeUp .5s ease both}.hero-img{width:100%;height:100%;min-height:320px;object-fit:cover;object-position:center 25%;display:block;opacity:.6}.hero-img.is-missing{display:none}.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.25) 55%,rgba(0,0,0,.05));pointer-events:none}.hero-tekst{position:absolute;bottom:0;left:0;padding:1.45rem 1.65rem;pointer-events:none}.hero-meta{font-family:var(--ft);font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#ffea3d;margin-bottom:.35rem;text-shadow:0 1px 4px rgba(0,0,0,.6)}.hero-title{font-family:var(--ft);font-size:2.15rem;font-weight:700;line-height:1.1;color:#65b32e;margin-bottom:.35rem;letter-spacing:-.01em;text-shadow:0 2px 8px rgba(0,0,0,.7)}.hero-sub{font-family:var(--fb);font-style:italic;font-size:.875rem;color:rgba(255,255,255,.88);line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,.6)}
-.context-block{background:linear-gradient(135deg,#eef8ea,#f6fbf4);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:1rem 1.3rem;margin-bottom:1.6rem;font-family:var(--fb);font-size:.86rem;line-height:1.65;color:#2d452a;animation:fadeUp .5s .07s ease both}.context-block strong{display:block;font-family:var(--ft);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem;font-weight:700}.context-subtitel{display:block;font-family:var(--fb);font-style:italic;font-size:.8rem;color:#6a7566;margin-bottom:.5rem}.context-block p{margin:0}
-.extras-strip{margin-bottom:1.4rem;animation:fadeUp .5s .12s ease both}.extras-row{display:flex;align-items:center;gap:.9rem}.extras-label{font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}.extras-icon{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:none;background:none;color:var(--accent);cursor:pointer;padding:0;opacity:.78;transition:opacity .15s,background .15s,color .15s;text-decoration:none}.extras-icon:hover{opacity:1;background:#fffbdf;color:#006633}.extras-icon svg{width:18px;height:18px;stroke:currentColor;fill:none}
-.d-badge{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .5rem;border-radius:20px;vertical-align:middle;margin:0 .2rem .18rem;white-space:nowrap;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none;transform:scale(.85);cursor:help}.d-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe}.d-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0}.d-badge.vis{opacity:1;pointer-events:auto;transform:scale(1)}.d-tooltip{position:fixed;z-index:9500;background:var(--ink);color:#fff;font-family:var(--fb);font-size:.72rem;line-height:1.45;padding:.5rem .75rem;border-radius:8px;max-width:300px;pointer-events:none;opacity:0;transition:opacity .15s}.d-tooltip.vis{opacity:1}
-.reveal-bar{display:none;align-items:center;gap:.6rem;margin-bottom:1.2rem;padding:.65rem 1rem;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;font-family:var(--ft);font-size:.78rem;color:var(--ink-mid);flex-wrap:wrap}.reveal-bar.vis{display:flex}.reveal-bar button{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:.3rem .8rem;font-family:var(--ft);font-size:.72rem;cursor:pointer;transition:background .15s;white-space:nowrap}.reveal-bar button:hover{background:var(--blue-mid)}.reveal-bar button.sec{background:var(--paper);color:var(--blue);border:1.5px solid var(--blue)}.reveal-bar button.sec:hover{background:#eef8ea}.rev-count{margin-left:auto;color:var(--ink-light);font-size:.68rem;white-space:nowrap}.la-reminder{display:none;align-items:center;gap:.5rem;margin-bottom:1rem;padding:.55rem .9rem;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;cursor:pointer;font-family:var(--fb);font-size:.78rem;color:#92400e;transition:background .15s}.la-reminder.vis{display:flex}.la-reminder:hover{background:#fef3c7}.la-reminder-icon{font-size:1rem;flex-shrink:0}.la-reminder-text{flex:1}.la-reminder-link{font-weight:700;text-decoration:underline}
-.latin-text{font-family:var(--latin);font-size:var(--fs);line-height:var(--lh);animation:fadeUp .5s .18s ease both;color:var(--ink)}body.font-lg .latin-text{--fs:1.38rem;--lh:2.5}.latin-para{margin-bottom:1.75rem}.vers-nr-label{display:inline-block;font-family:var(--ft);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:.75;margin-bottom:.15rem;margin-right:.55rem;vertical-align:middle}.wg{display:inline;border-radius:4px;cursor:pointer;transition:background .15s,outline .1s;padding:1px 0}.wg:hover{background:rgba(101,179,46,.12)}.reveal-mode .wg{opacity:.035;transition:opacity .3s}.reveal-mode .wg.revealed{opacity:1}.reveal-mode .wg.current{opacity:1;background:var(--hl);outline:1px solid var(--hl-b);border-radius:4px}.lat-word{display:inline;border-radius:3px;cursor:pointer;transition:background .12s;padding:0 1px}.lat-word:hover{background:rgba(101,179,46,.13)}body.interlin-analysis .lat-word{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;margin:0 2px;padding:0 1px}.inline-analysis{display:none}body.interlin-analysis .inline-analysis{display:flex;flex-direction:column;align-items:center;gap:1px;margin-bottom:.14rem;min-height:0}.lat-surface{display:inline}body.interlin-analysis .lat-surface{display:inline-block}.ia-line{display:block;font-family:var(--ft);line-height:1.05;text-align:center;white-space:nowrap}.ia-lemma{font-size:.53em;color:var(--accent)}.ia-meaning{font-size:.5em;color:var(--ink-light)}.ia-det{font-size:.49em;color:#006633}.ia-func{font-size:.49em;color:#13427f;font-weight:700}.lat-word.has-analysis .lat-surface{border-radius:3px}.lat-word.stage-1 .lat-surface{box-shadow:inset 0 -2px 0 rgba(255,59,29,.22)}.lat-word.stage-2 .lat-surface{box-shadow:inset 0 -2px 0 rgba(0,102,51,.25)}.lat-word.stage-3 .lat-surface{background:rgba(255,234,61,.35);outline:1px solid rgba(0,102,51,.28)}.lat-word.active-word .lat-surface{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}.numbered-view{display:none}.numbered-view.on{display:block}.plain-view.off{display:none}.latin-line{display:flex;gap:1.4rem;line-height:var(--lh);font-family:var(--latin)}.ln{font-family:var(--ft);font-size:.62rem;color:#9aa68c;min-width:2rem;text-align:right;padding-top:.44em;user-select:none;flex-shrink:0}.lc{flex:1}.text-scheiding{border-top:1px solid rgba(101,179,46,.18);padding-top:1.2rem;margin-top:.2rem}
-.word-popup{position:absolute;z-index:500;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;box-shadow:0 8px 32px rgba(0,102,51,.18);padding:.85rem 1.1rem;max-width:320px;min-width:210px;font-family:var(--fb);font-size:.78rem;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .18s,transform .18s}.word-popup.vis{opacity:1;transform:translateY(0)}.wp-word{font-family:var(--latin);font-size:1.25rem;font-weight:600;color:var(--blue);margin-bottom:.1rem}.wp-lemma{font-size:.68rem;color:var(--ink-light);margin-bottom:.35rem}.wp-row{display:flex;gap:.4rem;margin-bottom:.2rem;align-items:flex-start}.wp-tag{font-size:.6rem;font-weight:700;padding:.08rem .35rem;border-radius:10px;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0;margin-top:.12rem}.tg{background:var(--green-bg);color:var(--green)}.to{background:var(--orange-bg);color:var(--orange)}.tp{background:var(--purple-bg);color:var(--purple)}.tw{background:#eef3fa;color:#13427f}.wp-val{color:var(--ink-mid);line-height:1.45}.wp-sep{border:none;border-top:1px solid var(--rule);margin:.4rem 0}.wp-hint{font-size:.7rem;color:var(--ink-light)}
-.footnotes{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule)}.fn-title{font-family:var(--ft);font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.9rem}.fn{display:flex;gap:.65rem;font-size:.8rem;line-height:1.58;color:var(--ink-light);margin-bottom:.45rem;font-family:var(--fb)}.fn-n{color:var(--accent);font-size:.68rem;font-weight:700;min-width:1.1rem;padding-top:.1rem;flex-shrink:0}.noten-block{display:none}.noten-block.vis{display:block}
-.panel-card,.analysis-card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.1rem}.panel-card h3{font-family:var(--ft);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin:.1rem 0 .7rem}.panel-note{padding:.38rem 0;font-family:var(--fb);font-size:.78rem;color:var(--ink-mid);line-height:1.5;border-bottom:1px solid var(--rule)}.panel-note:last-child{border-bottom:none}.pn-tag{display:inline-block;font-size:.6rem;font-weight:700;padding:.05rem .35rem;border-radius:10px;text-transform:uppercase;margin-right:.35rem;background:#eef8ea;color:var(--blue)}.analysis-card{background:linear-gradient(135deg,#eef8ea,#f5fbf2);border:1.5px solid #c8d6c0;font-family:var(--fb);font-size:.8rem;line-height:1.6}.ac-word{font-family:var(--latin);font-size:1.45rem;font-weight:600;color:var(--blue)}.ac-lemma{font-size:.68rem;color:var(--ink-light);margin-bottom:.5rem}.ac-row{display:flex;gap:.5rem;margin-bottom:.2rem;align-items:flex-start}.ac-tag{font-size:.6rem;font-weight:700;padding:.08rem .38rem;border-radius:10px;text-transform:uppercase;flex-shrink:0;margin-top:.15rem}.ac-empty{color:var(--ink-light);font-size:.78rem;font-style:italic}.vertaling-tekst{font-family:var(--fb);font-size:.82rem;line-height:1.7;color:var(--zwart)}.vertaling-tekst p{margin:.2rem 0 .7rem}.panel-word{display:flex;justify-content:space-between;align-items:baseline;padding:.32rem 0;border-bottom:1px solid var(--rule);font-size:.85rem;gap:.5rem}.panel-word:last-child{border-bottom:none}.pw-lat{font-family:var(--latin);font-weight:600;color:var(--blue)}.pw-nl{font-family:var(--fb);font-size:.72rem;color:var(--ink-mid);text-align:right;max-width:55%}.pw-aanv{font-family:var(--fb);font-size:.65rem;color:var(--ink-light)}
-.side-panel-shell{width:100%}.side-panel-tabs{display:flex;gap:.35rem;margin-bottom:.8rem;position:sticky;top:0;background:var(--achtergrond);padding:.2rem 0 .65rem;z-index:3}.side-tab-btn{width:38px;height:34px;border:1px solid var(--rand);background:var(--paper);border-radius:10px;color:var(--ink-light);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:.12s}.side-tab-btn:hover{background:#fffbdf;color:var(--accent)}.side-tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}.side-tab-btn svg{width:17px;height:17px;stroke:currentColor;fill:none}.side-panel-view{display:none}.side-panel-view.active{display:block}.la-side-head{margin-bottom:1rem}.la-side-label{font-family:var(--ft);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.2rem}.la-side-title{font-family:var(--ft);font-size:.94rem;font-weight:700;color:var(--blue);margin-bottom:.25rem}.la-side-help{font-size:.76rem;color:var(--ink-light);line-height:1.45}.la-cue-box{display:none;background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:.8rem .9rem;margin-bottom:.9rem;font-size:.78rem;color:#92400e;line-height:1.5}.la-cue-box.vis{display:block}.la-cue-box strong{display:block;font-family:var(--ft);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}.la-side-section{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:.9rem 1rem;margin-bottom:.75rem}.la-side-section.current{border-color:#ffea3d;box-shadow:0 0 0 2px rgba(255,234,61,.25)}.la-side-section h4{font-family:var(--ft);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:.1rem 0 .4rem}.la-side-section p{font-size:.8rem;line-height:1.55;color:var(--ink-mid);margin:.3rem 0}.la-side-section .mini{font-size:.72rem;color:var(--ink-light)}
-.poetry-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(3px);z-index:900;align-items:center;justify-content:center}.poetry-modal-overlay.open{display:flex;animation:fadeUp .18s ease both}.poetry-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);width:min(780px,95vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden}.poetry-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);gap:.5rem;flex-wrap:wrap}.poetry-modal-title{font-family:var(--ft);font-size:.82rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);flex:1}.poetry-modal-nav{display:flex;align-items:center;gap:.4rem}.poetry-modal-nav-btn{background:none;border:1px solid var(--rand);border-radius:6px;padding:.25rem .7rem;cursor:pointer;font-family:var(--ft);font-size:.7rem;color:var(--ink-mid);transition:background .12s}.poetry-modal-nav-btn:hover{background:var(--achtergrond)}.poetry-modal-nav-btn:disabled{opacity:.3;cursor:default}.poetry-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.2rem;border-radius:6px;display:flex;transition:color .12s}.poetry-modal-close:hover{color:var(--blue)}.poetry-modal-close svg{width:15px;height:15px}.poetry-modal-body{padding:1.5rem;overflow-y:auto;flex:1}.la-sectie-titel{display:flex;align-items:center;gap:.4rem;font-family:var(--ft);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}.la-vers-tekst{font-family:var(--latin);font-size:1.1rem;font-style:italic;color:var(--ink-light);margin-bottom:.9rem;padding:.55rem .8rem;background:var(--achtergrond);border-radius:6px;line-height:1.6}.la-vraag{font-family:var(--fb);font-size:.9rem;line-height:1.6;color:var(--ink);margin-bottom:.5rem;padding-left:.85rem;border-left:3px solid var(--blue)}.la-vraag+.la-vraag{margin-top:.6rem}.la-antwoord-wrap{margin:.35rem 0 .75rem .85rem}.la-antwoord-btn{display:flex;align-items:center;gap:.3rem;background:none;border:1px solid var(--rand);border-radius:6px;padding:.25rem .65rem;font-family:var(--ft);font-size:.7rem;color:var(--ink-mid);cursor:pointer;transition:.12s}.la-antwoord-btn:hover{background:var(--achtergrond);color:var(--blue)}.la-antwoord{display:none;margin-top:.45rem;font-family:var(--fb);font-size:.82rem;line-height:1.55;color:var(--ink-mid);background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.65rem .8rem}.la-antwoord.vis{display:block}.kaart-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(2px);z-index:800;align-items:center;justify-content:center}.kaart-modal-overlay.open{display:flex}.kaart-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:14px;box-shadow:0 16px 48px rgba(0,0,0,.25);width:min(700px,92vw);max-height:80vh;display:flex;flex-direction:column;overflow:hidden}.kaart-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule)}.kaart-modal-title{font-family:var(--ft);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}.kaart-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.2rem;border-radius:6px;display:flex}.kaart-modal-body{padding:1.5rem;overflow-y:auto}.kaart-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:240px;border:2px dashed rgba(101,179,46,.25);border-radius:10px;color:var(--ink-light);font-family:var(--fb);font-size:.82rem;text-align:center}.kaart-placeholder svg{width:56px;height:56px;margin-bottom:1rem;stroke:rgba(101,179,46,.3);fill:none}
-.lesson-toolbar-wrap{position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%) translateY(0);z-index:9999;opacity:1;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}.lesson-toolbar{display:flex;flex-direction:row;align-items:center;gap:.28rem;padding:.38rem .5rem;border-radius:28px;background:rgba(255,255,255,.96);border:1px solid rgba(101,179,46,.22);box-shadow:0 8px 32px rgba(0,102,51,.20),0 2px 8px rgba(0,0,0,.08)}.lesson-toolbar-divider{width:1px;height:26px;background:rgba(101,179,46,.18);margin:0 .18rem;flex-shrink:0}.lesson-btn{width:40px;height:40px;padding:0;border:none;border-radius:12px;background:transparent;color:#1a2a12;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .14s ease,color .14s ease,box-shadow .14s ease;flex-shrink:0}.lesson-btn:hover{background:rgba(255,234,61,.35);color:#006633}.lesson-btn:active{background:rgba(255,234,61,.55);color:#006633}.lesson-btn.active{background:var(--accent);color:#fff;box-shadow:0 0 0 2px rgba(255,59,29,.22)}.lesson-btn.danger:hover{background:#fee2e2;color:#b91c1c}.lesson-btn svg{width:19px;height:19px;stroke:currentColor;fill:none}.lesson-btn::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#1a2238;color:#fff;font-family:var(--fb);font-size:.6rem;font-weight:700;letter-spacing:.04em;white-space:nowrap;padding:.2rem .5rem;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .12s}.lesson-btn:hover::after{opacity:1}.tool-palette{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);display:none;flex-direction:row;gap:8px;padding:10px 14px;background:rgba(255,255,255,.96);border:1px solid rgba(0,0,0,.08);border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:701}.tool-palette.open{display:flex}.swatch{width:20px;height:20px;border-radius:50%;border:2px solid rgba(0,0,0,.10);cursor:pointer;transition:transform .12s,box-shadow .12s,border-color .12s;flex-shrink:0}.swatch:hover{transform:scale(1.12)}.swatch.active{border-color:#111;box-shadow:0 0 0 2px rgba(0,0,0,.10)}.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all .2s;box-shadow:0 4px 14px rgba(101,179,46,.28);z-index:100}.scroll-top.on{opacity:1;transform:translateY(0)}.scroll-top svg{width:15px;height:15px;stroke:currentColor;fill:none}
-@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:900px){body.twocol .outer{display:block}body.twocol .main-col{padding:2rem 0 8rem}body.twocol .side-panel{display:none!important}.col-resizer{display:none!important}.site-toolbar{position:relative;top:auto;height:auto;min-height:56px;flex-wrap:wrap}.lesson-toolbar{max-width:calc(100vw - 20px);overflow-x:auto}.lesson-btn{width:38px;height:38px}}
-@media(max-width:600px){.main-col{padding:2rem 0 8rem}.outer{padding:0 1rem}.hero-title{font-size:1.6rem}.site-header{padding:.75rem 1rem}.site-header .sub{display:none}.site-toolbar{padding:8px 14px}.topbar-label,.topbar-divider{display:none}.toolbar-right{width:100%}.weergave-menu{right:auto;left:0}.latin-text{--fs:1.12rem}.lesson-toolbar-wrap{bottom:.75rem}.lesson-btn{width:36px;height:36px}.lesson-toolbar{padding:.32rem;gap:.18rem}}
+*{box-sizing:border-box}
+html{overflow-x:hidden;scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--fb);overflow-x:hidden}
+.material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;font-size:20px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;font-feature-settings:'liga';}
 
-/* Google Material Symbols — geen zelfgetekende SVG-icons */
-.material-symbols-outlined{
-  font-family:'Material Symbols Outlined';
-  font-weight:normal;
-  font-style:normal;
-  font-size:19px;
-  line-height:1;
-  letter-spacing:normal;
-  text-transform:none;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  white-space:nowrap;
-  word-wrap:normal;
-  direction:ltr;
-  -webkit-font-feature-settings:'liga';
-  -webkit-font-smoothing:antialiased;
-  font-feature-settings:'liga';
-  vertical-align:middle;
-}
-.back-btn .material-symbols-outlined,.ctrl-btn .material-symbols-outlined{font-size:16px;}
-.weergave-item .material-symbols-outlined{font-size:15px;flex-shrink:0;}
-.extras-icon .material-symbols-outlined{font-size:20px;}
-.side-tab-btn .material-symbols-outlined{font-size:19px;}
-.lesson-btn .material-symbols-outlined{font-size:22px;}
-.scroll-top .material-symbols-outlined,.poetry-modal-close .material-symbols-outlined,.kaart-modal-close .material-symbols-outlined{font-size:20px;}
-.la-reminder .material-symbols-outlined{font-size:18px;opacity:.7;flex-shrink:0;}
-.kaart-placeholder .material-symbols-outlined{font-size:48px;opacity:.45;margin-bottom:.35rem;}
-.ia-source{font-size:.53em;color:var(--accent);}
+/* ── MERKLINT / TOPBAR: naar tekst4 ───────────────────────── */
+.site-header{background:var(--blue);color:var(--paper);display:flex;align-items:center;gap:1rem;padding:.85rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);width:100%;min-height:62px;position:relative;z-index:210}
+.site-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--yellow)}
+.site-header .logo{height:38px;width:auto;display:block;flex-shrink:0}
+.site-header h1{font-family:var(--ft);font-weight:700;font-size:1.25rem;margin:0;letter-spacing:.02em;white-space:nowrap}
+.site-header .sub{font-family:var(--ft);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;opacity:.88;margin-left:auto;white-space:nowrap;color:#fff}
+.site-toolbar{background:var(--paper);border-bottom:1px solid var(--rand);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;min-height:56px}
+.toolbar-left,.toolbar-right{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.topbar-label{font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);opacity:.72}
+.topbar-divider{width:1px;height:22px;background:var(--rand);margin:0 .4rem}
+.back-btn,.ctrl-btn{font-family:var(--fb);font-size:.85rem;color:var(--ink);background:transparent;border:1px solid var(--rand);border-radius:20px;padding:.35rem .85rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:background .15s,border-color .15s,color .15s}
+.back-btn:hover,.ctrl-btn:hover{background:var(--yellow);color:#006633;border-color:var(--yellow)}
+.back-btn.active,.ctrl-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ctrl-btn:disabled{opacity:.35;cursor:not-allowed}
+.ctrl-btn:disabled:hover{background:transparent;color:var(--ink);border-color:var(--rand)}
+
+.weergave-wrap{position:relative}
+.weergave-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1.5px solid rgba(101,179,46,.25);border-radius:12px;box-shadow:0 6px 24px rgba(0,102,51,.13);z-index:400;min-width:190px;padding:.35rem 0;overflow:hidden}
+.weergave-menu.open{display:block;animation:fadeUp .12s ease both}
+.weergave-item{display:flex;align-items:center;gap:.45rem;width:100%;background:none;border:none;padding:.48rem .9rem;font-family:var(--ft);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);cursor:pointer;transition:background .12s,color .12s;white-space:nowrap}
+.weergave-item:hover{background:#eef8ea}
+.weergave-item.active{color:var(--blue)}
+.weergave-item:disabled{opacity:.35;cursor:not-allowed}
+.weergave-item:disabled:hover{background:transparent}
+.weergave-chevron{transition:transform .18s}#btnWeergave.open .weergave-chevron{transform:rotate(180deg)}
+.menu-divider{height:1px;background:var(--rand);margin:.3rem 0}
+.menu-section{font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);padding:.3rem .9rem .1rem}
+
+/* ── LUDUS4B-achtige pagina-opbouw: volle breedte + vaste kolommen ───── */
+.outer{max-width:none;width:100%;margin:0;padding:0}
+.main-col{max-width:860px;margin:0 auto;padding:2.2rem 1.4rem 9rem}
+body.twocol .outer{display:grid;grid-template-columns:minmax(0,var(--col-split,62%)) 12px minmax(320px,1fr);gap:0;align-items:start}
+body.twocol .main-col{max-width:none;margin:0;padding:2.2rem 1.6rem 9rem 1.6rem}
+.side-panel{display:none}
+body.twocol .side-panel{display:flex!important;flex-direction:column;gap:1rem;padding:2.2rem 1.4rem 9rem 1.4rem;border-left:1px solid var(--rule);position:sticky;top:78px;max-height:calc(100vh - 78px);overflow-y:auto;background:var(--page)}
+.col-resizer{display:none;width:12px;cursor:col-resize;align-self:stretch;position:relative;z-index:10;flex-shrink:0}
+body.twocol .col-resizer{display:flex;align-items:center;justify-content:center}
+.col-resizer-handle{width:4px;height:48px;border-radius:4px;background:var(--rule);transition:background .15s,height .15s;position:sticky;top:calc(50vh - 24px)}
+.col-resizer:hover .col-resizer-handle,.col-resizer.dragging .col-resizer-handle{background:var(--blue);height:64px}
+
+.hero-wrapper{position:relative;border-radius:12px;overflow:hidden;margin-bottom:2rem;min-height:300px;background:linear-gradient(135deg,#111,#1d2f15 60%,#416b29);animation:fadeUp .5s ease both}
+.hero-img{width:100%;height:100%;min-height:300px;object-fit:cover;object-position:center 22%;display:block;opacity:.62}
+.hero-img.is-missing{display:none}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.28) 58%,rgba(0,0,0,.04));pointer-events:none}
+.hero-tekst{position:absolute;bottom:0;left:0;padding:1.45rem 1.65rem;pointer-events:none}
+.hero-meta{font-family:var(--ft);font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--yellow);margin-bottom:.35rem;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.hero-title{font-family:var(--ft);font-size:2.05rem;font-weight:700;line-height:1.1;color:var(--blue);margin-bottom:.35rem;letter-spacing:-.01em;text-shadow:0 2px 8px rgba(0,0,0,.75)}
+.hero-sub{font-family:var(--fb);font-style:italic;font-size:.875rem;color:rgba(255,255,255,.88);line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.context-block{background:linear-gradient(135deg,#eef8ea,#f6fbf4);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:1rem 1.3rem;margin-bottom:1.45rem;font-family:var(--fb);font-size:.86rem;line-height:1.65;color:#2d452a;animation:fadeUp .5s .07s ease both}
+.context-block strong{display:block;font-family:var(--ft);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem;font-weight:700}
+.context-subtitel{display:block;font-family:var(--fb);font-style:italic;font-size:.8rem;color:#6a7566;margin-bottom:.5rem}
+.context-block p{margin:0}
+
+.extras-strip{margin-bottom:1.2rem;animation:fadeUp .5s .12s ease both}
+.extras-row{display:flex;align-items:center;gap:.9rem}
+.extras-label{font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.extras-icon{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:none;background:none;color:var(--accent);cursor:pointer;padding:0;opacity:.78;transition:opacity .15s,background .15s,color .15s;text-decoration:none}
+.extras-icon:hover{opacity:1;background:#fffbdf;color:#006633}
+.extras-icon:disabled{opacity:.35;cursor:not-allowed}
+.extras-icon:disabled:hover{background:transparent;color:var(--accent)}
+
+/* ── Latijnse tekst: 1 regel = 1 vers ───────────────────────── */
+.latin-text{font-family:var(--latin);font-size:var(--fs);line-height:var(--lh);animation:fadeUp .5s .18s ease both;color:var(--ink)}
+body.font-lg .latin-text{--fs:1.36rem;--lh:2.28}
+.latin-line{display:flex;gap:1.1rem;line-height:var(--lh);font-family:var(--latin);align-items:baseline;border-bottom:1px solid rgba(101,179,46,.08);padding:.08rem 0}
+.ln{font-family:var(--ft);font-size:.62rem;color:#87977b;min-width:2.25rem;text-align:right;user-select:none;flex-shrink:0;line-height:var(--lh)}
+.lc{flex:1;min-width:0}
+.wg{display:inline;border-radius:4px;cursor:pointer;transition:background .15s,outline .1s;padding:1px 0}
+.wg:hover{background:rgba(101,179,46,.10)}
+.reveal-mode .wg{opacity:.035;transition:opacity .3s}
+.reveal-mode .wg.revealed{opacity:1}
+.reveal-mode .wg.current{opacity:1;background:var(--hl);outline:1px solid var(--hl-b);border-radius:4px}
+.lat-word{display:inline;border-radius:3px;cursor:pointer;transition:background .12s;padding:0 1px}
+.lat-word:hover{background:rgba(101,179,46,.13)}
+body.interlin-analysis .lat-word{display:inline-flex;flex-direction:column;align-items:center;vertical-align:bottom;margin:0 2px;padding:0 1px}
+.inline-analysis{display:none}
+body.interlin-analysis .inline-analysis{display:flex;flex-direction:column;align-items:center;gap:1px;margin-bottom:.14rem;min-height:0}
+.lat-surface{display:inline}
+body.interlin-analysis .lat-surface{display:inline-block}
+.ia-line{display:block;font-family:var(--ft);line-height:1.05;text-align:center;white-space:nowrap}
+.ia-source{font-size:.53em;color:var(--accent)}
+.ia-det{font-size:.49em;color:#006633}
+.ia-func{font-size:.49em;color:#13427f;font-weight:700}
+.lat-word.has-analysis .lat-surface{border-radius:3px}
+.lat-word.stage-1 .lat-surface{box-shadow:inset 0 -2px 0 rgba(255,59,29,.26)}
+.lat-word.stage-2 .lat-surface{box-shadow:inset 0 -2px 0 rgba(101,179,46,.34)}
+.lat-word.stage-3 .lat-surface{background:rgba(255,234,61,.30);box-shadow:inset 0 -2px 0 rgba(0,102,51,.30)}
+.lat-word.stage-4 .lat-surface{background:rgba(255,234,61,.42);outline:1px solid rgba(0,102,51,.32)}
+.lat-word.active-word .lat-surface{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* Woordklik-onthulling: boven het aangeklikte woord, niet in het zijpaneel */
+.word-popover{position:absolute;z-index:780;background:var(--paper);border:1.5px solid var(--rule);border-radius:12px;box-shadow:0 12px 34px rgba(0,0,0,.18);padding:.75rem .9rem;max-width:min(420px,92vw);min-width:230px;font-family:var(--fb);font-size:.78rem;line-height:1.42;color:var(--ink);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .14s ease,transform .14s ease}
+.word-popover.vis{opacity:1;transform:translateY(0)}
+.word-popover::after{content:'';position:absolute;left:var(--arrow-left,50%);bottom:-8px;transform:translateX(-50%) rotate(45deg);width:14px;height:14px;background:var(--paper);border-right:1.5px solid var(--rule);border-bottom:1.5px solid var(--rule)}
+.word-popover.below::after{bottom:auto;top:-8px;border-right:none;border-bottom:none;border-left:1.5px solid var(--rule);border-top:1.5px solid var(--rule)}
+.wp-head{display:flex;align-items:baseline;justify-content:space-between;gap:.7rem;border-bottom:1px solid var(--rule);padding-bottom:.42rem;margin-bottom:.48rem}
+.wp-form{font-family:var(--latin);font-size:1.26rem;font-weight:600;color:var(--blue);line-height:1}
+.wp-progress{font-family:var(--ft);font-size:.58rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.wp-row{display:flex;gap:.48rem;align-items:flex-start;margin:.26rem 0}
+.wp-tag{font-family:var(--ft);font-size:.58rem;font-weight:800;letter-spacing:.055em;text-transform:uppercase;border-radius:999px;padding:.12rem .42rem;min-width:4.9rem;text-align:center;flex-shrink:0}
+.wp-tag.src{background:#fffbdf;color:#8a4b00;border:1px solid #e8c840}
+.wp-tag.nl{background:var(--green-bg);color:var(--green);border:1px solid rgba(45,122,58,.25)}
+.wp-tag.det{background:#eef8ea;color:#006633;border:1px solid rgba(0,102,51,.20)}
+.wp-tag.func{background:#eef3fa;color:#13427f;border:1px solid rgba(19,66,127,.20)}
+.wp-val{flex:1;color:var(--ink-mid)}
+.wp-next{margin-top:.45rem;padding-top:.42rem;border-top:1px solid var(--rule);font-size:.68rem;color:var(--ink-light);font-family:var(--ft)}
+
+.reveal-bar{display:none;align-items:center;gap:.6rem;margin-bottom:1rem;padding:.65rem 1rem;background:var(--paper);border:1.5px solid var(--rule);border-radius:10px;font-family:var(--ft);font-size:.78rem;color:var(--ink-mid);flex-wrap:wrap}
+.reveal-bar.vis{display:flex}
+.reveal-bar button{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:.3rem .8rem;font-family:var(--ft);font-size:.72rem;cursor:pointer;transition:background .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:.25rem}
+.reveal-bar button:hover{background:var(--blue-mid)}
+.reveal-bar button.sec{background:var(--paper);color:var(--blue);border:1.5px solid var(--blue)}
+.reveal-bar button.sec:hover{background:#eef8ea}
+.rev-count{margin-left:auto;color:var(--ink-light);font-size:.68rem;white-space:nowrap}
+.la-reminder{display:none;align-items:center;gap:.5rem;margin-bottom:1rem;padding:.55rem .9rem;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;cursor:pointer;font-family:var(--fb);font-size:.78rem;color:#92400e;transition:background .15s}
+.la-reminder.vis{display:flex}
+.la-reminder:hover{background:#fef3c7}
+.la-reminder-link{font-weight:700;text-decoration:underline}
+
+/* ── Zijpaneel ───────────────────────────────── */
+.side-panel-shell{width:100%}
+.side-panel-tabs{display:flex;gap:.35rem;margin-bottom:.8rem;position:sticky;top:0;background:var(--page);padding:.2rem 0 .65rem;z-index:3}
+.side-tab-btn{width:38px;height:34px;border:1px solid var(--rand);background:var(--paper);border-radius:10px;color:var(--ink-light);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:.12s}
+.side-tab-btn:hover{background:#fffbdf;color:var(--accent)}
+.side-tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.side-tab-btn:disabled{opacity:.35;cursor:not-allowed}
+.side-tab-btn:disabled:hover{background:var(--paper);color:var(--ink-light)}
+.side-panel-view{display:none}
+.side-panel-view.active{display:block}
+.panel-card,.analysis-card,.la-side-section{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.1rem}
+.panel-card h3,.analysis-card h3,.la-side-title{font-family:var(--ft);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin:0 0 .7rem}
+.panel-note{padding:.38rem 0;font-size:.78rem;color:var(--ink-mid);line-height:1.55;border-bottom:1px solid var(--rule)}
+.panel-note:last-child{border-bottom:none}
+.pn-tag,.ac-tag{display:inline-block;font-size:.6rem;font-weight:700;padding:.07rem .35rem;border-radius:10px;text-transform:uppercase;margin-right:.35rem;background:#eef8ea;color:var(--blue)}
+.analysis-card{font-size:.8rem;line-height:1.58}
+.ac-word{font-family:var(--latin);font-size:1.35rem;font-weight:600;color:var(--blue);margin-bottom:.35rem}
+.ac-row{display:flex;gap:.5rem;margin-bottom:.3rem;align-items:flex-start}
+.ac-tag.tg{background:var(--green-bg);color:var(--green)}
+.ac-tag.to{background:var(--orange-bg);color:var(--orange)}
+.ac-tag.tp{background:var(--purple-bg);color:var(--purple)}
+.ac-empty,.la-side-empty{color:var(--ink-light);font-size:.78rem;line-height:1.55;font-style:italic}
+.vertaling-tekst{font-family:var(--fb);font-size:.82rem;line-height:1.7;color:var(--ink)}
+.vertaling-tekst p{margin:.3rem 0 .7rem}
+.panel-word{display:flex;justify-content:space-between;align-items:baseline;padding:.34rem 0;border-bottom:1px solid var(--rule);font-size:.83rem;gap:.5rem}
+.panel-word:last-child{border-bottom:none}
+.pw-lat{font-family:var(--latin);font-weight:600;color:var(--blue);font-size:1rem}
+.pw-aanv{font-family:var(--fb);font-size:.68rem;color:var(--ink-light)}
+.pw-nl{font-family:var(--fb);font-size:.75rem;color:var(--ink-mid);text-align:right;max-width:45%}
+.la-side-head{margin-bottom:.8rem}
+.la-side-label{font-family:var(--ft);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.2rem}
+.la-side-help{font-size:.76rem;color:var(--ink-light);line-height:1.45}
+.la-cue-box{display:none;background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:.8rem .9rem;margin-bottom:.9rem;font-size:.78rem;color:#92400e;line-height:1.5}
+.la-cue-box.vis{display:block}
+.la-cue-box strong{display:block;font-family:var(--ft);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}
+.la-side-section.current{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(255,234,61,.25)}
+.la-side-section h4{font-family:var(--ft);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:.1rem 0 .4rem}
+.la-side-section p{font-size:.8rem;line-height:1.55;color:var(--ink-mid);margin:.3rem 0}
+.la-side-section .mini{font-size:.72rem;color:var(--ink-light)}
+.la-side-open{margin-top:.65rem;border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:8px;padding:.35rem .7rem;font-family:var(--ft);font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.la-side-open:hover{background:var(--blue-mid)}
+
+/* ── Modal lectuuranalyse ───────────────────────── */
+.poetry-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(3px);z-index:900;align-items:center;justify-content:center}
+.poetry-overlay.open{display:flex;animation:fadeUp .18s ease both}
+.poetry-modal{background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);width:min(780px,95vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+.poetry-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--rule);gap:.5rem;flex-wrap:wrap}
+.poetry-modal-title{font-family:var(--ft);font-size:.82rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);flex:1}
+.poetry-modal-nav{display:flex;align-items:center;gap:.4rem}
+.poetry-nav-btn{background:none;border:1px solid var(--rand);border-radius:6px;padding:.2rem .55rem;cursor:pointer;font-size:.9rem;color:var(--ink-mid);transition:background .12s}
+.poetry-nav-btn:hover{background:#eef8ea}
+.poetry-nav-btn:disabled{opacity:.3;cursor:default}
+.poetry-vers-label{font-family:var(--ft);font-size:.7rem;font-weight:600;color:var(--ink-light);white-space:nowrap;padding:0 .3rem}
+.poetry-modal-close{background:none;border:none;cursor:pointer;color:var(--ink-light);padding:.2rem;border-radius:6px;display:flex;transition:color .12s}
+.poetry-modal-close:hover{color:var(--blue)}
+.poetry-modal-body{padding:1.5rem;overflow-y:auto;flex:1}
+.la-sectie-titel{font-family:var(--ft);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem}
+.la-vers-tekst{font-family:var(--latin);font-size:1.12rem;font-style:italic;color:var(--ink-light);margin-bottom:.9rem;padding:.5rem .75rem;background:#eef8ea;border-radius:6px;line-height:1.6}
+.la-vraag{font-family:var(--fb);font-size:.9rem;line-height:1.6;color:var(--ink);margin-bottom:.5rem;padding-left:.85rem;border-left:3px solid var(--blue)}
+.la-antwoord-wrap{margin:.35rem 0 1rem .85rem}
+.la-antwoord-btn{display:inline-flex;align-items:center;gap:.3rem;background:#fff;border:1px solid var(--rand);border-radius:20px;padding:.25rem .65rem;font-family:var(--ft);font-size:.68rem;color:var(--blue);cursor:pointer}
+.la-antwoord-btn:hover{background:var(--blue);color:#fff}
+.la-antwoord{display:none;font-family:var(--fb);font-size:.82rem;line-height:1.58;color:var(--ink-mid);margin-top:.55rem;background:#fff;border-radius:8px;padding:.7rem .85rem;border:1px solid var(--rule)}
+.la-antwoord.vis{display:block}
+
+/* ── Didactiek badges ───────────────────────── */
+.d-badge{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .5rem;border-radius:20px;vertical-align:middle;margin:0 .2rem .18rem;white-space:nowrap;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none;transform:scale(.85);cursor:help}
+.d-badge.bs{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe}
+.d-badge.lpd{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0}
+.d-badge.vis{opacity:1;pointer-events:auto;transform:scale(1)}
+.d-tooltip{position:fixed;z-index:9500;background:var(--ink);color:#fff;font-family:var(--fb);font-size:.72rem;line-height:1.45;padding:.5rem .75rem;border-radius:8px;max-width:300px;pointer-events:none;opacity:0;transition:opacity .15s}
+.d-tooltip.vis{opacity:1}
+
+/* ── Onderste les-toolbar: Ludus4B-logica ───────────────── */
+.lesson-toolbar-wrap{position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%) translateY(0);z-index:9999;opacity:1;pointer-events:auto}
+.lesson-toolbar{display:flex;align-items:center;gap:.28rem;padding:.38rem .5rem;border-radius:28px;background:rgba(255,255,255,.96);border:1px solid rgba(101,179,46,.22);box-shadow:0 8px 32px rgba(0,102,51,.20),0 2px 8px rgba(0,0,0,.08)}
+.lesson-toolbar-divider{width:1px;height:26px;background:rgba(101,179,46,.18);margin:0 .18rem;flex-shrink:0}
+.lesson-btn{width:40px;height:40px;padding:0;border:none;border-radius:12px;background:transparent;color:#1a2a12;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .14s,color .14s,box-shadow .14s;flex-shrink:0}
+.lesson-btn:hover{background:rgba(255,234,61,.35);color:#006633}
+.lesson-btn.active{background:var(--accent);color:#fff;box-shadow:0 0 0 2px rgba(255,59,29,.22)}
+.lesson-btn.danger:hover{background:#fee2e2;color:#b91c1c}
+.lesson-btn:disabled{opacity:.35;cursor:not-allowed}
+.lesson-btn:disabled:hover{background:transparent;color:#1a2a12}
+.lesson-btn::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#1a2238;color:#fff;font-family:var(--fb);font-size:.6rem;font-weight:700;letter-spacing:.04em;white-space:nowrap;padding:.2rem .5rem;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .12s}
+.lesson-btn:hover::after{opacity:1}
+.tool-palette{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%);display:none;flex-direction:row;gap:8px;padding:10px 14px;background:rgba(255,255,255,.96);border:1px solid rgba(0,0,0,.08);border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:701}
+.tool-palette.open{display:flex}
+.swatch{width:20px;height:20px;border-radius:50%;border:2px solid rgba(0,0,0,.10);cursor:pointer;transition:transform .12s,box-shadow .12s,border-color .12s;flex-shrink:0}
+.swatch:hover{transform:scale(1.12)}.swatch.active{border-color:#111;box-shadow:0 0 0 2px rgba(0,0,0,.10)}
+.ink-canvas{position:fixed;inset:0;z-index:640;pointer-events:none;touch-action:none}
+.ink-canvas.on{pointer-events:auto}body.ink-on{cursor:crosshair}
+.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all .2s;box-shadow:0 4px 14px rgba(101,179,46,.28);z-index:100}
+.scroll-top.on{opacity:1;transform:translateY(0)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){body.twocol .outer{display:block}body.twocol .main-col{padding:2rem 1rem 8rem}body.twocol .side-panel{display:none!important}.col-resizer{display:none!important}.site-toolbar{position:relative;top:auto;height:auto;min-height:56px;flex-wrap:wrap}.lesson-toolbar{max-width:calc(100vw - 20px);overflow-x:auto}.lesson-btn{width:38px;height:38px}}
+@media(max-width:600px){.main-col{padding:1.4rem .8rem 8rem}.hero-title{font-size:1.55rem}.site-header{padding:.75rem 1rem}.site-header .sub{display:none}.site-toolbar{padding:8px 14px}.topbar-label,.topbar-divider{display:none}.toolbar-right{width:100%}.weergave-menu{right:auto;left:0}.latin-text{--fs:1.08rem;--lh:2.05}.ln{min-width:1.8rem}.lesson-toolbar-wrap{bottom:.75rem}.lesson-btn{width:36px;height:36px}.lesson-toolbar{padding:.32rem;gap:.18rem}}
 </style>
 </head>
-<body class="show-lesson-toolbar twocol">
-<canvas class="ink-canvas" id="inkCanvas"></canvas>
-<div class="word-popup" id="popup"><div class="wp-word" id="ppWord"></div><div class="wp-lemma" id="ppLemma"></div><div id="ppContent"></div><hr class="wp-sep" id="ppSep" style="display:none"/><div class="wp-hint" id="ppHint"></div></div>
+<body class="twocol show-lesson-toolbar">
+<canvas id="inkCanvas" class="ink-canvas"></canvas>
+<div class="word-popover" id="wordPopover" aria-live="polite" aria-hidden="true">
+  <div class="wp-head">
+    <div class="wp-form" id="wpForm"></div>
+    <div class="wp-progress" id="wpProgress"></div>
+  </div>
+  <div id="wpRows"></div>
+  <div class="wp-next" id="wpNext"></div>
+</div>
+
 <header class="site-header">
-<img alt="Groenhove" class="logo" onerror="this.style.display='none'" src="../../images/nav/logo_mono_wit.png"/>
-<h1>Teksten</h1>
-<span class="sub">S.O. Groenhove Waregem</span>
+  <img class="logo" src="../../images/nav/logo_mono_wit.png" alt="Groenhove">
+  <h1>Teksten</h1>
+  <span class="sub">S.O. Groenhove Waregem</span>
 </header>
+
 <div class="site-toolbar">
-<div class="toolbar-left">
-<button class="back-btn" onclick="history.back()"><span aria-hidden="true" class="material-symbols-outlined">arrow_back</span>Teksten</button>
-<div class="topbar-divider"></div><span class="topbar-label">Thema 1 · Superbia</span>
+  <div class="toolbar-left">
+    <button class="back-btn" onclick="history.back()"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span> Teksten</button>
+    <div class="topbar-divider"></div>
+    <span class="topbar-label">Thema 1 · Superbia · Tekst 1</span>
+  </div>
+  <div class="toolbar-right">
+    <button class="ctrl-btn" id="btnReveal" onclick="toggleReveal()"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span> Onthul</button>
+    <div class="weergave-wrap" id="weergaveWrap">
+      <button class="ctrl-btn" id="btnWeergave" onclick="toggleWeergaveMenu(event)"><span class="material-symbols-outlined" aria-hidden="true">tune</span> Weergave <span class="material-symbols-outlined weergave-chevron" aria-hidden="true" style="font-size:16px">expand_more</span></button>
+      <div class="weergave-menu" id="weergaveMenu">
+        <button class="weergave-item" id="btnInterlin" onclick="toggleInterlin()"><span class="material-symbols-outlined" aria-hidden="true">view_agenda</span>Interlineair</button>
+        <button class="weergave-item active" id="btnTwocol" onclick="toggleTwocol()"><span class="material-symbols-outlined" aria-hidden="true">view_column</span>Tweekolom</button>
+        <button class="weergave-item" id="btnLectuurMenu" disabled onclick="openLectuurModal();event.stopPropagation()"><span class="material-symbols-outlined" aria-hidden="true">manage_search</span>Lectuuranalyse</button>
+        <div class="menu-divider"></div>
+        <div class="menu-section">Didactiek</div>
+        <button class="weergave-item" id="btnBs" onclick="toggleLayer('bs');event.stopPropagation()"><span class="material-symbols-outlined" aria-hidden="true">construction</span>Bouwstenen</button>
+        <button class="weergave-item" id="btnLpd" onclick="toggleLayer('lpd');event.stopPropagation()"><span class="material-symbols-outlined" aria-hidden="true">school</span>LPD</button>
+      </div>
+    </div>
+    <button class="ctrl-btn" id="btnFont" onclick="toggleFont()"><span class="material-symbols-outlined" aria-hidden="true">text_increase</span> Groter</button>
+  </div>
 </div>
-<div class="toolbar-right">
-<button class="ctrl-btn" id="btnReveal" onclick="toggleReveal()"><span aria-hidden="true" class="material-symbols-outlined">visibility_off</span>Onthul</button>
-<div class="weergave-wrap" id="weergaveWrap"><button class="ctrl-btn" id="btnWeergave" onclick="toggleWeergaveMenu(event)"><span aria-hidden="true" class="material-symbols-outlined">visibility</span>Weergave<span aria-hidden="true" class="material-symbols-outlined weergave-chevron">expand_more</span></button>
-<div class="weergave-menu" id="weergaveMenu">
-<button class="weergave-item" id="btnLines" onclick="toggleLines()"><span aria-hidden="true" class="material-symbols-outlined">format_list_numbered</span>Regelnummers</button>
-<button class="weergave-item" id="btnInterlin" onclick="toggleInterlin()"><span aria-hidden="true" class="material-symbols-outlined">view_agenda</span>Interlineair</button>
-<button class="weergave-item active" id="btnTwocol" onclick="toggleTwocol()"><span aria-hidden="true" class="material-symbols-outlined">view_column</span>Tweekolom</button>
-<button class="weergave-item" onclick="openLectuurModal();event.stopPropagation()"><span aria-hidden="true" class="material-symbols-outlined">manage_search</span>Lectuuranalyse</button>
-<div class="menu-divider"></div><div class="menu-section">Didactiek</div>
-<button class="weergave-item" id="btnBs" onclick="toggleLayer('bs');event.stopPropagation()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;"></span>Bouwstenen</button>
-<button class="weergave-item" id="btnLpd" onclick="toggleLayer('lpd');event.stopPropagation()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;"></span>LPD</button>
-</div>
-</div>
-<button class="ctrl-btn" id="btnFont" onclick="toggleFont()"><span aria-hidden="true" class="material-symbols-outlined">text_increase</span>Groter</button>
-</div>
-</div>
+
 <div class="outer">
-<div class="main-col">
-<div class="d-badges" id="badges-hero" style="margin-bottom:.5rem;"><span class="d-badge bs" data-layer="bs">④ Dual coding</span><span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span></div>
-<div class="hero-wrapper"><img alt="Daedalus en Icarus" class="hero-img" onerror="this.classList.add('is-missing')" onload="this.classList.add('is-loaded')" src="../../images/teksten/thema14des/daedalus-icarus.jpg"/><div class="hero-overlay"></div><div class="hero-tekst"><div class="hero-meta">Thema 1 · Tekst 1 · 4de jaar</div><div class="hero-title">Break On Through to the Other Side</div><div class="hero-sub">P. Ovidius Naso, <em>Metamorphoses</em> VIII, 183–192 · Daedalus zoekt een uitweg</div></div></div>
-<div class="context-block" data-subtitel="Wat Minos niet bezit"><div class="d-badges" id="badges-context"><span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span><span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren in tijd &amp; ruimte</span></div><strong>Context</strong><span class="context-subtitel">Wat Minos niet bezit</span><p>Daedalus zit gevangen, maar weigert te aanvaarden dat Minos’ macht overal reikt: als land en zee afgesloten zijn, blijft volgens hem de lucht nog open. In deze eerste Latijnse tekst zien we hoe die gedachte tegelijk bevrijdend en gevaarlijk wordt, want ontsnappen betekent voor Daedalus meteen ook: een onbekende kunst uitvinden en de natuur veranderen.</p></div>
-<div class="extras-strip"><div class="d-badges" id="badges-lectuur" style="margin-bottom:.3rem;"><span class="d-badge bs" data-layer="bs">⑥ Check begrip hele klas</span><span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span><span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – tekst begrijpen</span><span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsystematiek</span></div><div class="extras-row"><span class="extras-label">Extra's</span><a class="extras-icon" href="#woordenlijst-sectie" title="Woordenlijst"><span aria-hidden="true" class="material-symbols-outlined">menu_book</span></a><button class="extras-icon" id="btnNoten" onclick="toggleNoten()" title="Grammaticale noten" type="button"><span aria-hidden="true" class="material-symbols-outlined">notes</span></button><button class="extras-icon" onclick="toggleTwocol()" title="Vertaling tonen" type="button"><span aria-hidden="true" class="material-symbols-outlined">translate</span></button><button class="extras-icon" id="btnLectuur" onclick="openLectuurModal()" title="Lectuuranalyse" type="button"><span aria-hidden="true" class="material-symbols-outlined">manage_search</span></button></div></div>
-<div class="d-badges" id="badges-reveal" style="margin-bottom:.5rem;"><span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span><span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span><span class="d-badge lpd" data-layer="lpd">WD2_03.02.01.01 – lectuurmethode toepassen</span></div>
-<div class="reveal-bar" id="revealBar"><span style="font-size:.72rem;color:var(--ink-light);">Onthulling per woordgroep · woordklik: herkomst → determinering → functie</span><button onclick="revealPrev()">← Vorige</button><button onclick="revealNext()">Volgende →</button><button class="sec" onclick="revealAll()">Alles tonen</button><span class="rev-count" id="revCount">0 / 0</span></div>
-<div class="la-reminder" id="laReminder" onclick="openLectuurFromReminder()"><span aria-hidden="true" class="material-symbols-outlined la-reminder-icon">lightbulb</span><span class="la-reminder-text">Lectuuranalyse — <span class="la-reminder-link" id="laReminderTekst">vraag bij deze passage</span></span><span aria-hidden="true" class="material-symbols-outlined">chevron_right</span></div>
-<div class="d-badges" id="badges-tekst" style="margin-bottom:.5rem;"><span class="d-badge bs" data-layer="bs">③ Voorbeelden &amp; modelling</span><span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span><span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsystematiek</span></div>
-<div class="latin-text" id="latinText"><div class="plain-view" id="plainView"><div class="latin-para vers-blok" data-vers="183-185"><span class="vers-nr-label">v. 183-185</span><span class="wg" data-la="1" data-label="Daedalus interea" data-wg="1"><span class="lat-word" data-d="nom enk m" data-h="Daedalus, Daedali (m.) Daedalus" data-l="Daedalus" data-n="Daedalus" data-s="ond. bij clausus erat" data-stage="0" data-w="Daedalus">Daedalus</span> <span class="lat-word" data-d="bijw." data-h="interea intussen" data-l="interea" data-n="intussen" data-s="BWB van tijd" data-stage="0" data-w="interea">interea</span></span> <span class="wg" data-la="1" data-label="Creten longumque perosus exilium" data-wg="2"><span class="lat-word" data-d="acc enk v" data-h="Crete, Cretes (v.) Kreta" data-l="Crete" data-n="Kreta" data-s="LV bij perosus" data-stage="0" data-w="Creten">Creten</span> <span class="lat-word" data-d="acc enk o" data-h="longus, longa, longum lang" data-l="longus" data-n="en de lange" data-s="bep. bij exilium" data-stage="0" data-w="longumque">longumque</span> <span class="lat-word" data-d="PPP nom enk m" data-h="perosus, perosa, perosum diep hatend" data-l="perosus" data-n="diep hatend" data-s="nwd bij Daedalus" data-stage="0" data-w="perosus">perosus</span><br/><span class="lat-word" data-d="acc enk o" data-h="exilium, exilii (o.) ballingschap" data-l="exilium" data-n="ballingschap" data-s="LV bij perosus" data-stage="0" data-w="exilium">exilium</span></span> <span class="wg" data-la="1" data-label="tactusque loci natalis amore" data-wg="3"><span class="lat-word" data-d="PPP nom enk m" data-h="tangere, tango, tetigi, tactum raken" data-l="tangere" data-n="en geraakt" data-s="bep. bij Daedalus" data-stage="0" data-w="tactusque">tactusque</span> <span class="lat-word" data-d="gen enk m" data-h="locus, loci (m.) plaats" data-l="locus" data-n="van de plaats" data-s="bep. bij natalis" data-stage="0" data-w="loci">loci</span> <span class="lat-word" data-d="gen enk m" data-h="natalis, natale van geboorte" data-l="natalis" data-n="van geboorte" data-s="bep. bij loci" data-stage="0" data-w="natalis">natalis</span> <span class="lat-word" data-d="abl enk m" data-h="amor, amoris (m.) liefde" data-l="amor" data-n="door liefde" data-s="BWB van oorzaak" data-stage="0" data-w="amore">amore</span></span> <span class="wg" data-la="1" data-label="clausus erat pelago" data-wg="4"><span class="lat-word" data-d="PPP nom enk m" data-h="claudere, claudo, clausi, clausum sluiten" data-l="claudere" data-n="ingesloten" data-s="nwd bij Daedalus" data-stage="0" data-w="clausus">clausus</span> <span class="lat-word" data-d="A. ind. imperf. 3 enk" data-h="esse, sum, fui zijn" data-l="esse" data-n="was" data-s="PV" data-stage="0" data-w="erat">erat</span> <span class="lat-word" data-d="abl enk o" data-h="pelagus, pelagi (o.) zee" data-l="pelagus" data-n="door/door de zee" data-s="BWB van middel / plaats" data-stage="0" data-w="pelago">pelago</span>.</span></div>
-<div class="latin-para vers-blok" data-vers="185-187"><span class="vers-nr-label">v. 185-187</span><span class="wg" data-la="2" data-label="Terras licet … et undas" data-wg="5">“<span class="lat-word" data-d="acc mv v" data-h="terra, terrae (v.) land" data-l="terra" data-n="landen" data-s="LV bij obstruat" data-stage="0" data-w="Terras">Terras</span> <span class="lat-word" data-d="bijw./voegwoord" data-h="licet hoewel, al mag" data-l="licet" data-n="weliswaar" data-s="leidt concessie in" data-stage="0" data-w="licet">licet</span>” <span class="lat-word" data-d="A. ind. praes. 3 enk" data-h="inquam, inquit zeggen" data-l="inquam" data-n="zegt hij" data-s="PV bij directe rede" data-stage="0" data-w="inquit">inquit</span> “<span class="lat-word" data-d="voegwoord" data-h="et en" data-l="et" data-n="en" data-s="verbinding" data-stage="0" data-w="et">et</span> <span class="lat-word" data-d="acc mv v" data-h="unda, undae (v.) golf, zee" data-l="unda" data-n="golven/zeeën" data-s="LV bij obstruat" data-stage="0" data-w="undas">undas</span></span> <span class="wg" data-la="2" data-label="obstruat" data-wg="6"><br/><span class="lat-word" data-d="A. conj. praes. 3 enk" data-h="obstruere, obstruo, obstruxi, obstructum afsluiten" data-l="obstruere" data-n="mag afsluiten" data-s="PV concessie" data-stage="0" data-w="obstruat">obstruat</span>,</span> <span class="wg" data-la="2" data-label="at caelum certe patet" data-wg="7"><span class="lat-word" data-d="voegwoord" data-h="at maar" data-l="at" data-n="maar" data-s="tegenstelling" data-stage="0" data-w="at">at</span> <span class="lat-word" data-d="nom enk o" data-h="caelum, caeli (o.) hemel, lucht" data-l="caelum" data-n="de hemel/lucht" data-s="ond. bij patet" data-stage="0" data-w="caelum">caelum</span> <span class="lat-word" data-d="bijw." data-h="certe zeker" data-l="certe" data-n="zeker" data-s="BWB van wijze" data-stage="0" data-w="certe">certe</span> <span class="lat-word" data-d="A. ind. praes. 3 enk" data-h="patere, pateo, patui openstaan" data-l="patere" data-n="staat open" data-s="PV" data-stage="0" data-w="patet">patet</span>!</span> <span class="wg" data-la="2" data-label="Ibimus illac" data-wg="8"><span class="lat-word" data-d="A. ind. fut. si. 1 mv" data-h="ire, eo, ii/ivi, itum gaan" data-l="ire" data-n="wij zullen gaan" data-s="PV" data-stage="0" data-w="Ibimus">Ibimus</span> <span class="lat-word" data-d="bijw." data-h="illac langs daar" data-l="illac" data-n="langs daar" data-s="BWB van plaats / richting" data-stage="0" data-w="illac">illac</span>!</span> <span class="wg" data-la="2" data-label="omnia possideat" data-wg="9"><br/><span class="lat-word" data-d="acc mv o" data-h="omnis, omne geheel, alle(s)" data-l="omnis" data-n="alles" data-s="LV bij possideat" data-stage="0" data-w="omnia">omnia</span> <span class="lat-word" data-d="A. conj. praes. 3 enk" data-h="possidere, possideo, possedi, possessum bezitten" data-l="possidere" data-n="mag hij bezitten" data-s="PV concessie" data-stage="0" data-w="possideat">possideat</span>,</span> <span class="wg" data-la="2" data-label="non possidet aëra Minos" data-wg="10"><span class="lat-word" data-d="bijw." data-h="non niet" data-l="non" data-n="niet" data-s="ontkenning" data-stage="0" data-w="non">non</span> <span class="lat-word" data-d="A. ind. praes. 3 enk" data-h="possidere, possideo, possedi, possessum bezitten" data-l="possidere" data-n="bezit" data-s="PV" data-stage="0" data-w="possidet">possidet</span> <span class="lat-word" data-d="acc enk m" data-h="aër, aëris (m.) lucht" data-l="aër" data-n="de lucht" data-s="LV bij possidet" data-stage="0" data-w="aëra">aëra</span> <span class="lat-word" data-d="nom enk m" data-h="Minos, Minois (m.) Minos" data-l="Minos" data-n="Minos" data-s="ond. bij possidet" data-stage="0" data-w="Minos">Minos</span>.”</span></div>
-<div class="latin-para vers-blok" data-vers="188-189"><span class="vers-nr-label">v. 188-189</span><span class="wg" data-la="3" data-label="dixit" data-wg="11"><span class="lat-word" data-d="A. ind. perf. 3 enk" data-h="dicere, dico, dixi, dictum zeggen" data-l="dicere" data-n="hij zei" data-s="PV" data-stage="0" data-w="dixit">dixit</span></span> <span class="wg" data-la="3" data-label="ignotas animum dimittit in artes" data-wg="12"><span class="lat-word" data-d="voegwoord" data-h="et en" data-l="et" data-n="en" data-s="verbinding" data-stage="0" data-w="et">et</span> <span class="lat-word" data-d="acc mv v" data-h="ignotus, ignota, ignotum onbekend" data-l="ignotus" data-n="onbekende" data-s="bep. bij voorzetselgroep" data-stage="0" data-w="ignotas">ignotas</span> <span class="lat-word" data-d="acc enk m" data-h="animus, animi (m.) geest" data-l="animus" data-n="zijn geest" data-s="LV bij dimittit" data-stage="0" data-w="animum">animum</span> <span class="lat-word" data-d="A. ind. praes. 3 enk" data-h="dimittere, dimitto, dimisi, dimissum richten, laten gaan" data-l="dimittere" data-n="richt/laat gaan" data-s="PV" data-stage="0" data-w="dimittit">dimittit</span> <span class="lat-word" data-d="voorzetsel + acc" data-h="in + acc. naar, op" data-l="in" data-n="op/in" data-s="bij voorzetselgroep" data-stage="0" data-w="in">in</span> <span class="lat-word" data-d="acc mv v" data-h="ars, artis (v.) kunst, techniek" data-l="ars" data-n="kunsten/technieken" data-s="BWB van richting bij dimittit" data-stage="0" data-w="artes">artes</span></span> <span class="wg" data-la="3" data-label="naturamque novat" data-wg="13"><br/><span class="lat-word" data-d="acc enk v" data-h="natura, naturae (v.) natuur" data-l="natura" data-n="en de natuur" data-s="LV bij novat" data-stage="0" data-w="naturamque">naturamque</span> <span class="lat-word" data-d="A. ind. praes. 3 enk" data-h="novare, novo, novavi, novatum vernieuwen, veranderen" data-l="novare" data-n="vernieuwt/verandert" data-s="PV" data-stage="0" data-w="novat">novat</span>.</span></div>
-<div class="latin-para vers-blok" data-vers="189-190"><span class="vers-nr-label">v. 189-190</span><span class="wg" data-la="4" data-label="Nam ponit in ordine pennas" data-wg="14"><span class="lat-word" data-d="voegwoord" data-h="nam want" data-l="nam" data-n="want" data-s="verklaring" data-stage="0" data-w="Nam">Nam</span> <span class="lat-word" data-d="A. ind. praes. 3 enk" data-h="ponere, pono, posui, positum plaatsen, leggen" data-l="ponere" data-n="hij plaatst/legt" data-s="PV" data-stage="0" data-w="ponit">ponit</span> <span class="lat-word" data-d="voorzetsel + abl" data-h="in + abl. in, op" data-l="in" data-n="in/op" data-s="bij voorzetselgroep" data-stage="0" data-w="in">in</span> <span class="lat-word" data-d="abl enk m" data-h="ordo, ordinis (m.) rij, volgorde" data-l="ordo" data-n="rij/volgorde" data-s="BWB van wijze / plaats" data-stage="0" data-w="ordine">ordine</span> <span class="lat-word" data-d="acc mv v" data-h="penna, pennae (v.) veer" data-l="penna" data-n="veren" data-s="LV bij ponit" data-stage="0" data-w="pennas">pennas</span></span> <span class="wg" data-la="4" data-label="a minima coeptas" data-wg="15"><br/><span class="lat-word" data-d="voorzetsel + abl" data-h="ab/a + abl. vanaf" data-l="ab" data-n="vanaf" data-s="bij voorzetselgroep" data-stage="0" data-w="a">a</span> <span class="lat-word" data-d="abl enk v" data-h="minimus, minima, minimum kleinste" data-l="minimus" data-n="de kleinste" data-s="BWB van vertrekpunt" data-stage="0" data-w="minima">minima</span> <span class="lat-word" data-d="PPP acc mv v" data-h="coepisse, coepi beginnen" data-l="coepisse" data-n="begonnen" data-s="bep. bij pennas" data-stage="0" data-w="coeptas">coeptas</span>,</span> <span class="wg" data-la="4" data-label="longam breviore sequenti" data-wg="16"><span class="lat-word" data-d="acc enk v" data-h="longus, longa, longum lang" data-l="longus" data-n="een lange" data-s="bep. bij penna; ellips" data-stage="0" data-w="longam">longam</span> <span class="lat-word" data-d="abl enk v" data-h="brevis, breve kort" data-l="brevis" data-n="op een kortere" data-s="BWB van vergelijking / volgorde" data-stage="0" data-w="breviore">breviore</span> <span class="lat-word" data-d="PPA abl enk v" data-h="sequi, sequor, secutus sum volgen" data-l="sequi" data-n="volgend" data-s="bep. bij breviore; constructie bij longam" data-stage="0" data-w="sequenti">sequenti</span></span></div>
-<div class="latin-para vers-blok" data-vers="191-192"><span class="vers-nr-label">v. 191-192</span><span class="wg" data-la="5" data-label="ut clivo crevisse putes" data-wg="17"><span class="lat-word" data-d="voegwoord" data-h="ut zodat" data-l="ut" data-n="zodat" data-s="leidt bijzin in" data-stage="0" data-w="ut">ut</span> <span class="lat-word" data-d="abl enk m" data-h="clivus, clivi (m.) helling" data-l="clivus" data-n="op een helling" data-s="BWB van plaats / vergelijking" data-stage="0" data-w="clivo">clivo</span> <span class="lat-word" data-d="A. inf. perf." data-h="crescere, cresco, crevi, cretum groeien" data-l="crescere" data-n="gegroeid te zijn" data-s="inf. in ACI bij putes" data-stage="0" data-w="crevisse">crevisse</span> <span class="lat-word" data-d="A. conj. praes. 2 enk" data-h="putare, puto, putavi, putatum denken" data-l="putare" data-n="je zou denken" data-s="PV gevolgzin / potentialis" data-stage="0" data-w="putes">putes</span>:</span> <span class="wg" data-la="5" data-label="sic rustica quondam fistula" data-wg="18"><span class="lat-word" data-d="bijw." data-h="sic zo" data-l="sic" data-n="zo" data-s="BWB van wijze" data-stage="0" data-w="sic">sic</span> <span class="lat-word" data-d="nom enk v" data-h="rusticus, rustica, rusticum landelijk" data-l="rusticus" data-n="landelijke" data-s="bep. bij fistula" data-stage="0" data-w="rustica">rustica</span> <span class="lat-word" data-d="bijw." data-h="quondam soms, eens" data-l="quondam" data-n="soms/eens" data-s="BWB van tijd" data-stage="0" data-w="quondam">quondam</span><br/><span class="lat-word" data-d="nom enk v" data-h="fistula, fistulae (v.) rietfluit" data-l="fistula" data-n="fluit/rietfluit" data-s="ond. bij surgit" data-stage="0" data-w="fistula">fistula</span></span> <span class="wg" data-la="5" data-label="disparibus paulatim surgit avenis" data-wg="19"><span class="lat-word" data-d="abl mv v" data-h="dispar, disparis ongelijk" data-l="dispar" data-n="ongelijke" data-s="bep. bij avenis" data-stage="0" data-w="disparibus">disparibus</span> <span class="lat-word" data-d="bijw." data-h="paulatim geleidelijk" data-l="paulatim" data-n="geleidelijk" data-s="BWB van wijze" data-stage="0" data-w="paulatim">paulatim</span> <span class="lat-word" data-d="A. ind. praes. 3 enk" data-h="surgere, surgo, surrexi, surrectum rijzen, opstijgen" data-l="surgere" data-n="rijst/stijgt op" data-s="PV" data-stage="0" data-w="surgit">surgit</span> <span class="lat-word" data-d="abl mv v" data-h="avena, avenae (v.) rietstengel" data-l="avena" data-n="rietstengels" data-s="BWB van middel / samenstelling" data-stage="0" data-w="avenis">avenis</span>.</span></div></div><div class="numbered-view" id="numberedView"><div class="latin-line"><span class="ln">183</span><span class="lc">Daedalus interea Creten longumque perosus</span></div>
-<div class="latin-line"><span class="ln">184</span><span class="lc">exilium tactusque loci natalis amore</span></div>
-<div class="latin-line"><span class="ln">185</span><span class="lc">clausus erat pelago. “Terras licet” inquit “et undas</span></div>
-<div class="latin-line"><span class="ln">186</span><span class="lc">obstruat, at caelum certe patet! Ibimus illac:</span></div>
-<div class="latin-line"><span class="ln">187</span><span class="lc">omnia possideat, non possidet aëra Minos.”</span></div>
-<div class="latin-line"><span class="ln">188</span><span class="lc">dixit et ignotas animum dimittit in artes</span></div>
-<div class="latin-line"><span class="ln">189</span><span class="lc">naturamque novat. Nam ponit in ordine pennas</span></div>
-<div class="latin-line"><span class="ln">190</span><span class="lc">a minima coeptas, longam breviore sequenti,</span></div>
-<div class="latin-line"><span class="ln">191</span><span class="lc">ut clivo crevisse putes: sic rustica quondam</span></div>
-<div class="latin-line"><span class="ln">192</span><span class="lc">fistula disparibus paulatim surgit avenis.</span></div></div></div>
-<div class="noten-block" id="notenBlock"><div class="footnotes"><div class="fn-title">Grammaticale noten</div><div class="fn"><span class="fn-n">1</span><span><em>perosus</em> krijgt hier accusatieven: <em>Creten</em> en <em>exilium</em>.</span></div><div class="fn"><span class="fn-n">2</span><span><em>possideat</em> is een concessieve conjunctief: “hij mag dan bezitten”.</span></div><div class="fn"><span class="fn-n">3</span><span><em>naturamque novat</em> is thematisch belangrijk: techniek verandert de menselijke grens.</span></div><div class="fn"><span class="fn-n">4</span><span>De vergelijking met de <em>fistula</em> maakt de ordening van de veren zichtbaar.</span></div></div></div>
-<div id="woordenlijst-sectie" style="margin-top:3.5rem;padding-top:2rem;border-top:2px solid var(--rule);"><div style="font-family:var(--ft);font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;opacity:.85;">Thema 1 · Tekst 1</div><h2 style="font-family:var(--ft);color:var(--blue);font-size:1.35rem;font-weight:700;margin:0 0 .75rem;">Woordenlijst</h2><div style="font-family:var(--fb);font-size:.78rem;color:var(--ink-light);margin-bottom:1rem;">Woorden op volgorde van voorkomen.</div><div id="wlTable"></div></div>
+  <div class="main-col">
+    <div class="d-badges" style="margin-bottom:.5rem"><span class="d-badge bs" data-layer="bs">① Voorkennis activeren</span><span class="d-badge lpd" data-layer="lpd">WD2_03.03.01 – situeren</span></div>
+    <div class="hero-wrapper">
+      <img class="hero-img" src="../../images/teksten/thema14des/icarus-daedalus.jpg" alt="Daedalus en Icarus" onerror="this.classList.add('is-missing')">
+      <div class="hero-overlay"></div>
+      <div class="hero-tekst">
+        <div class="hero-meta">Thema 1 · Tekst 1 · 4de jaar</div>
+        <div class="hero-title">Break On Through to the Other Side</div>
+        <div class="hero-sub">The Doors · P. Ovidius Naso, <em>Metamorphoses</em> VIII, 183–192 · Daedalus zoekt een uitweg</div>
+      </div>
+    </div>
+
+    <div class="context-block">
+      <div class="d-badges"><span class="d-badge bs" data-layer="bs">② Doel verduidelijken</span><span class="d-badge lpd" data-layer="lpd">WD2_03.02.01 – tekst begrijpen</span></div>
+      <strong>Context</strong>
+      <span class="context-subtitel">Wat Minos niet bezit</span>
+      <p>Daedalus zit gevangen, maar weigert te aanvaarden dat Minos’ macht overal reikt: als land en zee afgesloten zijn, blijft volgens hem de lucht nog open. In deze eerste Latijnse tekst zien we hoe die gedachte tegelijk bevrijdend en gevaarlijk wordt, want ontsnappen betekent voor Daedalus meteen ook: een onbekende kunst uitvinden en de natuur veranderen.</p>
+    </div>
+
+    <div class="extras-strip">
+      <div class="d-badges" style="margin-bottom:.3rem"><span class="d-badge bs" data-layer="bs">⑤ Actieve verwerking</span><span class="d-badge bs" data-layer="bs">⑦ Scaffolding</span><span class="d-badge lpd" data-layer="lpd">WD2_03.01.01 – taalsysteem</span></div>
+      <div class="extras-row">
+        <span class="extras-label">Extra's</span>
+        <a class="extras-icon" href="#woordenlijst-sectie" title="Woordenlijst"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span></a>
+        <button class="extras-icon" id="btnNoten" onclick="toggleNoten()" title="Grammaticale noten" type="button"><span class="material-symbols-outlined" aria-hidden="true">notes</span></button>
+        <button class="extras-icon" onclick="toggleTwocol()" title="Vertaling tonen" type="button"><span class="material-symbols-outlined" aria-hidden="true">translate</span></button>
+        <button class="extras-icon" id="btnLectuur" disabled onclick="openLectuurModal()" title="Lectuuranalyse komt vrij bij de passende woordgroep" type="button"><span class="material-symbols-outlined" aria-hidden="true">manage_search</span></button>
+      </div>
+    </div>
+
+    <div class="reveal-bar" id="revealBar">
+      <span>Onthulling per woordgroep · woordklik: grondwoord → vertaling → determinering → functie</span>
+      <button onclick="revealPrev()"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span> Vorige</button>
+      <button onclick="revealNext()">Volgende <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
+      <button class="sec" onclick="revealAll()">Alles tonen</button>
+      <span class="rev-count" id="revCount">0 / 0</span>
+    </div>
+
+    <div class="la-reminder" id="laReminder" onclick="openLectuurModal()">
+      <span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+      <span>Lectuuranalyse — <span class="la-reminder-link" id="laReminderTekst">vraag bij deze passage</span></span>
+      <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+    </div>
+
+    <div class="latin-text" id="latinText">
+      <div class="plain-view" id="plainView">
+        <div class="latin-line" data-vers="183"><span class="ln">183</span><span class="lc"><span class="wg" data-wg="1" data-label="Daedalus interea"><span class="lat-word" data-w="Daedalus" data-h="Daedalus, Daedali (m.) Daedalus" data-d="nom enk m" data-s="ond. bij clausus erat" data-n="Daedalus">Daedalus</span> <span class="lat-word" data-w="interea" data-h="interea intussen" data-d="bijw." data-s="BWB van tijd" data-n="intussen">interea</span></span> <span class="wg" data-wg="2" data-label="Creten longumque perosus"><span class="lat-word" data-w="Creten" data-h="Crete, Cretes (v.) Kreta" data-d="acc enk v" data-s="LV bij perosus" data-n="Kreta">Creten</span> <span class="lat-word" data-w="longumque" data-h="longus, longa, longum lang" data-d="acc enk o" data-s="bep. bij exilium" data-n="en de lange">longumque</span> <span class="lat-word" data-w="perosus" data-h="perosus, perosa, perosum diep hatend" data-d="PPP nom enk m" data-s="bep. bij Daedalus" data-n="diep hatend">perosus</span></span></span></div>
+<div class="latin-line" data-vers="184"><span class="ln">184</span><span class="lc"><span class="wg" data-wg="3" data-label="exilium"><span class="lat-word" data-w="exilium" data-h="exilium, exilii (o.) ballingschap" data-d="acc enk o" data-s="LV bij perosus" data-n="ballingschap">exilium</span></span> <span class="wg" data-wg="4" data-label="tactusque loci natalis amore"><span class="lat-word" data-w="tactusque" data-h="tangere, tango, tetigi, tactum raken" data-d="PPP nom enk m" data-s="bep. bij Daedalus" data-n="en geraakt">tactusque</span> <span class="lat-word" data-w="loci" data-h="locus, loci (m.) plaats" data-d="gen enk m" data-s="bep. bij amore" data-n="van de plaats">loci</span> <span class="lat-word" data-w="natalis" data-h="natalis, natale van geboorte" data-d="gen enk m" data-s="bep. bij loci" data-n="van geboorte">natalis</span> <span class="lat-word" data-w="amore" data-h="amor, amoris (m.) liefde" data-d="abl enk m" data-s="BWB van oorzaak" data-n="door liefde">amore</span></span></span></div>
+<div class="latin-line" data-vers="185"><span class="ln">185</span><span class="lc"><span class="wg" data-wg="5" data-la="1" data-label="clausus erat pelago"><span class="lat-word" data-w="clausus" data-h="claudere, claudo, clausi, clausum sluiten" data-d="PPP nom enk m" data-s="nwd bij Daedalus" data-n="ingesloten">clausus</span> <span class="lat-word" data-w="erat" data-h="esse, sum, fui zijn" data-d="A. ind. imperf. 3 enk" data-s="PV" data-n="was">erat</span> <span class="lat-word" data-w="pelago" data-h="pelagus, pelagi (o.) zee" data-d="abl enk o" data-s="BWB van middel" data-n="door de zee">pelago</span>.</span> <span class="wg" data-wg="6" data-label="Terras licet inquit et undas">“<span class="lat-word" data-w="Terras" data-h="terra, terrae (v.) land" data-d="acc mv v" data-s="LV bij obstruat" data-n="landen">Terras</span> <span class="lat-word" data-w="licet" data-h="licet hoewel, al mag" data-d="voegw." data-s="leidt concessie in" data-n="al mag">licet</span>” <span class="lat-word" data-w="inquit" data-h="inquam zeggen" data-d="A. ind. praes. 3 enk" data-s="PV bij directe rede" data-n="zegt hij">inquit</span> “<span class="lat-word" data-w="et" data-h="et en" data-d="voegw." data-s="verbinding" data-n="en">et</span> <span class="lat-word" data-w="undas" data-h="unda, undae (v.) golf, zee" data-d="acc mv v" data-s="LV bij obstruat" data-n="golven/zeeën">undas</span></span></span></div>
+<div class="latin-line" data-vers="186"><span class="ln">186</span><span class="lc"><span class="wg" data-wg="7" data-label="obstruat"><span class="lat-word" data-w="obstruat" data-h="obstruere, obstruo, obstruxi, obstructum afsluiten" data-d="A. conj. praes. 3 enk" data-s="PV concessie" data-n="mag afsluiten">obstruat</span>,</span> <span class="wg" data-wg="8" data-label="at caelum certe patet"><span class="lat-word" data-w="at" data-h="at maar" data-d="voegw." data-s="tegenstelling" data-n="maar">at</span> <span class="lat-word" data-w="caelum" data-h="caelum, caeli (o.) hemel, lucht" data-d="nom enk o" data-s="ond. bij patet" data-n="de hemel">caelum</span> <span class="lat-word" data-w="certe" data-h="certe zeker" data-d="bijw." data-s="BWB van wijze" data-n="zeker">certe</span> <span class="lat-word" data-w="patet" data-h="patere, pateo, patui openstaan" data-d="A. ind. praes. 3 enk" data-s="PV" data-n="staat open">patet</span>!</span> <span class="wg" data-wg="9" data-la="2" data-label="Ibimus illac"><span class="lat-word" data-w="Ibimus" data-h="ire, eo, ii/ivi, itum gaan" data-d="A. ind. fut. si. 1 mv" data-s="PV" data-n="wij zullen gaan">Ibimus</span> <span class="lat-word" data-w="illac" data-h="illac langs die weg" data-d="bijw." data-s="BWB van plaats" data-n="langs die weg">illac</span>:</span></span></div>
+<div class="latin-line" data-vers="187"><span class="ln">187</span><span class="lc"><span class="wg" data-wg="10" data-label="omnia possideat"><span class="lat-word" data-w="omnia" data-h="omnis, omne alles" data-d="acc mv o" data-s="LV bij possideat" data-n="alles">omnia</span> <span class="lat-word" data-w="possideat" data-h="possidere, possideo, possedi, possessum bezitten" data-d="A. conj. praes. 3 enk" data-s="PV concessie" data-n="mag bezitten">possideat</span>,</span> <span class="wg" data-wg="11" data-label="non possidet aëra Minos"><span class="lat-word" data-w="non" data-h="non niet" data-d="bijw." data-s="ontkenning" data-n="niet">non</span> <span class="lat-word" data-w="possidet" data-h="possidere, possideo, possedi, possessum bezitten" data-d="A. ind. praes. 3 enk" data-s="PV" data-n="bezit">possidet</span> <span class="lat-word" data-w="aëra" data-h="aër, aëris (m.) lucht" data-d="acc enk m" data-s="LV bij possidet" data-n="de lucht">aëra</span> <span class="lat-word" data-w="Minos" data-h="Minos, Minois (m.) Minos" data-d="nom enk m" data-s="ond. bij possidet" data-n="Minos">Minos</span>.”</span></span></div>
+<div class="latin-line" data-vers="188"><span class="ln">188</span><span class="lc"><span class="wg" data-wg="12" data-label="dixit et"><span class="lat-word" data-w="dixit" data-h="dicere, dico, dixi, dictum zeggen" data-d="A. ind. perf. 3 enk" data-s="PV" data-n="hij zei">dixit</span> <span class="lat-word" data-w="et" data-h="et en" data-d="voegw." data-s="verbinding" data-n="en">et</span></span> <span class="wg" data-wg="13" data-label="ignotas animum dimittit in artes"><span class="lat-word" data-w="ignotas" data-h="ignotus, ignota, ignotum onbekend" data-d="acc mv v" data-s="bep. bij artes" data-n="onbekende">ignotas</span> <span class="lat-word" data-w="animum" data-h="animus, animi (m.) geest" data-d="acc enk m" data-s="LV bij dimittit" data-n="zijn geest">animum</span> <span class="lat-word" data-w="dimittit" data-h="dimittere, dimitto, dimisi, dimissum richten op" data-d="A. ind. praes. 3 enk" data-s="PV" data-n="richt">dimittit</span> <span class="lat-word" data-w="in" data-h="in + acc in, naar" data-d="vz. + acc" data-s="leidt BWB van plaats in" data-n="op">in</span> <span class="lat-word" data-w="artes" data-h="ars, artis (v.) kunst, techniek" data-d="acc mv v" data-s="BWB van plaats" data-n="kunsten">artes</span></span></span></div>
+<div class="latin-line" data-vers="189"><span class="ln">189</span><span class="lc"><span class="wg" data-wg="14" data-la="3" data-label="naturamque novat"><span class="lat-word" data-w="naturamque" data-h="natura, naturae (v.) natuur" data-d="acc enk v" data-s="LV bij novat" data-n="en de natuur">naturamque</span> <span class="lat-word" data-w="novat" data-h="novare, novo, novavi, novatum vernieuwen" data-d="A. ind. praes. 3 enk" data-s="PV" data-n="vernieuwt">novat</span>.</span> <span class="wg" data-wg="15" data-label="Nam ponit in ordine pennas"><span class="lat-word" data-w="Nam" data-h="nam want" data-d="voegw." data-s="leidt verklaring in" data-n="want">Nam</span> <span class="lat-word" data-w="ponit" data-h="ponere, pono, posui, positum plaatsen" data-d="A. ind. praes. 3 enk" data-s="PV" data-n="hij plaatst">ponit</span> <span class="lat-word" data-w="in" data-h="in + abl in" data-d="vz. + abl" data-s="leidt BWB van wijze in" data-n="in">in</span> <span class="lat-word" data-w="ordine" data-h="ordo, ordinis (m.) volgorde" data-d="abl enk m" data-s="BWB van wijze" data-n="volgorde">ordine</span> <span class="lat-word" data-w="pennas" data-h="penna, pennae (v.) veer" data-d="acc mv v" data-s="LV bij ponit" data-n="veren">pennas</span></span></span></div>
+<div class="latin-line" data-vers="190"><span class="ln">190</span><span class="lc"><span class="wg" data-wg="16" data-label="a minima coeptas"><span class="lat-word" data-w="a" data-h="a/ab + abl vanaf" data-d="vz. + abl" data-s="leidt BWB van verwijdering in" data-n="vanaf">a</span> <span class="lat-word" data-w="minima" data-h="minimus, minima, minimum zeer klein" data-d="abl enk v" data-s="BWB van verwijdering" data-n="de kleinste">minima</span> <span class="lat-word" data-w="coeptas" data-h="coepisse, coepi beginnen" data-d="PPP acc mv v" data-s="bep. bij pennas" data-n="begonnen">coeptas</span>,</span> <span class="wg" data-wg="17" data-la="4" data-label="longam breviore sequenti"><span class="lat-word" data-w="longam" data-h="longus, longa, longum lang" data-d="acc enk v" data-s="bep. bij penna; ellips" data-n="een lange">longam</span> <span class="lat-word" data-w="breviore" data-h="brevis, breve kort" data-d="abl enk v" data-s="BWB van vergelijking / volgorde" data-n="op een kortere">breviore</span> <span class="lat-word" data-w="sequenti" data-h="sequi, sequor, secutus sum volgen" data-d="PPA abl enk v" data-s="bep. bij breviore" data-n="volgend">sequenti</span>,</span></span></div>
+<div class="latin-line" data-vers="191"><span class="ln">191</span><span class="lc"><span class="wg" data-wg="18" data-label="ut clivo crevisse putes"><span class="lat-word" data-w="ut" data-h="ut zodat" data-d="voegw." data-s="leidt gevolgzin in" data-n="zodat">ut</span> <span class="lat-word" data-w="clivo" data-h="clivus, clivi (m.) helling" data-d="abl enk m" data-s="BWB van plaats / vergelijking" data-n="op een helling">clivo</span> <span class="lat-word" data-w="crevisse" data-h="crescere, cresco, crevi, cretum groeien" data-d="A. inf. perf." data-s="inf. in ACI bij putes" data-n="gegroeid te zijn">crevisse</span> <span class="lat-word" data-w="putes" data-h="putare, puto, putavi, putatum denken" data-d="A. conj. praes. 2 enk" data-s="PV potentialis" data-n="je zou denken">putes</span>:</span> <span class="wg" data-wg="19" data-label="sic rustica quondam"><span class="lat-word" data-w="sic" data-h="sic zo" data-d="bijw." data-s="BWB van wijze" data-n="zo">sic</span> <span class="lat-word" data-w="rustica" data-h="rusticus, rustica, rusticum landelijk" data-d="nom enk v" data-s="bep. bij fistula" data-n="landelijke">rustica</span> <span class="lat-word" data-w="quondam" data-h="quondam soms, ooit" data-d="bijw." data-s="BWB van tijd" data-n="soms">quondam</span></span></span></div>
+<div class="latin-line" data-vers="192"><span class="ln">192</span><span class="lc"><span class="wg" data-wg="20" data-la="5" data-label="fistula disparibus paulatim surgit avenis"><span class="lat-word" data-w="fistula" data-h="fistula, fistulae (v.) rietfluit" data-d="nom enk v" data-s="ond. bij surgit" data-n="rietfluit">fistula</span> <span class="lat-word" data-w="disparibus" data-h="dispar, disparis ongelijk" data-d="abl mv v" data-s="bep. bij avenis" data-n="ongelijke">disparibus</span> <span class="lat-word" data-w="paulatim" data-h="paulatim geleidelijk" data-d="bijw." data-s="BWB van wijze" data-n="geleidelijk">paulatim</span> <span class="lat-word" data-w="surgit" data-h="surgere, surgo, surrexi opkomen, rijzen" data-d="A. ind. praes. 3 enk" data-s="PV" data-n="rijst op">surgit</span> <span class="lat-word" data-w="avenis" data-h="avena, avenae (v.) rietstengel" data-d="abl mv v" data-s="BWB van middel / samenstelling" data-n="rietstengels">avenis</span>.</span></span></div>
+      </div>
+    </div>
+
+    <section id="woordenlijst-sectie" style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule)">
+      <div class="panel-card">
+        <h3>Woordenlijst</h3>
+        <div id="wlTable"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="col-resizer" id="colResizer"><div class="col-resizer-handle"></div></div>
+
+  <aside class="side-panel" id="sidePanel">
+    <div class="side-panel-shell">
+      <div class="side-panel-tabs" role="tablist">
+        <button class="side-tab-btn" data-panel="la" id="sideLaBtn" disabled onclick="selectSidePanel('la')" title="Lectuuranalyse"><span class="material-symbols-outlined" aria-hidden="true">manage_search</span></button>
+        <button class="side-tab-btn active" data-panel="grammar" onclick="selectSidePanel('grammar')" title="Grammaticahulp"><span class="material-symbols-outlined" aria-hidden="true">spellcheck</span></button>
+        <button class="side-tab-btn" data-panel="translation" onclick="selectSidePanel('translation')" title="Vertaling"><span class="material-symbols-outlined" aria-hidden="true">translate</span></button>
+        <button class="side-tab-btn" data-panel="notes" onclick="selectSidePanel('notes')" title="Noten"><span class="material-symbols-outlined" aria-hidden="true">sticky_note_2</span></button>
+      </div>
+      <section class="side-panel-view" id="panel-la">
+        <div class="la-side-head">
+          <div class="la-side-label">Lectuuranalyse</div>
+          <div class="la-side-title">Vraag naast de tekst</div>
+          <div class="la-side-help">Deze verschijnt pas wanneer de passende woordgroep in de onthulling bereikt is.</div>
+        </div>
+        <div class="la-cue-box" id="laCueBox"></div>
+        <div id="laPanelBody"></div>
+      </section>
+      <section class="side-panel-view active" id="panel-grammar"><div class="analysis-card" id="analysisCard"><h3>Woordhulp</h3><div class="ac-empty">Klik op een Latijns woord. De onthulling verschijnt boven het woord: 1 grondwoord · 2 vertaling · 3 determinering · 4 functie.</div></div></section>
+      <section class="side-panel-view" id="panel-translation"><div class="panel-card"><h3>Vertaling</h3><div class="vertaling-tekst" id="vertaalTekst"></div></div></section>
+      <section class="side-panel-view" id="panel-notes"><div class="panel-card" id="notenBlock"><h3>Let op</h3><div class="panel-note"><span class="pn-tag">Ruimte</span><em>terras – undas – caelum – aëra</em> zet macht tegenover uitweg.</div><div class="panel-note"><span class="pn-tag">Kantelpunt</span><em>naturamque novat</em>: de oplossing wordt grensverandering.</div><div class="panel-note"><span class="pn-tag">Beeld</span>De rietfluit maakt zichtbaar hoe Daedalus de veren ordent.</div></div></section>
+    </div>
+  </aside>
 </div>
-<div class="col-resizer" id="colResizer"><div class="col-resizer-handle"></div></div>
-<div class="side-panel" id="sidePanel"><div class="side-panel-shell"><div class="side-panel-tabs" role="tablist"><button class="side-tab-btn active" data-panel="la" onclick="selectSidePanel('la')" title="Lectuuranalyse"><span aria-hidden="true" class="material-symbols-outlined">manage_search</span></button><button class="side-tab-btn" data-panel="grammar" onclick="selectSidePanel('grammar')" title="Grammaticahulp"><span aria-hidden="true" class="material-symbols-outlined">spellcheck</span></button><button class="side-tab-btn" data-panel="translation" onclick="selectSidePanel('translation')" title="Vertaling"><span aria-hidden="true" class="material-symbols-outlined">translate</span></button><button class="side-tab-btn" data-panel="notes" onclick="selectSidePanel('notes')" title="Noten"><span aria-hidden="true" class="material-symbols-outlined">sticky_note_2</span></button></div><section class="side-panel-view active" id="panel-la"><div class="la-side-head"><div class="la-side-label">Lectuuranalyse</div><div class="la-side-title">Leesvraag naast de tekst</div><div class="la-side-help">Bij onthullen springt dit paneel naar de passende vraag. De modelantwoorden zitten in de volledige lectuuranalyse.</div></div><div class="la-cue-box" id="laCueBox"></div><div id="laPanelBody"></div></section><section class="side-panel-view" id="panel-grammar"><div class="analysis-card" id="analysisCard"><div class="ac-empty">Klik op een woord. Klik nogmaals voor: 1 herkomst · 2 determinering · 3 functie.</div></div></section><section class="side-panel-view" id="panel-translation"><div class="panel-card"><h3>Vertaling</h3><div class="vertaling-tekst" id="vertaalTekst"></div></div></section><section class="side-panel-view" id="panel-notes"><div class="panel-card"><h3>Let op</h3><div class="panel-note"><span class="pn-tag">Ruimte</span><em>terras – undas – caelum – aëra</em> zetten bezit tegenover uitweg.</div><div class="panel-note"><span class="pn-tag">Kantelpunt</span><em>naturamque novat</em>: de oplossing wordt grensverandering.</div><div class="panel-note"><span class="pn-tag">Vergelijking</span>De rietfluit helpt de veren visueel te ordenen.</div></div></section></div></div>
+
+<div class="poetry-overlay" id="lectuurOverlay" onclick="closeLectuurModal()">
+  <div class="poetry-modal" onclick="event.stopPropagation()">
+    <div class="poetry-modal-header">
+      <div class="poetry-modal-title">Lectuuranalyse</div>
+      <div class="poetry-modal-nav">
+        <button class="poetry-nav-btn" id="laSectieVorige" onclick="navigateLaSectie(-1)"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>
+        <span class="poetry-vers-label" id="laSectieNr">1 / 5</span>
+        <button class="poetry-nav-btn" id="laSectieVolgende" onclick="navigateLaSectie(1)"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
+      </div>
+      <button class="poetry-modal-close" onclick="closeLectuurModal()"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+    </div>
+    <div class="poetry-modal-body" id="lectuurModalBody"></div>
+  </div>
 </div>
-<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span aria-hidden="true" class="material-symbols-outlined">keyboard_arrow_up</span></button>
-<div class="poetry-modal-overlay" id="lectuurOverlay" onclick="closeLectuurModal()"><div class="poetry-modal" onclick="event.stopPropagation()"><div class="poetry-modal-header"><span class="poetry-modal-title">Lectuuranalyse — Break On Through to the Other Side</span><div class="poetry-modal-nav"><button class="poetry-modal-nav-btn" disabled="" id="laSectieVorige" onclick="navigateLaSectie(-1)">← Vorige</button><span id="laSectieNr" style="font-family:var(--fb);font-size:.72rem;color:var(--ink-light);min-width:3rem;text-align:center;">1 / 5</span><button class="poetry-modal-nav-btn" id="laSectieVolgende" onclick="navigateLaSectie(1)">Volgende →</button></div><button class="poetry-modal-close" onclick="closeLectuurModal()"><span aria-hidden="true" class="material-symbols-outlined">close</span></button></div><div class="poetry-modal-body" id="lectuurModalBody"></div></div></div>
-<div class="kaart-modal-overlay" id="kaartModalOverlay" onclick="closeKaartModal()"><div class="kaart-modal" onclick="event.stopPropagation()"><div class="kaart-modal-header"><span class="kaart-modal-title">Kaart / beeld</span><button class="kaart-modal-close" onclick="closeKaartModal()"><span aria-hidden="true" class="material-symbols-outlined">close</span></button></div><div class="kaart-modal-body"><div class="kaart-placeholder"><span aria-hidden="true" class="material-symbols-outlined">image</span><p>Voorzie hier eventueel een kaart van Kreta / Knossos of een detail uit een bestaand kunstwerk.</p></div></div></div></div>
-<div class="lesson-toolbar-wrap" id="lessonToolbarWrap"><div class="lesson-toolbar"><button class="lesson-btn" data-tip="Vorige woordgroep" onclick="revealPrev()" type="button"><span aria-hidden="true" class="material-symbols-outlined">keyboard_arrow_left</span></button><button class="lesson-btn" data-tip="Volgende woordgroep" onclick="revealNext()" type="button"><span aria-hidden="true" class="material-symbols-outlined">keyboard_arrow_right</span></button><button class="lesson-btn" data-tip="Onthulmodus aan/uit" id="lessonRevealBtn" onclick="toggleReveal()" type="button"><span aria-hidden="true" class="material-symbols-outlined">visibility_off</span></button><div class="lesson-toolbar-divider"></div><button class="lesson-btn" data-tip="Vorig woord" onclick="focusPrevWord()" type="button"><span aria-hidden="true" class="material-symbols-outlined">chevron_left</span></button><button class="lesson-btn" data-tip="Analyseer woord" onclick="stepActiveWord()" type="button"><span aria-hidden="true" class="material-symbols-outlined">analytics</span></button><button class="lesson-btn" data-tip="Volgend woord" onclick="focusNextWord()" type="button"><span aria-hidden="true" class="material-symbols-outlined">chevron_right</span></button><div class="lesson-toolbar-divider"></div><button class="lesson-btn danger" data-tip="Wis huidige woordgroep" onclick="clearCurrentWgAnalysis()" type="button"><span aria-hidden="true" class="material-symbols-outlined">ink_eraser</span></button><button class="lesson-btn danger" data-tip="Wis alle analyse" onclick="clearAllAnalysis()" type="button"><span aria-hidden="true" class="material-symbols-outlined">delete</span></button><div class="lesson-toolbar-divider"></div><button class="lesson-btn" data-tip="Pen" id="inkPenBtn" onclick="setInkMode('pen')" type="button"><span aria-hidden="true" class="material-symbols-outlined">edit</span></button><button class="lesson-btn" data-tip="Markeerstift" id="inkHighBtn" onclick="setInkMode('highlight')" type="button"><span aria-hidden="true" class="material-symbols-outlined">border_color</span></button><button class="lesson-btn" data-tip="Gum" id="inkEraseBtn" onclick="setInkMode('erase')" type="button"><span aria-hidden="true" class="material-symbols-outlined">ink_eraser</span></button><button class="lesson-btn" data-tip="Wis annotaties" onclick="clearInk()" type="button"><span aria-hidden="true" class="material-symbols-outlined">delete_sweep</span></button><div class="lesson-toolbar-divider"></div><button class="lesson-btn" data-tip="Lectuuranalyse" onclick="openLectuurModal()" type="button"><span aria-hidden="true" class="material-symbols-outlined">manage_search</span></button></div><div class="tool-palette" id="penPalette"></div><div class="tool-palette" id="highlightPalette"></div></div>
+
+<div class="lesson-toolbar-wrap" id="lessonToolbarWrap">
+  <div class="lesson-toolbar">
+    <button class="lesson-btn" data-tip="Vorige woordgroep" onclick="revealPrev()" type="button"><span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_left</span></button>
+    <button class="lesson-btn" data-tip="Volgende woordgroep" onclick="revealNext()" type="button"><span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_right</span></button>
+    <button class="lesson-btn" data-tip="Onthulmodus aan/uit" id="lessonRevealBtn" onclick="toggleReveal()" type="button"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span></button>
+    <div class="lesson-toolbar-divider"></div>
+    <button class="lesson-btn" data-tip="Vorig woord" onclick="focusPrevWord()" type="button"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>
+    <button class="lesson-btn" data-tip="Analyseer woord" onclick="stepActiveWord()" type="button"><span class="material-symbols-outlined" aria-hidden="true">analytics</span></button>
+    <button class="lesson-btn" data-tip="Volgend woord" onclick="focusNextWord()" type="button"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
+    <div class="lesson-toolbar-divider"></div>
+    <button class="lesson-btn danger" data-tip="Wis huidige woordgroep" onclick="clearCurrentWgAnalysis()" type="button"><span class="material-symbols-outlined" aria-hidden="true">ink_eraser</span></button>
+    <button class="lesson-btn danger" data-tip="Wis alle analyse" onclick="clearAllAnalysis()" type="button"><span class="material-symbols-outlined" aria-hidden="true">delete</span></button>
+    <div class="lesson-toolbar-divider"></div>
+    <button class="lesson-btn" data-tip="Pen" id="inkPenBtn" onclick="setInkMode('pen')" type="button"><span class="material-symbols-outlined" aria-hidden="true">edit</span></button>
+    <button class="lesson-btn" data-tip="Markeerstift" id="inkHighBtn" onclick="setInkMode('highlight')" type="button"><span class="material-symbols-outlined" aria-hidden="true">border_color</span></button>
+    <button class="lesson-btn" data-tip="Gum" id="inkEraseBtn" onclick="setInkMode('erase')" type="button"><span class="material-symbols-outlined" aria-hidden="true">ink_eraser</span></button>
+    <button class="lesson-btn" data-tip="Wis annotaties" onclick="clearInk()" type="button"><span class="material-symbols-outlined" aria-hidden="true">delete_sweep</span></button>
+    <div class="lesson-toolbar-divider"></div>
+    <button class="lesson-btn" id="lessonLectuurBtn" data-tip="Lectuuranalyse — komt vrij bij de passende woordgroep" disabled onclick="openLectuurModal()" type="button"><span class="material-symbols-outlined" aria-hidden="true">manage_search</span></button>
+  </div>
+  <div class="tool-palette" id="penPalette"></div>
+  <div class="tool-palette" id="highlightPalette"></div>
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span class="material-symbols-outlined" aria-hidden="true">keyboard_arrow_up</span></button>
+
 <script>
-const S={reveal:false,rev:-1,lines:false,interlin:false,twocol:true,font:false,laIndex:0};
-let ksWgroups=[], ksActiveWord=null, inkMode=null, inkColor='#FF3B1D', inkWidth=2, drawing=false;
-const LA_SECTIES=[
- {id:1,title:'1. Vastzitten en verlangen',vers:'Daedalus interea … clausus erat pelago.',cue:'Daedalus zit vast tussen afkeer van Kreta en verlangen naar zijn geboortegrond.',vragen:[
-  ['Welke twee gevoelens sturen Daedalus in vv. 183-185?','Hij haat Kreta en zijn lange ballingschap, maar hij wordt ook geraakt door liefde voor zijn geboortegrond. Zijn vluchtplan begint dus niet uit roekeloosheid alleen, maar uit een begrijpelijk verlangen naar terugkeer.'],
-  ['Waarom is clausus erat pelago belangrijk?','Niet een muur maar de zee sluit hem in. Daardoor wordt de vraag meteen ruimtelijk: land en zee zijn onmogelijk, dus moet hij een derde route zoeken.']
- ]},
- {id:2,title:'2. De lucht als uitweg',vers:'Terras licet … non possidet aëra Minos.',cue:'Daedalus ontdekt één ruimte die Minos niet bezit: de lucht.',vragen:[
-  ['Hoe bouwt Daedalus zijn gedachte op?','Hij vertrekt van wat Minos wél kan afsluiten: land en zee. Daarna zet hij daar het caelum/aër tegenover: de lucht blijft open en wordt zijn uitweg.'],
-  ['Waarom is omnia possideat, non possidet aëra Minos tegelijk bevrijdend en gevaarlijk?','Bevrijdend: Minos heeft niet overal macht. Gevaarlijk: Daedalus denkt meteen in termen van bezit, grenzen en doorbraak. De lucht wordt vrijheid, maar ook verleiding.']
- ]},
- {id:3,title:'3. Een onbekende kunst',vers:'dixit et ignotas … naturamque novat.',cue:'Ontsnappen wordt bij Daedalus meteen uitvinden: hij vernieuwt de natuur.',vragen:[
-  ['Wat betekent ignotas artes hier?','Daedalus zoekt geen gewone oplossing. Hij richt zijn geest op een techniek die nog niet bestaat.'],
-  ['Waarom is naturamque novat een sleutelzin?','Hij gaat niet alleen weg uit Kreta. Hij verandert wat voor mensen natuurlijk mogelijk is. Daarom is zijn talent bewonderenswaardig én gevaarlijk.']
- ]},
- {id:4,title:'4. De vleugels ontstaan',vers:'Nam ponit in ordine pennas … longam breviore sequenti.',cue:'Ovidius vertraagt: we zien hoe Daedalus ordent, past en bouwt.',vragen:[
-  ['Welke woorden tonen Daedalus als vakman?','ponit, in ordine, a minima, longam breviore sequenti: hij werkt precies, stapsgewijs en gecontroleerd.'],
-  ['Waarom past de opbouw van klein naar groot bij het thema?','De vleugels groeien letterlijk in hoogte en lengte. Dat bereidt het verlangen naar hoger gaan voor, maar nog in een gecontroleerde vorm.']
- ]},
- {id:5,title:'5. De vergelijking met de rietfluit',vers:'ut clivo crevisse putes … surgit avenis.',cue:'De vleugels lijken natuurlijk te groeien, maar zijn volledig gemaakt.',vragen:[
-  ['Waarom vergelijkt Ovidius de veren met een rietfluit?','Een rietfluit bestaat uit ongelijke rietstengels die geleidelijk opstijgen. Zo maakt Ovidius de ordening van de veren zichtbaar.'],
-  ['Wat is dubbelzinnig aan deze vergelijking?','Het kunstwerk lijkt bijna natuurlijk gegroeid, maar het is net een kunstmatige poging om de natuur te veranderen.']
- ]}
+const S = {reveal:false, rev:-1, interlin:false, twocol:true, font:false, laActive:false, laIndex:0};
+let ksWgroups = [];
+let ksActiveWord = null;
+let inkMode = null, inkColor = '#FF3B1D', drawing = false;
+
+const LA_SECTIES = [
+  {id:'1', title:'1. Vastzitten en verlangen', vers:'Daedalus interea … clausus erat pelago.', cue:'Daedalus zit vast tussen afkeer van Kreta en verlangen naar zijn geboortegrond.', vragen:[
+    ['Welke twee gevoelens sturen Daedalus in vv. 183-185?', 'Hij haat Kreta en zijn lange ballingschap, maar hij verlangt ook naar zijn geboortegrond. Zijn vluchtplan begint dus vanuit een begrijpelijk verlangen naar terugkeer.'],
+    ['Waarom is <em>clausus erat pelago</em> belangrijk?', 'Daedalus zit niet zomaar achter een muur: de zee sluit hem in. Daardoor ontstaat de vraag naar een derde weg: niet land, niet zee, maar lucht.']
+  ]},
+  {id:'2', title:'2. De lucht als uitweg', vers:'Terras licet … Ibimus illac.', cue:'Daedalus ontdekt één ruimte die Minos niet bezit: de lucht.', vragen:[
+    ['Hoe bouwt Daedalus zijn gedachte op?', 'Hij vertrekt van wat Minos wel beheerst: land en zee. Daarna plaatst hij daar het <em>caelum</em> tegenover: de lucht blijft open.'],
+    ['Waarom is die gedachte tegelijk bevrijdend en gevaarlijk?', 'Bevrijdend: Minos heeft niet overal macht. Gevaarlijk: Daedalus denkt meteen aan doorbreken en overstijgen. Vrijheid wordt zo ook verleiding.']
+  ]},
+  {id:'3', title:'3. Een onbekende kunst', vers:'dixit et ignotas … naturamque novat.', cue:'Ontsnappen wordt bij Daedalus meteen uitvinden: hij vernieuwt de natuur.', vragen:[
+    ['Wat betekent <em>ignotas artes</em> hier?', 'Daedalus zoekt geen gewone oplossing. Hij richt zijn geest op een techniek die nog niet bestaat.'],
+    ['Waarom is <em>naturamque novat</em> een sleutelzin?', 'Daedalus gaat niet alleen weg uit Kreta. Hij verandert wat voor mensen natuurlijk mogelijk is. Daarom is zijn talent bewonderenswaardig én gevaarlijk.']
+  ]},
+  {id:'4', title:'4. De vleugels ontstaan', vers:'Nam ponit in ordine pennas … longam breviore sequenti.', cue:'Ovidius vertraagt: we zien hoe Daedalus ordent, past en bouwt.', vragen:[
+    ['Welke woorden tonen Daedalus als vakman?', '<em>ponit</em>, <em>in ordine</em>, <em>a minima</em> en <em>longam breviore sequenti</em>: hij werkt precies, stapsgewijs en gecontroleerd.'],
+    ['Waarom past de opbouw van klein naar groot bij het thema?', 'De vleugels groeien letterlijk in hoogte en lengte. De beweging naar boven wordt voorbereid, maar voorlopig nog gecontroleerd.']
+  ]},
+  {id:'5', title:'5. De vergelijking met de rietfluit', vers:'ut clivo crevisse putes … surgit avenis.', cue:'De vleugels lijken natuurlijk te groeien, maar zijn volledig gemaakt.', vragen:[
+    ['Waarom vergelijkt Ovidius de veren met een rietfluit?', 'Een rietfluit bestaat uit ongelijke rietstengels die geleidelijk opstijgen. Zo maakt Ovidius de ordening van de veren zichtbaar.'],
+    ['Wat is dubbelzinnig aan deze vergelijking?', 'Het kunstwerk lijkt bijna natuurlijk gegroeid, maar het is net een kunstmatige poging om de natuur te veranderen.']
+  ]}
 ];
-function qs(s){return document.querySelector(s)} function qsa(s){return Array.from(document.querySelectorAll(s))}
-function initWords(){
- qsa('.lat-word').forEach(w=>{
-  if(!w.querySelector('.lat-surface')){const txt=w.textContent;w.innerHTML='<span class="inline-analysis"></span><span class="lat-surface">'+txt+'</span>';}
-  w.addEventListener('click',e=>{e.stopPropagation();ksStepWord(w);showPopup(w,e);updatePanel(w);selectSidePanel('grammar');});
-  w.addEventListener('mouseenter',e=>showPopup(w,e));
-  w.addEventListener('mouseleave',hidePopup);
- });
+
+function qs(s) { return document.querySelector(s); }
+function qsa(s) { return Array.from(document.querySelectorAll(s)); }
+
+function initWords() {
+  qsa('.lat-word').forEach(w => {
+    if (!w.querySelector('.lat-surface')) {
+      const txt = w.textContent;
+      w.innerHTML = '<span class="inline-analysis"></span><span class="lat-surface">' + txt + '</span>';
+    }
+    w.dataset.stage = w.dataset.stage || '0';
+    w.addEventListener('click', e => {
+      e.stopPropagation();
+      ksStepWord(w);
+    });
+  });
 }
-function ksGetStage(w){return parseInt(w.dataset.stage||'0',10)}
-function ksSetStage(w,stage){w.dataset.stage=String(stage);ksRenderAnalysis(w)}
-function ksSetActive(w){qsa('.lat-word.active-word').forEach(x=>x.classList.remove('active-word'));ksActiveWord=w;if(w){w.classList.add('active-word');updatePanel(w);}}
-function ksRenderAnalysis(w){
- const slot=w.querySelector('.inline-analysis'); if(!slot) return; const st=ksGetStage(w);
- w.classList.remove('has-analysis','stage-1','stage-2','stage-3'); slot.innerHTML='';
- if(st<=0) return; w.classList.add('has-analysis','stage-'+st);
- let h='';
- if(st>=1)h+='<span class="ia-line ia-source">'+(w.dataset.h||w.dataset.l||'')+'</span>';
- if(st>=2)h+='<span class="ia-line ia-det">'+(w.dataset.d||'')+'</span>';
- if(st>=3)h+='<span class="ia-line ia-func">'+(w.dataset.s||'')+'</span>';
- slot.innerHTML=h;
+function ksGetStage(w) { return parseInt(w.dataset.stage || '0', 10); }
+function ksSetStage(w, stage) { w.dataset.stage = String(stage); ksRenderAnalysis(w); }
+function ksSetActive(w) {
+  qsa('.lat-word.active-word').forEach(x => x.classList.remove('active-word'));
+  ksActiveWord = w;
+  if (w) w.classList.add('active-word');
 }
-function ksStepWord(w){ksSetActive(w); let st=ksGetStage(w); ksSetStage(w, Math.min(3, st+1)); updatePanel(w);}
-function ksCurrentWg(){return S.rev>=0 && ksWgroups[S.rev]?ksWgroups[S.rev]:null}
-function ksWordsInWg(){let wg=ksCurrentWg(); return wg?Array.from(wg.querySelectorAll('.lat-word')):[]}
-function ksFocusFirstInWg(){let ws=ksWordsInWg(); if(ws.length) ksSetActive(ws[0])}
-function focusNextWord(){let all=qsa('#plainView .lat-word'); if(!all.length)return; let i=ksActiveWord?all.indexOf(ksActiveWord):-1; i=(i+1)%all.length; ksSetActive(all[i]); all[i].scrollIntoView({block:'center',behavior:'smooth'});}
-function focusPrevWord(){let all=qsa('#plainView .lat-word'); if(!all.length)return; let i=ksActiveWord?all.indexOf(ksActiveWord):0; i=(i-1+all.length)%all.length; ksSetActive(all[i]); all[i].scrollIntoView({block:'center',behavior:'smooth'});}
-function stepActiveWord(){if(!ksActiveWord)ksFocusFirstInWg(); if(ksActiveWord)ksStepWord(ksActiveWord)}
-function clearCurrentWgAnalysis(){ksWordsInWg().forEach(w=>ksSetStage(w,0));}
-function clearAllAnalysis(){qsa('.lat-word').forEach(w=>ksSetStage(w,0));ksSetActive(null);qs('#analysisCard').innerHTML='<div class="ac-empty">Klik op een woord. Klik nogmaals voor: 1 herkomst · 2 determinering · 3 functie.</div>';}
-function showPopup(el,e){const p=qs('#popup');qs('#ppWord').textContent=el.dataset.w||el.textContent;qs('#ppLemma').textContent=el.dataset.h||el.dataset.l||'';let rows='';[['tg','herkomst',el.dataset.h],['to','det.',el.dataset.d],['tp','functie',el.dataset.s],['tw','betekenis',el.dataset.n]].forEach(r=>{if(r[2])rows+='<div class="wp-row"><span class="wp-tag '+r[0]+'">'+r[1]+'</span><span class="wp-val">'+r[2]+'</span></div>'});qs('#ppContent').innerHTML=rows;qs('#ppHint').textContent='Klik: 1 herkomst · 2 determinering · 3 functie.';p.classList.add('vis');let rect=el.getBoundingClientRect();let top=window.scrollY+rect.bottom+8;let left=window.scrollX+Math.min(rect.left, window.innerWidth-340);p.style.top=top+'px';p.style.left=Math.max(12,left)+'px';}
-function hidePopup(){qs('#popup').classList.remove('vis')}
-function updatePanel(w){if(!w){return} qs('#analysisCard').innerHTML='<div class="ac-word">'+(w.dataset.w||w.textContent)+'</div><div class="ac-lemma">'+(w.dataset.h||w.dataset.l||'')+'</div><div class="ac-row"><span class="ac-tag tg">herkomst</span><span>'+(w.dataset.h||'—')+'</span></div><div class="ac-row"><span class="ac-tag to">det.</span><span>'+(w.dataset.d||'—')+'</span></div><div class="ac-row"><span class="ac-tag tp">functie</span><span>'+(w.dataset.s||'—')+'</span></div><div class="ac-row"><span class="ac-tag tw">betekenis</span><span>'+(w.dataset.n||'—')+'</span></div>';}
-function toggleReveal(){S.reveal=!S.reveal;document.body.classList.toggle('reveal-mode',S.reveal);qs('#revealBar').classList.toggle('vis',S.reveal);qs('#btnReveal').classList.toggle('active',S.reveal);qs('#lessonRevealBtn').classList.toggle('active',S.reveal); if(S.reveal && S.rev<0){revealNext()} else if(!S.reveal){ksWgroups.forEach(g=>g.classList.remove('revealed','current')); S.rev=-1; updCount(); qs('#laReminder').classList.remove('vis'); renderLaPanel(null);}}
-function revealNext(){if(!S.reveal)toggleReveal(); if(S.rev<ksWgroups.length-1){if(S.rev>=0)ksWgroups[S.rev].classList.remove('current'); S.rev++; ksWgroups[S.rev].classList.add('revealed','current'); ksWgroups[S.rev].scrollIntoView({block:'center',behavior:'smooth'}); ksFocusFirstInWg(); triggerLAForWg(ksWgroups[S.rev]);} updCount()}
-function revealPrev(){if(!S.reveal)toggleReveal(); if(S.rev>0){ksWgroups[S.rev].classList.remove('current','revealed'); S.rev--; ksWgroups[S.rev].classList.add('current'); ksWgroups[S.rev].scrollIntoView({block:'center',behavior:'smooth'}); ksFocusFirstInWg(); triggerLAForWg(ksWgroups[S.rev]);} updCount()}
-function revealAll(){if(!S.reveal)toggleReveal(); ksWgroups.forEach(g=>{g.classList.add('revealed');g.classList.remove('current')}); S.rev=ksWgroups.length-1; updCount(); qs('#laReminder').classList.remove('vis');}
-function updCount(){qs('#revCount').textContent=(S.rev<0?0:S.rev+1)+' / '+ksWgroups.length}
-function toggleLines(){S.lines=!S.lines;qs('#numberedView').classList.toggle('on',S.lines);qs('#plainView').classList.toggle('off',S.lines);qs('#btnLines').classList.toggle('active',S.lines); if(S.lines && S.reveal)toggleReveal();}
-function toggleInterlin(){S.interlin=!S.interlin;document.body.classList.toggle('interlin-analysis',S.interlin);qs('#btnInterlin').classList.toggle('active',S.interlin)}
-function toggleTwocol(){S.twocol=!S.twocol;document.body.classList.toggle('twocol',S.twocol);qs('#btnTwocol').classList.toggle('active',S.twocol)}
-function toggleFont(){S.font=!S.font;document.body.classList.toggle('font-lg',S.font);qs('#btnFont').classList.toggle('active',S.font)}
-function toggleNoten(){qs('#notenBlock').classList.toggle('vis');qs('#btnNoten').classList.toggle('active')}
-function toggleWeergaveMenu(e){e.stopPropagation();qs('#weergaveMenu').classList.toggle('open');qs('#btnWeergave').classList.toggle('open')}
-document.addEventListener('click',e=>{if(!e.target.closest('.weergave-wrap')){qs('#weergaveMenu').classList.remove('open');qs('#btnWeergave').classList.remove('open')} if(!e.target.closest('.lat-word')&&!e.target.closest('.lesson-toolbar-wrap')){qsa('.lat-word.active-word').forEach(w=>w.classList.remove('active-word'));}})
-function selectSidePanel(panel){qsa('.side-tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.panel===panel));qsa('.side-panel-view').forEach(v=>v.classList.toggle('active',v.id==='panel-'+panel));}
-function cueById(id){return LA_SECTIES.find(s=>s.id==id)}
-function renderLaPanel(active){let body=qs('#laPanelBody'); body.innerHTML=''; LA_SECTIES.forEach(s=>{let div=document.createElement('div');div.className='la-side-section'+(active&&active.id===s.id?' current':'');div.innerHTML='<h4>'+s.title+'</h4><p>'+s.cue+'</p><p class="mini">Klik op de woordgroep of open de volledige lectuuranalyse voor de modelantwoorden.</p>';body.appendChild(div)});}
-function triggerLAForWg(wg){let s=cueById(wg.dataset.la); if(!s)return; qs('#laCueBox').innerHTML='<strong>Lectuurvraag bij deze passage</strong>'+s.cue; qs('#laCueBox').classList.add('vis'); qs('#laReminderTekst').textContent=s.title; qs('#laReminder').classList.add('vis'); S.laIndex=LA_SECTIES.indexOf(s); renderLaPanel(s);}
-function openLectuurFromReminder(){openLectuurModal()}
-function openLectuurModal(){qs('#lectuurOverlay').classList.add('open'); renderLaSectie()}
-function closeLectuurModal(){qs('#lectuurOverlay').classList.remove('open')}
-function navigateLaSectie(dir){S.laIndex=Math.max(0,Math.min(LA_SECTIES.length-1,S.laIndex+dir));renderLaSectie()}
-function renderLaSectie(){let s=LA_SECTIES[S.laIndex];qs('#laSectieNr').textContent=(S.laIndex+1)+' / '+LA_SECTIES.length;qs('#laSectieVorige').disabled=S.laIndex===0;qs('#laSectieVolgende').disabled=S.laIndex===LA_SECTIES.length-1;let html='<div class="la-sectie"><div class="la-sectie-titel">'+s.title+'</div><div class="la-vers-tekst">'+s.vers+'</div>';s.vragen.forEach((q,i)=>{html+='<div class="la-vraag">'+q[0]+'</div><div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)">Toon modelantwoord</button><div class="la-antwoord">'+q[1]+'</div></div>'});html+='</div>';qs('#lectuurModalBody').innerHTML=html}
-function toggleAntwoord(btn){let a=btn.nextElementSibling;a.classList.toggle('vis');btn.textContent=a.classList.contains('vis')?'Verberg modelantwoord':'Toon modelantwoord'}
-function renderVertaling(){qs('#vertaalTekst').innerHTML='<p>Daedalus intussen, vol afkeer van Kreta en van zijn lange ballingschap, en geraakt door liefde voor zijn geboortegrond, was door de zee ingesloten.</p><p>“Laat Minos dan land en zee afsluiten,” zei hij, “de hemel staat zeker open! Langs daar zullen we gaan. Hij mag alles bezitten: de lucht bezit Minos niet.”</p><p>Dat zei hij. Hij richt zijn geest op onbekende kunsten en vernieuwt de natuur. Want hij legt veren op volgorde: begonnen bij de kleinste, telkens een langere volgend op een kortere, zodat je zou denken dat ze op een helling gegroeid waren. Zo rijst soms een landelijke rietfluit geleidelijk op met ongelijke rietstengels.</p>'}
-function renderWL(){const seen=[];qsa('#plainView .lat-word').forEach(w=>{let k=w.dataset.h+'|'+w.dataset.n;if(!seen.find(x=>x.k===k))seen.push({k,lat:w.dataset.w,h:w.dataset.h,nl:w.dataset.n,det:w.dataset.d})});qs('#wlTable').innerHTML=seen.map(x=>'<div class="panel-word"><span><span class="pw-lat">'+x.lat+'</span><span class="pw-aanv"> · '+x.h+'</span></span><span class="pw-nl">'+x.nl+'</span></div>').join('')}
-function toggleLayer(layer){qsa('.d-badge[data-layer="'+layer+'"]').forEach(b=>b.classList.toggle('vis'));let btn=qs(layer==='bs'?'#btnBs':'#btnLpd');if(btn)btn.classList.toggle('active')}
-function annotateBadges(){let tip=document.createElement('div');tip.className='d-tooltip';document.body.appendChild(tip);qsa('.d-badge').forEach(b=>{let text=b.textContent.trim();b.addEventListener('mouseenter',()=>{tip.textContent=text;let r=b.getBoundingClientRect();tip.style.left=Math.min(r.left,window.innerWidth-320)+'px';tip.style.top=(r.bottom+8)+'px';tip.classList.add('vis')});b.addEventListener('mouseleave',()=>tip.classList.remove('vis'))})}
-function buildPalette(id,colors){let el=qs('#'+id);colors.forEach(c=>{let b=document.createElement('button');b.className='swatch';b.style.background=c;b.addEventListener('click',e=>{e.stopPropagation();inkColor=c;el.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));b.classList.add('active')});el.appendChild(b)});if(el.firstChild)el.firstChild.classList.add('active')}
-function closePalettes(){qsa('.tool-palette').forEach(p=>p.classList.remove('open'))}
-function setInkMode(mode){inkMode=(inkMode===mode)?null:mode;updateInkButtons();}
-function updateInkButtons(){qs('#inkCanvas').classList.toggle('on',!!inkMode);document.body.classList.toggle('ink-on',!!inkMode);['pen','highlight','erase'].forEach(m=>{let id=m==='pen'?'inkPenBtn':m==='highlight'?'inkHighBtn':'inkEraseBtn';qs('#'+id).classList.toggle('active',inkMode===m)});closePalettes();if(inkMode==='pen')qs('#penPalette').classList.add('open');if(inkMode==='highlight')qs('#highlightPalette').classList.add('open')}
-function clearInk(){let c=qs('#inkCanvas'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height)}
-function resizeInkCanvas(){let c=qs('#inkCanvas'),r=window.devicePixelRatio||1;c.width=innerWidth*r;c.height=innerHeight*r;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';let ctx=c.getContext('2d');ctx.setTransform(r,0,0,r,0,0)}
-function applyInkStyle(ctx){ctx.globalCompositeOperation=inkMode==='erase'?'destination-out':'source-over';ctx.strokeStyle=inkColor;ctx.lineWidth=inkMode==='highlight'?13:(inkMode==='erase'?18:2.5);ctx.globalAlpha=inkMode==='highlight'?0.35:1;ctx.lineCap='round';ctx.lineJoin='round'}
-function openKaartModal(){qs('#kaartModalOverlay').classList.add('open')}function closeKaartModal(){qs('#kaartModalOverlay').classList.remove('open')}
-window.addEventListener('resize',resizeInkCanvas);window.addEventListener('scroll',()=>qs('#scrollTop').classList.toggle('on',window.scrollY>500));
-window.addEventListener('DOMContentLoaded',()=>{
- ksWgroups=qsa('#plainView .wg'); initWords(); updCount(); renderVertaling(); renderWL(); renderLaPanel(null); annotateBadges(); buildPalette('penPalette',['#FF3B1D','#006633','#13427f','#010100']); buildPalette('highlightPalette',['#ffea3d','#b7e68a','#ffd1dc']); resizeInkCanvas();
- qs('#btnTwocol').classList.add('active');
- const canvas=qs('#inkCanvas'),ctx=canvas.getContext('2d');
- canvas.addEventListener('pointerdown',e=>{if(!inkMode)return;drawing=true;applyInkStyle(ctx);ctx.beginPath();ctx.moveTo(e.clientX,e.clientY);e.preventDefault()});
- canvas.addEventListener('pointermove',e=>{if(!drawing||!inkMode)return;applyInkStyle(ctx);ctx.lineTo(e.clientX,e.clientY);ctx.stroke();e.preventDefault()});
- ['pointerup','pointercancel','pointerleave'].forEach(ev=>canvas.addEventListener(ev,()=>{drawing=false;ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over'}));
- qsa('#plainView .wg').forEach(g=>g.addEventListener('click',e=>{if(e.target.classList.contains('lat-word'))return;triggerLAForWg(g)}));
+function ksRenderAnalysis(w) {
+  const slot = w.querySelector('.inline-analysis');
+  if (!slot) return;
+  const st = ksGetStage(w);
+  w.classList.remove('has-analysis','stage-1','stage-2','stage-3','stage-4');
+  slot.innerHTML = '';
+  if (st <= 0) return;
+  w.classList.add('has-analysis','stage-' + Math.min(st,4));
+  let h = '';
+  if (st >= 1) h += '<span class="ia-line ia-source">' + (w.dataset.h || '') + '</span>';
+  if (st >= 2) h += '<span class="ia-line ia-source">' + (w.dataset.n || '') + '</span>';
+  if (st >= 3) h += '<span class="ia-line ia-det">' + (w.dataset.d || '') + '</span>';
+  if (st >= 4) h += '<span class="ia-line ia-func">' + (w.dataset.s || '') + '</span>';
+  slot.innerHTML = h;
+}
+function ksStepWord(w) {
+  ksSetActive(w);
+  const st = ksGetStage(w);
+  const next = Math.min(4, st + 1);
+  ksSetStage(w, next);
+  showWordPopover(w);
+}
+function escapeHtml(v) {
+  return String(v || '—').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+function showWordPopover(w) {
+  const pop = qs('#wordPopover');
+  if (!pop || !w) return;
+  const st = Math.max(1, Math.min(4, ksGetStage(w)));
+  qs('#wpForm').textContent = w.dataset.w || w.textContent.trim();
+  qs('#wpProgress').textContent = st + ' / 4';
+  const rows = [];
+  if (st >= 1) rows.push(['src','grondwoord',w.dataset.h]);
+  if (st >= 2) rows.push(['nl','vertaling',w.dataset.n]);
+  if (st >= 3) rows.push(['det','det.',w.dataset.d]);
+  if (st >= 4) rows.push(['func','functie',w.dataset.s]);
+  qs('#wpRows').innerHTML = rows.map(r => '<div class="wp-row"><span class="wp-tag ' + r[0] + '">' + r[1] + '</span><span class="wp-val">' + escapeHtml(r[2]) + '</span></div>').join('');
+  qs('#wpNext').textContent = st < 4 ? 'Klik nog eens voor stap ' + (st + 1) + '.' : 'Volledige woordinfo zichtbaar.';
+  pop.classList.remove('below');
+  pop.classList.add('vis');
+  pop.setAttribute('aria-hidden','false');
+  positionWordPopover(w);
+}
+function hideWordPopover() {
+  const pop = qs('#wordPopover');
+  if (!pop) return;
+  pop.classList.remove('vis','below');
+  pop.setAttribute('aria-hidden','true');
+}
+function positionWordPopover(w) {
+  const pop = qs('#wordPopover');
+  if (!pop || !w) return;
+  const r = w.getBoundingClientRect();
+  const pr = pop.getBoundingClientRect();
+  let left = r.left + window.scrollX + (r.width / 2) - (pr.width / 2);
+  left = Math.max(8 + window.scrollX, Math.min(left, window.scrollX + window.innerWidth - pr.width - 8));
+  let top = r.top + window.scrollY - pr.height - 10;
+  let below = false;
+  if (top < window.scrollY + 8) { top = r.bottom + window.scrollY + 10; below = true; }
+  const arrow = (r.left + window.scrollX + r.width / 2) - left;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  pop.style.setProperty('--arrow-left', Math.max(18, Math.min(pr.width - 18, arrow)) + 'px');
+  pop.classList.toggle('below', below);
+}
+function ksCurrentWg() { return S.rev >= 0 && ksWgroups[S.rev] ? ksWgroups[S.rev] : null; }
+function ksWordsInWg() { const wg = ksCurrentWg(); return wg ? Array.from(wg.querySelectorAll('.lat-word')) : []; }
+function ksFocusFirstInWg() { const ws = ksWordsInWg(); if (ws.length) ksSetActive(ws[0]); }
+function focusNextWord() {
+  const scope = ksWordsInWg();
+  const all = scope.length ? scope : qsa('#plainView .lat-word');
+  if (!all.length) return;
+  let i = ksActiveWord ? all.indexOf(ksActiveWord) : -1;
+  if (i < 0) i = -1;
+  i = (i + 1) % all.length;
+  ksSetActive(all[i]);
+  all[i].scrollIntoView({block:'center', behavior:'smooth'});
+  hideWordPopover();
+}
+function focusPrevWord() {
+  const scope = ksWordsInWg();
+  const all = scope.length ? scope : qsa('#plainView .lat-word');
+  if (!all.length) return;
+  let i = ksActiveWord ? all.indexOf(ksActiveWord) : 0;
+  if (i < 0) i = 0;
+  i = (i - 1 + all.length) % all.length;
+  ksSetActive(all[i]);
+  all[i].scrollIntoView({block:'center', behavior:'smooth'});
+  hideWordPopover();
+}
+function stepActiveWord() { if (!ksActiveWord) ksFocusFirstInWg(); if (ksActiveWord) ksStepWord(ksActiveWord); }
+function clearCurrentWgAnalysis() { ksWordsInWg().forEach(w => ksSetStage(w, 0)); hideWordPopover(); }
+function clearAllAnalysis() { qsa('.lat-word').forEach(w => ksSetStage(w, 0)); ksSetActive(null); hideWordPopover(); }
+
+
+function toggleReveal() {
+  S.reveal = !S.reveal;
+  document.body.classList.toggle('reveal-mode', S.reveal);
+  qs('#revealBar').classList.toggle('vis', S.reveal);
+  qs('#btnReveal').classList.toggle('active', S.reveal);
+  qs('#lessonRevealBtn').classList.toggle('active', S.reveal);
+  if (S.reveal && S.rev < 0) { revealNext(); }
+  else if (!S.reveal) {
+    ksWgroups.forEach(g => g.classList.remove('revealed','current'));
+    S.rev = -1;
+    updCount();
+    lockLectuur();
+    selectSidePanel('grammar');
+  }
+}
+function revealNext() {
+  if (!S.reveal) toggleReveal();
+  if (S.rev < ksWgroups.length - 1) {
+    if (S.rev >= 0) ksWgroups[S.rev].classList.remove('current');
+    S.rev++;
+    const wg = ksWgroups[S.rev];
+    wg.classList.add('revealed','current');
+    wg.scrollIntoView({block:'center', behavior:'smooth'});
+    ksFocusFirstInWg();
+    maybeTriggerLA(wg);
+  }
+  updCount();
+}
+function revealPrev() {
+  if (!S.reveal) toggleReveal();
+  if (S.rev > 0) {
+    ksWgroups[S.rev].classList.remove('current','revealed');
+    S.rev--;
+    const wg = ksWgroups[S.rev];
+    wg.classList.add('current');
+    wg.scrollIntoView({block:'center', behavior:'smooth'});
+    ksFocusFirstInWg();
+    maybeTriggerLA(wg);
+  }
+  updCount();
+}
+function revealAll() {
+  if (!S.reveal) toggleReveal();
+  ksWgroups.forEach(g => { g.classList.add('revealed'); g.classList.remove('current'); });
+  S.rev = ksWgroups.length - 1;
+  updCount();
+  lockLectuur();
+  selectSidePanel('grammar');
+}
+function updCount() { qs('#revCount').textContent = (S.rev < 0 ? 0 : S.rev + 1) + ' / ' + ksWgroups.length; }
+
+function cueById(id) { return LA_SECTIES.find(s => s.id === String(id)); }
+function lockLectuur() {
+  S.laActive = false;
+  ['btnLectuur','btnLectuurMenu','lessonLectuurBtn','sideLaBtn'].forEach(id => { const b = qs('#'+id); if (b) b.disabled = true; });
+  qs('#laReminder').classList.remove('vis');
+  qs('#laCueBox').classList.remove('vis');
+  renderLaPanel(null);
+}
+function unlockLectuur(section) {
+  S.laActive = true;
+  ['btnLectuur','btnLectuurMenu','lessonLectuurBtn','sideLaBtn'].forEach(id => { const b = qs('#'+id); if (b) b.disabled = false; });
+  S.laIndex = LA_SECTIES.indexOf(section);
+  qs('#laReminderTekst').textContent = section.title;
+  qs('#laReminder').classList.add('vis');
+  qs('#laCueBox').innerHTML = '<strong>Vraag bij deze passage</strong>' + section.cue;
+  qs('#laCueBox').classList.add('vis');
+  renderLaPanel(section);
+  selectSidePanel('la');
+}
+function maybeTriggerLA(wg) {
+  if (!wg || !wg.dataset.la) return;
+  const s = cueById(wg.dataset.la);
+  if (s) unlockLectuur(s);
+}
+function renderLaPanel(active) {
+  const body = qs('#laPanelBody');
+  if (!body) return;
+  body.innerHTML = '';
+  if (!active) {
+    body.innerHTML = '<div class="la-side-empty">De lectuuranalyse is nog niet zichtbaar. Werk verder met onthullen tot de passende vraag verschijnt.</div>';
+    return;
+  }
+  body.innerHTML = '<div class="la-side-section current"><h4>' + active.title + '</h4><p>' + active.cue + '</p><p class="mini">Open de vraag pas nadat je deze woordgroep gelezen hebt.</p><button class="la-side-open" onclick="openLectuurModal()">Open vraag</button></div>';
+}
+function openLectuurModal() { if (!S.laActive) return; qs('#lectuurOverlay').classList.add('open'); renderLaSectie(); }
+function closeLectuurModal() { qs('#lectuurOverlay').classList.remove('open'); }
+function navigateLaSectie(dir) { S.laIndex = Math.max(0, Math.min(LA_SECTIES.length - 1, S.laIndex + dir)); renderLaSectie(); }
+function renderLaSectie() {
+  const s = LA_SECTIES[S.laIndex];
+  qs('#laSectieNr').textContent = (S.laIndex + 1) + ' / ' + LA_SECTIES.length;
+  qs('#laSectieVorige').disabled = S.laIndex === 0;
+  qs('#laSectieVolgende').disabled = S.laIndex === LA_SECTIES.length - 1;
+  let html = '<div class="la-sectie"><div class="la-sectie-titel">' + s.title + '</div><div class="la-vers-tekst">' + s.vers + '</div>';
+  s.vragen.forEach(q => {
+    html += '<div class="la-vraag">' + q[0] + '</div><div class="la-antwoord-wrap"><button class="la-antwoord-btn" onclick="toggleAntwoord(this)">Toon modelantwoord</button><div class="la-antwoord">' + q[1] + '</div></div>';
+  });
+  html += '</div>';
+  qs('#lectuurModalBody').innerHTML = html;
+}
+function toggleAntwoord(btn) { const a = btn.nextElementSibling; a.classList.toggle('vis'); btn.textContent = a.classList.contains('vis') ? 'Verberg modelantwoord' : 'Toon modelantwoord'; }
+
+function selectSidePanel(panel) {
+  if (panel === 'la' && !S.laActive) return;
+  qsa('.side-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.panel === panel));
+  qsa('.side-panel-view').forEach(v => v.classList.toggle('active', v.id === 'panel-' + panel));
+}
+function toggleInterlin() { S.interlin = !S.interlin; document.body.classList.toggle('interlin-analysis', S.interlin); qs('#btnInterlin').classList.toggle('active', S.interlin); }
+function toggleTwocol() { S.twocol = !S.twocol; document.body.classList.toggle('twocol', S.twocol); qs('#btnTwocol').classList.toggle('active', S.twocol); }
+function toggleFont() { S.font = !S.font; document.body.classList.toggle('font-lg', S.font); qs('#btnFont').classList.toggle('active', S.font); }
+function toggleWeergaveMenu(e) { e.stopPropagation(); qs('#weergaveMenu').classList.toggle('open'); qs('#btnWeergave').classList.toggle('open'); }
+function toggleNoten() { selectSidePanel('notes'); qs('#btnNoten').classList.toggle('active'); }
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.weergave-wrap')) { qs('#weergaveMenu').classList.remove('open'); qs('#btnWeergave').classList.remove('open'); }
+  if (!e.target.closest('.lat-word') && !e.target.closest('.lesson-toolbar-wrap')) {
+    qsa('.lat-word.active-word').forEach(w => w.classList.remove('active-word'));
+    hideWordPopover();
+  }
 });
-document.addEventListener('keydown',e=>{if(qs('#lectuurOverlay').classList.contains('open')){if(e.key==='Escape')closeLectuurModal(); if(e.key==='ArrowRight')navigateLaSectie(1); if(e.key==='ArrowLeft')navigateLaSectie(-1); return;} if(e.key==='ArrowRight')revealNext(); if(e.key==='ArrowLeft')revealPrev(); if(e.key.toLowerCase()==='o')toggleReveal(); if(e.key.toLowerCase()==='i')toggleInterlin(); if(e.key.toLowerCase()==='t')toggleTwocol(); if(e.key.toLowerCase()==='p')setInkMode('pen'); if(e.key.toLowerCase()==='h')setInkMode('highlight'); if(e.key.toLowerCase()==='e')setInkMode('erase');});
+window.addEventListener('scroll', () => { if (ksActiveWord && qs('#wordPopover') && qs('#wordPopover').classList.contains('vis')) positionWordPopover(ksActiveWord); }, {passive:true});
+window.addEventListener('resize', () => { if (ksActiveWord && qs('#wordPopover') && qs('#wordPopover').classList.contains('vis')) positionWordPopover(ksActiveWord); });
+
+function renderVertaling() {
+  qs('#vertaalTekst').innerHTML = '<p>Daedalus intussen, vol afkeer van Kreta en van zijn lange ballingschap, en geraakt door liefde voor zijn geboortegrond, was door de zee ingesloten.</p><p>“Laat Minos dan land en zee afsluiten,” zei hij, “de hemel staat zeker open! Langs daar zullen we gaan. Hij mag alles bezitten: de lucht bezit Minos niet.”</p><p>Dat zei hij. Hij richt zijn geest op onbekende kunsten en vernieuwt de natuur. Want hij legt veren op volgorde: begonnen bij de kleinste, telkens een langere volgend op een kortere, zodat je zou denken dat ze op een helling gegroeid waren. Zo rijst soms een landelijke rietfluit geleidelijk op met ongelijke rietstengels.</p>';
+}
+function renderWL() {
+  const seen = [];
+  qsa('#plainView .lat-word').forEach(w => {
+    const key = (w.dataset.h || '') + '|' + (w.dataset.n || '');
+    if (!seen.find(x => x.key === key)) seen.push({key, lat:w.dataset.w, h:w.dataset.h, nl:w.dataset.n});
+  });
+  qs('#wlTable').innerHTML = seen.map(x => '<div class="panel-word"><span><span class="pw-lat">' + x.lat + '</span><span class="pw-aanv"> · ' + x.h + '</span></span><span class="pw-nl">' + x.nl + '</span></div>').join('');
+}
+function toggleLayer(layer) {
+  qsa('.d-badge[data-layer="' + layer + '"]').forEach(b => b.classList.toggle('vis'));
+  const btn = qs(layer === 'bs' ? '#btnBs' : '#btnLpd');
+  if (btn) btn.classList.toggle('active');
+}
+function annotateBadges() {
+  const tip = document.createElement('div'); tip.className = 'd-tooltip'; document.body.appendChild(tip);
+  qsa('.d-badge').forEach(b => {
+    b.addEventListener('mouseenter', () => { tip.textContent = b.textContent.trim(); const r = b.getBoundingClientRect(); tip.style.left = Math.min(r.left, window.innerWidth - 320) + 'px'; tip.style.top = (r.bottom + 8) + 'px'; tip.classList.add('vis'); });
+    b.addEventListener('mouseleave', () => tip.classList.remove('vis'));
+  });
+}
+
+function buildPalette(id, colors) {
+  const el = qs('#'+id);
+  colors.forEach(c => { const b = document.createElement('button'); b.className='swatch'; b.style.background=c; b.addEventListener('click', e => { e.stopPropagation(); inkColor=c; el.querySelectorAll('.swatch').forEach(s => s.classList.remove('active')); b.classList.add('active'); }); el.appendChild(b); });
+  if (el.firstChild) el.firstChild.classList.add('active');
+}
+function closePalettes() { qsa('.tool-palette').forEach(p => p.classList.remove('open')); }
+function setInkMode(mode) { inkMode = (inkMode === mode) ? null : mode; updateInkButtons(); }
+function updateInkButtons() {
+  qs('#inkCanvas').classList.toggle('on', !!inkMode);
+  document.body.classList.toggle('ink-on', !!inkMode);
+  [['pen','inkPenBtn'],['highlight','inkHighBtn'],['erase','inkEraseBtn']].forEach(pair => { const [m,id]=pair; qs('#'+id).classList.toggle('active', inkMode === m); });
+  closePalettes();
+  if (inkMode === 'pen') qs('#penPalette').classList.add('open');
+  if (inkMode === 'highlight') qs('#highlightPalette').classList.add('open');
+}
+function clearInk() { const c=qs('#inkCanvas'), ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height); }
+function resizeInkCanvas() { const c=qs('#inkCanvas'), r=window.devicePixelRatio||1; c.width=innerWidth*r; c.height=innerHeight*r; c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; const ctx=c.getContext('2d'); ctx.setTransform(r,0,0,r,0,0); }
+function applyInkStyle(ctx) { ctx.globalCompositeOperation=inkMode==='erase'?'destination-out':'source-over'; ctx.strokeStyle=inkColor; ctx.lineWidth=inkMode==='highlight'?13:(inkMode==='erase'?18:2.5); ctx.globalAlpha=inkMode==='highlight'?0.35:1; ctx.lineCap='round'; ctx.lineJoin='round'; }
+
+window.addEventListener('resize', resizeInkCanvas);
+window.addEventListener('scroll', () => qs('#scrollTop').classList.toggle('on', window.scrollY > 500));
+
+window.addEventListener('DOMContentLoaded', () => {
+  ksWgroups = qsa('#plainView .wg');
+  initWords();
+  updCount();
+  renderVertaling();
+  renderWL();
+  renderLaPanel(null);
+  annotateBadges();
+  buildPalette('penPalette', ['#FF3B1D','#006633','#13427f','#010100']);
+  buildPalette('highlightPalette', ['#ffea3d','#b7e68a','#ffd1dc']);
+  resizeInkCanvas();
+  lockLectuur();
+  const canvas = qs('#inkCanvas'), ctx = canvas.getContext('2d');
+  canvas.addEventListener('pointerdown', e => { if(!inkMode) return; drawing=true; applyInkStyle(ctx); ctx.beginPath(); ctx.moveTo(e.clientX,e.clientY); e.preventDefault(); });
+  canvas.addEventListener('pointermove', e => { if(!drawing || !inkMode) return; applyInkStyle(ctx); ctx.lineTo(e.clientX,e.clientY); ctx.stroke(); e.preventDefault(); });
+  ['pointerup','pointercancel','pointerleave'].forEach(ev => canvas.addEventListener(ev, () => { drawing=false; ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over'; }));
+  qs('#colResizer').addEventListener('pointerdown', startResize);
+});
+
+document.addEventListener('keydown', e => {
+  if (qs('#lectuurOverlay').classList.contains('open')) {
+    if (e.key === 'Escape') closeLectuurModal();
+    if (e.key === 'ArrowRight') navigateLaSectie(1);
+    if (e.key === 'ArrowLeft') navigateLaSectie(-1);
+    return;
+  }
+  if (e.key === 'ArrowRight') revealNext();
+  if (e.key === 'ArrowLeft') revealPrev();
+  if (e.key.toLowerCase() === 'o') toggleReveal();
+  if (e.key.toLowerCase() === 'i') toggleInterlin();
+  if (e.key.toLowerCase() === 't') toggleTwocol();
+  if (e.key.toLowerCase() === 'p') setInkMode('pen');
+  if (e.key.toLowerCase() === 'h') setInkMode('highlight');
+  if (e.key.toLowerCase() === 'e') setInkMode('erase');
+});
+
+function startResize(e) {
+  if (!document.body.classList.contains('twocol')) return;
+  e.preventDefault();
+  const move = ev => {
+    const pct = Math.max(43, Math.min(74, (ev.clientX / window.innerWidth) * 100));
+    document.documentElement.style.setProperty('--col-split', pct.toFixed(1) + '%');
+  };
+  const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+  window.addEventListener('pointermove', move);
+  window.addEventListener('pointerup', up);
+}
 </script>
-</body></html>
+</body>
+</html>
