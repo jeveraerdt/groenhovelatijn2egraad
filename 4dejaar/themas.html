@@ -219,6 +219,8 @@
   .navigation-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    align-items: stretch;
     gap: clamp(1rem, 2vw, 1.55rem);
   }
   .nav-card {
@@ -232,12 +234,14 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     gap: .68rem;
+    height: 100%;
     text-align: left;
     text-decoration: none;
     transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
   }
+  .nav-card > * { flex-shrink: 0; }
   .nav-card:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow);
@@ -277,6 +281,7 @@
   }
   .nav-card p {
     max-width: 27ch;
+    min-height: calc(1.48em * 3);
     margin: 0;
     color: #657067;
     font-family: var(--fo);
@@ -288,7 +293,8 @@
     display: inline-flex;
     align-items: center;
     gap: .22rem;
-    margin-top: .15rem;
+    margin-top: auto;
+    padding-top: .15rem;
     color: currentColor;
     font-family: var(--fo);
     font-size: .8rem;
